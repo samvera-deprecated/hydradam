@@ -36,3 +36,13 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+
+gem 'blacklight'
+gem 'hydra-head'
+gem 'sufia', :github=>'mediashelf/sufia'
+
+group :development, :test do
+  gem 'jettywrapper'
+  gem 'rspec-rails'
+end
