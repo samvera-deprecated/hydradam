@@ -336,6 +336,7 @@ PLATFORMS
 
 DEPENDENCIES
   blacklight
+  bootstrap-sass
   coffee-rails (~> 3.2.1)
   devise
   devise-guests (~> 0.3)
