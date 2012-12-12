@@ -15,3 +15,6 @@
 /tmp
 
 *.sw[nop]
+
+# Don't share rvmrc files
+.rvmrc
