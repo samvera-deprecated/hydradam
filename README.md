@@ -17,7 +17,7 @@ If you have jetty running, run
 rake spec
 ```
 
-To run the whole test suite, including spinning up 
+To run the whole test suite, including spinning jetty up & down, loading fedora fixtures, etc. 
 ```
 rake ci
 ```
