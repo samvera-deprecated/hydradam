@@ -8,6 +8,11 @@ bundle install
 rake db:migrate
 ```
 
+## Start workers
+```
+QUEUE=* rake environment resque:work
+```
+
 # Running tests
 
 
