@@ -41,6 +41,7 @@ gem 'jquery-rails'
 gem 'blacklight'
 gem 'hydra-head'
 gem 'sufia', :github=>'mediashelf/sufia'
+#gem 'sufia', :path=>'../sufia'
 
 group :development, :test do
   gem 'jettywrapper'
