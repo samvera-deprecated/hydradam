@@ -22,6 +22,7 @@ end
 
 gem 'jquery-rails'
 
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -40,7 +41,7 @@ gem 'jquery-rails'
 
 gem 'blacklight'
 gem 'hydra-head'
-gem 'sufia', :github=>'mediashelf/sufia'
+gem 'sufia', '0.0.1'
 #gem 'sufia', :path=>'../sufia'
 
 group :development, :test do
