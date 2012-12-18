@@ -1,0 +1,8 @@
+<%# only display the q parameter if the controller is not the dashboard.  If they are in the dashboard controller, then the search is of the dashboard. %>
+<% q = params[:controller] == 'dashboard' ? nil : params[:q] %>
+
+<%= form_tag catalog_index_path, :method => :get, :id => "search-form-header", :class=>'navbar-search pull-right' do %>
+  <%= search_as_hidden_fields(:omit_keys => [:q, :search_field, :qt, :page]).html_safe %>
+  <label class="accessible-hidden" for="q">Search</label> 
+  <%= text_field_tag :q, q, :class => "search-query", :id => "search-field-header", :placeholder => "Search" %><span class="fornav"><i class="icon-search"></i></span>
+<% end %>

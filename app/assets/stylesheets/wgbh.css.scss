@@ -1,0 +1,15 @@
+// Example using 'Cerulean' bootswatch
+//
+// First import journal variables
+@import "variables";
+
+// Then bootstrap itself
+@import "bootstrap";
+
+
+// Responsive styles go here in case you want them
+@import "bootstrap-responsive";
+
+// And finally bootswatch style itself
+@import "styles";
+
