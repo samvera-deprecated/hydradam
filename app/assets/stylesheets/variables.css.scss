@@ -160,8 +160,8 @@ $heroUnitLeadColor:               inherit;
 
 // Form states and alerts
 // -------------------------
-$warningText:             #ECA918;
-$warningBackground:       lighten($warningText, .4);
+$warningText:             black;
+$warningBackground:       lighten(#ECA918, .4);
 $warningBorder:           darken(adjust-hue($warningBackground, -10), .03);
 
 $errorText:               #DF382C;

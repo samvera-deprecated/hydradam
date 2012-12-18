@@ -15,7 +15,7 @@
 	border-left: 1px solid #DD4814;
 
 	&:hover {
-		background-color: $linkColorHover;
+		background-color: transparentize($linkColorHover, .7);
 	}
 }
 
