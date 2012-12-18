@@ -168,11 +168,11 @@ $errorText:               #DF382C;
 $errorBackground:         lighten($errorText, .4);
 $errorBorder:             darken(adjust-hue($errorBackground, -10), .03);
 
-$successText:             #38B44A;
-$successBackground:       lighten($successText, .4);
+$successText:             white;
+$successBackground:       lighten(#38B44A, .4);
 $successBorder:           darken(adjust-hue($successBackground, -10), .05);
 
-$infoText:                $purple;
+$infoText:                white;
 $infoBackground:          lighten($purple, .5);
 $infoBorder:              darken(adjust-hue($infoBackground, -10), .07);
 
@@ -184,9 +184,9 @@ $infoBorder:              darken(adjust-hue($infoBackground, -10), .07);
 
 // Default 940px grid
 // -------------------------
-$gridColumns:             12;
-$gridColumnWidth:         60px;
-$gridGutterWidth:         20px;
+$gridColumns:             120;
+$gridColumnWidth:         7px;
+$gridGutterWidth:         1px;
 $gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1));
 
 
