@@ -6,10 +6,15 @@
   display: inline-block;
   width: 150px;
   font-size: 20px;
+  background-position: 0 10px;
   
 }
 
 body {
+  background: url(/assets/bg_body.gif) 50% 0 repeat-y;
+}
+#wrap {
+  padding-top: 38px;
   background: url(/assets/bg_holder.jpg) 50% 0 no-repeat;
 }
 
@@ -28,7 +33,6 @@ ul.nav li a.top_nav {
 }
 
 .navbar-static-top {
-  margin-top: 38px;
   margin-bottom: 1px;
   line-height: 32px;
 }
