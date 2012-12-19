@@ -164,8 +164,8 @@ $warningText:             black;
 $warningBackground:       lighten(#ECA918, .4);
 $warningBorder:           darken(adjust-hue($warningBackground, -10), .03);
 
-$errorText:               #DF382C;
-$errorBackground:         lighten($errorText, .4);
+$errorText:               white;
+$errorBackground:         lighten(#DF382C, .4);
 $errorBorder:             darken(adjust-hue($errorBackground, -10), .03);
 
 $successText:             white;
