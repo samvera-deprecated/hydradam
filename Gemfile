@@ -43,6 +43,7 @@ gem 'hydra-head'
 #gem 'sufia', '0.0.1'
 #gem 'sufia', :path=>'../sufia'
 gem 'sufia', github: 'mediashelf/sufia'
+gem 'hydra-batch-edit', github: 'projecthydra/hydra-batch-edit'
 
 group :development, :test do
   gem 'jettywrapper'
