@@ -24,7 +24,7 @@ gem 'hydra-head'
 gem 'active-fedora', github: 'projecthydra/active_fedora'
 #gem 'sufia', '0.0.2'
 #gem 'sufia', path: '../sufia'
-gem 'sufia', github: 'mediashelf/sufia', ref: 'dadd403'
+gem 'sufia', github: 'mediashelf/sufia', ref: '3ffdac9'
 
 group :development, :test do
   gem 'jettywrapper'
