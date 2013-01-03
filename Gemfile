@@ -22,9 +22,9 @@ gem 'jquery-rails'
 gem 'blacklight'
 gem 'hydra-head'
 gem 'active-fedora', github: 'projecthydra/active_fedora'
-#gem 'sufia', '0.0.2'
+gem 'sufia', '0.0.3'
 #gem 'sufia', path: '../sufia'
-gem 'sufia', github: 'mediashelf/sufia', ref: '45eccc7'
+#gem 'sufia', github: 'mediashelf/sufia', ref: '171bd1c'
 
 group :development, :test do
   gem 'jettywrapper'
