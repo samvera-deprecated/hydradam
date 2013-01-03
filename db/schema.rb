@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211232505) do
+ActiveRecord::Schema.define(:version => 20130103171937) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id",     :null => false
@@ -100,6 +100,27 @@ ActiveRecord::Schema.define(:version => 20121211232505) do
 
   add_index "notifications", ["conversation_id"], :name => "index_notifications_on_conversation_id"
 
+  create_table "perm_types", :force => true do |t|
+    t.string   "label"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "perm_types", ["code"], :name => "index_perm_types_on_code", :unique => true
+
+  create_table "permissions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "perm_type_id"
+    t.string   "collection_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "permissions", ["collection_id"], :name => "index_permissions_on_collection_id"
+  add_index "permissions", ["user_id", "collection_id"], :name => "index_permissions_on_user_id_and_collection_id", :unique => true
+  add_index "permissions", ["user_id"], :name => "index_permissions_on_user_id"
+
   create_table "receipts", :force => true do |t|
     t.integer  "receiver_id"
     t.string   "receiver_type"
@@ -140,6 +161,18 @@ ActiveRecord::Schema.define(:version => 20121211232505) do
   end
 
   add_index "subject_local_authority_entries", ["lowerLabel"], :name => "entries_by_lower_label"
+
+  create_table "tracking_events", :force => true do |t|
+    t.string   "pid"
+    t.integer  "user_id"
+    t.string   "event"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tracking_events", ["pid", "event"], :name => "index_tracking_events_on_pid_and_event"
+  add_index "tracking_events", ["pid"], :name => "index_tracking_events_on_pid"
+  add_index "tracking_events", ["user_id"], :name => "index_tracking_events_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
