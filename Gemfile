@@ -40,8 +40,9 @@ gem 'jquery-rails'
 
 gem 'blacklight'
 gem 'hydra-head'
-gem 'sufia', '0.0.2'
-#gem 'hydra-batch-edit', github: 'projecthydra/hydra-batch-edit'
+#gem 'sufia', '0.0.2'
+#gem 'sufia', path: '../sufia'
+gem 'sufia', github: 'mediashelf/sufia', ref: 'ad16f08'
 
 group :development, :test do
   gem 'jettywrapper'
