@@ -4,7 +4,7 @@ class GenericFilesController < ApplicationController
   after_filter :log_visit, :only=>:show
 
   def log_visit
-    view = @generic_file.views.create!(user: current_user, event: 'view')
+    @generic_file.views.create!(user: current_user)
   end
 
 end
