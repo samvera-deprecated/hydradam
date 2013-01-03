@@ -1,10 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'rails', '3.2.10'
 gem 'sqlite3'
 
 
@@ -22,31 +18,18 @@ end
 
 gem 'jquery-rails'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
-
 
 gem 'blacklight'
 gem 'hydra-head'
+gem 'active-fedora', github: 'projecthydra/active_fedora'
 #gem 'sufia', '0.0.2'
 #gem 'sufia', path: '../sufia'
-gem 'sufia', github: 'mediashelf/sufia', ref: 'ad16f08'
+gem 'sufia', github: 'mediashelf/sufia', ref: 'dadd403'
 
 group :development, :test do
   gem 'jettywrapper'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 gem "unicode", :platforms => [:mri_18, :mri_19]

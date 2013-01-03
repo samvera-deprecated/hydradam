@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/mediashelf/sufia.git
-  revision: ad16f086cc90df2205ed73b6f67946379e47bd8d
-  ref: ad16f08
+  revision: dadd40321e8b180445259102483229e8ce908780
+  ref: dadd403
   specs:
     sufia (0.0.2)
       activerecord-import
@@ -30,23 +30,10 @@ GIT
       yaml_db (= 0.2.3)
       zipruby (= 0.3.6)
 
-GEM
-  remote: https://rubygems.org/
+GIT
+  remote: git://github.com/projecthydra/active_fedora.git
+  revision: 3a5a5040f65ddae58a4609ded4296d2399d6f45f
   specs:
-    RedCloth (4.2.9)
-    actionmailer (3.2.9)
-      actionpack (= 3.2.9)
-      mail (~> 2.4.4)
-    actionpack (3.2.9)
-      activemodel (= 3.2.9)
-      activesupport (= 3.2.9)
-      builder (~> 3.0.0)
-      erubis (~> 2.7.0)
-      journey (~> 1.0.4)
-      rack (~> 1.4.0)
-      rack-cache (~> 1.2)
-      rack-test (~> 0.6.1)
-      sprockets (~> 2.2.1)
     active-fedora (5.3.1)
       activeresource (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -59,21 +46,39 @@ GEM
       rsolr
       rubydora (~> 1.2)
       solrizer (~> 2.0.0)
-    activemodel (3.2.9)
-      activesupport (= 3.2.9)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    RedCloth (4.2.9)
+    actionmailer (3.2.10)
+      actionpack (= 3.2.10)
+      mail (~> 2.4.4)
+    actionpack (3.2.10)
+      activemodel (= 3.2.10)
+      activesupport (= 3.2.10)
       builder (~> 3.0.0)
-    activerecord (3.2.9)
-      activemodel (= 3.2.9)
-      activesupport (= 3.2.9)
+      erubis (~> 2.7.0)
+      journey (~> 1.0.4)
+      rack (~> 1.4.0)
+      rack-cache (~> 1.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.2.1)
+    activemodel (3.2.10)
+      activesupport (= 3.2.10)
+      builder (~> 3.0.0)
+    activerecord (3.2.10)
+      activemodel (= 3.2.10)
+      activesupport (= 3.2.10)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
     activerecord-import (0.2.11)
       activerecord (~> 3.0)
       activerecord (~> 3.0)
-    activeresource (3.2.9)
-      activemodel (= 3.2.9)
-      activesupport (= 3.2.9)
-    activesupport (3.2.9)
+    activeresource (3.2.10)
+      activemodel (= 3.2.10)
+      activesupport (= 3.2.10)
+    activesupport (3.2.10)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     acts_as_follower (0.1.1)
@@ -129,6 +134,11 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.2.0)
     foreigner (1.2.1)
@@ -172,7 +182,7 @@ GEM
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.7.5)
+    json (1.7.6)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -222,26 +232,26 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.9)
-      actionmailer (= 3.2.9)
-      actionpack (= 3.2.9)
-      activerecord (= 3.2.9)
-      activeresource (= 3.2.9)
-      activesupport (= 3.2.9)
+    rails (3.2.10)
+      actionmailer (= 3.2.10)
+      actionpack (= 3.2.10)
+      activerecord (= 3.2.10)
+      activeresource (= 3.2.10)
+      activesupport (= 3.2.10)
       bundler (~> 1.0)
-      railties (= 3.2.9)
+      railties (= 3.2.10)
     rails_autolink (1.0.9)
       rails (~> 3.1)
-    railties (3.2.9)
-      actionpack (= 3.2.9)
-      activesupport (= 3.2.9)
+    railties (3.2.10)
+      actionpack (= 3.2.10)
+      activesupport (= 3.2.10)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rainbow (1.1.4)
     rake (10.0.3)
-    rdf (0.3.11)
+    rdf (0.3.11.1)
       addressable (>= 2.2.6)
     rdf-rdfxml (0.3.9)
       rdf (>= 0.3.11)
@@ -313,7 +323,7 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
-    stomp (1.2.7)
+    stomp (1.2.8)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
     thor (0.16.0)
@@ -340,15 +350,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active-fedora!
   blacklight
   bootstrap-sass
   coffee-rails (~> 3.2.1)
   devise
   devise-guests (~> 0.3)
+  factory_girl_rails
   hydra-head
   jettywrapper
   jquery-rails
-  rails (= 3.2.9)
+  rails (= 3.2.10)
   rspec-rails
   sass-rails (~> 3.2.3)
   sqlite3
