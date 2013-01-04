@@ -155,8 +155,10 @@
     </pbcore:Instantiation>
     <!-- Undecided on how to represent Digital Instantiations (ie. the "master" datastream) -->
     <pbcore:Instantiation>
-      <pbcore:instantiationDigital rdf:resource="info:fedora/wgbh:121017/master"/>
-      <pbcore:instantiationLocation rdf:resource="info:fedora/wgbh:121017/master"/>
+      <rdf:Description>
+        <pbcore:instantiationDigital rdf:resource="info:fedora/wgbh:121017/master"/>
+        <pbcore:instantiationLocation rdf:resource="info:fedora/wgbh:121017/master"/>
+      </rdf:Description>
     </pbcore:Instantiation>
   </rdf:Description>
   <!-- -->
