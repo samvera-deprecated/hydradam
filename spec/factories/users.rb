@@ -6,5 +6,9 @@ FactoryGirl.define do
       "email#{n}@example.com"
     end
     password 'password'
+
+    factory :admin do
+      admin true
+    end
   end
 end
