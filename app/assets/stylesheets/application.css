@@ -12,6 +12,7 @@
  *= require generic_files
  *= require wgbh
  *= require base
+ *= require video-js
  */
 
  #upload_tooltip {
