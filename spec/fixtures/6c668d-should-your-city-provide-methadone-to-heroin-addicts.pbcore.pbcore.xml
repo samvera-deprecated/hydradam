@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!-- This is the PBCore entry for http://openvault.wgbh.org/catalog/6c668d-should-your-city-provide-methadone-to-heroin-addicts.pbcore -->
+<PBCoreDescriptionDocument xmlns:ebucore="http://www.ebu.ch/metadata/schemas/EBUCore/ebuCoreMetadataSet.xsd" xmlns:fedora-rels-ext="info:fedora/fedora-system:def/relations-external#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:smil="http://www.w3.org/2001/SMIL20/Language" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.pbcore.org/PBCore/PBCoreNamespace.html">
+  <pbcoreContributor>
+    <contributor>Palmieri, Victor</contributor>
+    <contributorRole>Moderator</contributorRole>
+  </pbcoreContributor>
+  <pbcoreContributor>
+    <contributor>Baker, R. Lisle</contributor>
+    <contributorRole>Guest</contributorRole>
+  </pbcoreContributor>
+  <pbcoreContributor>
+    <contributor>Bailey, William</contributor>
+    <contributorRole>Guest</contributorRole>
+  </pbcoreContributor>
+  <pbcoreContributor>
+    <contributor>White, Kevin</contributor>
+    <contributorRole>Guest</contributorRole>
+  </pbcoreContributor>
+  <pbcoreContributor>
+    <contributor>Jaffe, Jerome</contributor>
+    <contributorRole>Guest</contributorRole>
+  </pbcoreContributor>
+  <pbcoreContributor>
+    <contributor>Harris, Pleasant</contributor>
+    <contributorRole>Guest</contributorRole>
+  </pbcoreContributor>
+  <pbcoreContributor>
+    <contributor>Deissler, Karl</contributor>
+    <contributorRole>Guest</contributorRole>
+  </pbcoreContributor>
+  <pbcoreContributor>
+    <contributor>Haislip, Gene</contributor>
+    <contributorRole>Guest</contributorRole>
+  </pbcoreContributor>
+  <pbcoreCoverage>
+    <coverage>5/9/1970</coverage>
+    <coverageType>Temporal</coverageType>
+  </pbcoreCoverage>
+  <pbcoreCoverage>
+    <coverage>Boston, Massachusetts</coverage>
+    <coverageType>Spatial</coverageType>
+  </pbcoreCoverage>
+  <pbcoreRightsSummary>
+    <rightsSummary>WGBH Educational Foundation</rightsSummary>
+  </pbcoreRightsSummary>
+  <pbcoreSubject>
+    <subject>Palmieri, Victor</subject>
+    <subjectAuthorityUsed>Personalities</subjectAuthorityUsed>
+  </pbcoreSubject>
+  <pbcoreSubject>
+    <subject>Baker, R. Lisle</subject>
+    <subjectAuthorityUsed>Personalities</subjectAuthorityUsed>
+  </pbcoreSubject>
+  <pbcoreSubject>
+    <subject>White, Kevin H.</subject>
+    <subjectAuthorityUsed>Personalities</subjectAuthorityUsed>
+  </pbcoreSubject>
+  <pbcoreSubject>
+    <subject>Bailey, William</subject>
+    <subjectAuthorityUsed>Personalities</subjectAuthorityUsed>
+  </pbcoreSubject>
+  <pbcoreSubject>
+    <subject>Jaffe, Jerome</subject>
+    <subjectAuthorityUsed>Personalities</subjectAuthorityUsed>
+  </pbcoreSubject>
+  <pbcoreSubject>
+    <subject>Harris, Pleasant</subject>
+    <subjectAuthorityUsed>Personalities</subjectAuthorityUsed>
+  </pbcoreSubject>
+  <pbcoreSubject>
+    <subject>Deissler, Karl J.</subject>
+    <subjectAuthorityUsed>Personalities</subjectAuthorityUsed>
+  </pbcoreSubject>
+  <pbcoreSubject>
+    <subject>Haislip, Gene</subject>
+    <subjectAuthorityUsed>Personalities</subjectAuthorityUsed>
+  </pbcoreSubject>
+  <pbcoreDescription>
+    <description>Moderator: Victor Palmieri Advocate: R. Lisle Baker Advocate: William Bailey Guest: Kevin White, Mayor of Boston Witnesses: Dr. Jerome Jaffe &#x2013; Prof. Of Psychiatry, University of Chicago Pleasant Harris &#x2013; Methadone Program, Bronx State Hospital Karl J. Deissler, MD &#x2013; Nat&#x2019;l. Medical Director, Synanon Foundation Gene Haislip &#x2013; Narcotic Bureau, Washington DC</description>
+    <descriptionType>Summary</descriptionType>
+  </pbcoreDescription>
+  <pbcoreInstantiation>
+    <formatStandard>NTSC</formatStandard>
+    <formatAspectRatio>4:3</formatAspectRatio>
+    <formatDuration>01:00:25:27</formatDuration>
+    <formatPhysical>Betacam</formatPhysical>
+    <formatColors>Color</formatColors>
+    <pbcoreFormatID>
+      <formatIdentifier>121017</formatIdentifier>
+      <formatIdentifierSource>wgbh.org/mars/barcode/</formatIdentifierSource>
+    </pbcoreFormatID>
+    <pbcoreFormatID>
+      <formatIdentifier>121017</formatIdentifier>
+      <formatIdentifierSource>wgbh.org/mars/barcode/</formatIdentifierSource>
+    </pbcoreFormatID>
+    <formatGenerations>Original footage</formatGenerations>
+  </pbcoreInstantiation>
+  <pbcoreTitle>
+    <title>Should Your City Provide Methadone to Heroin Addicts?</title>
+    <titleType>Program</titleType>
+  </pbcoreTitle>
+  <pbcoreTitle>
+    <title>33</title>
+    <titleType>Episode</titleType>
+  </pbcoreTitle>
+  <pbcoreTitle>
+    <title>Advocates</title>
+    <titleType>Series</titleType>
+  </pbcoreTitle>
+  <pbcorePublisher>
+    <publisher>Supported by a grant from the Open Society Foundations.</publisher>
+    <publisherRole>Publisher</publisherRole>
+  </pbcorePublisher>
+</PBCoreDescriptionDocument>

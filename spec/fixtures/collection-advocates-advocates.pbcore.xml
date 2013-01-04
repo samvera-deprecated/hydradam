@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- This is the PBCore entry for a PBCore Collection http://openvault.wgbh.org/collections/advocates-advocates.pbcore -->
+<PBCoreDescriptionDocument xmlns:ebucore="http://www.ebu.ch/metadata/schemas/EBUCore/ebuCoreMetadataSet.xsd" xmlns:fedora-rels-ext="info:fedora/fedora-system:def/relations-external#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:smil="http://www.w3.org/2001/SMIL20/Language" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.pbcore.org/PBCore/PBCoreNamespace.html">
+  <pbcoreDescription>
+    <description>A series of debates with a moderator facilitating the discussion of national and international issues - using advocates who would introduce witnesses to support their point of view. Debates recorded at Boston's Faneuil Hall. Moderators included: Michael Dukakis; Marilyn Berger; Michael Harrington, Robert Maynard. (Premiered October, 1969; conceived by Prof. Roger Fisher.)</description>
+    <descriptionType>Summary</descriptionType>
+  </pbcoreDescription>
+  <pbcoreTitle>
+    <title>Advocates</title>
+    <titleType>Series</titleType>
+  </pbcoreTitle>
+</PBCoreDescriptionDocument>

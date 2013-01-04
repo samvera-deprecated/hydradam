@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<!-- This is a translation of the PBCore entry for http://openvault.wgbh.org/catalog/6c668d-should-your-city-provide-methadone-to-heroin-addicts.pbcore -->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:pbcore="http://www.pbcore.org/PBCore/2013/02/22-rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:fedora-rels-ext="info:fedora/fedora-system:def/relations-external#" xmlns:smil="http://www.w3.org/2001/SMIL20/Language" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.pbcore.org/PBCore/PBCoreNamespace.html" >
+  <rdf:Description rdf:about="wgbh:121017">
+    <dc:contributor>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person1"/>
+        <pbcore:contributorRole>Moderator</pbcore:contributorRole>
+      </rdf:Description>
+    </dc:contributor>
+    <dc:contributor>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person2"/>
+        <pbcore:contributorRole>Guest</pbcore:contributorRole>
+      </rdf:Description>
+    </dc:contributor>
+    <dc:contributor>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person3"/>
+        <pbcore:contributorRole>Guest</pbcore:contributorRole>
+      </rdf:Description>
+    </dc:contributor>
+    <dc:contributor>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person4"/>
+        <pbcore:contributorRole>Guest</pbcore:contributorRole>
+      </rdf:Description>
+    </dc:contributor>
+    <dc:contributor>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person5"/>
+        <pbcore:contributorRole>Guest</pbcore:contributorRole>
+      </rdf:Description>
+    </dc:contributor>
+    <dc:contributor>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person6"/>
+        <pbcore:contributorRole>Guest</pbcore:contributorRole>
+      </rdf:Description>
+    </dc:contributor>
+    <dc:contributor>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person7"/>
+        <pbcore:contributorRole>Guest</pbcore:contributorRole>
+      </rdf:Description>
+    </dc:contributor>
+    <dc:contributor>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person8"/>
+        <pbcore:contributorRole>Guest</pbcore:contributorRole>
+      </rdf:Description>
+    </dc:contributor>
+    <dcterms:Spatial>Boston, Massachusetts</dcterms:Spatial>
+    <dcterms:Temporal>5/9/1970</dcterms:Temporal>
+    <dc:rightsHolder>WGBH Educational Foundation</dc:rightsHolder>
+    <!-- In this record, the subjects are just a repetition of the contributor entries.  Maybe don't need to be duplicated in the RDF and then just inserted into PBCore xml & solr documents on serialization? -->
+    <dc:subject>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person1"/>
+        <!-- Looks like the source XML was abusing this element, since "Personalities" is not an authority, !!! Optionally could use a URI here that refers to the "Person" FOAF objects in the DAM?  -->
+        <pbcore:subjectAuthorityUsed>Personalities</pbcore:subjectAuthorityUsed>
+      </rdf:Description>
+    </dc:subject>
+    <dc:subject>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person2"/>
+        <pbcore:subjectAuthorityUsed>Personalities</pbcore:subjectAuthorityUsed>
+      </rdf:Description>
+    </dc:subject>
+    <dc:subject>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person3"/>
+        <pbcore:subjectAuthorityUsed>Personalities</pbcore:subjectAuthorityUsed>
+      </rdf:Description>
+    </dc:subject>
+    <dc:subject>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person4"/>
+        <pbcore:subjectAuthorityUsed>Personalities</pbcore:subjectAuthorityUsed>
+      </rdf:Description>
+    </dc:subject>
+    <dc:subject>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person5"/>
+        <pbcore:subjectAuthorityUsed>Personalities</pbcore:subjectAuthorityUsed>
+      </rdf:Description>
+    </dc:subject>
+    <dc:subject>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person6"/>
+        <pbcore:subjectAuthorityUsed>Personalities</pbcore:subjectAuthorityUsed>
+      </rdf:Description>
+    </dc:subject>
+    <dc:subject>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person7"/>
+        <pbcore:subjectAuthorityUsed>Personalities</pbcore:subjectAuthorityUsed>
+      </rdf:Description>
+    </dc:subject>
+    <dc:subject>
+      <rdf:Description>
+        <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person8"/>
+        <pbcore:subjectAuthorityUsed>Personalities</pbcore:subjectAuthorityUsed>
+      </rdf:Description>
+    </dc:subject>
+    <dc:description>
+      <rdf:Description>
+        <pbcore:descriptionType>Summary</pbcore:descriptionType>
+        <rdf:value>Moderator: Victor Palmieri Advocate: R. Lisle Baker Advocate: William Bailey Guest: Kevin White, Mayor of Boston Witnesses: Dr. Jerome Jaffe &#x2013; Prof. Of Psychiatry, University of Chicago Pleasant Harris &#x2013; Methadone Program, Bronx State Hospital Karl J. Deissler, MD &#x2013; Nat&#x2019;l. Medical Director, Synanon Foundation Gene Haislip &#x2013; Narcotic Bureau, Washington DC</rdf:value>
+      </rdf:Description>
+    </dc:description>
+    <dc:title>
+      <rdf:Description>
+        <rdf:value>Should Your City Provide Methadone to Heroin Addicts?</rdf:value>
+        <pbcore:titleType>Program</pbcore:titleType>
+      </rdf:Description>
+    </dc:title>
+    <dc:title>
+      <rdf:Description>
+        <rdf:value>33</rdf:value>
+        <pbcore:titleType>Episode</pbcore:titleType>
+      </rdf:Description>
+    </dc:title>
+    <dc:title>
+      <rdf:Description>
+        <rdf:value>Advocates</rdf:value>
+        <pbcore:titleType>Series</pbcore:titleType>
+      </rdf:Description>
+    </dc:title>
+    <dc:publisher>
+      <rdf:Description>
+        <rdf:value>Supported by a grant from the Open Society Foundations.</rdf:value>
+        <pbcore:publisherRole>Publisher</pbcore:publisherRole>
+      </rdf:Description>
+    </dc:publisher>
+    <!-- Physical Instantiation(s) -->
+    <!-- Note: Digital Instantiation(s) are not explicitly represented in the stored RDF.  Info about them is in the Fedora object's other datastreams. The application should pull that info from Solr (or the Fedora object) when constructing PBCore XML serializations of objects. -->
+    <pbcore:Instantiation>
+      <rdf:Description>
+        <pbcore:formatStandard>NTSC</pbcore:formatStandard>
+        <pbcore:formatAspectRatio>4:3</pbcore:formatAspectRatio>
+        <pbcore:formatDuration>01:00:25:27</pbcore:formatDuration>
+        <pbcore:formatPhysical>Betacam</pbcore:formatPhysical>
+        <pbcore:formatColors>Color</pbcore:formatColors>
+        <pbcore:formatID>
+          <rdf:Description>
+            <rdf:value>121017</rdf:value>
+            <pbcore:formatIdentifierSource>wgbh.org/mars/barcode/</pbcore:formatIdentifierSource>
+          </rdf:Description>
+        </pbcore:formatID>
+        <pbcore:formatID>
+          <rdf:Description>
+            <rdf:value>121017</rdf:value>
+            <pbcore:formatIdentifierSource>wgbh.org/mars/barcode/</pbcore:formatIdentifierSource>
+          </rdf:Description>
+        </pbcore:formatID>
+        <pbcore:formatGenerations>Original footage</pbcore:formatGenerations>
+      </rdf:Description>
+    </pbcore:Instantiation>
+  </rdf:Description>
+  <!-- -->
+  <!-- External Entities - these would actually be separate Fedora objects -->
+  <!-- -->
+  <foaf:Person rdf:about="info:fedora/wgbh:person1">
+    <foaf:name>Palmieri, Victor</foaf:name>
+  </foaf:Person>
+  <foaf:Person rdf:about="info:fedora/wgbh:person2">
+    <foaf:name>Baker, R. Lisle</foaf:name>
+  </foaf:Person>
+  <foaf:Person rdf:about="info:fedora/wgbh:person3">
+    <foaf:name>Bailey, William</foaf:name>
+  </foaf:Person>
+  <foaf:Person rdf:about="info:fedora/wgbh:person4">
+    <foaf:name>White, Kevin</foaf:name>
+  </foaf:Person>
+  <foaf:Person rdf:about="info:fedora/wgbh:person5">
+    <foaf:name>Jaffe, Jerome</foaf:name>
+  </foaf:Person>
+  <foaf:Person rdf:about="info:fedora/wgbh:person6">
+    <foaf:name>Harris, Pleasant</foaf:name>
+  </foaf:Person>
+  <foaf:Person rdf:about="info:fedora/wgbh:person7">
+    <foaf:name>Deissler, Karl</foaf:name>
+  </foaf:Person>
+  <foaf:Person rdf:about="info:fedora/wgbh:person8">
+    <foaf:name>Haislip, Gene</foaf:name>
+  </foaf:Person>
+</rdf:RDF>
