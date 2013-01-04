@@ -26,6 +26,8 @@ gem 'sufia', '0.0.3'
 #gem 'sufia', path: '../sufia'
 #gem 'sufia', github: 'mediashelf/sufia', ref: '171bd1c'
 
+gem 'rails_admin'
+
 group :development, :test do
   gem 'jettywrapper'
   gem 'rspec-rails'

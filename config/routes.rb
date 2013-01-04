@@ -1,4 +1,6 @@
 Bawstun::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   root :to => "catalog#index"
 
   Blacklight.add_routes(self)

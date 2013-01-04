@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104145115) do
+ActiveRecord::Schema.define(:version => 20130104145526) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id",     :null => false
@@ -120,6 +120,19 @@ ActiveRecord::Schema.define(:version => 20130104145115) do
   add_index "permissions", ["collection_id"], :name => "index_permissions_on_collection_id"
   add_index "permissions", ["user_id", "collection_id"], :name => "index_permissions_on_user_id_and_collection_id", :unique => true
   add_index "permissions", ["user_id"], :name => "index_permissions_on_user_id"
+
+  create_table "rails_admin_histories", :force => true do |t|
+    t.text     "message"
+    t.string   "username"
+    t.integer  "item"
+    t.string   "table"
+    t.integer  "month",      :limit => 2
+    t.integer  "year",       :limit => 5
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
   create_table "receipts", :force => true do |t|
     t.integer  "receiver_id"
