@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <!-- This is a translation of the PBCore entry for http://openvault.wgbh.org/catalog/6c668d-should-your-city-provide-methadone-to-heroin-addicts.pbcore -->
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:pbcore="http://www.pbcore.org/PBCore/2013/02/22-rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:fedora-rels-ext="info:fedora/fedora-system:def/relations-external#" xmlns:smil="http://www.w3.org/2001/SMIL20/Language" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.pbcore.org/PBCore/PBCoreNamespace.html" >
-  <rdf:Description rdf:about="wgbh:121017">
+  <!-- Pretend that this object's PID is wgbh:121017 -->
+  <rdf:Description rdf:about="info:fedora/wgbh:121017">
     <dc:contributor>
       <rdf:Description>
         <rdfs:isDefinedBy rdf:resource="info:fedora/wgbh:person1"/>
@@ -137,25 +138,25 @@
     <!-- Note: Digital Instantiation(s) are not explicitly represented in the stored RDF.  Info about them is in the Fedora object's other datastreams. The application should pull that info from Solr (or the Fedora object) when constructing PBCore XML serializations of objects. -->
     <pbcore:Instantiation>
       <rdf:Description>
-        <pbcore:formatStandard>NTSC</pbcore:formatStandard>
-        <pbcore:formatAspectRatio>4:3</pbcore:formatAspectRatio>
-        <pbcore:formatDuration>01:00:25:27</pbcore:formatDuration>
-        <pbcore:formatPhysical>Betacam</pbcore:formatPhysical>
-        <pbcore:formatColors>Color</pbcore:formatColors>
-        <pbcore:formatID>
+        <pbcore:instantiationStandard>NTSC</pbcore:instantiationStandard>
+        <!-- Note: PBCore 2.x puts AspectRatio into instantiationEssenceTrack/essenceTrackAspectRatio -->
+        <pbcore:instantiationAspectRatio>4:3</pbcore:instantiationAspectRatio>
+        <pbcore:instantiationDuration>01:00:25:27</pbcore:instantiationDuration>
+        <pbcore:instantiationPhysical>Betacam</pbcore:instantiationPhysical>
+        <pbcore:instantiationColors>Color</pbcore:instantiationColors>
+        <pbcore:instantiationIdentifier>
           <rdf:Description>
             <rdf:value>121017</rdf:value>
-            <pbcore:formatIdentifierSource>wgbh.org/mars/barcode/</pbcore:formatIdentifierSource>
+            <dc:source>wgbh.org/mars/barcode/</dc:source>
           </rdf:Description>
-        </pbcore:formatID>
-        <pbcore:formatID>
-          <rdf:Description>
-            <rdf:value>121017</rdf:value>
-            <pbcore:formatIdentifierSource>wgbh.org/mars/barcode/</pbcore:formatIdentifierSource>
-          </rdf:Description>
-        </pbcore:formatID>
-        <pbcore:formatGenerations>Original footage</pbcore:formatGenerations>
+        </pbcore:instantiationIdentifier>
+        <pbcore:instantiationGenerations>Original footage</pbcore:instantiationGenerations>
       </rdf:Description>
+    </pbcore:Instantiation>
+    <!-- Undecided on how to represent Digital Instantiations (ie. the "master" datastream) -->
+    <pbcore:Instantiation>
+      <pbcore:instantiationDigital rdf:resource="info:fedora/wgbh:121017/master"/>
+      <pbcore:instantiationLocation rdf:resource="info:fedora/wgbh:121017/master"/>
     </pbcore:Instantiation>
   </rdf:Description>
   <!-- -->
