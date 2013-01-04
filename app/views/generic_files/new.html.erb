@@ -1,0 +1,8 @@
+<h2>Upload</h2>
+<%= render partial: 'multiple_upload' %>
+
+<% if current_user.directory.present? %>
+  <h2>...Or Use a file you've uploaded via FTP</h2>
+
+  Buncha files here from <%=current_user.directory %>.
+<% end %>

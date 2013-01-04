@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/mediashelf/sufia.git
-  revision: 2b4b7f28f537b56ccc42db02e1e9e1710211a3b5
-  ref: 2b4b7f2
+  revision: a2e14471badb20cfa67855f448e15f4b57c0aa9b
+  ref: a2e1447
   specs:
     sufia (0.0.3)
       activerecord-import
@@ -211,7 +211,7 @@ GEM
     multi_json (1.5.0)
     nest (1.1.1)
       redis
-    nested_form (0.2.3)
+    nested_form (0.3.1)
     noid (0.5.5)
       backports
     nokogiri (1.5.6)
@@ -251,17 +251,17 @@ GEM
       activesupport (= 3.2.10)
       bundler (~> 1.0)
       railties (= 3.2.10)
-    rails_admin (0.1.2)
-      bootstrap-sass (~> 2.0)
+    rails_admin (0.3.0)
+      bootstrap-sass (~> 2.1)
       builder (~> 3.0)
       coffee-rails (~> 3.1)
       font-awesome-sass-rails (~> 2.0)
       haml (~> 3.1)
-      jquery-rails (~> 2.0)
+      jquery-rails (~> 2.1)
       jquery-ui-rails (~> 2.0)
-      kaminari (~> 0.12)
-      nested_form (~> 0.2.3)
-      rack-pjax (~> 0.5)
+      kaminari (~> 0.14)
+      nested_form (> 0.2.3, < 0.4.0)
+      rack-pjax (~> 0.6)
       rails (~> 3.1)
       remotipart (~> 1.0)
       sass-rails (~> 3.1)

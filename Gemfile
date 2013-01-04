@@ -24,7 +24,7 @@ gem 'hydra-head'
 gem 'active-fedora', github: 'projecthydra/active_fedora'
 #gem 'sufia', '0.0.3'
 #gem 'sufia', path: '../sufia'
-gem 'sufia', github: 'mediashelf/sufia', ref: '2b4b7f2'
+gem 'sufia', github: 'mediashelf/sufia', ref: 'a2e1447'
 
 gem 'rails_admin'
 
