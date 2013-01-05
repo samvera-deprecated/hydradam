@@ -2,7 +2,26 @@
 <%= render partial: 'multiple_upload' %>
 
 <% if current_user.directory.present? %>
-  <h2>...Or Use a file you've uploaded via FTP</h2>
+  <h2>...or use a file you've uploaded via FTP</h2>
 
-  Buncha files here from <%=current_user.directory %>.
+  <div class="well">
+    <%= form_for @generic_file, :url => sufia.generic_files_path, :html => { :class => 'form-horizontal well'} do |f| %>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>File</th></tr>
+        </thead>
+        <tbody>
+        <%current_user.files.each do |f| %>
+          <tr>
+            <td>
+              <label><%= check_box_tag 'local_file[]', f %> <%= f %></label>
+            </td>
+          </tr>
+        <%end%>
+        </tbody>
+      </table>
+      <%= hidden_field_tag(:batch_id, @batch_noid) %>
+      <%=f.button 'Import', :class => 'btn btn-primary' %>
+    <% end %>
+  </div>
 <% end %>

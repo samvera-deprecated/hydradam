@@ -23,6 +23,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def files
+    return [] if directory.blank?
+    Dir.entries(directory).reject { |f| File.directory?(f) }
+
+  end
+
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
   # the account. 
