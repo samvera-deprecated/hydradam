@@ -14,7 +14,7 @@ class GenericFilesController < ApplicationController
       filename = params[:local_file][0]
       params[:local_file].each do |filename|
         file = File.open(File.join(current_user.directory, filename), 'rb')
-        create_and_save_generic_file(file, '1', nil, params[:batch_id], filename)
+        create_and_save_generic_file(file, nil, params[:batch_id], filename)
         if @generic_file
           Sufia.queue.push(ContentDepositEventJob.new(@generic_file.pid, current_user.user_key))
         else
