@@ -1,7 +1,33 @@
 GIT
-  remote: git://github.com/mediashelf/sufia.git
-  revision: 3c183623bf9df1691e156e0481e13f7d2d6ab832
-  ref: 3c18362
+  remote: git://github.com/projecthydra/hydra-head.git
+  revision: d60913b7af8ec18f9793cc26f8c65ef8d6c22b37
+  ref: d60913b
+  specs:
+    hydra-access-controls (5.1.0)
+      active-fedora
+      activesupport
+      blacklight
+      cancan
+      deprecation
+    hydra-core (5.1.0)
+      RedCloth (= 4.2.9)
+      active-fedora (~> 5.3)
+      blacklight (~> 4.0)
+      block_helpers
+      deprecation (>= 0.0.5)
+      devise
+      hydra-access-controls (= 5.1.0)
+      hydra-mods (>= 0.0.6)
+      jquery-rails
+      rails (~> 3.2.3)
+      sanitize
+    hydra-head (5.1.0)
+      hydra-access-controls (= 5.1.0)
+      hydra-core (= 5.1.0)
+      rails (>= 3.2.6)
+
+PATH
+  remote: ../sufia
   specs:
     sufia (0.0.3)
       activerecord-import
@@ -30,51 +56,6 @@ GIT
       yaml_db (= 0.2.3)
       zipruby (= 0.3.6)
 
-GIT
-  remote: git://github.com/projecthydra/active_fedora.git
-  revision: 6ee2f31b3da71eded1fdba80b34357530da5b784
-  specs:
-    active-fedora (5.3.1)
-      activeresource (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      builder (~> 3.0.0)
-      deprecation
-      mediashelf-loggable
-      om (~> 1.8.0)
-      rdf
-      rdf-rdfxml (~> 0.3.8)
-      rsolr
-      rubydora (~> 1.2)
-      solrizer (~> 2.0.0)
-
-GIT
-  remote: git://github.com/projecthydra/hydra-head.git
-  revision: d60913b7af8ec18f9793cc26f8c65ef8d6c22b37
-  ref: d60913b
-  specs:
-    hydra-access-controls (5.1.0)
-      active-fedora
-      activesupport
-      blacklight
-      cancan
-      deprecation
-    hydra-core (5.1.0)
-      RedCloth (= 4.2.9)
-      active-fedora (~> 5.3)
-      blacklight (~> 4.0)
-      block_helpers
-      deprecation (>= 0.0.5)
-      devise
-      hydra-access-controls (= 5.1.0)
-      hydra-mods (>= 0.0.6)
-      jquery-rails
-      rails (~> 3.2.3)
-      sanitize
-    hydra-head (5.1.0)
-      hydra-access-controls (= 5.1.0)
-      hydra-core (= 5.1.0)
-      rails (>= 3.2.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -92,6 +73,18 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active-fedora (5.4.0)
+      activeresource (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      builder (~> 3.0.0)
+      deprecation
+      mediashelf-loggable
+      om (~> 1.8.0)
+      rdf
+      rdf-rdfxml (~> 0.3.8)
+      rsolr
+      rubydora (~> 1.2)
+      solrizer (~> 2.0.0)
     activemodel (3.2.10)
       activesupport (= 3.2.10)
       builder (~> 3.0.0)
@@ -237,7 +230,7 @@ GEM
     parslet (1.5.0)
       blankslate (~> 2.0)
     polyglot (0.3.3)
-    rack (1.4.1)
+    rack (1.4.2)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-pjax (0.6.0)
@@ -332,7 +325,7 @@ GEM
       rest-client
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sass (3.2.4)
+    sass (3.2.5)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -381,7 +374,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-fedora!
+  active-fedora (~> 5.4.0)
   blacklight
   bootstrap-sass
   coffee-rails (~> 3.2.1)
