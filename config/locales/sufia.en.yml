@@ -4,4 +4,7 @@ en:
     account_name: "Account Id"
     institution_name: "WGBH"
     deposit_agreement:  "WGBH's Deposit Agreement"
+    directory:
+      suffix:           '@wgbh.org'
+
     

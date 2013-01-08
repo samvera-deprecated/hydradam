@@ -1,7 +1,33 @@
 GIT
-  remote: git://github.com/mediashelf/sufia.git
-  revision: 35daf7189ca2fd9443885419aead2ec4979e91e6
-  ref: 35daf71
+  remote: git://github.com/projecthydra/hydra-head.git
+  revision: d60913b7af8ec18f9793cc26f8c65ef8d6c22b37
+  ref: d60913b
+  specs:
+    hydra-access-controls (5.1.0)
+      active-fedora
+      activesupport
+      blacklight
+      cancan
+      deprecation
+    hydra-core (5.1.0)
+      RedCloth (= 4.2.9)
+      active-fedora (~> 5.3)
+      blacklight (~> 4.0)
+      block_helpers
+      deprecation (>= 0.0.5)
+      devise
+      hydra-access-controls (= 5.1.0)
+      hydra-mods (>= 0.0.6)
+      jquery-rails
+      rails (~> 3.2.3)
+      sanitize
+    hydra-head (5.1.0)
+      hydra-access-controls (= 5.1.0)
+      hydra-core (= 5.1.0)
+      rails (>= 3.2.6)
+
+PATH
+  remote: ../sufia
   specs:
     sufia (0.0.3)
       activerecord-import
@@ -29,34 +55,6 @@ GIT
       therubyracer (= 0.10.2)
       yaml_db (= 0.2.3)
       zipruby (= 0.3.6)
-
-GIT
-  remote: git://github.com/projecthydra/hydra-head.git
-  revision: d60913b7af8ec18f9793cc26f8c65ef8d6c22b37
-  ref: d60913b
-  specs:
-    hydra-access-controls (5.1.0)
-      active-fedora
-      activesupport
-      blacklight
-      cancan
-      deprecation
-    hydra-core (5.1.0)
-      RedCloth (= 4.2.9)
-      active-fedora (~> 5.3)
-      blacklight (~> 4.0)
-      block_helpers
-      deprecation (>= 0.0.5)
-      devise
-      hydra-access-controls (= 5.1.0)
-      hydra-mods (>= 0.0.6)
-      jquery-rails
-      rails (~> 3.2.3)
-      sanitize
-    hydra-head (5.1.0)
-      hydra-access-controls (= 5.1.0)
-      hydra-core (= 5.1.0)
-      rails (>= 3.2.6)
 
 GEM
   remote: https://rubygems.org/
