@@ -313,7 +313,7 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
     stomp (1.2.8)
-    sufia (0.0.4)
+    sufia (0.0.5)
       activerecord-import
       acts_as_follower (= 0.1.1)
       blacklight (~> 4.0.0)
@@ -377,6 +377,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.3)
   sqlite3
-  sufia (= 0.0.4)
+  sufia (= 0.0.5)
   uglifier (>= 1.0.3)
   unicode
