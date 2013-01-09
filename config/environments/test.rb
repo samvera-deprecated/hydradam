@@ -34,4 +34,7 @@ Bawstun::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Base directory for ftp anonymous download
+  config.ftp_download_base = 'tmp'
 end

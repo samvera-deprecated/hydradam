@@ -20,9 +20,9 @@ gem 'jquery-rails'
 
 
 gem 'blacklight'
-gem 'sufia', '0.0.5'
+#gem 'sufia', '0.0.5'
 #gem 'sufia', path: '../sufia'
-#gem 'sufia', github: 'mediashelf/sufia', ref: '35daf71'
+gem 'sufia', github: 'mediashelf/sufia', ref: 'e79ca03'
 
 gem 'rails_admin'
 
