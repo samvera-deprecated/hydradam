@@ -20,10 +20,8 @@ gem 'jquery-rails'
 
 
 gem 'blacklight'
-gem 'hydra-head', github: 'projecthydra/hydra-head', ref: 'd60913b' # need 5.2
-gem 'active-fedora', '~> 5.4.0'
-#gem 'sufia', '0.0.3'
-gem 'sufia', path: '../sufia'
+gem 'sufia', '0.0.4'
+#gem 'sufia', path: '../sufia'
 #gem 'sufia', github: 'mediashelf/sufia', ref: '35daf71'
 
 gem 'rails_admin'
