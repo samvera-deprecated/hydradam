@@ -1,5 +1,8 @@
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
+  include Open3
+
+  has_metadata 'ffprobe', type: FfmpegDatastream
 
   def log_events
     TrackingEvent.where(pid: pid)
@@ -17,21 +20,17 @@ class GenericFile < ActiveFedora::Base
     super
     ffprobe if video?
   end
+  
+  ## Extract the metadata from the content datastream and record it in the characterization datastream
+  def characterize
+    fits_xml, ffprobe_xml = self.content.extract_metadata
+    self.characterization.ng_xml = fits_xml
+    self.ffprobe.ng_xml = ffprobe_xml
+    self.append_metadata
+    self.filename = self.label
+    save unless self.new_object?
+  end
 
   private
 
-  def ffprobe
-    out = nil
-    f.content.to_tempfile do |f|
-      command = "#{ffprobe_path} -i #{f.path}"
-      stdin, stdout, stderr = popen3(command)
-      stdin.close
-      out = stdout.read
-      stdout.close
-      err = stderr.read
-      stderr.close
-      raise "Unable to execute command \"#{command}\"\n#{err}" unless err.empty?
-    end
-    out
-  end
 end

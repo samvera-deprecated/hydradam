@@ -8,7 +8,7 @@ describe GenericFilesController do
   end
   describe "#show" do
     before do
-      @file = GenericFile.new(:terms_of_service=>'1')
+      @file = GenericFile.new
       @file.apply_depositor_metadata(@user.user_key)
       @file.save!
     end
