@@ -11,6 +11,10 @@ Bawstun::Application.routes.draw do
   devise_for :users
   mount Sufia::Engine => '/'
 
+ # Catch-all (for routing errors)
+  match '*error' => 'errors#routing'
+  
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
