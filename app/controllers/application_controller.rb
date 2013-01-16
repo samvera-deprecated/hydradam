@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::Base
   # Adds a few additional behaviors into the application controller 
-   include Blacklight::Controller  
-# Adds Hydra behaviors into the application controller 
+  include Blacklight::Controller  
+  # Adds Hydra behaviors into the application controller 
   include Hydra::Controller::ControllerBehavior  
-# Adds Sufia behaviors into the application controller 
+  # Adds Sufia behaviors into the application controller 
   include Sufia::Controller
 
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  rescue_from ActionController::RoutingError, :with => :render_404
 
-  # Please be sure to impelement current_user and user_session. Blacklight depends on 
-  # these methods in order to perform user specific actions. 
 
   layout 'hydra-head'
 
