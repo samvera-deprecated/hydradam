@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104171133) do
+ActiveRecord::Schema.define(:version => 20130115202950) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id",     :null => false
@@ -186,6 +186,13 @@ ActiveRecord::Schema.define(:version => 20130104171133) do
   add_index "tracking_events", ["pid", "event"], :name => "index_tracking_events_on_pid_and_event"
   add_index "tracking_events", ["pid"], :name => "index_tracking_events_on_pid"
   add_index "tracking_events", ["user_id"], :name => "index_tracking_events_on_user_id"
+
+  create_table "trophies", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "generic_file_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false

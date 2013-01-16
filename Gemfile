@@ -22,7 +22,10 @@ gem 'jquery-rails'
 gem 'blacklight'
 #gem 'sufia', '0.0.5'
 #gem 'sufia', path: '../sufia'
-gem 'sufia', github: 'mediashelf/sufia', ref: 'e79ca03'
+gem 'sufia', github: 'curationexperts/sufia', ref: '3be858d'
+#gem 'active-fedora', github: 'projecthydra/active_fedora', branch: 'complex_rdf'
+#gem 'active-fedora', path: '../active_fedora'
+#gem 'solrizer', path: '../solrizer'
 
 gem 'rails_admin'
 

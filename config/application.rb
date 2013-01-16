@@ -64,7 +64,7 @@ module Bawstun
     config.assets.version = '1.0'
 
     # Base directory for ftp anonymous download
-    config.ftp_download_base = '/opt/ftp_base'
+    config.ftp_download_base = '/opt/ftp'
 
     # Threshold for ftp download
     config.ftp_download_threshold = 2000000000 

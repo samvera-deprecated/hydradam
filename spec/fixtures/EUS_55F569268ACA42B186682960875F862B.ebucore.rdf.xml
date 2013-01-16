@@ -1,0 +1,94 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:edm="http://www.europeana.eu/schemas/edm/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore#"
+    xmlns:baseURI="http://lod.euscreen.eu/resource/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B.rdf">
+    <dcterms:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-08-07T11:53:04.603Z</dcterms:date>
+    <dcterms:publisher rdf:resource="http://www.image.ece.ntua.gr"/>
+    <dcterms:creator rdf:resource="http://www.image.ece.ntua.gr/~nsimou/"/>
+    <rdfs:label xml:lang="en">Document describing the EUScreen item having ID = EUS_55F569268ACA42B186682960875F862B</rdfs:label>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B_AudioTrack">
+    <ebucore:hasAudioFormat>Stereo</ebucore:hasAudioFormat>
+    <rdf:type rdf:resource="http://www.ebu.ch/metadata/ontologies/ebucore#AudioTrack"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B_Publisher">
+    <ebucore:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IKON</ebucore:name>
+    <rdf:type rdf:resource="http://www.ebu.ch/metadata/ontologies/ebucore#Organisation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B">
+    <ebucore:createdIn rdf:resource="http://lod.euscreen.eu/resource/Netherlands"/>
+    <ebucore:hasRights>For information on the use of archive material, please contact the Customer Service department of the Netherlands Institute for Sound and Vision: klantenservice@beeldengeluid.nl.</ebucore:hasRights>
+    <ebucore:duration>00:24:52</ebucore:duration>
+    <ebucore:summary xml:lang="nl">Serie portretten en reportages met uiteenlopende onderwerpen en meestal een link naar de sociale, politieke of maatschappelijke actualiteit.&#xD;
+&#xD;
+&#xD;
+&#xD;
+Serie portretten, waarin aandacht voor mensen en hun beleving&#xD;
+en ervaring van de huidige tijd en hoe ze daarmee omgaan. Indeze aflevering aandacht voor het feit dat de Samenwerkende&#xD;
+Hulporganisaties geen gezamenlijke nationale actie zijn&#xD;
+gestart ondanks grote droogte en hongersnood in de Hoorn van&#xD;
+Afrika (oa Ethiopië en Eritrea) in het voorjaar van 2000. De&#xD;
+Samenwerkende Hulporganisaties bestaan uit een tiental&#xD;
+charitatieve organisaties. Zij konden, tijdens de&#xD;
+besprekingen over de vraag of er een actie moest komen, het&#xD;
+niet eens worden over de vraag of er werkelijk sprake was van&#xD;
+een ramp en of er voldoende draagvlak zou zijn bij de media&#xD;
+en de Nederlandse bevolking voor een dergelijke actie.</ebucore:summary>
+    <ebucore:hasSubject>Droughts @ typeLabel=“IPTC Subject“</ebucore:hasSubject>
+    <edm:rights rdf:resource="http://www.europeana.eu/rights/rr-f/"/>
+    <ebucore:alternativeTitle xml:lang="nl">HET ANDERE GEZICHT </ebucore:alternativeTitle>
+    <ebucore:hasPublicationEvent rdf:resource="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B_PublEvent"/>
+    <ebucore:summary xml:lang="en">This episode is about the fact that the Dutch Cooperating Humanitarian Organisations (SHO) did not start a national campaign despite the drought and famine in the Horn of Africa (among others Ethiopia and Eritrea) in the spring of 2000. &#xD;
+</ebucore:summary>
+    <ebucore:topic>Disasters</ebucore:topic>
+    <ebucore:hasOriginalLanguage rdf:resource="http://lod.euscreen.eu/resource/Dutch_language"/>
+    <ebucore:hasSubject>Relief &amp; Aid Organisations @ typeLabel=“IPTC Subject“</ebucore:hasSubject>
+    <ebucore:hasKeyword xml:lang="nl">nomaden</ebucore:hasKeyword>
+    <dc:rights>Rights Reserved - Free Access</dc:rights>
+    <ebucore:hasKeyword xml:lang="nl">rampen</ebucore:hasKeyword>
+    <ebucore:hasObjectType>Clip</ebucore:hasObjectType>
+    <ebucore:hasKeyword xml:lang="nl">hulpacties</ebucore:hasKeyword>
+    <ebucore:hasCreator rdf:resource="http://lod.euscreen.eu/resource/NISV"/>
+    <ebucore:locator>http://www.surfmedia.nl/app/video/38943/play?format_id=RkwBazAQwXzHJsoHb3UCaEY6&amp;mode=object</ebucore:locator>
+    <ebucore:hasCoverage rdf:resource="http://lod.euscreen.eu/resource/Netherlands"/>
+    <ebucore:identifier>expressie_id:159224</ebucore:identifier>
+    <rdf:type rdf:resource="http://www.ebu.ch/metadata/ontologies/ebucore#MediaResource"/>
+    <ebucore:hasVideoTrack rdf:resource="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B_VideoTrack"/>
+    <ebucore:hasThumbnail rdf:resource="http://images1.noterik.com/domain/euscreen/thumbs/5/5/EUS_55F569268ACA42B186682960875F862B.jpg"/>
+    <ebucore:hasKeyword xml:lang="nl">kadavers</ebucore:hasKeyword>
+    <ebucore:hasPublisher rdf:resource="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B_Publisher"/>
+    <ebucore:alternativeTitle xml:lang="en">The Other view</ebucore:alternativeTitle>
+    <ebucore:originalTitle xml:lang="nl">Samenwerkende Hulp Organisaties</ebucore:originalTitle>
+    <ebucore:hasFormat>Video</ebucore:hasFormat>
+    <ebucore:dateCreated rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2000-02-01T12:53:04.775Z</ebucore:dateCreated>
+    <ebucore:hasGenre>Factual</ebucore:hasGenre>
+    <ebucore:hasAudioTrack rdf:resource="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B_AudioTrack"/>
+    <ebucore:description xml:lang="nl">&lt;p&gt;Aan de orde komen de moeilijkheid van de inschatting van de ernst van situaties als droogte en honger in ontwikkelingslanden, de onzekere factor van regen, water als levensbron voor mensen, dieren en gewassen, gebrek aan informatie uit ontwikkelingslanden, slechte infrastructuur aldaar en de gevolgen van de combinatie van oorlog met (hongersnood)rampen. Daarnaast worden twee medewerkers van de organisatie Kerken in Aktie gevolgd tijdens hun werkbezoek aan het platteland van Zuid-Ethiopi&amp;euml;. INTERVIEWS hierover met: - Jacques Willemse (Kerken in Aktie); - Sylvia Borren (Novib); - Klaas Keuning (Stichting Vluchteling); - Mechtild van den Hombergh (Cordaid); - Addi van Bergen (Kerken in Aktie); - Bob Headley (Kerken in Aktie); - overheidsambtenaar in Addis Abeba; - Abdul Karim (lokale hulporganisatie). SHOTS: 21:34:37 Afrikaanse nomaden; Afrikaanse vrouwen die van takken hutten bouwen; div. van kadavers van vee; waterput die droog staat; 21:48:57 rijer langs Afrikaanse vlakte; verdelen van hulpgoederen; waterreservoir in Ethiopi&amp;euml;; droge rivierbedding; onweer. ARCHIEFMATERIAAL: div. van nationale acties, waaronder "E&amp;eacute;n voor Afrika", "Rwanda" en "Help Turkije".&lt;/p&gt;&#xD;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;&#xD;
+&lt;p&gt;The Dutch Cooperating Humanitarian Organisations consist of about ten charitable organisations. During the discussions whether or not they should start a campaign, they couldn&amp;rsquo;t agree if there was really talk of a disaster and whether there would be enough support in the media and among the Dutch citizens for such a campaign&lt;/p&gt;&#xD;
+&lt;p&gt;&lt;/p&gt;</ebucore:description>
+    <ebucore:hasLanguage>Dutch; Flemish</ebucore:hasLanguage>
+    <ebucore:hasKeyword xml:lang="nl">inzamelingen</ebucore:hasKeyword>
+    <ebucore:hasKeyword xml:lang="nl">droogte</ebucore:hasKeyword>
+    <ebucore:title xml:lang="en">Dutch Cooperating Humanitarian Organisations</ebucore:title>
+    <ebucore:hasSubject>Disasters @ typeLabel=“IPTC Subject“</ebucore:hasSubject>
+    <ebucore:filename>expressie_id:159224</ebucore:filename>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B_VideoTrack">
+    <ebucore:hasVideoFormat>Colour</ebucore:hasVideoFormat>
+    <ebucore:aspectRatio>4:3</ebucore:aspectRatio>
+    <rdf:type rdf:resource="http://www.ebu.ch/metadata/ontologies/ebucore#VideoTrack"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://lod.euscreen.eu/resource/EUS_55F569268ACA42B186682960875F862B_PublEvent">
+    <ebucore:publishedStartDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2000-08-04T11:53:04.603Z</ebucore:publishedStartDateTime>
+    <ebucore:hasPublicationChannel></ebucore:hasPublicationChannel>
+    <rdf:type rdf:resource="http://www.ebu.ch/metadata/ontologies/ebucore#PublicationEvent"/>
+  </rdf:Description>
+</rdf:RDF>
