@@ -1,0 +1,98 @@
+<%#
+Copyright © 2012 The Pennsylvania State University
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tag %>
+
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/gif" href="/assets/WGBH_favicon.gif" />
+    
+
+    <title><%= h(@page_title || application_name) %></title>
+    <!-- application css -->
+    <%= stylesheet_link_tag 'application' %>
+    <%= yield(:css_head) %>
+
+    <!-- application js -->
+    <%= javascript_include_tag 'application' %>
+
+    <!-- controller specific uploader -->
+    <%= yield(:js_head) %>
+
+    <script type="text/javascript">
+      $(function() {
+        <%= yield(:local_js) %>
+      });
+    </script>
+
+    <%= render :partial => '/ga', :formats => [:html] %>
+
+    <style type="text/css">
+      <%= yield(:local_css) %>
+    </style>
+  </head>
+
+<%# need a better way to determine if we are on the home page and using three col layout %>
+<% if params[:controller].eql?("catalog") and !has_search_parameters? %> 
+  <% column_class = "three" %>
+<% elsif not ['generic_files', 'batch', 'advanced', 'users', 'batch_edits'].include?(params[:controller]) %>
+  <% column_class = "two" %>
+<% else %>
+  <% column_class = "one" %>
+<% end %>
+<body> 
+<div id="wrap">
+  <%= render :partial => '/masthead', :formats => [:html] %>
+  <%= render :partial => '/flash_msg' %>
+  <div class="container" style="margin-top: 120px"> 
+    <div id="content" class="row">
+      <% if column_class == "one" %>
+        <div class="span120">
+          <%= yield %>
+        </div>
+      <% else %>
+        <div class="span20">
+          <%= sidebar_items.join('').html_safe %> 
+        </div>
+        <% if column_class == "three" %>
+          <div class="span63">
+            <%= yield %>
+          </div>
+
+          <div class="span35 offset2">
+            <h2 class="heading1">Contribute</h2> 
+            <%= link_to '<i class="icon-file"></i> Share Your Work'.html_safe, sufia.new_generic_file_path, :class => "btn btn-primary btn-large", :id => "contribute_link" %>
+            <div class="row center"> <a href="/terms/">Terms of Use</a></div><br />                
+            <div class="row">&nbsp;</div>
+            <h2 class="heading1">My Latest</h2> 
+            <%= render :partial=>'/catalog/recents', :locals => {:recent_documents=>@recent_user_documents, :display_thumbs=>false, :display_access=>true} %>
+          </div> <!-- /.span30 -->
+        <% else %>
+          <div class="span100">
+            <%= yield %>
+          </div><!-- /.span93 -->
+        <% end %>
+      <% end %>
+
+    </div><!-- /#content -->
+  </div><!-- /#content-wrapper -->
+  <%= render partial: '/footer' %>
+</div>
+</body>
+</html>
+
