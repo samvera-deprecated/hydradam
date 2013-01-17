@@ -45,6 +45,16 @@ class GenericFile < ActiveFedora::Base
     save unless self.new_object?
   end
 
+  ### Map  creator[].name -> creator[]
+  def creator
+    descMetadata.creator.map(&:name).flatten
+  end
+
+  ### Map  contributor[].name -> contributor[]
+  def contributor
+    descMetadata.contributor.map(&:name).flatten
+  end
+
   ### Map creator[] -> creator[].name
   def creator=(creator_names)
     Array(creator_names).each_with_index do |name, index|

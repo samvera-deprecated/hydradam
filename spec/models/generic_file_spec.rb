@@ -27,6 +27,16 @@ describe GenericFile do
         :resource_type, :identifier, :based_near, :tag, :related_url]
     end
   end
+  describe "contributor attribute" do
+    it "should delegate to the bnode" do
+      subject.contributor = ["Sally", "Mary"]
+      subject.descMetadata.contributor.first.name.should == ["Sally"]
+      subject.descMetadata.contributor.last.name.should == ["Mary"]
+    end
+  end
+
+  describe "creator attribute" do
+  end
 
   describe "to_solr" do
     it "should have some fields" do
