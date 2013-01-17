@@ -3,6 +3,11 @@ module RDF
   # European Broadcasting Union (EBUCore) vocabulary.
   # @see http://tech.ebu.ch/lang/en/MetadataEbuCore 
   class EbuCore < Vocabulary("http://www.ebu.ch/metadata/ontologies/ebucore#")
+    property :isPartOf
+    property :isChapterOf
+    property :isFragmentOf
+    property :hasPart
+
     property :hasAudioFormat
     property :hasVideoFormat
     property :hasRole

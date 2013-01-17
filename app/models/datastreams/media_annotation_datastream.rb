@@ -1,5 +1,7 @@
 class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   map_predicates do |map|
+    map.part_of(:to => "isPartOf", :in => RDF::EbuCore)
+  
     map.contributor(:in=> RDF::EbuCore, :to=>'hasContributor', :class_name=>'Person')
     map.creator(:in=> RDF::EbuCore, :to=>'hasCreator', :class_name=>'Person')
     map.publication_events(:in=> RDF::EbuCore, :to=>'hasPublicationEvent', :class_name=>'Event')
@@ -91,4 +93,13 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   LocalAuthority.register_vocabulary(self, "subject", "lc_subjects")
   LocalAuthority.register_vocabulary(self, "language", "lexvo_languages")
   LocalAuthority.register_vocabulary(self, "tag", "lc_genres")
+
+  def to_solr(solr_doc = {})
+    solr_doc = super
+    creators = self.creator.map { |c| c.name }.flatten
+    solr_doc[prefix('creator_t').to_s] = solr_doc[prefix('creator_facet').to_s] = creators
+    contributors = self.contributor.map { |c| c.name }.flatten
+    solr_doc[prefix('contributor_t').to_s] = solr_doc[prefix('contributor_facet').to_s] = contributors
+    solr_doc
+  end
 end

@@ -47,14 +47,23 @@ class GenericFile < ActiveFedora::Base
 
   ### Map creator[] -> creator[].name
   def creator=(creator_names)
-    if (creator_names)
-      Array(creator_names).each_with_index do |name, index|
-        creator = descMetadata.creator[index]
-        if creator.nil?
-          creator = descMetadata.creator.build
-        end
-        creator.name = name
+    Array(creator_names).each_with_index do |name, index|
+      creator = descMetadata.creator[index]
+      if creator.nil?
+        creator = descMetadata.creator.build
       end
+      creator.name = name
+    end
+  end
+
+  ### Map contributor[] -> contributor[].name
+  def contributor=(contributor_names)
+    Array(contributor_names).each_with_index do |name, index|
+      contributor = descMetadata.contributor[index]
+      if contributor.nil?
+        contributor = descMetadata.contributor.build
+      end
+      contributor.name = name
     end
   end
 
