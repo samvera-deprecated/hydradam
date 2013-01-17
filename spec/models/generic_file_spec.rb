@@ -32,10 +32,17 @@ describe GenericFile do
       subject.contributor = ["Sally", "Mary"]
       subject.descMetadata.contributor.first.name.should == ["Sally"]
       subject.descMetadata.contributor.last.name.should == ["Mary"]
+      subject.contributor.should == ["Sally", "Mary"]
     end
   end
 
   describe "creator attribute" do
+    it "should delegate to the bnode" do
+      subject.creator = ["Sally", "Mary"]
+      subject.descMetadata.creator.first.name.should == ["Sally"]
+      subject.descMetadata.creator.last.name.should == ["Mary"]
+      subject.creator.should == ["Sally", "Mary"]
+    end
   end
 
   describe "to_solr" do
