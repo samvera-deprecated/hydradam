@@ -45,6 +45,23 @@ class GenericFile < ActiveFedora::Base
     save unless self.new_object?
   end
 
+  def attributes=(attrs)
+    ### Map creator[] -> creator[].name
+    creator_names = attrs.delete('creator')
+    if (creator_names)
+      creator_names.each_with_index do |name, index|
+        creator = descMetadata.creator[index]
+        if creator.nil?
+          creator = descMetadata.creator.build
+        end
+        creator.name = name
+      end
+    end
+
+    super
+
+  end
+
   private
 
 end

@@ -28,5 +28,22 @@ describe GenericFile do
     end
   end
 
+  describe "to_solr" do
+    it "should have some fields" do
+      subject.title = "Foobar!"
+      now = DateTime.now
+      subject.date_modified = now
+      subject.date_uploaded = now
+      
+      today_str = "#{Date.today.to_s}T00:00:00Z"
+      solr_doc = subject.to_solr
+      solr_doc['desc_metadata__title_t'].should == ["Foobar!"]
+      solr_doc['desc_metadata__date_modified_dt'].should == [today_str]
+      solr_doc['desc_metadata__date_uploaded_dt'].should == [today_str]
+      #solr_doc['label_t'].should == ["Foobar!"]
+    end
+
+  end
+
 
 end

@@ -11,11 +11,11 @@ describe MediaAnnotationDatastream do
   end
 
   it "should have many contributors" do
-    p = MediaAnnotationDatastream::Person.new
+    p = MediaAnnotationDatastream::Person.new(ds.graph)
     p.name = 'Baker, R. Lisle'
     p.role = 'Director'
-    ds.contributors = [p]
-    ds.contributors.first.name.should == ['Baker, R. Lisle']
+    ds.contributor = [p]
+    ds.contributor.first.name.should == ['Baker, R. Lisle']
   end
 
   it "should have date_uploaded" do

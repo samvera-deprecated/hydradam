@@ -36,4 +36,20 @@ describe GenericFilesController do
     end
     it "should ingest uploaded files"
   end
+
+  describe "#update" do
+    before do
+      @file = GenericFile.new
+      @file.apply_depositor_metadata(@user.user_key)
+      @file.save!
+    end
+    it "should update the creator" do
+      post :update, id: @file, generic_file: {creator: ["Frank", "Dave"] }
+      response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
+      @file.reload
+      @file.creator[0].name.should == ['Frank']
+      @file.creator[1].name.should == ['Dave']
+      
+    end
+  end
 end

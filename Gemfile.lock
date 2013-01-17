@@ -1,10 +1,8 @@
-GIT
-  remote: git://github.com/curationexperts/sufia.git
-  revision: 3edd484bf51038176b2700e9107b1a3e6c11e5e2
-  ref: 3edd484
+PATH
+  remote: ../sufia
   specs:
-    sufia (0.0.5)
-      active-fedora (~> 5.5.0.rc1)
+    sufia (0.0.6)
+      active-fedora (~> 5.5.0.rc2)
       activerecord-import
       acts_as_follower (= 0.1.1)
       blacklight (~> 4.0.0)
@@ -48,7 +46,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-fedora (5.5.0.rc1)
+    active-fedora (5.5.0.rc2)
       activeresource (>= 3.0.0)
       activesupport (>= 3.0.0)
       builder (~> 3.0.0)

@@ -18,7 +18,6 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
       index.as :searchable, :displayable, :sortable
     end
     map.date_created(:in => RDF::EbuCore, :to => 'dateCreated') do |index|
-      index.type :date
       index.as :searchable, :displayable
     end
 
