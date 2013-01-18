@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
-  rescue_from CanCan::AccessDenied do 
+  rescue_from CanCan::AccessDenied do |exception|
     # used for /admin access
     redirect_to sufia.root_url, :alert => exception.message
   end
