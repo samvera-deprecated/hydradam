@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def files
-    return [] if directory.blank?
+    return [] unless directory.present? && File.directory?(directory)
     Dir.entries(directory).reject { |f| File.directory?(f) }
 
   end
