@@ -20,8 +20,8 @@ gem 'jquery-rails'
 
 
 gem 'blacklight'
-#gem 'sufia', '0.0.6'
-gem 'sufia', path: '../sufia'
+gem 'sufia', '0.0.7'
+#gem 'sufia', path: '../sufia'
 #gem 'sufia', github: 'curationexperts/sufia', ref: '3edd484'
 #gem 'active-fedora', path: '../active_fedora'
 #gem 'solrizer', path: '../solrizer'
