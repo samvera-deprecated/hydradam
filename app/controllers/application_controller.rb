@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do 
     # used for /admin access
-    redirect_to root_url, :alert => exception.message
+    redirect_to sufia.root_url, :alert => exception.message
   end
 
   layout 'hydra-head'
