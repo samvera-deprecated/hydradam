@@ -57,6 +57,8 @@ class GenericFile < ActiveFedora::Base
 
   ### Map creator[] -> creator[].name
   def creator=(creator_names)
+    existing_creators = descMetadata.creator
+    descMetadata.creator = [] if existing_creators.size > creator_names.size
     Array(creator_names).each_with_index do |name, index|
       creator = descMetadata.creator[index]
       if creator.nil?
@@ -68,6 +70,8 @@ class GenericFile < ActiveFedora::Base
 
   ### Map contributor[] -> contributor[].name
   def contributor=(contributor_names)
+    existing_contributors = descMetadata.contributor
+    descMetadata.contributor = [] if existing_contributors.size > contributor_names.size
     Array(contributor_names).each_with_index do |name, index|
       contributor = descMetadata.contributor[index]
       if contributor.nil?

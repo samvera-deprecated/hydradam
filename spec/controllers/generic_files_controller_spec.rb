@@ -47,8 +47,8 @@ describe GenericFilesController do
       post :update, id: @file, generic_file: {creator: ["Frank", "Dave"] }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
-      @file.creator[0].name.should == ['Frank']
-      @file.creator[1].name.should == ['Dave']
+      @file.descMetadata.creator[0].name.should == ['Frank']
+      @file.descMetadata.creator[1].name.should == ['Dave']
       
     end
   end

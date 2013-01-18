@@ -34,6 +34,11 @@ describe GenericFile do
       subject.descMetadata.contributor.last.name.should == ["Mary"]
       subject.contributor.should == ["Sally", "Mary"]
     end
+    it "should remove contributors" do
+      subject.contributor = ["Sally", "Mary"]
+      subject.contributor = ["Bob"]
+      subject.contributor.should == ["Bob"]
+    end
   end
 
   describe "creator attribute" do
@@ -42,6 +47,12 @@ describe GenericFile do
       subject.descMetadata.creator.first.name.should == ["Sally"]
       subject.descMetadata.creator.last.name.should == ["Mary"]
       subject.creator.should == ["Sally", "Mary"]
+    end
+
+    it "should remove creators" do
+      subject.creator = ["Sally", "Mary"]
+      subject.creator = ["Bob"]
+      subject.creator.should == ["Bob"]
     end
   end
 
