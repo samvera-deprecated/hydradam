@@ -97,9 +97,9 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   def to_solr(solr_doc = {})
     solr_doc = super
     creators = self.creator.map { |c| c.name }.flatten
-    solr_doc[prefix('creator_t').to_s] = solr_doc[prefix('creator_facet').to_s] = creators
+    solr_doc[ActiveFedora::SolrService.solr_name(prefix('creator'), :searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('creator'), :facetable)] = creators
     contributors = self.contributor.map { |c| c.name }.flatten
-    solr_doc[prefix('contributor_t').to_s] = solr_doc[prefix('contributor_facet').to_s] = contributors
+    solr_doc[ActiveFedora::SolrService.solr_name(prefix('contributor'), :searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('contributor'), :facetable)] = contributors
     solr_doc
   end
 end

@@ -11,7 +11,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -20,9 +20,12 @@ gem 'jquery-rails'
 
 
 gem 'blacklight'
-gem 'sufia', '0.0.8'
+#gem 'sufia', '0.0.8'
 #gem 'sufia', path: '../sufia'
-#gem 'sufia', github: 'curationexperts/sufia', ref: '0c79e6c'
+gem 'sufia', github: 'curationexperts/sufia', ref: '000a92f'
+gem 'hydra-head', github: 'projecthydra/hydra-head', branch: '6.x'
+gem 'active-fedora', github: 'projecthydra/active_fedora', branch: '6.x'
+gem 'solrizer', github: 'projecthydra/solrizer', branch: 'solrizer-3'
 #gem 'active-fedora', path: '../active_fedora'
 #gem 'solrizer', path: '../solrizer'
 

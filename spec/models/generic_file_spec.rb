@@ -80,28 +80,28 @@ describe GenericFile do
       
       today_str = "#{Date.today.to_s}T00:00:00Z"
       solr_doc = subject.to_solr
-      solr_doc['desc_metadata__title_t'].should == ["Foobar!"]
-      solr_doc['desc_metadata__date_modified_dt'].should == [today_str]
-      solr_doc['desc_metadata__date_uploaded_dt'].should == [today_str]
-      solr_doc['desc_metadata__creator_facet'].should == ['Justin']
-      solr_doc['desc_metadata__creator_t'].should == ['Justin']
-      solr_doc["desc_metadata__part_of_t"].should be_nil
-      solr_doc["desc_metadata__date_uploaded_t"].should be_nil
-      solr_doc["desc_metadata__date_modified_t"].should be_nil
-      solr_doc["desc_metadata__rights_t"].should == ["Wide open, buddy."]
-      solr_doc["desc_metadata__related_url_t"].should be_nil
-      solr_doc["desc_metadata__contributor_t"].should == ["Mohammad"]
-      solr_doc["desc_metadata__description_t"].should == ["The work by Allah"]
-      solr_doc["desc_metadata__publisher_t"].should == ["Vertigo Comics"]
-      solr_doc["desc_metadata__subject_t"].should == ["Theology"]
-      solr_doc["desc_metadata__language_t"].should == ["Arabic"]
-      solr_doc["desc_metadata__date_created_t"].should == ["1200-01-01"]
-      solr_doc["desc_metadata__resource_type_t"].should == ["Book"]
-      solr_doc["file_format_t"].should == "jpeg (JPEG Image)"
-      solr_doc["desc_metadata__identifier_t"].should == ["urn:isbn:1234567890"]
-      solr_doc["desc_metadata__based_near_t"].should == ["Medina, Saudi Arabia"]
-      solr_doc["mime_type_t"].should == ["image/jpeg"]    
-      solr_doc["noid_s"].should == "__DO_NOT_USE__"
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__title')].should == ["Foobar!"]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_modified', type: :date)].should == [today_str]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_uploaded', type: :date)].should == [today_str]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__creator', :facetable)].should == ['Justin']
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__creator')].should == ['Justin']
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__part_of')].should be_nil
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_uploaded')].should be_nil
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_modified')].should be_nil
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__rights')].should == ["Wide open, buddy."]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__related_url')].should be_nil
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__contributor')].should == ["Mohammad"]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__description')].should == ["The work by Allah"]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__publisher')].should == ["Vertigo Comics"]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__subject')].should == ["Theology"]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__language')].should == ["Arabic"]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_created')].should == ["1200-01-01"]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__resource_type')].should == ["Book"]
+      solr_doc[ActiveFedora::SolrService.solr_name('file_format')].should == "jpeg (JPEG Image)"
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__identifier')].should == ["urn:isbn:1234567890"]
+      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
+      solr_doc[ActiveFedora::SolrService.solr_name('mime_type')].should == ["image/jpeg"]    
+      solr_doc[ActiveFedora::SolrService.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
       
     end
 
