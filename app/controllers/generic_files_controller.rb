@@ -28,7 +28,9 @@ class GenericFilesController < ApplicationController
     # Ingest files already on disk
     filename = params[:local_file][0]
     params[:local_file].each do |filename|
-      Sufia.queue.push(IngestLocalFileJob.new(current_user.directory, filename, current_user.user_key, params[:batch_id]))
+      @generic_file = GenericFile.new
+      Sufia::GenericFile::Actions.create_metadata(@generic_file, current_user, params[:batch_id] )
+      Sufia.queue.push(IngestLocalFileJob.new(@generic_file.id, current_user.directory, filename, current_user.user_key))
     end
     true
   end

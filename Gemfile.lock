@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 000a92ff48fb8a80e42d468624851db0530c5320
-  ref: 000a92f
+  revision: 92c3faf8da02a88fefbe83e3e3663c1e213b7ede
+  ref: 92c3faf
   specs:
     sufia (0.0.8)
       active-fedora (>= 6.0.0.pre7)

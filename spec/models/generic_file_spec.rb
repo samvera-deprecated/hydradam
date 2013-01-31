@@ -80,31 +80,39 @@ describe GenericFile do
       
       today_str = "#{Date.today.to_s}T00:00:00Z"
       solr_doc = subject.to_solr
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__title')].should == ["Foobar!"]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_modified', type: :date)].should == [today_str]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_uploaded', type: :date)].should == [today_str]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__creator', :facetable)].should == ['Justin']
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__creator')].should == ['Justin']
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__part_of')].should be_nil
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_uploaded')].should be_nil
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_modified')].should be_nil
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__rights')].should == ["Wide open, buddy."]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__related_url')].should be_nil
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__contributor')].should == ["Mohammad"]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__description')].should == ["The work by Allah"]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__publisher')].should == ["Vertigo Comics"]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__subject')].should == ["Theology"]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__language')].should == ["Arabic"]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__date_created')].should == ["1200-01-01"]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__resource_type')].should == ["Book"]
-      solr_doc[ActiveFedora::SolrService.solr_name('file_format')].should == "jpeg (JPEG Image)"
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__identifier')].should == ["urn:isbn:1234567890"]
-      solr_doc[ActiveFedora::SolrService.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
-      solr_doc[ActiveFedora::SolrService.solr_name('mime_type')].should == ["image/jpeg"]    
-      solr_doc[ActiveFedora::SolrService.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
+      solr_doc[Solrizer.solr_name('desc_metadata__title')].should == ["Foobar!"]
+      solr_doc[Solrizer.solr_name('desc_metadata__date_modified', type: :date)].should == [today_str]
+      solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded', type: :date)].should == [today_str]
+      solr_doc[Solrizer.solr_name('desc_metadata__creator', :facetable)].should == ['Justin']
+      solr_doc[Solrizer.solr_name('desc_metadata__creator')].should == ['Justin']
+      solr_doc[Solrizer.solr_name('desc_metadata__part_of')].should be_nil
+      solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded')].should be_nil
+      solr_doc[Solrizer.solr_name('desc_metadata__date_modified')].should be_nil
+      solr_doc[Solrizer.solr_name('desc_metadata__rights')].should == ["Wide open, buddy."]
+      solr_doc[Solrizer.solr_name('desc_metadata__related_url')].should be_nil
+      solr_doc[Solrizer.solr_name('desc_metadata__contributor')].should == ["Mohammad"]
+      solr_doc[Solrizer.solr_name('desc_metadata__description')].should == ["The work by Allah"]
+      solr_doc[Solrizer.solr_name('desc_metadata__publisher')].should == ["Vertigo Comics"]
+      solr_doc[Solrizer.solr_name('desc_metadata__subject')].should == ["Theology"]
+      solr_doc[Solrizer.solr_name('desc_metadata__language')].should == ["Arabic"]
+      solr_doc[Solrizer.solr_name('desc_metadata__date_created')].should == ["1200-01-01"]
+      solr_doc[Solrizer.solr_name('desc_metadata__resource_type')].should == ["Book"]
+      solr_doc[Solrizer.solr_name('file_format')].should == "jpeg (JPEG Image)"
+      solr_doc[Solrizer.solr_name('desc_metadata__identifier')].should == ["urn:isbn:1234567890"]
+      solr_doc[Solrizer.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
+      solr_doc[Solrizer.solr_name('mime_type')].should == ["image/jpeg"]    
+      solr_doc[Solrizer.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
       
     end
 
+  end
+
+
+  describe "#depositor" do
+    it "should be there" do
+      subject.apply_depositor_metadata('frank')
+      subject.depositor.should == ['frank']
+    end
   end
 
 
