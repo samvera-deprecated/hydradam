@@ -18,3 +18,8 @@
 
 # Don't share rvmrc files
 .rvmrc
+
+config/solr.yml
+config/fedora.yml
+config/database.yml
+config/initializers/secret_token.rb
