@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-gem 'sqlite3'
 
 
 # Gems used only for assets and not required
@@ -35,6 +34,11 @@ group :development, :test do
   gem 'jettywrapper'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'mysql2'
 end
 
 gem "unicode", :platforms => [:mri_18, :mri_19]

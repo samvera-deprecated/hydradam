@@ -230,6 +230,7 @@ GEM
     mediashelf-loggable (0.4.9)
     mime-types (1.19)
     multi_json (1.5.0)
+    mysql2 (0.3.11)
     nest (1.1.1)
       redis
     nested_form (0.3.1)
@@ -407,6 +408,7 @@ DEPENDENCIES
   hydra-head!
   jettywrapper
   jquery-rails
+  mysql2
   rails (= 3.2.11)
   rails_admin
   rspec-rails
