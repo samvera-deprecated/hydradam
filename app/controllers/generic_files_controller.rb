@@ -4,7 +4,7 @@ class GenericFilesController < ApplicationController
   after_filter :log_visit, :only=>:show
 
   def log_visit
-    @generic_file.views.create!(user: current_user)
+    @generic_file.views.create!(user: current_or_guest_user)
   end
 
   # routed to /files (POST)
