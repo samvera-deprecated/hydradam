@@ -15,6 +15,7 @@ class IngestLocalFileJob
   def run
     generic_file = GenericFile.find(generic_file_id)
     user = User.find_by_user_key(user_key)
+    raise "Unable to find user for #{user_key}" unless user
     file = File.open(File.join(directory, filename), 'rb')
     #TODO virus check?
     Sufia::GenericFile::Actions.create_content(generic_file, file, filename, 'content', user)
