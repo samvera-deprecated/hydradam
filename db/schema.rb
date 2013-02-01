@@ -100,27 +100,6 @@ ActiveRecord::Schema.define(:version => 20130115202950) do
 
   add_index "notifications", ["conversation_id"], :name => "index_notifications_on_conversation_id"
 
-  create_table "perm_types", :force => true do |t|
-    t.string   "label"
-    t.string   "code"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "perm_types", ["code"], :name => "index_perm_types_on_code", :unique => true
-
-  create_table "permissions", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "perm_type_id"
-    t.string   "collection_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "permissions", ["collection_id"], :name => "index_permissions_on_collection_id"
-  add_index "permissions", ["user_id", "collection_id"], :name => "index_permissions_on_user_id_and_collection_id", :unique => true
-  add_index "permissions", ["user_id"], :name => "index_permissions_on_user_id"
-
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
     t.string   "username"
