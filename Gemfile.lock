@@ -1,4 +1,20 @@
 GIT
+  remote: git://github.com/cbeer/rubydora.git
+  revision: 190af2c53493607c8ffb40690e1fead5d558cabb
+  ref: 190af2c
+  specs:
+    rubydora (1.2.1)
+      activemodel
+      activesupport
+      deprecation
+      equivalent-xml
+      fastercsv
+      hooks
+      mime-types
+      nokogiri
+      rest-client
+
+GIT
   remote: git://github.com/curationexperts/sufia.git
   revision: 92c3faf8da02a88fefbe83e3e3663c1e213b7ede
   ref: 92c3faf
@@ -343,16 +359,6 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    rubydora (1.2.1)
-      activemodel
-      activesupport
-      deprecation
-      equivalent-xml
-      fastercsv
-      hooks
-      mime-types
-      nokogiri
-      rest-client
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.5)
@@ -412,6 +418,7 @@ DEPENDENCIES
   rails (= 3.2.11)
   rails_admin
   rspec-rails
+  rubydora!
   sass-rails (~> 3.2.3)
   solrizer!
   sqlite3
