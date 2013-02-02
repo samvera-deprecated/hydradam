@@ -1,20 +1,4 @@
 GIT
-  remote: git://github.com/cbeer/rubydora.git
-  revision: 190af2c53493607c8ffb40690e1fead5d558cabb
-  ref: 190af2c
-  specs:
-    rubydora (1.2.1)
-      activemodel
-      activesupport
-      deprecation
-      equivalent-xml
-      fastercsv
-      hooks
-      mime-types
-      nokogiri
-      rest-client
-
-GIT
   remote: git://github.com/curationexperts/sufia.git
   revision: 92c3faf8da02a88fefbe83e3e3663c1e213b7ede
   ref: 92c3faf
@@ -45,67 +29,6 @@ GIT
       yaml_db (= 0.2.3)
       zipruby (= 0.3.6)
 
-GIT
-  remote: git://github.com/projecthydra/active_fedora.git
-  revision: 1965dd73cb6a210097944200e9185cba24962fc3
-  branch: 6.x
-  specs:
-    active-fedora (6.0.0.pre7)
-      activeresource (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      builder (~> 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 1.8.0)
-      rdf
-      rdf-rdfxml (~> 1.0.0)
-      rsolr
-      rubydora (~> 1.2)
-      solrizer (~> 3.0.0.pre6)
-
-GIT
-  remote: git://github.com/projecthydra/hydra-head.git
-  revision: 414e4b4f74ef08c6624bcf77093bb3bf80893793
-  branch: 6.x
-  specs:
-    hydra-access-controls (6.0.0.pre4)
-      active-fedora (>= 6.0.0.pre3)
-      activesupport
-      blacklight
-      cancan
-      deprecation
-    hydra-core (6.0.0.pre4)
-      RedCloth (= 4.2.9)
-      active-fedora (>= 6.0.0.pre2)
-      blacklight (~> 4.0)
-      block_helpers
-      deprecation (>= 0.0.5)
-      devise
-      hydra-access-controls (= 6.0.0.pre4)
-      hydra-mods (>= 0.0.6)
-      jquery-rails
-      rails (~> 3.2.3)
-      sanitize
-    hydra-head (6.0.0.pre4)
-      hydra-access-controls (= 6.0.0.pre4)
-      hydra-core (= 6.0.0.pre4)
-      rails (>= 3.2.6)
-
-GIT
-  remote: git://github.com/projecthydra/solrizer.git
-  revision: b3d39fb5a5334d42a9ffd54159accc1984c25947
-  branch: solrizer-3
-  specs:
-    solrizer (3.0.0.pre6)
-      activesupport
-      daemons
-      mediashelf-loggable (~> 0.4.7)
-      nokogiri
-      om (>= 1.5.0)
-      stomp
-      xml-simple
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -123,6 +46,19 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active-fedora (6.0.0.pre8)
+      activeresource (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      builder (~> 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 1.8.0)
+      rdf
+      rdf-rdfxml (~> 1.0.0)
+      rsolr
+      rubydora (~> 1.3)
+      solrizer (~> 3.0.0.pre7)
     activemodel (3.2.11)
       activesupport (= 3.2.11)
       builder (~> 3.0.0)
@@ -208,8 +144,30 @@ GEM
     haml (3.1.7)
     hike (1.2.1)
     hooks (0.2.2)
+    hydra-access-controls (6.0.0.pre5)
+      active-fedora (>= 6.0.0.pre8)
+      activesupport
+      blacklight
+      cancan
+      deprecation
     hydra-batch-edit (0.1.0)
       blacklight
+    hydra-core (6.0.0.pre5)
+      RedCloth (= 4.2.9)
+      active-fedora
+      blacklight (~> 4.0)
+      block_helpers
+      deprecation (>= 0.0.5)
+      devise
+      hydra-access-controls (= 6.0.0.pre5)
+      hydra-mods (>= 0.0.6)
+      jquery-rails
+      rails (~> 3.2.3)
+      sanitize
+    hydra-head (6.0.0.pre5)
+      hydra-access-controls (= 6.0.0.pre5)
+      hydra-core (= 6.0.0.pre5)
+      rails (>= 3.2.6)
     hydra-mods (0.0.6)
       active-fedora (> 4.1)
     i18n (0.6.1)
@@ -359,6 +317,16 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
+    rubydora (1.3.0)
+      activemodel
+      activesupport
+      deprecation
+      equivalent-xml
+      fastercsv
+      hooks
+      mime-types
+      nokogiri
+      rest-client
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.5)
@@ -371,6 +339,14 @@ GEM
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
     sitemap (0.3.2)
+    solrizer (3.0.0.pre7)
+      activesupport
+      daemons
+      mediashelf-loggable (~> 0.4.7)
+      nokogiri
+      om (>= 1.5.0)
+      stomp
+      xml-simple
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -404,23 +380,20 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-fedora!
   blacklight
   bootstrap-sass
   coffee-rails (~> 3.2.1)
   devise
   devise-guests (~> 0.3)
   factory_girl_rails
-  hydra-head!
+  hydra-head (= 6.0.0.pre5)
   jettywrapper
   jquery-rails
   mysql2
   rails (= 3.2.11)
   rails_admin
   rspec-rails
-  rubydora!
   sass-rails (~> 3.2.3)
-  solrizer!
   sqlite3
   sufia!
   therubyracer
