@@ -46,14 +46,14 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-fedora (6.0.0.pre8)
+    active-fedora (6.0.0.pre9)
       activeresource (>= 3.0.0)
       activesupport (>= 3.0.0)
       builder (~> 3.0.0)
       deprecation
       mediashelf-loggable
       nom-xml (>= 0.5.1)
-      om (~> 1.8.0)
+      om (~> 1.9.0.pre1)
       rdf
       rdf-rdfxml (~> 1.0.0)
       rsolr
@@ -144,29 +144,29 @@ GEM
     haml (3.1.7)
     hike (1.2.1)
     hooks (0.2.2)
-    hydra-access-controls (6.0.0.pre5)
-      active-fedora (>= 6.0.0.pre8)
+    hydra-access-controls (6.0.0.pre6)
+      active-fedora (>= 6.0.0.pre9)
       activesupport
       blacklight
       cancan
       deprecation
     hydra-batch-edit (0.1.0)
       blacklight
-    hydra-core (6.0.0.pre5)
+    hydra-core (6.0.0.pre6)
       RedCloth (= 4.2.9)
       active-fedora
       blacklight (~> 4.0)
       block_helpers
       deprecation (>= 0.0.5)
       devise
-      hydra-access-controls (= 6.0.0.pre5)
+      hydra-access-controls (= 6.0.0.pre6)
       hydra-mods (>= 0.0.6)
       jquery-rails
       rails (~> 3.2.3)
       sanitize
-    hydra-head (6.0.0.pre5)
-      hydra-access-controls (= 6.0.0.pre5)
-      hydra-core (= 6.0.0.pre5)
+    hydra-head (6.0.0.pre6)
+      hydra-access-controls (= 6.0.0.pre6)
+      hydra-core (= 6.0.0.pre6)
       rails (>= 3.2.6)
     hydra-mods (0.0.6)
       active-fedora (> 4.1)
@@ -215,12 +215,13 @@ GEM
       activesupport
       i18n
       nokogiri
-    om (1.8.0)
+    om (1.9.0.pre1)
       activemodel
       activesupport
       deprecation
       mediashelf-loggable
       nokogiri (>= 1.4.2)
+      solrizer (~> 3.0.0.pre8)
     orm_adapter (0.4.0)
     paperclip (3.3.0)
       activemodel (>= 3.0.0)
@@ -339,12 +340,11 @@ GEM
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
     sitemap (0.3.2)
-    solrizer (3.0.0.pre7)
+    solrizer (3.0.0.pre8)
       activesupport
       daemons
       mediashelf-loggable (~> 0.4.7)
       nokogiri
-      om (>= 1.5.0)
       stomp
       xml-simple
     sprockets (2.2.2)
@@ -386,7 +386,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.3)
   factory_girl_rails
-  hydra-head (= 6.0.0.pre5)
+  hydra-head (= 6.0.0.pre6)
   jettywrapper
   jquery-rails
   mysql2
