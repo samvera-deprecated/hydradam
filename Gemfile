@@ -23,6 +23,7 @@ gem 'blacklight'
 #gem 'sufia', path: '../sufia'
 gem 'sufia', github: 'curationexperts/sufia', ref: '92c3faf'
 #gem 'hydra-head', github: 'projecthydra/hydra-head', branch: '6.x'
+gem 'active-fedora', github: 'projecthydra/active_fedora', ref: '3d363c0' #need pre10+
 gem 'hydra-head', '6.0.0.pre6'
 
 gem 'rails_admin'
