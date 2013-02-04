@@ -1,10 +1,9 @@
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 92c3faf8da02a88fefbe83e3e3663c1e213b7ede
-  ref: 92c3faf
+  revision: 5520e0c66caba8a98022c8ea9742c904ae3ce23f
+  ref: 5520e0c
   specs:
     sufia (0.0.8)
-      active-fedora (>= 6.0.0.pre7)
       activerecord-import
       acts_as_follower (= 0.1.1)
       blacklight (~> 4.0.0)
@@ -13,7 +12,7 @@ GIT
       devise
       font-awesome-sass-rails (~> 2.0)
       hydra-batch-edit (~> 0.1.0)
-      hydra-head (>= 6.0.0.pre4)
+      hydra-head (>= 6.0.0.pre7)
       mail_form
       mailboxer (= 0.8.0)
       nest (= 1.1.1)
@@ -28,25 +27,6 @@ GIT
       sitemap (= 0.3.2)
       yaml_db (= 0.2.3)
       zipruby (= 0.3.6)
-
-GIT
-  remote: git://github.com/projecthydra/active_fedora.git
-  revision: 2c172e305f9a490e69231eed3802ccb00e0e1a3e
-  ref: 2c172e3
-  specs:
-    active-fedora (6.0.0.pre9)
-      activeresource (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      builder (~> 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 1.9.0.pre1)
-      rdf
-      rdf-rdfxml (~> 1.0.0)
-      rsolr
-      rubydora (~> 1.3)
-      solrizer (~> 3.0.0.pre7)
 
 GEM
   remote: https://rubygems.org/
@@ -65,6 +45,19 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active-fedora (6.0.0.pre10)
+      activeresource (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      builder (~> 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 1.9.0.pre1)
+      rdf
+      rdf-rdfxml (~> 1.0.0)
+      rsolr
+      rubydora (~> 1.3)
+      solrizer (~> 3.0.0.pre7)
     activemodel (3.2.11)
       activesupport (= 3.2.11)
       builder (~> 3.0.0)
@@ -85,7 +78,7 @@ GEM
     acts_as_follower (0.1.1)
     addressable (2.3.2)
     arel (3.0.2)
-    backports (2.7.1)
+    backports (2.8.2)
     bcrypt-ruby (3.0.1)
     blacklight (4.0.1)
       bootstrap-sass (~> 2.2.0)
@@ -150,29 +143,29 @@ GEM
     haml (3.1.7)
     hike (1.2.1)
     hooks (0.2.2)
-    hydra-access-controls (6.0.0.pre6)
-      active-fedora (>= 6.0.0.pre9)
+    hydra-access-controls (6.0.0.pre7)
+      active-fedora (>= 6.0.0.pre10)
       activesupport
       blacklight
       cancan
       deprecation
     hydra-batch-edit (0.1.0)
       blacklight
-    hydra-core (6.0.0.pre6)
+    hydra-core (6.0.0.pre7)
       RedCloth (= 4.2.9)
       active-fedora
       blacklight (~> 4.0)
       block_helpers
       deprecation (>= 0.0.5)
       devise
-      hydra-access-controls (= 6.0.0.pre6)
+      hydra-access-controls (= 6.0.0.pre7)
       hydra-mods (>= 0.0.6)
       jquery-rails
       rails (~> 3.2.3)
       sanitize
-    hydra-head (6.0.0.pre6)
-      hydra-access-controls (= 6.0.0.pre6)
-      hydra-core (= 6.0.0.pre6)
+    hydra-head (6.0.0.pre7)
+      hydra-access-controls (= 6.0.0.pre7)
+      hydra-core (= 6.0.0.pre7)
       rails (>= 3.2.6)
     hydra-mods (0.0.6)
       active-fedora (> 4.1)
@@ -208,7 +201,7 @@ GEM
       rails (> 3.0.0)
     marc (0.5.0)
     mediashelf-loggable (0.4.9)
-    mime-types (1.19)
+    mime-types (1.20.1)
     multi_json (1.5.0)
     mysql2 (0.3.11)
     nest (1.1.1)
@@ -386,14 +379,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-fedora!
   blacklight
   bootstrap-sass
   coffee-rails (~> 3.2.1)
   devise
   devise-guests (~> 0.3)
   factory_girl_rails
-  hydra-head (= 6.0.0.pre6)
+  hydra-head
   jettywrapper
   jquery-rails
   mysql2
