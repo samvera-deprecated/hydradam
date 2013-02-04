@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 5520e0c66caba8a98022c8ea9742c904ae3ce23f
-  ref: 5520e0c
+  revision: 8c314fa9522144bd84c64d99eb0fa56d6eb178da
+  ref: 8c314fa
   specs:
-    sufia (0.0.8)
+    sufia (1.0.0.pre0)
       activerecord-import
       acts_as_follower (= 0.1.1)
       blacklight (~> 4.0.0)

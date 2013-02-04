@@ -60,6 +60,8 @@ Sufia.config do |config|
       "Edit" => "edit"
     }
 
+    config.temp_file_base = '/opt/bawstun_tmp' if Rails.env.production?
+
 end
 
 
