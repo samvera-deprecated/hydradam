@@ -101,7 +101,9 @@ describe GenericFile do
       solr_doc[Solrizer.solr_name('desc_metadata__identifier')].should == ["urn:isbn:1234567890"]
       solr_doc[Solrizer.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
       solr_doc[Solrizer.solr_name('mime_type')].should == ["image/jpeg"]    
-      solr_doc[Solrizer.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
+      #solr_doc[Solrizer.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
+      solr_doc["noid_tsi"].should == "__DO_NOT_USE__"
+      
       
     end
 
@@ -111,7 +113,7 @@ describe GenericFile do
   describe "#depositor" do
     it "should be there" do
       subject.apply_depositor_metadata('frank')
-      subject.depositor.should == ['frank']
+      subject.depositor.should == 'frank'
     end
   end
 
