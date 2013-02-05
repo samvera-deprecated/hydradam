@@ -3,8 +3,26 @@ class GenericFile < ActiveFedora::Base
   include Open3
 
   has_metadata 'ffprobe', type: FfmpegDatastream
-  has_metadata :name => "descMetadata", :type => MediaAnnotationDatastream
+  has_metadata 'descMetadata', :type => MediaAnnotationDatastream
+  has_file_datastream :name => "content", :type => FileContentDatastream, :control_group=>'E'
+
+  before_destroy :remove_content
   
+  # Overridden to write the file into the external store instead of a datastream
+  def add_file(file, dsid, file_name) 
+    dir_parts = noid.scan(/.{2}/)
+    dir = File.join(Rails.configuration.external_store_base, dir_parts)
+    puts "Making #{dir}"
+    FileUtils.mkdir_p(dir) unless Dir.exists?(dir)
+    path = File.join(dir, file_name)
+    File.open(path, 'wb') do |f| 
+      f.write file.read 
+    end
+    
+    content.dsLocation = "file://#{path}"
+    save!
+
+  end
 
   def log_events
     TrackingEvent.where(pid: pid)

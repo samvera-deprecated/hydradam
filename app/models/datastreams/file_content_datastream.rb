@@ -2,6 +2,8 @@ class FileContentDatastream < ActiveFedora::Datastream
   include Sufia::FileContent::ExtractMetadata
   include Sufia::FileContent::Versions
 
+  before_destroy :remove_content
+
   def extract_metadata
     out = [] 
     to_tempfile do |f|
@@ -11,7 +13,31 @@ class FileContentDatastream < ActiveFedora::Datastream
     out
   end
 
+  def remove_content
+    if live?
+      File.unlink filename
+    else
+      false # can't remove the file until the content is live.
+    end
+  end
+
+  def live?
+    storage_manager.live?(filename)
+  end
+
+  def online!
+    storage_manager.bring_online(filename)
+  end
+
   private
+
+  def filename
+    dsLocation.sub('file://', '')
+  end
+
+  def storage_manager
+    @storage_manager ||= Rails.configuration.storage_manager.constantize
+  end
 
   def run_ffprobe!(file_path)
     out = nil

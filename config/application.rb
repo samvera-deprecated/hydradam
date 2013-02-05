@@ -68,5 +68,13 @@ module Bawstun
 
     # Threshold for ftp download
     config.ftp_download_threshold = 2000000000 
+
+    # Base directory for original content storage 
+    config.external_store_base = '/opt/storage'
+
+    # Module for storage manager 
+    # NullStorageManager for plain filesystem
+    # SAMQFSStorageManager for Oracle SAM-QFS
+    config.storage_manager = 'NullStorageManager'
   end
 end
