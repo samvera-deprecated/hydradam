@@ -6,17 +6,16 @@ class GenericFile < ActiveFedora::Base
   has_metadata 'descMetadata', :type => MediaAnnotationDatastream
   has_file_datastream :name => "content", :type => FileContentDatastream, :control_group=>'E'
 
-  before_destroy :remove_content
-  
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
-    dir_parts = noid.scan(/.{1,2}/)
-    dir = File.join(Rails.configuration.external_store_base, dir_parts)
-    puts "Making #{dir}"
-    FileUtils.mkdir_p(dir) unless Dir.exists?(dir)
-    path = File.join(dir, file_name)
-    File.open(path, 'wb') do |f| 
-      f.write file.read 
+    path = File.join(directory, file_name)
+    if file.kind_of? IO
+      File.open(path, 'wb') do |f| 
+        f.write file.read 
+      end
+    else
+      # it's a filename.
+      File.rename(file, path)
     end
     
     content.dsLocation = "file://#{path}"
@@ -24,6 +23,14 @@ class GenericFile < ActiveFedora::Base
     save!
 
   end
+
+  def directory
+    dir_parts = noid.scan(/.{1,2}/)
+    dir = File.join(Rails.configuration.external_store_base, dir_parts)
+    puts "Making #{dir}"
+    FileUtils.mkdir_p(dir) unless Dir.exists?(dir)
+    dir
+  end  
 
   def log_events
     TrackingEvent.where(pid: pid)

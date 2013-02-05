@@ -16,9 +16,13 @@ class IngestLocalFileJob
     generic_file = GenericFile.find(generic_file_id)
     user = User.find_by_user_key(user_key)
     raise "Unable to find user for #{user_key}" unless user
-    file = File.open(File.join(directory, filename), 'rb')
     #TODO virus check?
-    Sufia::GenericFile::Actions.create_content(generic_file, file, filename, 'content', user)
+
+    generic_file.add_file(File.join(directory, filename), 'content', File.basename(filename))
+    generic_file.record_version_committer(user)
+    generic_file.save!
+
+    #Sufia.queue.push(UnzipJob.new(generic_file.pid)) if generic_file.content.mimeType == 'application/zip'
     Sufia.queue.push(ContentDepositEventJob.new(generic_file.pid, user_key))
   end
 end
