@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
   include Open3
@@ -15,7 +17,7 @@ class GenericFile < ActiveFedora::Base
       end
     else
       # it's a filename.
-      File.rename(file, path)
+      FileUtils.move(file, path)
     end
     
     content.dsLocation = "file://#{path}"
