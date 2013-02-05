@@ -29,11 +29,11 @@ class FileContentDatastream < ActiveFedora::Datastream
     storage_manager.bring_online(filename)
   end
 
-  private
-
   def filename
     dsLocation.sub('file://', '')
   end
+
+  private
 
   def storage_manager
     @storage_manager ||= Rails.configuration.storage_manager.constantize
