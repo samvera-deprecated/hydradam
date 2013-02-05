@@ -22,6 +22,25 @@ class DownloadsController < ApplicationController
     @asset.downloads.create!(user: current_user) unless ['thumbnail', 'webm', 'mp4'].include?(params[:datastream_id])
   end
 
+  protected
+
+  # Overriding so that we can use with external datastreams
+  def send_content (asset)
+      opts = {}
+      ds = nil
+      opts[:filename] = params["filename"] || asset.label
+      opts[:disposition] = 'inline' 
+      if params.has_key?(:datastream_id)
+        opts[:filename] = params[:datastream_id]
+        ds = asset.datastreams[params[:datastream_id]]
+      end
+      ds = default_content_ds(asset) if ds.nil?
+      raise ActionController::RoutingError.new('Not Found') if ds.nil?
+      opts[:type] = ds.mimeType
+      send_file ds.dsLocation, opts
+      return
+  end
+
   private
 
   def over_threshold?
