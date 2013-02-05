@@ -33,6 +33,13 @@ class FileContentDatastream < ActiveFedora::Datastream
     dsLocation.sub('file://', '')
   end
 
+
+  # Override so that we can use external files.
+  def to_tempfile &block
+    return if filename.nil?
+    yield(File.open(filename, 'rb'))
+  end
+
   private
 
   def storage_manager

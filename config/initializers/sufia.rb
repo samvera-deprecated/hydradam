@@ -62,6 +62,8 @@ Sufia.config do |config|
 
     config.temp_file_base = '/opt/bawstun_tmp' if Rails.env.production?
 
+    config.enable_ffmpeg = true
+
 end
 
 
