@@ -11,7 +11,7 @@ class GenericFile < ActiveFedora::Base
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
     path = File.join(directory, file_name)
-    if file.kind_of? IO
+    if file.kind_of?(IO) || file.kind_of?(ActionDispatch::Http::UploadedFile)
       File.open(path, 'wb') do |f| 
         f.write file.read 
       end
