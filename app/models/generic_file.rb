@@ -10,7 +10,7 @@ class GenericFile < ActiveFedora::Base
   
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
-    dir_parts = noid.scan(/.{2}/)
+    dir_parts = noid.scan(/.{1,2}/)
     dir = File.join(Rails.configuration.external_store_base, dir_parts)
     puts "Making #{dir}"
     FileUtils.mkdir_p(dir) unless Dir.exists?(dir)
@@ -20,6 +20,7 @@ class GenericFile < ActiveFedora::Base
     end
     
     content.dsLocation = "file://#{path}"
+    content.mimeType = MIME::Types.type_for(path).first.content_type
     save!
 
   end
