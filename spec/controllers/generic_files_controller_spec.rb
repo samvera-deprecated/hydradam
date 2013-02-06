@@ -22,17 +22,25 @@ describe GenericFilesController do
 
   describe "#create" do
     before do
-      @user.update_attribute(:directory, 'spec/fixtures')
-
+      @mock_upload_directory = 'spec/mock_upload_directory'
+      Dir.mkdir @mock_upload_directory unless File.exists? @mock_upload_directory
+      FileUtils.copy('spec/fixtures/world.png', @mock_upload_directory)
+      FileUtils.copy('spec/fixtures/sheepb.jpg', @mock_upload_directory)
+      @user.update_attribute(:directory, @mock_upload_directory)
     end
     after do
       GenericFile.destroy_all
     end
     it "should ingest files from the filesystem" do
-      before = GenericFile.count
-      post :create, local_file: ["world.png", "sheepb.jpg"], batch_id: "xw42n7934"
+      lambda { post :create, local_file: ["world.png", "sheepb.jpg"], batch_id: "xw42n7934"}.should change(GenericFile, :count).by(2)
       response.should redirect_to Sufia::Engine.routes.url_helpers.batch_edit_path('xw42n7934')
-      GenericFile.count.should == before + 2
+      # These files should have been moved out of the upload directory
+      File.exist?("#{@mock_upload_directory}/sheepb.jpg").should be_false
+      File.exist?("#{@mock_upload_directory}/world.png").should be_false
+      # And into the storage directory
+      GenericFile.find(Solrizer.solr_name("is_part_of",:symbol) => 'info:fedora/sufia:xw42n7934').each do |gf|
+        File.exist?(gf.content.filename).should be_true
+      end
     end
     it "should ingest uploaded files"
   end

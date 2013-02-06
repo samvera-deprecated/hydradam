@@ -3,7 +3,8 @@ require 'spec_helper'
 describe GenericFile do
   describe "characterize" do
     before do
-      subject.add_file_datastream(File.open(fixture_path + '/sample.mov', 'rb'), :dsid=>'content')
+      subject.apply_depositor_metadata('frank')
+      subject.add_file(File.open(fixture_path + '/sample.mov', 'rb'), 'content', 'sample.mov')
     end
     it "should get fits and ffprobe metadata" do
       subject.characterize

@@ -10,8 +10,13 @@ class GenericFile < ActiveFedora::Base
 
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
+    return add_external_file(file, dsid, file_name) if dsid == 'content'
+    super
+  end
+
+  def add_external_file(file, dsid, file_name)
     path = File.join(directory, file_name)
-    if file.kind_of?(IO) || file.kind_of?(ActionDispatch::Http::UploadedFile)
+    if file.respond_to? :read
       File.open(path, 'wb') do |f| 
         f.write file.read 
       end
@@ -23,7 +28,11 @@ class GenericFile < ActiveFedora::Base
     content.dsLocation = "file://#{path}"
     content.mimeType = MIME::Types.type_for(path).first.content_type
     save!
+  end
 
+  # Overridden to load the original image from an external datastream
+  def load_image_transformer
+    Magick::ImageList.new(content.filename)
   end
 
   def directory

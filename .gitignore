@@ -24,3 +24,5 @@ config/fedora.yml
 config/database.yml
 config/redis.yml
 config/initializers/secret_token.rb
+
+spec/mock_upload_directory

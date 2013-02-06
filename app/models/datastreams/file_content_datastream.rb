@@ -33,10 +33,14 @@ class FileContentDatastream < ActiveFedora::Datastream
     dsLocation.sub('file://', '')
   end
 
+  # Override so that we can use external files.
+  def has_content?
+    dsLocation.present? && File.exists?(filename)
+  end
 
   # Override so that we can use external files.
   def to_tempfile &block
-    return if filename.nil?
+    return unless has_content?
     yield(File.open(filename, 'rb'))
   end
 
