@@ -39,5 +39,5 @@ Bawstun::Application.configure do
   config.ftp_download_base = 'tmp'
 
   # Base directory for original content storage 
-  config.external_store_base = 'spec/storage'
+  config.external_store_base = File.expand_path('../../../spec/storage', __FILE__)
 end
