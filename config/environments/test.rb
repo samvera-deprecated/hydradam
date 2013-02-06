@@ -37,4 +37,7 @@ Bawstun::Application.configure do
 
   # Base directory for ftp anonymous download
   config.ftp_download_base = 'tmp'
+
+  # Base directory for original content storage 
+  config.external_store_base = 'spec/storage'
 end

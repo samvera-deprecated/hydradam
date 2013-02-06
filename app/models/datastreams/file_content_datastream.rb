@@ -25,6 +25,10 @@ class FileContentDatastream < ActiveFedora::Datastream
     storage_manager.live?(filename)
   end
 
+  def external?
+    controlGroup == 'E'
+  end
+
   def online!
     storage_manager.bring_online(filename)
   end

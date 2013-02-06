@@ -52,8 +52,12 @@ class DownloadsController < ApplicationController
   def export_to_ftp(asset)
     filename = asset.filename.first
     path, key = obscure_directory(asset.pid, filename)
-    File.open(path, 'wb') do |f|
-      f.write asset.content.content
+    if asset.content.external?
+      FileUtils.ln_s(File.expand_path(asset.content.filename), path)
+    else
+      File.open(path, 'wb') do |f|
+        f.write asset.content.content
+      end
     end
     ftp_path(key, filename)
   end

@@ -23,7 +23,7 @@ describe DownloadsController do
       @file.filename = "Test.MOV"
       @file.save!
       File.unlink('tmp/test_ftp_download/Test.MOV') if File.exists?('tmp/test_ftp_download/Test.MOV')
-      Dir.rmdir('tmp/test_ftp_download') if File.exists?('tmp/test_ftp_download')
+      FileUtils.rm_r('tmp/test_ftp_download') if File.exists?('tmp/test_ftp_download')
     end
 
     it "should give an ftp link if the file is over threshold" do

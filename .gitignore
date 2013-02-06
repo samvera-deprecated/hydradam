@@ -26,3 +26,4 @@ config/redis.yml
 config/initializers/secret_token.rb
 
 spec/mock_upload_directory
+spec/storage
