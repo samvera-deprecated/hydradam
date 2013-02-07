@@ -40,6 +40,7 @@ describe GenericFilesController do
       # And into the storage directory
       GenericFile.find(Solrizer.solr_name("is_part_of",:symbol) => 'info:fedora/sufia:xw42n7934').each do |gf|
         File.exist?(gf.content.filename).should be_true
+        gf.thumbnail.mimeType.should == 'image/png'
       end
     end
     it "should ingest uploaded files"
