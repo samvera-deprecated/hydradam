@@ -16,6 +16,9 @@ describe DownloadsController do
     @file.downloads.size.should == 1
   end
 
+  it "should handle files that are external"
+  it "should handle files that are not external"
+
   describe "for a big file" do
     before do
       @controller.should_receive(:over_threshold?).and_return(true)

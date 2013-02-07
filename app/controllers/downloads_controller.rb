@@ -37,7 +37,12 @@ class DownloadsController < ApplicationController
       ds = default_content_ds(asset) if ds.nil?
       raise ActionController::RoutingError.new('Not Found') if ds.nil? or !ds.has_content?
       opts[:type] = ds.mimeType
-      send_file ds.filename, opts
+      # ds.filename is only for externals
+      if (ds.respond_to? :filename)
+        send_file ds.filename, opts
+      else
+        send_data ds.content, opts
+      end
       return
   end
 
