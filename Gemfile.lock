@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 5d0d784a3660effdc9d5cd3ba2f041afc89d3f22
-  ref: 5d0d784
+  revision: 5d060e5e5783b83dc06ee5c16d397b297c891080
+  ref: 5d060e5
   specs:
     sufia (1.0.0.pre0)
       activerecord-import
@@ -18,12 +18,12 @@ GIT
       nest (= 1.1.1)
       noid (= 0.5.5)
       paperclip (= 3.3.0)
-      rails (~> 3.2.8)
+      rails (~> 3.2.11)
       rails_autolink (= 1.0.9)
       rainbow (= 1.1.4)
       resque (~> 1.23.0)
       resque-pool (= 0.3.0)
-      rmagick (= 2.13.1)
+      rmagick (= 2.13.2)
       sitemap (= 0.3.2)
       yaml_db (= 0.2.3)
       zipruby (= 0.3.6)
@@ -303,7 +303,7 @@ GEM
       trollop (~> 1.16)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rmagick (2.13.1)
+    rmagick (2.13.2)
     rsolr (1.0.8)
       builder (>= 2.1.2)
     rspec-core (2.12.2)
