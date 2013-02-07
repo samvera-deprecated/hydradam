@@ -18,7 +18,8 @@ class IngestLocalFileJob
     raise "Unable to find user for #{user_key}" unless user
     #TODO virus check?
 
-    generic_file.add_file(File.join(directory, filename), 'content', File.basename(filename))
+    generic_file.label = File.basename(filename)
+    generic_file.add_file(File.join(directory, filename), 'content', generic_file.label)
     generic_file.record_version_committer(user)
     generic_file.save!
 

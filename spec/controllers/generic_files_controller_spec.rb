@@ -38,10 +38,13 @@ describe GenericFilesController do
       File.exist?("#{@mock_upload_directory}/sheepb.jpg").should be_false
       File.exist?("#{@mock_upload_directory}/world.png").should be_false
       # And into the storage directory
-      GenericFile.find(Solrizer.solr_name("is_part_of",:symbol) => 'info:fedora/sufia:xw42n7934').each do |gf|
+      files = GenericFile.find(Solrizer.solr_name("is_part_of",:symbol) => 'info:fedora/sufia:xw42n7934')
+      files.each do |gf|
         File.exist?(gf.content.filename).should be_true
         gf.thumbnail.mimeType.should == 'image/png'
       end
+      files.first.label.should == 'world.png'
+      files.last.label.should == 'sheepb.jpg'
     end
     it "should ingest uploaded files"
   end
