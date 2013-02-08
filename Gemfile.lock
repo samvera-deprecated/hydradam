@@ -231,7 +231,7 @@ GEM
     parslet (1.5.0)
       blankslate (~> 2.0)
     polyglot (0.3.3)
-    rack (1.4.4)
+    rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-pjax (0.7.0)
