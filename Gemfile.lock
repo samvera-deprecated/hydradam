@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 34350d3dc541ff7a6928bd12a6687a4e181bf210
-  ref: 34350d3
+  revision: 50e3deb8693628510bf5b195015e281665eab653
+  ref: 50e3deb
   specs:
     sufia (1.0.0.pre0)
       activerecord-import
