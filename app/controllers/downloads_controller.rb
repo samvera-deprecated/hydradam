@@ -13,7 +13,7 @@ class DownloadsController < ApplicationController
         send_content (@asset)
       end
     else 
-      logger.info "Can not read #{params['id']}"
+      logger.info "[DownloadsController] #{current_user.user_key} does not have access to read #{params['id']}"
       redirect_to "/assets/NoAccess.png"
     end
   end

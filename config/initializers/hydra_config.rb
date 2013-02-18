@@ -12,7 +12,7 @@ if Hydra.respond_to?(:configure)
     # You only need to change these values if you've indexed permissions by some means other than the Hydra's built-in tooling.
     # If you change these, you must also update the permissions request handler in your solrconfig.xml to return those value 
 
-    indexer = Solrizer::Descriptor.new(:text, :stored, :indexed, :multivalued)
+    indexer = Solrizer::Descriptor.new(:string, :stored, :indexed, :multivalued)
     config[:permissions] = {
       :discover => {:group =>ActiveFedora::SolrService.solr_name("discover_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("discover_access_person", indexer)},
       :read => {:group =>ActiveFedora::SolrService.solr_name("read_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("read_access_person", indexer)},
