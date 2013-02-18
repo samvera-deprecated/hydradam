@@ -25,7 +25,7 @@ class GenericFile < ActiveFedora::Base
       FileUtils.move(file, path)
     end
     
-    content.dsLocation = "file://#{path}"
+    content.dsLocation = URI.escape("file://#{path}")
     content.mimeType = MIME::Types.type_for(path).first.content_type
     save!
   end

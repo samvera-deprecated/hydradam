@@ -34,7 +34,7 @@ class FileContentDatastream < ActiveFedora::Datastream
   end
 
   def filename
-    dsLocation.sub('file://', '')
+    URI.unescape(dsLocation).sub('file://', '')
   end
 
   # Override so that we can use external files.

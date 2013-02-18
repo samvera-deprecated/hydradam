@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 
 # Gems used only for assets and not required
@@ -21,7 +21,7 @@ gem 'jquery-rails'
 gem 'blacklight'
 #gem 'sufia', '0.0.8'
 #gem 'sufia', path: '../sufia'
-gem 'sufia', github: 'curationexperts/sufia', ref: '50e3deb'
+gem 'sufia', github: 'curationexperts/sufia', ref: '848cedb'
 #gem 'hydra-head', github: 'projecthydra/hydra-head', branch: '6.x'
 #gem 'active-fedora', github: 'projecthydra/active_fedora', ref: '2c172e3' #need pre10+
 #gem 'hydra-head', '6.0.0.pre6'

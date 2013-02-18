@@ -1,4 +1,4 @@
-class FfmpegDatastream < ActiveFedora::NokogiriDatastream
+class FfmpegDatastream < ActiveFedora::OmDatastream
   
   set_terminology do |t|
     t.root(:path => "ffprobe")
