@@ -370,11 +370,11 @@ class CatalogController < ApplicationController
   end
 
   def depositor 
-    solr_name('depositor', :searchable, type: :string)
+    self.class.solr_name('depositor', :searchable, type: :string)
   end
 
   def sort_field
-    "#{solr_name('system_create', :sortable)} desc"
+    "#{self.class.solr_name('system_create', :sortable)} desc"
   end
   
 end
