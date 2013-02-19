@@ -27,6 +27,7 @@ class GenericFile < ActiveFedora::Base
     
     content.dsLocation = URI.escape("file://#{path}")
     content.mimeType = MIME::Types.type_for(path).first.content_type
+    set_title_and_label( file_name, :only_if_blank=>true )
     save!
   end
 

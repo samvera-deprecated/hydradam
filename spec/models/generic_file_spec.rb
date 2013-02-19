@@ -124,14 +124,19 @@ describe GenericFile do
       subject.apply_depositor_metadata('frank')
       subject.stub(:characterize_if_changed).and_yield #don't run characterization
       FileUtils.copy(File.join(fixture_path + '/sample.mov'), File.join(fixture_path + '/my sample.mov'))
+      subject.add_external_file(fixture_path + '/my sample.mov', 'content', 'my sample.mov')
     end
 
     it "should handle files with spaces in them" do
-      subject.add_external_file(fixture_path + '/my sample.mov', 'content', 'my sample.mov')
       # store the URI with spaces escaped to %20
       subject.content.dsLocation.should match /^file:\/\/.*\/__\/DO\/_N\/OT\/_U\/SE\/__\/my%20sample.mov$/
       # But filename should unescape
       subject.content.filename.should match /^\/.*\/__\/DO\/_N\/OT\/_U\/SE\/__\/my sample.mov$/
+    end
+
+    it "should set the label" do
+      subject.label.should == 'my sample.mov'
+
     end
   end
 
