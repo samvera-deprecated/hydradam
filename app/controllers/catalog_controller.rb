@@ -179,7 +179,7 @@ class CatalogController < ApplicationController
       solr_name << solr_name("desc_metadata__file_format", :stored_searchable, type: :string)
       solr_name << 'noid_tsi'
       field.solr_parameters = {
-        :qf => solr_name.join(' ')
+        :qf => solr_name.join(' '),
         :pf => "#{title_name}"
       }
     end
