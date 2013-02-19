@@ -170,10 +170,16 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
     config.add_search_field('all_fields', :label => 'All Fields', :include_in_advanced_search => false) do |field|
       title_name = solr_name("desc_metadata__title", :stored_searchable, type: :string)
-      label_name = solr_name("desc_metadata__title", :stored_searchable, type: :string)
-      contributor_name = solr_name("desc_metadata__contributor", :stored_searchable, type: :string)
+      solr_name = [title_name]
+      solr_name << solr_name("desc_metadata__contributor", :stored_searchable, type: :string)]
+      solr_name << solr_name("desc_metadata__tag", :stored_searchable, type: :string)
+      solr_name << solr_name("desc_metadata__description", :stored_searchable, type: :string)
+      solr_name << solr_name("desc_metadata__creator", :stored_searchable, type: :string)
+      solr_name << solr_name("desc_metadata__resource_type", :stored_searchable, type: :string)
+      solr_name << solr_name("desc_metadata__file_format", :stored_searchable, type: :string)
+      solr_name << 'noid_tsi'
       field.solr_parameters = {
-        :qf => "#{title_name} noid_tsi #{label_name} file_format_tesim #{contributor_name}",
+        :qf => solr_name.join(' ')
         :pf => "#{title_name}"
       }
     end
@@ -192,14 +198,10 @@ class CatalogController < ApplicationController
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-      solr_name = [solr_name("desc_metadata__contributor", :stored_searchable, type: :string)]
-      solr_name << solr_name("desc_metadata__tag", :stored_searchable, type: :string)
-      solr_name << solr_name("desc_metadata__description", :stored_searchable, type: :string)
-      solr_name << solr_name("desc_metadata__creator", :stored_searchable, type: :string)
-      solr_name << solr_name("desc_metadata__resource_type", :stored_searchable, type: :string)
+      solr_name = solr_name("desc_metadata__contributor", :stored_searchable, type: :string)
       field.solr_local_parameters = {
-        :qf => solr_name.join(' '),
-        :pf => solr_name.join(' ')
+        :qf => solr_name,
+        :pf => solr_name
       }
     end
 
