@@ -192,10 +192,14 @@ class CatalogController < ApplicationController
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-      solr_name = solr_name("desc_metadata__contributor", :stored_searchable, type: :string)
+      solr_name = [solr_name("desc_metadata__contributor", :stored_searchable, type: :string)]
+      solr_name << solr_name("desc_metadata__tag", :stored_searchable, type: :string)
+      solr_name << solr_name("desc_metadata__description", :stored_searchable, type: :string)
+      solr_name << solr_name("desc_metadata__creator", :stored_searchable, type: :string)
+      solr_name << solr_name("desc_metadata__resource_type", :stored_searchable, type: :string)
       field.solr_local_parameters = {
-        :qf => solr_name,
-        :pf => solr_name
+        :qf => solr_name.join(' '),
+        :pf => solr_name.join(' ')
       }
     end
 
