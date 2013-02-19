@@ -376,7 +376,7 @@ class CatalogController < ApplicationController
   end
 
   def depositor 
-    self.class.solr_name('depositor', :searchable, type: :string)
+    Hydra.config[:permissions][:owner]
   end
 
   def sort_field
