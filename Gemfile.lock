@@ -1,10 +1,10 @@
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 848cedbce34f7faebb4c554700723b27777c2c12
-  ref: 848cedb
+  revision: b6c798bbe0f14b70ba13cef7ea33161267a8bf71
+  ref: b6c798b
   specs:
     sufia (1.0.0.pre0)
-      activerecord-import
+      activerecord-import (= 0.3.0)
       acts_as_follower (= 0.1.1)
       blacklight (~> 4.0.0)
       blacklight_advanced_search
@@ -12,7 +12,7 @@ GIT
       devise
       font-awesome-sass-rails (~> 2.0)
       hydra-batch-edit (~> 0.1.0)
-      hydra-head (>= 6.0.0.rc1)
+      hydra-head (>= 6.0.0.rc2)
       mail_form
       mailboxer (= 0.8.0)
       nest (= 1.1.1)
@@ -27,29 +27,6 @@ GIT
       sitemap (= 0.3.2)
       yaml_db (= 0.2.3)
       zipruby (= 0.3.6)
-
-GIT
-  remote: git://github.com/projecthydra/hydra-head.git
-  revision: 424152f453a8746891bc720b84d43b48be908b47
-  ref: 424152f
-  specs:
-    hydra-access-controls (6.0.0.rc1)
-      active-fedora (>= 6.0.0.rc2)
-      activesupport
-      blacklight
-      cancan
-      deprecation
-    hydra-core (6.0.0.rc1)
-      active-fedora
-      blacklight (~> 4.0)
-      block_helpers
-      deprecation (>= 0.0.5)
-      hydra-access-controls (= 6.0.0.rc1)
-      rails (~> 3.2.3)
-    hydra-head (6.0.0.rc1)
-      hydra-access-controls (= 6.0.0.rc1)
-      hydra-core (= 6.0.0.rc1)
-      rails (>= 3.2.6)
 
 GEM
   remote: https://rubygems.org/
@@ -88,7 +65,7 @@ GEM
       activesupport (= 3.2.12)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activerecord-import (0.3.1)
+    activerecord-import (0.3.0)
       activerecord (~> 3.0)
       activerecord (~> 3.0)
     activeresource (3.2.12)
@@ -165,8 +142,25 @@ GEM
     haml (3.1.8)
     hike (1.2.1)
     hooks (0.2.2)
+    hydra-access-controls (6.0.0.rc2)
+      active-fedora (>= 6.0.0.rc2)
+      activesupport
+      blacklight
+      cancan
+      deprecation
     hydra-batch-edit (0.1.0)
       blacklight
+    hydra-core (6.0.0.rc2)
+      active-fedora
+      blacklight (~> 4.0)
+      block_helpers
+      deprecation (>= 0.0.5)
+      hydra-access-controls (= 6.0.0.rc2)
+      rails (~> 3.2.3)
+    hydra-head (6.0.0.rc2)
+      hydra-access-controls (= 6.0.0.rc2)
+      hydra-core (= 6.0.0.rc2)
+      rails (>= 3.2.6)
     i18n (0.6.1)
     jettywrapper (1.3.2)
       activesupport (>= 3.0.0)
@@ -381,7 +375,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.3)
   factory_girl_rails
-  hydra-head!
+  hydra-head
   jettywrapper
   jquery-rails
   mysql2
