@@ -171,7 +171,7 @@ class CatalogController < ApplicationController
     config.add_search_field('all_fields', :label => 'All Fields', :include_in_advanced_search => false) do |field|
       title_name = solr_name("desc_metadata__title", :stored_searchable, type: :string)
       solr_name = [title_name]
-      solr_name << solr_name("desc_metadata__contributor", :stored_searchable, type: :string)]
+      solr_name << solr_name("desc_metadata__contributor", :stored_searchable, type: :string)
       solr_name << solr_name("desc_metadata__tag", :stored_searchable, type: :string)
       solr_name << solr_name("desc_metadata__description", :stored_searchable, type: :string)
       solr_name << solr_name("desc_metadata__creator", :stored_searchable, type: :string)
