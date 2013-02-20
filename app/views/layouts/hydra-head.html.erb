@@ -67,7 +67,7 @@ limitations under the License.
         </div>
       <% else %>
         <div class="span20">
-          <%= sidebar_items.join('').html_safe %> 
+          <%= yield :sidebar %>
         </div>
         <% if column_class == "three" %>
           <div class="span63">
