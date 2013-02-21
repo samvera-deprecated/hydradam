@@ -8,7 +8,7 @@ describe GenericFilesController do
   end
   describe "#show" do
     before do
-      @file = GenericFile.new
+      @file = GenericFile.new(title: 'The title')
       @file.apply_depositor_metadata(@user.user_key)
       @file.save!
     end
@@ -17,6 +17,12 @@ describe GenericFilesController do
       get :show, id: @file
       response.should be_successful
       @file.views.size.should == 1
+    end
+
+    it "should show xml" do
+      get :show, id: @file, format: 'xml'
+      response.should be_successful
+      Nokogiri::XML(response.body).xpath('/pbcoreDescriptionDocument/pbcoreTitle').text.should == 'The title'
     end
   end
 

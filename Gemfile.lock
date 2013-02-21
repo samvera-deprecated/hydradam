@@ -6,10 +6,8 @@ GIT
     hydra-pbcore (2.0.0)
       active-fedora
 
-GIT
-  remote: git://github.com/curationexperts/sufia.git
-  revision: 047f88314076aee093461d86485e7f33f03f9d0c
-  ref: 047f883
+PATH
+  remote: ../sufia
   specs:
     sufia (1.0.0.pre0)
       activerecord-import (= 0.3.0)

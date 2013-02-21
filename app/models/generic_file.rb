@@ -94,7 +94,7 @@ class GenericFile < ActiveFedora::Base
 
   ### Map  location[].locationName -> based_near[]
   def based_near
-    descMetadata.location.map(&:location_name).flatten
+    descMetadata.has_location.map(&:location_name).flatten
   end
 
   ### Map creator[] -> creator[].name

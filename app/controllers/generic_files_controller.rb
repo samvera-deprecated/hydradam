@@ -7,6 +7,16 @@ class GenericFilesController < ApplicationController
     @generic_file.views.create!(user: current_or_guest_user)
   end
 
+  # routed to /files/:id
+  def show
+    respond_to do |format|
+      format.html {
+        @events = @generic_file.events(100)
+      }
+      format.xml { render :xml => @generic_file.to_pbcore_xml }
+    end
+  end
+
   # routed to /files (POST)
   def create
     if params[:local_file].present?
