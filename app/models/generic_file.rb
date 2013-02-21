@@ -77,75 +77,40 @@ class GenericFile < ActiveFedora::Base
     save unless self.new_object?
   end
 
-  ### Map  creator[].name -> creator[]
-  def creator
-    descMetadata.creator.map(&:name).flatten
-  end
-
-  ### Map  contributor[].name -> contributor[]
-  def contributor
-    descMetadata.contributor.map(&:name).flatten
-  end
-
-  ### Map  publisher[].name -> publisher[]
-  def publisher
-    descMetadata.publisher.map(&:name).flatten
-  end
-
   ### Map  location[].locationName -> based_near[]
   def based_near
-    descMetadata.has_location.map(&:location_name).flatten
+    descMetadata.has_location #.map(&:location_name).flatten
   end
 
   ### Map creator[] -> creator[].name
-  def creator=(creator_names)
-    existing_creators = descMetadata.creator
-    descMetadata.creator = [] if existing_creators.size > creator_names.size
-    Array(creator_names).each_with_index do |name, index|
-      creator = descMetadata.creator[index]
-      if creator.nil?
-        creator = descMetadata.creator.build
-      end
-      creator.name = name
-    end
+  # @param [Array,String] creator_properties a list of hashes with role and name or just names
+  def creator=(creator_properties)
+    assign_member_with_name_and_role(:creator, creator_properties)
   end
 
   ### Map contributor[] -> contributor[].name
-  def contributor=(contributor_names)
-    existing_contributors = descMetadata.contributor
-    descMetadata.contributor = [] if existing_contributors.size > contributor_names.size
-    Array(contributor_names).each_with_index do |name, index|
-      contributor = descMetadata.contributor[index]
-      if contributor.nil?
-        contributor = descMetadata.contributor.build
-      end
-      contributor.name = name
-    end
+  # @param [Array,String] contributor_properties a list of hashes with role and name or just names
+  def contributor=(contributor_properties)
+    assign_member_with_name_and_role(:contributor, contributor_properties)
   end
 
   ### Map publisher[] -> publisher[].name
-  def publisher=(names)
-    existing = descMetadata.publisher
-    descMetadata.publisher = [] if existing.size > names.size
-    Array(names).each_with_index do |name, index|
-      obj = descMetadata.publisher[index]
-      if obj.nil?
-        obj = descMetadata.publisher.build
-      end
-      obj.name = name
-    end
+  # @param [Array,String] publisher_properties a list of hashes with role and name or just names
+  def publisher=(publisher_properties)
+    assign_member_with_name_and_role(:publisher, publisher_properties)
   end
 
   ### Map based_near[] -> has_location[].locationName
-  def based_near=(names)
+  # @param [Array] vals a list of hashes with location_name
+  def based_near=(vals)
     existing = descMetadata.has_location
-    descMetadata.has_location = [] if existing.size > names.size
-    Array(names).each_with_index do |name, index|
+    descMetadata.has_location = [] if existing.size > vals.size
+    Array(vals).each_with_index do |val, index|
       obj = descMetadata.has_location[index]
       if obj.nil?
         obj = descMetadata.has_location.build
       end
-      obj.location_name = name
+      obj.location_name = val['location_name']
     end
   end
 
@@ -172,5 +137,24 @@ class GenericFile < ActiveFedora::Base
     doc.to_xml
 
   end
+
+  private 
+  def assign_member_with_name_and_role(field, values)
+    existing = descMetadata.send field
+    descMetadata.send(field.to_s + '=', []) if existing.size > values.size
+    Array(values).each_with_index do |val, index|
+      obj = existing[index]
+      if obj.nil?
+        obj = existing.build
+      end
+      if (val.kind_of? String) 
+        obj.name = val
+      else
+        obj.name = val['name']
+        obj.role = val['role']
+      end
+    end
+  end
+
 
 end

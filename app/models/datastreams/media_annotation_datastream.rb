@@ -123,7 +123,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
 
   def store_in_solr_doc(solr_doc, name, value, *types)
     types.each do |type|
-      solr_doc[ActiveFedora::SolrService.solr_name(prefix('based_near'), *type)] = value
+      solr_doc[ActiveFedora::SolrService.solr_name(prefix(name), *type)] = value
     end
   end
 end

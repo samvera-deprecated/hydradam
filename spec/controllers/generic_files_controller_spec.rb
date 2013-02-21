@@ -38,6 +38,7 @@ describe GenericFilesController do
       GenericFile.destroy_all
     end
     it "should ingest files from the filesystem" do
+      #TODO this test is very slow.
       lambda { post :create, local_file: ["world.png", "sheepb.jpg"], batch_id: "xw42n7934"}.should change(GenericFile, :count).by(2)
       response.should redirect_to Sufia::Engine.routes.url_helpers.batch_edit_path('xw42n7934')
       # These files should have been moved out of the upload directory
@@ -61,12 +62,18 @@ describe GenericFilesController do
       @file.apply_depositor_metadata(@user.user_key)
       @file.save!
     end
-    it "should update the creator" do
-      post :update, id: @file, generic_file: {creator: ["Frank", "Dave"] }
+    it "should update the creator and location" do
+      post :update, id: @file, generic_file: {
+           creator: [{"name" => "Frank", "role"=>"Producer"}, {"name"=>"Dave", "role"=>"Director"}],
+           based_near:[{'location_name' => 'France'} ] 
+          }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
       @file.descMetadata.creator[0].name.should == ['Frank']
+      @file.descMetadata.creator[0].role.should == ['Producer']
       @file.descMetadata.creator[1].name.should == ['Dave']
+      @file.descMetadata.creator[1].role.should == ['Director']
+      @file.descMetadata.has_location[0].location_name.should == ['France']
       
     end
   end
