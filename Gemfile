@@ -24,6 +24,8 @@ gem 'sufia', github: 'curationexperts/sufia', ref: '047f883'
 #gem 'hydra-head', github: 'projecthydra/hydra-head', ref: '424152f'
 #gem 'hydra-head', '6.0.0.pre6'
 gem 'hydra-head'
+gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
+#gem 'hydra-pbcore', :path=>'../hydra-pbcore'
 
 gem 'rails_admin'
 

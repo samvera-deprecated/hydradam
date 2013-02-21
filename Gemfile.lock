@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/curationexperts/hydra-pbcore.git
+  revision: 61be35be9eefa7fa6d83152ffff8687f6eb650a8
+  branch: devel
+  specs:
+    hydra-pbcore (2.0.0)
+      active-fedora
+
+GIT
   remote: git://github.com/curationexperts/sufia.git
   revision: 047f88314076aee093461d86485e7f33f03f9d0c
   ref: 047f883
@@ -376,6 +384,7 @@ DEPENDENCIES
   devise-guests (~> 0.3)
   factory_girl_rails
   hydra-head
+  hydra-pbcore!
   jettywrapper
   jquery-rails
   mysql2

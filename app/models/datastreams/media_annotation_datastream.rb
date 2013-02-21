@@ -4,8 +4,15 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   
     map.contributor(:in=> RDF::EbuCore, :to=>'hasContributor', :class_name=>'Person')
     map.creator(:in=> RDF::EbuCore, :to=>'hasCreator', :class_name=>'Person')
-    map.publication_events(:in=> RDF::EbuCore, :to=>'hasPublicationEvent', :class_name=>'Event')
+    map.publisher(:in=> RDF::EbuCore, :to=>'hasPublisher', :class_name=>'Person')
+    #map.publication_events(:in=> RDF::EbuCore, :to=>'hasPublicationEvent', :class_name=>'Event')
     map.video_tracks(:in=> RDF::EbuCore, :to=>'hasVideoTrack', :class_name=>'Video')
+
+    # TODO the whole thing is a MediaResource - add filename, fileByteSize, hasFormat
+    # TODO to video tracks add bitRate
+
+    # location is already defined as a method name on Datastream, so we use has_location
+    map.has_location(:in => RDF::EbuCore, :to=>'hasLocation', :class_name=>'Location')
 
     map.title(:in => RDF::EbuCore) do |index|
       index.as :stored_searchable
@@ -24,10 +31,6 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     end
 
     map.format(:in => RDF::EbuCore, :to=>'hasFormat') do |index|
-      index.as :stored_searchable
-    end
-
-    map.publisher(:in => RDF::EbuCore, :to=>'hasPublisher') do |index|
       index.as :stored_searchable
     end
 
@@ -62,9 +65,6 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable, :facetable
     end
 
-    map.based_near(:in => RDF::FOAF) do |index|
-      index.as :stored_searchable, :facetable
-    end
 
     map.tag(:to => "isRelatedTo", :in => RDF::EbuCore) do |index|
       index.as :stored_searchable, :facetable
@@ -84,6 +84,16 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     end
   end
 
+  class Location
+    include ActiveFedora::RdfObject
+    rdf_type 'http://www.ebu.ch/metadata/ontologies/ebucore#Location'
+    map_predicates do |map|
+      map.location_name(:in => RDF::EbuCore, :to=>'locationName') do |index|
+        index.as :stored_searchable, :facetable
+      end
+    end
+  end
+
   after_initialize :default_values
 
   def default_values
@@ -100,6 +110,18 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     solr_doc[ActiveFedora::SolrService.solr_name(prefix('creator'), :stored_searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('creator'), :facetable)] = creators
     contributors = self.contributor.map { |c| c.name }.flatten
     solr_doc[ActiveFedora::SolrService.solr_name(prefix('contributor'), :stored_searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('contributor'), :facetable)] = contributors
+    publishers = self.publisher.map { |c| c.name }.flatten
+    solr_doc[ActiveFedora::SolrService.solr_name(prefix('publisher'), :stored_searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('publisher'), :facetable)] = publishers
+
+    based_near = self.has_location.map { |c| c.location_name }.flatten
+    store_in_solr_doc(solr_doc, 'based_near', based_near, [:stored_searchable, type: :text], :facetable)
+#    solr_doc[ActiveFedora::SolrService.solr_name(prefix('based_near'), :stored_searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('based_near'), :facetable)] = based_near
     solr_doc
+  end
+
+  def store_in_solr_doc(solr_doc, name, value, *types)
+    types.each do |type|
+      solr_doc[ActiveFedora::SolrService.solr_name(prefix('based_near'), *type)] = value
+    end
   end
 end

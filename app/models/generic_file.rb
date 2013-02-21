@@ -87,6 +87,16 @@ class GenericFile < ActiveFedora::Base
     descMetadata.contributor.map(&:name).flatten
   end
 
+  ### Map  publisher[].name -> publisher[]
+  def publisher
+    descMetadata.publisher.map(&:name).flatten
+  end
+
+  ### Map  location[].locationName -> based_near[]
+  def based_near
+    descMetadata.location.map(&:location_name).flatten
+  end
+
   ### Map creator[] -> creator[].name
   def creator=(creator_names)
     existing_creators = descMetadata.creator
@@ -113,6 +123,54 @@ class GenericFile < ActiveFedora::Base
     end
   end
 
-  private
+  ### Map publisher[] -> publisher[].name
+  def publisher=(names)
+    existing = descMetadata.publisher
+    descMetadata.publisher = [] if existing.size > names.size
+    Array(names).each_with_index do |name, index|
+      obj = descMetadata.publisher[index]
+      if obj.nil?
+        obj = descMetadata.publisher.build
+      end
+      obj.name = name
+    end
+  end
+
+  ### Map based_near[] -> has_location[].locationName
+  def based_near=(names)
+    existing = descMetadata.has_location
+    descMetadata.has_location = [] if existing.size > names.size
+    Array(names).each_with_index do |name, index|
+      obj = descMetadata.has_location[index]
+      if obj.nil?
+        obj = descMetadata.has_location.build
+      end
+      obj.location_name = name
+    end
+  end
+
+  def to_pbcore_xml
+    doc = HydraPbcore::Datastream::Document.new
+    doc.main_title = title[0]
+    doc.alternative_title = title[1]
+    descMetadata.creator.each do |c|
+      doc.insert_creator c.name.first, c.role.first
+    end
+    descMetadata.contributor.each do |c|
+      doc.insert_contributor c.name.first, c.role.first
+    end
+    descMetadata.publisher.each do |c|
+      doc.insert_publisher c.name.first, c.role.first
+    end
+    descMetadata.has_location.each do |l|
+      doc.insert_place l.location_name.first
+    end
+
+    doc.insert_date(date_created.first)
+    doc.asset_type = resource_type.to_a
+
+    doc.to_xml
+
+  end
 
 end

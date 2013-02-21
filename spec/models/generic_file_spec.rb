@@ -140,5 +140,72 @@ describe GenericFile do
     end
   end
 
+  describe "#to_pbcore_xml" do
+    before do
+      subject.title = ["title one", "second title"]
+      c = subject.descMetadata.contributor.build
+      c.name = "Fred"
+      c.role = "Carpenter"
+      c = subject.descMetadata.creator.build
+      c.name = "Sally"
+      c.role = "Author"
+
+      c = subject.descMetadata.publisher.build
+      c.name = "Kelly"
+      c.role = "Distributor"
+
+      location = subject.descMetadata.has_location.build
+      location.location_name = "France"
+
+      subject.date_created = ["Sept 2009"]
+      subject.resource_type = ['Scene']
+    end
+    it "should have a title" do
+      str = subject.to_pbcore_xml
+      puts str
+      xml = Nokogiri::XML(str)
+      # pbcoretitle
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Main"]').text.should == "title one"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Alternative"]').text.should == "second title"
+      # pbcorecreator
+      #   creator
+      #   TODO creatorrole
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator/creator').text.should == "Sally"
+      # pbcorecontributor
+      #   contributor
+      #   TODO contributorrole Source is MARC?
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreContributor/contributor').text.should == "Fred"
+      # pbcorepublisher
+      #   publisher
+      #   TODO publisherrole
+      xml.xpath('/pbcoreDescriptionDocument/pbcorePublisher/publisher').text.should == "Kelly"
+
+      # pbcoreCoverage
+      #   coverage
+      #   coveragetype
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage').text.should == "France"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage').text.should == "Sept 2009"
+      
+      # pbcoreAssetType
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetType').text.should == "Scene"
+
+      # pbcoreassetdate
+      # pbcoreidentifier
+      # pbcoresubject
+      # pbcoredescription
+      # pbcoregenre
+      # pbcorerelation
+      # pbcorerelationtype
+      # pbcorerelationidentifier
+      # pbcoreaudiencelevel
+      # pbcoreaudiencerating
+      # pbcoreannotation
+      # pbcorerightssummary
+      #   rightssummary
+      #   rightslink
+      #   rightsembedded
+    end
+  end
+
 
 end

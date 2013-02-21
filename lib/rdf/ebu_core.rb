@@ -32,6 +32,8 @@ module RDF
     property :hasCreator
     property :locator
     property :hasCoverage
+    property :hasLocation
+    property :locationName
 
     property :identifier
     property :hasVideoTrack
