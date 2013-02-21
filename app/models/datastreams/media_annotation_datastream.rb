@@ -107,15 +107,17 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   def to_solr(solr_doc = {})
     solr_doc = super
     creators = self.creator.map { |c| c.name }.flatten
-    solr_doc[ActiveFedora::SolrService.solr_name(prefix('creator'), :stored_searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('creator'), :facetable)] = creators
+    store_in_solr_doc(solr_doc, 'creator', creators, [:stored_searchable, type: :text], :facetable)
+
     contributors = self.contributor.map { |c| c.name }.flatten
-    solr_doc[ActiveFedora::SolrService.solr_name(prefix('contributor'), :stored_searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('contributor'), :facetable)] = contributors
+    store_in_solr_doc(solr_doc, 'contributor', contributors, [:stored_searchable, type: :text], :facetable)
+
     publishers = self.publisher.map { |c| c.name }.flatten
-    solr_doc[ActiveFedora::SolrService.solr_name(prefix('publisher'), :stored_searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('publisher'), :facetable)] = publishers
+    store_in_solr_doc(solr_doc, 'publisher', publishers, [:stored_searchable, type: :text], :facetable)
 
     based_near = self.has_location.map { |c| c.location_name }.flatten
     store_in_solr_doc(solr_doc, 'based_near', based_near, [:stored_searchable, type: :text], :facetable)
-#    solr_doc[ActiveFedora::SolrService.solr_name(prefix('based_near'), :stored_searchable, type: :text)] = solr_doc[ActiveFedora::SolrService.solr_name(prefix('based_near'), :facetable)] = based_near
+
     solr_doc
   end
 
