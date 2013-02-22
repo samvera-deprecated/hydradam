@@ -52,7 +52,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-fedora (6.0.0.rc2)
+    active-fedora (6.0.0.rc3)
       activeresource (>= 3.0.0)
       activesupport (>= 3.0.0)
       builder (~> 3.0.0)
