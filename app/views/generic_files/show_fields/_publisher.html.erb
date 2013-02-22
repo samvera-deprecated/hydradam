@@ -2,7 +2,7 @@
           <th>Publisher</th>
           <td>
             <% @generic_file.publisher.each do |pub| %>
-              <%= link_to_facet(Array(pub.name).first, 'desc_metadata__publisher_facet') %><br />
+              <%= link_to_facet(Array(pub.name).first.to_s, 'desc_metadata__publisher_facet') %><br />
             <% end %>
           </td>
         </tr>
