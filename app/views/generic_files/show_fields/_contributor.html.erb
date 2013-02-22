@@ -2,7 +2,7 @@
           <th>Contributor</th>
           <td>
             <% @generic_file.contributor.each do |contributor| %>
-              <%= link_to_field('contributor', contributor.name.first) %><br />
+              <%= link_to_field('contributor', Array(contributor.name).first) %><br />
             <% end %>
           </td>
         </tr>
