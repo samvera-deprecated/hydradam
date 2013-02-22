@@ -39,6 +39,8 @@ class GenericFilesController < ApplicationController
     filename = params[:local_file][0]
     params[:local_file].each do |filename|
       @generic_file = GenericFile.new
+      #TODO Test this
+      @generic_file.set_title_and_label( file_name, :only_if_blank=>true )
       Sufia::GenericFile::Actions.create_metadata(@generic_file, current_user, params[:batch_id] )
       Sufia.queue.push(IngestLocalFileJob.new(@generic_file.id, current_user.directory, filename, current_user.user_key))
     end
