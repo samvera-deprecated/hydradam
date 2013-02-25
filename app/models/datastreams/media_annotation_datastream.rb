@@ -97,7 +97,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   after_initialize :default_values
 
   def default_values
-    #self.format = "Video" unless self.format.present?
+    self.format = "Video" unless self.format.present?
   end
 
   LocalAuthority.register_vocabulary(self, "subject", "lc_subjects")

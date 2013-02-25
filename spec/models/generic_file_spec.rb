@@ -18,14 +18,14 @@ describe GenericFile do
   describe "terms_for_editing" do
     it "should return a list" do
       subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, :publisher,
-       :date_created, :subject, :language, :rights, :identifier, :based_near, :tag, :related_url]
+       :date_created, :subject, :language, :rights, :identifier, :has_location, :tag, :related_url]
     end
   end
   describe "terms_for_display" do
     it "should return a list" do
       subject.terms_for_display.should == [ :part_of, :contributor, :creator, :title, :description, 
         :publisher, :date_created, :date_uploaded, :date_modified,:subject, :language, :rights, 
-        :resource_type, :identifier, :based_near, :tag, :related_url]
+        :resource_type, :identifier, :has_location, :tag, :related_url]
     end
   end
   describe "contributor attribute" do
