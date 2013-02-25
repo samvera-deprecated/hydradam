@@ -32,6 +32,19 @@ class GenericFilesController < ApplicationController
     end
   end
 
+
+  protected
+
+  # overriding this method to initialize more complex RDF assertions (b-nodes)
+  def initialize_fields(file)
+    file.publisher.build if file.publisher.empty?
+    file.contributor.build if file.contributor.empty?
+    file.creator.build if file.creator.empty?
+    file.has_location.build if file.has_location.empty?
+    super
+  end
+  
+
   private
 
   def ingest_local_file

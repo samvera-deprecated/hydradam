@@ -111,10 +111,7 @@ describe GenericFile do
       solr_doc[Solrizer.solr_name('mime_type')].should == ["image/jpeg"]    
       #solr_doc[Solrizer.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
       solr_doc["noid_tsi"].should == "__DO_NOT_USE__"
-      
-      
     end
-
   end
 
 
@@ -166,6 +163,25 @@ describe GenericFile do
 
       subject.date_created = ["Sept 2009"]
       subject.resource_type = ['Scene']
+
+
+
+      subject.ffprobe.content = '<ffprobe>
+  <streams>
+    <stream avg_frame_rate="2997/100" bit_rate="7664514" codec_long_name="H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10" codec_name="h264" codec_tag="0x31637661" codec_tag_string="avc1" codec_time_base="1/5994" codec_type="video" display_aspect_ratio="0:1" duration="16.016016" duration_ts="48000" has_b_frames="0" height="1080" index="0" is_avc="1" level="41" nal_length_size="4" nb_frames="480" pix_fmt="yuv420p" profile="Main" r_frame_rate="2997/100" sample_aspect_ratio="0:1" start_pts="0" start_time="0.000000" time_base="1/2997" width="1920">
+      <disposition attached_pic="0" clean_effects="0" comment="0" default="0" dub="0" forced="0" hearing_impaired="0" karaoke="0" lyrics="0" original="0" visual_impaired="0"></disposition>
+      <tag key="creation_time" value="2013-01-28 16:53:25"></tag>
+      <tag key="language" value="eng"></tag>
+      <tag key="handler_name" value="Apple Alias Data Handler"></tag>
+    </stream>
+    <stream avg_frame_rate="0/0" bit_rate="26935" bits_per_sample="0" channels="2" codec_long_name="AAC (Advanced Audio Coding)" codec_name="aac" codec_tag="0x6134706d" codec_tag_string="mp4a" codec_time_base="1/44100" codec_type="audio" duration="16.021769" duration_ts="706560" index="1" nb_frames="690" r_frame_rate="0/0" sample_fmt="fltp" sample_rate="44100" start_pts="0" start_time="0.000000" time_base="1/44100">
+      <disposition attached_pic="0" clean_effects="0" comment="0" default="0" dub="0" forced="0" hearing_impaired="0" karaoke="0" lyrics="0" original="0" visual_impaired="0"></disposition>
+      <tag key="creation_time" value="2013-01-28 16:53:25"></tag>
+      <tag key="language" value="eng"></tag>
+      <tag key="handler_name" value="Apple Alias Data Handler"></tag>
+    </stream>
+  </streams>
+</ffprobe>'
     end
     it "should have a title" do
       str = subject.to_pbcore_xml
@@ -176,16 +192,16 @@ describe GenericFile do
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Alternative"]').text.should == "second title"
       # pbcorecreator
       #   creator
-      #   TODO creatorrole
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator/creator').text.should == "Sally"
+      #   creatorrole
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
       # pbcorecontributor
       #   contributor
       #   TODO contributorrole Source is MARC?
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreContributor/contributor').text.should == "Fred"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreContributor[contributorRole="Carpenter"]/contributor').text.should == "Fred"
       # pbcorepublisher
       #   publisher
-      #   TODO publisherrole
-      xml.xpath('/pbcoreDescriptionDocument/pbcorePublisher/publisher').text.should == "Kelly"
+      #   publisherrole
+      xml.xpath('/pbcoreDescriptionDocument/pbcorePublisher[publisherRole="Distributor"]/publisher').text.should == "Kelly"
 
       # pbcoreCoverage
       #   coverage
@@ -196,21 +212,70 @@ describe GenericFile do
       # pbcoreAssetType
       xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetType').text.should == "Scene"
 
-      # pbcoreassetdate
-      # pbcoreidentifier
-      # pbcoresubject
-      # pbcoredescription
-      # pbcoregenre
-      # pbcorerelation
-      # pbcorerelationtype
-      # pbcorerelationidentifier
-      # pbcoreaudiencelevel
-      # pbcoreaudiencerating
-      # pbcoreannotation
-      # pbcorerightssummary
+      # pbcoreassetdate TODO
+      # pbcoreidentifier TODO
+      # pbcoresubject TODO
+      # pbcoredescription TODO
+      # pbcoregenre TODO
+      # pbcorerelation TODO
+      # pbcorerelationtype TODO
+      # pbcorerelationidentifier TODO
+      # pbcoreaudiencelevel TODO
+      # pbcoreaudiencerating TODO
+      # pbcoreannotation TODO
+      # pbcorerightssummary TODO
       #   rightssummary
       #   rightslink
       #   rightsembedded
+
+      # pbcoreInstantiation
+      # instantiationIdentifier
+      # instantiationDate
+      # instantiationDimensions
+      # instantiationPhysical
+      # instantiationDigital
+      # instantiationStandard
+      # instantiationLocation
+      # instantiationMediaType
+      # instantiationGenerations
+      # instantiationFileSize
+      # instantiationTimeStart
+      # instantiationDuration
+      # instantiationDataRate
+      # instantiationColors
+      # instantiationTracks
+      # instantiationChannelConfiguration
+      # instantiationLanguage
+      # instantiationAlternativeModes
+      # instantiationEssenceTrack
+
+      # essenceTrackType
+      # essenceTrackIdentifier
+      # essenceTrackStandard
+      # essenceTrackEncoding
+      # essenceTrackDataRate
+      # essenceTrackFrameRate
+      # essenceTrackPlaybackSpeed
+      # essenceTrackSamplingRate
+      # essenceTrackBitDepth
+      # essenceTrackFrameSize
+      # essenceTrackAspectRatio
+      # essenceTrackTimeStart
+      # essenceTrackDuration
+      # essenceTrackLanguage
+      # essenceTrackAnnotation
+      # essenceTrackExtension
+      # instantiationRelation
+      # instantiationRelationType
+      # instantiationRelationIdentifier
+      # instantiationRights
+      # rightsSummary
+      # rightsLink
+      # rightsEmbedded
+      # instantiationAnnotation
+      # instantiationPart
+      # instantiationExtension
+
     end
   end
 

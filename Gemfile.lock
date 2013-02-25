@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: c87a214c1105e2bda93aaf84e5dfd5d67cd29c79
-  ref: c87a214
+  revision: 42d464ae6c796af98819a91e692099ca5293f177
+  ref: 42d464a
   specs:
     sufia (1.0.0.pre0)
       activerecord-import (= 0.3.0)
@@ -31,10 +31,29 @@ GIT
       rainbow (= 1.1.4)
       resque (~> 1.23.0)
       resque-pool (= 0.3.0)
-      rmagick (= 2.13.2)
+      rmagick
       sitemap (= 0.3.2)
       yaml_db (= 0.2.3)
       zipruby (= 0.3.6)
+
+GIT
+  remote: git://github.com/projecthydra/active_fedora.git
+  revision: daf98acee2ea5861409cf7a5939497a2be7244c2
+  ref: daf98ac
+  specs:
+    active-fedora (6.0.0.rc3)
+      activeresource (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      builder (~> 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 1.9.0.pre1)
+      rdf
+      rdf-rdfxml (~> 1.0.0)
+      rsolr
+      rubydora (~> 1.4)
+      solrizer (~> 3.0.0.pre7)
 
 GEM
   remote: https://rubygems.org/
@@ -52,19 +71,6 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-fedora (6.0.0.rc3)
-      activeresource (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      builder (~> 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 1.9.0.pre1)
-      rdf
-      rdf-rdfxml (~> 1.0.0)
-      rsolr
-      rubydora (~> 1.4)
-      solrizer (~> 3.0.0.pre7)
     activemodel (3.2.12)
       activesupport (= 3.2.12)
       builder (~> 3.0.0)
@@ -85,7 +91,7 @@ GEM
     acts_as_follower (0.1.1)
     addressable (2.3.3)
     arel (3.0.2)
-    backports (2.8.2)
+    backports (3.0.3)
     bcrypt-ruby (3.0.1)
     blacklight (4.0.1)
       bootstrap-sass (~> 2.2.0)
@@ -276,7 +282,7 @@ GEM
       thor (>= 0.14.6, < 2.0)
     rainbow (1.1.4)
     rake (10.0.3)
-    rdf (1.0.1)
+    rdf (1.0.2)
       addressable (>= 2.2)
     rdf-rdfxml (1.0.0)
       rdf (>= 1.0)
@@ -332,7 +338,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    sinatra (1.3.4)
+    sinatra (1.3.5)
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
@@ -377,6 +383,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active-fedora!
   blacklight
   bootstrap-sass
   coffee-rails (~> 3.2.1)

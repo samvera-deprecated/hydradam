@@ -5,8 +5,18 @@ class GenericFile < ActiveFedora::Base
   include Open3
 
   has_metadata 'ffprobe', type: FfmpegDatastream
-  has_metadata 'descMetadata', :type => MediaAnnotationDatastream
-  has_file_datastream :name => "content", :type => FileContentDatastream, :control_group=>'E'
+  has_metadata 'descMetadata', type: MediaAnnotationDatastream
+  has_file_datastream "content", type: FileContentDatastream, control_group: 'E'
+
+  before_save :remove_blank_assertions
+
+  delegate :has_location, to: 'descMetadata'
+
+  def remove_blank_assertions
+    terms_for_editing.each do |key|
+      self[key] = nil if self[key] == ['']
+    end
+  end
 
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
@@ -64,7 +74,7 @@ class GenericFile < ActiveFedora::Base
   def terms_for_display
     [ :part_of, :contributor, :creator, :title, :description, 
         :publisher, :date_created, :date_uploaded, :date_modified,:subject, :language, :rights, 
-        :resource_type, :identifier, :based_near, :tag, :related_url]
+        :resource_type, :identifier, :has_location, :tag, :related_url]
   end
   
   ## Extract the metadata from the content datastream and record it in the characterization datastream
@@ -102,7 +112,7 @@ class GenericFile < ActiveFedora::Base
 
   ### Map based_near[] -> has_location[].locationName
   # @param [Array] vals a list of hashes with location_name
-  def based_near=(vals)
+  def has_location=(vals)
     existing = descMetadata.has_location
     descMetadata.has_location = [] if existing.size > vals.size
     Array(vals).each_with_index do |val, index|
