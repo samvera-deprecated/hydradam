@@ -18,7 +18,7 @@ describe GenericFile do
   describe "terms_for_editing" do
     it "should return a list" do
       subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, :publisher,
-       :date_created, :subject, :language, :rights, :identifier, :has_location, :tag, :related_url]
+       :date_created, :subject, :language, :rights, :resource_type, :identifier, :has_location, :tag, :related_url]
     end
   end
   describe "terms_for_display" do
@@ -112,6 +112,7 @@ describe GenericFile do
       #solr_doc[Solrizer.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
       solr_doc["noid_tsi"].should == "__DO_NOT_USE__"
     end
+
   end
 
 
@@ -276,6 +277,40 @@ describe GenericFile do
       # instantiationPart
       # instantiationExtension
 
+    end
+    describe "with audio data" do
+      before do
+        subject.ffprobe.content = '
+            <ffprobe>
+              <streams>
+                <stream avg_frame_rate="0/0" bit_rate="768000" bits_per_sample="16" channels="1" codec_long_name="PCM signed 16-bit little-endian" codec_name="pcm_s16le" codec_tag="0x0001" codec_tag_string="[1][0][0][0]" codec_time_base="1/48000" codec_type="audio" duration="3583.318000" duration_ts="171999264" index="0" r_frame_rate="0/0" sample_fmt="s16" sample_rate="48000" time_base="1/48000">
+                  <disposition attached_pic="0" clean_effects="0" comment="0" default="0" dub="0" forced="0" hearing_impaired="0" karaoke="0" lyrics="0" original="0" visual_impaired="0"></disposition>
+                </stream>
+              </streams>
+            </ffprobe>
+            '
+
+         subject.content.dsLocation = 'file:///opt/storage/one/two/three/fake.wav'
+         subject.stub(:file_size).and_return(["343998572"])
+         subject.stub(:duration).and_return(["0:59:43:318"])
+         subject.stub(:audio?).and_return(true)
+      end
+
+      it "should have instantiation info" do
+        str = subject.to_pbcore_xml
+        puts str
+        xml = Nokogiri::XML(str)
+        # pbcoretitle
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier').text.should == subject.noid
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "/opt/storage/one/two/three/fake.wav"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "0:59:43:318"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text.should == "343998572"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text.should == "Sound"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackType').text.should == "Audio"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/dataRate').text.should == "768000"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/samplingRate').text.should == "48000"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/bitDepth').text.should == "16"
+      end
     end
   end
 

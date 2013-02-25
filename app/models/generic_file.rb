@@ -137,6 +137,78 @@ class GenericFile < ActiveFedora::Base
     doc.insert_date(date_created.first)
     doc.asset_type = resource_type.to_a
 
+
+    instantiation = Nokogiri::XML::Builder.new do |xml|
+      xml.root {
+        xml.pbcoreInstantiation {
+          xml.instantiationIdentifier {
+            xml.text noid
+          }
+          xml.instantiationLocation {
+            xml.text content.filename
+          }
+          # xml.instantiationDate(:dateType=>"created")
+          # xml.instantiationDigital(:source=>"EBU file formats")
+          if video?
+            xml.instantiationMediaType(:source=>"PBCore instantiationMediaType") {
+              xml.text "Moving image"
+            }
+          elsif audio?
+            xml.instantiationMediaType(:source=>"PBCore instantiationMediaType") {
+              xml.text "Sound"
+            }
+          end
+          # xml.instantiationGenerations(:source=>"PBCore instantiationGenerations")
+          xml.instantiationFileSize(:unitsOfMeasure=>"") {
+            xml.text file_size.first
+          }
+          xml.instantiationDuration {
+            xml.text duration.first
+          }
+          # xml.instantiationColors(:source=>"PBCore instantiationColors") {
+          #   xml.text "Color"
+          # }
+
+          if video?
+            xml.instantiationEssenceTrack {
+              xml.essenceTrackType {
+                xml.text "Video"
+              }
+              xml.essenceTrackStandard
+              xml.essenceTrackEncoding(:source=>"PBCore essenceTrackEncoding")
+              xml.essenceTrackDataRate(:unitsOfMeasure=>"")
+              xml.essenceTrackFrameRate(:unitsOfMeasure=>"fps")
+              xml.essenceTrackBitDepth
+              xml.essenceTrackFrameSize(:source=>"PBCore essenceTrackFrameSize")
+              xml.essenceTrackAspectRatio(:source=>"PBCore essenceTrackAspectRatio")
+            }
+          end
+
+          if audio? || video?
+            xml.instantiationEssenceTrack {
+              xml.essenceTrackType {
+                xml.text "Audio"
+              }
+              xml.essenceTrackStandard
+              xml.essenceTrackEncoding(:source=>"PBCore essenceTrackEncoding")
+              xml.essenceTrackDataRate(:unitsOfMeasure=>"")
+              xml.essenceTrackSamplingRate(:unitsOfMeasure=>"")
+              xml.essenceTrackBitDepth
+              xml.essenceTrackAnnotation(:annotationType=>"Number of Audio Channels")
+            }
+          end
+
+          xml.instantiationRights {
+            xml.rightsSummary
+          }
+          
+        }
+      }
+    end.doc
+
+    
+    doc.ng_xml.root.add_child instantiation.root.children
+
     doc.to_xml
 
   end
