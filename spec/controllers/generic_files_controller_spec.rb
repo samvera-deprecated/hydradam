@@ -65,7 +65,8 @@ describe GenericFilesController do
     it "should update the creator and location" do
       post :update, id: @file, generic_file: {
            creator: [{"name" => "Frank", "role"=>"Producer"}, {"name"=>"Dave", "role"=>"Director"}],
-           has_location:[{'location_name' => 'France'} ] 
+           has_location:[{'location_name' => 'France'}],
+           resource_type: ["Article", "Audio", "Book"]
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
@@ -74,7 +75,7 @@ describe GenericFilesController do
       @file.descMetadata.creator[1].name.should == ['Dave']
       @file.descMetadata.creator[1].role.should == ['Director']
       @file.descMetadata.has_location[0].location_name.should == ['France']
-      
+      @file.descMetadata.resource_type.should == [ "Article", "Audio", "Book"]      
     end
   end
 end

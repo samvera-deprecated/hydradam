@@ -8,15 +8,7 @@ class GenericFile < ActiveFedora::Base
   has_metadata 'descMetadata', type: MediaAnnotationDatastream
   has_file_datastream "content", type: FileContentDatastream, control_group: 'E'
 
-  before_save :remove_blank_assertions
-
   delegate :has_location, to: 'descMetadata'
-
-  def remove_blank_assertions
-    terms_for_editing.each do |key|
-      self[key] = nil if self[key] == ['']
-    end
-  end
 
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
@@ -36,7 +28,8 @@ class GenericFile < ActiveFedora::Base
     end
     
     content.dsLocation = URI.escape("file://#{path}")
-    content.mimeType = MIME::Types.type_for(path).first.content_type
+    mime = MIME::Types.type_for(path).first
+    content.mimeType = mime.content_type if mime # mime can't always be detected by filename
     set_title_and_label( file_name, :only_if_blank=>true )
     save!
   end
@@ -68,7 +61,7 @@ class GenericFile < ActiveFedora::Base
 
   def terms_for_editing
     terms_for_display -
-     [:part_of, :date_modified, :date_uploaded, :format, :resource_type]
+     [:part_of, :date_modified, :date_uploaded, :format] # I'm not sure why resource_type would be excluded#, :resource_type]
   end
 
   def terms_for_display

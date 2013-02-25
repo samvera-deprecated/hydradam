@@ -94,11 +94,11 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     end
   end
 
-  after_initialize :default_values
-
-  def default_values
-    self.format = "Video" unless self.format.present?
-  end
+#  after_initialize :default_values
+  # Causes early load of descMetadata.  Do we need this?
+  # def default_values
+  #   self.format = "Video" unless self.format.present?
+  # end
 
   LocalAuthority.register_vocabulary(self, "subject", "lc_subjects")
   LocalAuthority.register_vocabulary(self, "language", "lexvo_languages")
