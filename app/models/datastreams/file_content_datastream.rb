@@ -56,7 +56,7 @@ class FileContentDatastream < ActiveFedora::Datastream
 
   def run_ffprobe!(file_path)
     out = nil
-    command = "#{ffprobe_path} -i #{file_path} -print_format xml -show_streams -v quiet"
+    command = "#{ffprobe_path} -i \"#{file_path}\" -print_format xml -show_streams -v quiet"
     stdin, stdout, stderr = popen3(command)
     stdin.close
     out = stdout.read
