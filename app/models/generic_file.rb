@@ -163,7 +163,7 @@ class GenericFile < ActiveFedora::Base
             xml.text file_size.first
           }
           xml.instantiationDuration {
-            xml.text duration.first
+            xml.text ffprobe.duration.first
           }
           # xml.instantiationColors(:source=>"PBCore instantiationColors") {
           #   xml.text "Color"
@@ -191,10 +191,18 @@ class GenericFile < ActiveFedora::Base
               }
               xml.essenceTrackStandard
               xml.essenceTrackEncoding(:source=>"PBCore essenceTrackEncoding")
-              xml.essenceTrackDataRate(:unitsOfMeasure=>"")
-              xml.essenceTrackSamplingRate(:unitsOfMeasure=>"")
-              xml.essenceTrackBitDepth
-              xml.essenceTrackAnnotation(:annotationType=>"Number of Audio Channels")
+              xml.essenceTrackDataRate(:unitsOfMeasure=>"bps") {
+                xml.text ffprobe.bit_rate.first
+              }
+              xml.essenceTrackSamplingRate(:unitsOfMeasure=>"hz") {
+                xml.text ffprobe.sample_rate.first
+              }
+              xml.essenceTrackBitDepth {
+                xml.text ffprobe.bits_per_sample.first
+              }
+              xml.essenceTrackAnnotation(:annotationType=>"Number of Audio Channels") {
+                xml.text ffprobe.channels.first
+              }
             }
           end
 

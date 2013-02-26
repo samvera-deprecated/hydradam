@@ -292,24 +292,24 @@ describe GenericFile do
 
          subject.content.dsLocation = 'file:///opt/storage/one/two/three/fake.wav'
          subject.stub(:file_size).and_return(["343998572"])
-         subject.stub(:duration).and_return(["0:59:43:318"])
          subject.stub(:audio?).and_return(true)
       end
 
       it "should have instantiation info" do
         str = subject.to_pbcore_xml
+        #subject.ffprobe.bit_rate.should == ["foo"]
         puts str
         xml = Nokogiri::XML(str)
         # pbcoretitle
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier').text.should == subject.noid
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "/opt/storage/one/two/three/fake.wav"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "0:59:43:318"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "3583.318000"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text.should == "343998572"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text.should == "Sound"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackType').text.should == "Audio"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/dataRate').text.should == "768000"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/samplingRate').text.should == "48000"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/bitDepth').text.should == "16"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackDataRate').text.should == "768000"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackSamplingRate').text.should == "48000"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackBitDepth').text.should == "16"
       end
     end
   end
