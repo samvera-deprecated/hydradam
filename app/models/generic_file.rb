@@ -187,7 +187,7 @@ class GenericFile < ActiveFedora::Base
           if audio? || video?
             xml.instantiationEssenceTrack {
               xml.essenceTrackType {
-                xml.text "Audio"
+                xml.text ffprobe.codec_type.first
               }
               xml.essenceTrackStandard
               xml.essenceTrackEncoding(:source=>"PBCore essenceTrackEncoding")
