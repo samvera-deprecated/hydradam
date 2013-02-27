@@ -391,7 +391,7 @@ RailsAdmin.config do |config|
         field :email
         field :guest
         field :directory
-        filters [:email]  # Array of field names which filters should be shown by default in the table header
+        filters [:email, :guest]  # Array of field names which filters should be shown by default in the table header
         # items_per_page 100    # Override default_items_per_page
         sort_by :email           # Sort column (default is primary key)
       end
