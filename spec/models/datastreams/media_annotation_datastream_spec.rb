@@ -6,10 +6,6 @@ describe MediaAnnotationDatastream do
     ds = MediaAnnotationDatastream.new(mock_obj)
   end
 
-  it "should have a default format" do
-    ds.format.should == ['Video']
-  end
-
   it "should have many contributors" do
     p = MediaAnnotationDatastream::Person.new(ds.graph)
     p.name = 'Baker, R. Lisle'

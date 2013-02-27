@@ -24,5 +24,8 @@ describe FfmpegDatastream do
     its (:sample_rate) { should == ["48000"]}
     its (:channels) { should == ["1"]}
     its (:codec_type) { should == ["audio"]}
+    its (:frame_rate) { should == ["0/0"]}
+    its (:codec_long_name) { should == ["PCM signed 16-bit little-endian"]}
+    its (:codec_name) { should == ["pcm_s16le"]}
   end
 end

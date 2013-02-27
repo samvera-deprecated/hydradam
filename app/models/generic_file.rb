@@ -151,7 +151,7 @@ class GenericFile < ActiveFedora::Base
           # xml.instantiationDigital(:source=>"EBU file formats")
           if video?
             xml.instantiationMediaType(:source=>"PBCore instantiationMediaType") {
-              xml.text "Moving image"
+              xml.text "Moving Image"
             }
           elsif audio?
             xml.instantiationMediaType(:source=>"PBCore instantiationMediaType") {
@@ -169,40 +169,43 @@ class GenericFile < ActiveFedora::Base
           #   xml.text "Color"
           # }
 
-          if video?
+          0.upto(ffprobe.streams.stream.count - 1).each do |n|
+            stream = ffprobe.streams.stream(n)
             xml.instantiationEssenceTrack {
               xml.essenceTrackType {
-                xml.text "Video"
+                xml.text stream.codec_type.first.capitalize if stream.codec_type.present?
               }
-              xml.essenceTrackStandard
-              xml.essenceTrackEncoding(:source=>"PBCore essenceTrackEncoding")
-              xml.essenceTrackDataRate(:unitsOfMeasure=>"")
-              xml.essenceTrackFrameRate(:unitsOfMeasure=>"fps")
-              xml.essenceTrackBitDepth
-              xml.essenceTrackFrameSize(:source=>"PBCore essenceTrackFrameSize")
-              xml.essenceTrackAspectRatio(:source=>"PBCore essenceTrackAspectRatio")
-            }
-          end
-
-          if audio? || video?
-            xml.instantiationEssenceTrack {
-              xml.essenceTrackType {
-                xml.text ffprobe.codec_type.first
-              }
-              xml.essenceTrackStandard
-              xml.essenceTrackEncoding(:source=>"PBCore essenceTrackEncoding")
               xml.essenceTrackDataRate(:unitsOfMeasure=>"bps") {
-                xml.text ffprobe.bit_rate.first
+                xml.text stream.bit_rate.first
               }
-              xml.essenceTrackSamplingRate(:unitsOfMeasure=>"hz") {
-                xml.text ffprobe.sample_rate.first
+              xml.essenceTrackStandard {
+                xml.text case stream.codec_long_name.first
+                  when "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10"
+                    "H.264/MPEG-4 AVC"
+                  else
+                    stream.codec_name.first.upcase
+                  end
               }
-              xml.essenceTrackBitDepth {
-                xml.text ffprobe.bits_per_sample.first
-              }
-              xml.essenceTrackAnnotation(:annotationType=>"Number of Audio Channels") {
-                xml.text ffprobe.channels.first
-              }
+              xml.essenceTrackEncoding(:source=>"PBCore essenceTrackEncoding")
+              if stream.codec_type.first == 'video'
+                xml.essenceTrackFrameRate(:unitsOfMeasure=>"fps") {
+                  xml.text stream.frame_rate.first
+                }
+                xml.essenceTrackFrameSize(:source=>"PBCore essenceTrackFrameSize") {
+                  xml.text "#{stream.width.first}x#{stream.height.first}"
+                }
+                xml.essenceTrackAspectRatio(:source=>"PBCore essenceTrackAspectRatio")
+              elsif stream.codec_type.first == 'audio'
+                xml.essenceTrackSamplingRate(:unitsOfMeasure=>"hz") {
+                  xml.text stream.sample_rate.first
+                }
+                xml.essenceTrackBitDepth {
+                  xml.text stream.bits_per_sample.first
+                }
+                xml.essenceTrackAnnotation(:annotationType=>"Number of Audio Channels") {
+                  xml.text stream.channels.first
+                }
+              end
             }
           end
 

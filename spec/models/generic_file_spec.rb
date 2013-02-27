@@ -297,10 +297,7 @@ describe GenericFile do
 
       it "should have instantiation info" do
         str = subject.to_pbcore_xml
-        #subject.ffprobe.bit_rate.should == ["foo"]
-        puts str
         xml = Nokogiri::XML(str)
-        # pbcoretitle
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier').text.should == subject.noid
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "/opt/storage/one/two/three/fake.wav"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "3583.318000"
@@ -310,6 +307,52 @@ describe GenericFile do
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackDataRate').text.should == "768000"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackSamplingRate').text.should == "48000"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackBitDepth').text.should == "16"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackAnnotation').text.should == "1"
+
+      end
+    end
+    describe "with video data" do
+      before do
+        subject.ffprobe.content = '<ffprobe>
+  <streams>
+    <stream avg_frame_rate="2997/100" bit_rate="900786" codec_long_name="H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10" codec_name="h264" codec_tag="0x31637661" codec_tag_string="avc1" codec_time_base="1/5994" codec_type="video" display_aspect_ratio="0:1" duration="128.762095" duration_ts="385900" has_b_frames="0" height="360" index="0" is_avc="1" level="30" nal_length_size="4" nb_frames="3859" pix_fmt="yuv420p" profile="Constrained Baseline" r_frame_rate="2997/100" sample_aspect_ratio="0:1" start_pts="0" start_time="0.000000" time_base="1/2997" width="480">
+      <disposition attached_pic="0" clean_effects="0" comment="0" default="0" dub="0" forced="0" hearing_impaired="0" karaoke="0" lyrics="0" original="0" visual_impaired="0"></disposition>
+      <tag key="creation_time" value="2009-10-06 05:19:41"></tag>
+      <tag key="language" value="eng"></tag>
+      <tag key="handler_name" value="Apple Video Media Handler"></tag>
+    </stream>
+    <stream avg_frame_rate="0/0" bit_rate="100243" bits_per_sample="0" channels="2" codec_long_name="AAC (Advanced Audio Coding)" codec_name="aac" codec_tag="0x6134706d" codec_tag_string="mp4a" codec_time_base="1/44100" codec_type="audio" duration="128.777868" duration_ts="5679104" index="1" nb_frames="5546" r_frame_rate="0/0" sample_fmt="fltp" sample_rate="44100" start_pts="0" start_time="0.000000" time_base="1/44100">
+      <disposition attached_pic="0" clean_effects="0" comment="0" default="0" dub="0" forced="0" hearing_impaired="0" karaoke="0" lyrics="0" original="0" visual_impaired="0"></disposition>
+      <tag key="creation_time" value="2009-10-06 05:19:41"></tag>
+      <tag key="language" value="eng"></tag>
+      <tag key="handler_name" value="Apple Sound Media Handler"></tag>
+    </stream>
+  </streams>
+</ffprobe>'
+         subject.content.dsLocation = 'file:///opt/storage/one/two/three/fake.m4v'
+         subject.stub(:file_size).and_return(["16168799"])
+         subject.stub(:video?).and_return(true)
+      end
+      it "should have instantiation info" do
+        str = subject.to_pbcore_xml
+        xml = Nokogiri::XML(str)
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier').text.should == subject.noid
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "/opt/storage/one/two/three/fake.m4v"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "128.762095"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text.should == "16168799"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text.should == "Moving Image"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackType').text.should == "Video"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackStandard').text.should == "H.264/MPEG-4 AVC"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackDataRate').text.should == "900786"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackFrameRate').text.should == "2997/100"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackFrameSize').text.should == "480x360"
+
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackType').text.should == "Audio"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackStandard').text.should == "AAC"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackDataRate').text.should == "100243"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackSamplingRate').text.should == "44100"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackBitDepth').text.should == "0"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackAnnotation').text.should == "2"
       end
     end
   end
