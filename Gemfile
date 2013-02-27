@@ -20,7 +20,7 @@ gem 'jquery-rails'
 
 gem 'blacklight'
 #gem 'sufia', '0.0.8'
-gem 'sufia', github: 'curationexperts/sufia', ref: '5bac43a'
+gem 'sufia', github: 'curationexperts/sufia', ref: '75f92b1'
 #gem 'sufia', path: '../sufia'
 #gem 'hydra-head', github: 'projecthydra/hydra-head', ref: '424152f'
 #gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'daf98ac' #need rc4
@@ -42,7 +42,9 @@ group :production do
   gem 'mysql2'
 end
 
-gem "unicode", :platforms => [:mri_18, :mri_19]
+gem "unicorn"
 gem "devise"
 gem "devise-guests", "~> 0.3"
 gem "bootstrap-sass"
+
+gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
