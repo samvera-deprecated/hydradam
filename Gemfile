@@ -20,7 +20,7 @@ gem 'jquery-rails'
 
 gem 'blacklight'
 #gem 'sufia', '0.0.8'
-gem 'sufia', github: 'curationexperts/sufia', ref: '75f92b1'
+gem 'sufia', github: 'curationexperts/sufia', ref: 'd1e47f3'
 #gem 'sufia', path: '../sufia'
 #gem 'hydra-head', github: 'projecthydra/hydra-head', ref: '424152f'
 #gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'daf98ac' #need rc4
@@ -36,13 +36,13 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'sqlite3'
+  gem "unicorn"
 end
 
 group :production do
   gem 'mysql2'
 end
 
-gem "unicorn"
 gem "devise"
 gem "devise-guests", "~> 0.3"
 gem "bootstrap-sass"
