@@ -27,3 +27,8 @@ To run the whole test suite, including spinning jetty up & down, loading fedora 
 rake ci
 ```
 
+# Running the ftp server
+
+```
+sudo em-ftpd config/ftp.rb
+```
