@@ -48,3 +48,5 @@ gem "devise-guests", "~> 0.3"
 gem "bootstrap-sass"
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
+
+gem 'em-ftpd'
