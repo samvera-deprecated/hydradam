@@ -1,5 +1,7 @@
-require File.expand_path('../lib/ftp/driver', __FILE__)
 opts = Hash[*ARGV[1..-1]]
+ENV["RAILS_ENV"] ||= opts['-E'] || 'development'
+
+require File.expand_path('../lib/ftp/driver', __FILE__)
 
 driver    Ftp::Driver
 user      'ftp'
