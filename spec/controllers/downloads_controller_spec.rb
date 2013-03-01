@@ -22,7 +22,7 @@ describe DownloadsController do
   describe "for a big file" do
     before do
       @controller.should_receive(:over_threshold?).and_return(true)
-      @controller.stub(:unique_key).and_return('test_ftp_download')
+      GenericFile.any_instance.stub(:unique_key).and_return('test_ftp_download')
       @file.filename = "Test.MOV"
       @file.save!
       File.unlink('tmp/test_ftp_download/Test.MOV') if File.exists?('tmp/test_ftp_download/Test.MOV')
