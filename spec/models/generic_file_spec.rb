@@ -123,6 +123,28 @@ describe GenericFile do
     end
   end
 
+  describe "#fix_mxf_characterization" do
+    describe "with a file that is mxf" do
+      before do
+        subject.mime_type = 'application/octet-stream'
+        subject.format_label = "Material Exchange Format"
+      end
+      it "should set the mime type" do
+        subject.fix_mxf_characterization!
+        subject.mime_type.should == 'application/mxf'
+      end
+    end
+    describe "with a file that is not mxf" do
+      before do
+        subject.mime_type = 'application/octet-stream'
+        subject.format_label = "Another format"
+      end
+      it "should not set the mime type" do
+        subject.fix_mxf_characterization!
+        subject.mime_type.should == 'application/octet-stream'
+      end
+    end
+  end
 
   describe "#add_external_file" do
     before do

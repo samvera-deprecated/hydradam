@@ -75,10 +75,18 @@ class GenericFile < ActiveFedora::Base
   def characterize
     fits_xml, ffprobe_xml = self.content.extract_metadata
     self.characterization.ng_xml = fits_xml
+    fix_mxf_characterization!
     self.ffprobe.ng_xml = ffprobe_xml
     self.append_metadata
     self.filename = self.label
     save unless self.new_object?
+  end
+
+
+  # The present version of fits.sh (0.6.1) doesn't set a mime-type for MXF files
+  # this method rectifies that until a fixed version of fits.sh is released.
+  def fix_mxf_characterization!
+    self.characterization.mime_type = 'application/mxf' if mime_type == 'application/octet-stream' && format_label == ["Material Exchange Format"]
   end
 
   ### Map  location[].locationName -> based_near[]
