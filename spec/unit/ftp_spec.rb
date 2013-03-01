@@ -25,11 +25,11 @@ describe Ftp::Driver do
     end
 
     it "should handle a bad upload" do
-      subject.put_file("foo", 'two') {|n| n.should == false}
+      subject.put_file("foo", 'two') {|n| n.should be_false}
     end
 
     it "should not be able to see files" do
-      subject.dir_contents('/') {|n| n.should == []}
+      subject.dir_contents('/') {|n| n.should be_false}
     end
 
     it "should not be able to get files" do
@@ -61,7 +61,7 @@ describe Ftp::Driver do
     end
 
     it "should not be able to see files" do
-      subject.dir_contents('/') {|n| n.should == []}
+      subject.dir_contents('/') {|n| n.should be_false}
     end
 
     describe "with an existing file" do

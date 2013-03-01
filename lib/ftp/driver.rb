@@ -11,12 +11,11 @@ module Ftp
     FILE_TWO = "This is the file number two.\n\n2009-03-21"
 
     def change_dir(path, &block)
-      Rails.logger.info "Attempting changedir to #{path}"
-      yield path == "/" || path == "/files"
+      yield false
     end
 
     def dir_contents(path, &block)
-      yield []
+      yield false
     end
 
     def authenticate(user, pass, &block)
@@ -33,12 +32,7 @@ module Ftp
     end
 
     def bytes(path, &block)
-      yield case path
-            when "/one.txt"       then FILE_ONE.size
-            when "/files/two.txt" then FILE_TWO.size
-            else
-              false
-            end
+      yield false 
     end
 
     def get_file(*args, &block)
@@ -102,7 +96,7 @@ module Ftp
           #args.each{ |arg| check_file_system_permissions!( arg ) }
           args.insert( 1, tmp_file ) if method == :put_file
 
-          Rails.logger.info "FTP #{method} with #{args}"
+          Rails.logger.info "FTP #{method} with #{args.join(', ')} for #{@user}"
 
           value = Ftp::FileOperations.send( method, *args )
 
@@ -118,12 +112,3 @@ module Ftp
       end
   end
 end
-
-# configure the server
-#driver     Ftp::Driver
-#driver_args 1, 2, 3
-#user      "ftp"
-#group     "ftp"
-#daemonise false
-#name      "fakeftp"
-#pid_file  "/var/run/fakeftp.pid"
