@@ -101,6 +101,8 @@ module Ftp
           #args.each{ |arg| check_file_system_permissions!( arg ) }
           args.insert( 1, tmp_file ) if method == :put_file
 
+          Rails.logger.info "FTP #{method} with #{args}"
+
           value = Ftp::FileOperations.send( method, *args )
 
           return value
