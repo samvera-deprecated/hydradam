@@ -11,6 +11,7 @@ module Ftp
     FILE_TWO = "This is the file number two.\n\n2009-03-21"
 
     def change_dir(path, &block)
+      Rails.logger.info "Attempting changedir to #{path}"
       yield path == "/" || path == "/files"
     end
 
