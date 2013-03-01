@@ -3,6 +3,7 @@ require 'fileutils'
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
   include Open3
+  include GenericFileConcerns::Ftp
 
   has_metadata 'ffprobe', type: FfmpegDatastream
   has_metadata 'descMetadata', type: MediaAnnotationDatastream

@@ -1,5 +1,8 @@
 # coding: utf-8
 
+require File.expand_path('../../../config/environment.rb',  __FILE__)
+require File.expand_path('../file_operations', __FILE__)
+
 # a super simple FTP server with hard coded auth details and only two files
 # available for download.
 module Ftp
@@ -12,18 +15,20 @@ module Ftp
     end
 
     def dir_contents(path, &block)
-      case path
-      when "/"      then
-        yield [ dir_item("files"), file_item("one.txt", FILE_ONE.bytesize) ]
-      when "/files" then
-        yield [ file_item("two.txt", FILE_TWO.bytesize) ]
-      else
-        yield []
-      end
+      yield []
     end
 
     def authenticate(user, pass, &block)
-      yield user == "test" && pass == "1234"
+      val = case user
+        when 'anonymous'
+          @user = 'anonymous'
+          true
+        else
+          @user = User.where(email: user).first
+          @user && @user.valid_password?(pass) && @user.directory
+        end
+      Rails.logger.info "#{val ? 'Successful' : 'Unsuccessful'} FTP sign in attempt for: #{user}"
+      yield val
     end
 
     def bytes(path, &block)
@@ -35,17 +40,12 @@ module Ftp
             end
     end
 
-    def get_file(path, &block)
-      yield case path
-            when "/one.txt"       then FILE_ONE
-            when "/files/two.txt" then FILE_TWO
-            else
-              false
-            end
+    def get_file(*args, &block)
+      yield ftp_methods(:get_file, args)
     end
 
-    def put_file(path, data, &block)
-      yield false
+    def put_file(*args, &block)
+      yield ftp_methods(:put_file, args)
     end
 
     def delete_file(path, &block)
@@ -74,6 +74,44 @@ module Ftp
       EM::FTPD::DirectoryItem.new(:name => name, :directory => false, :size => bytes)
     end
 
+    private
+      def ftp_methods( method, args )
+        case method
+        when :put_file
+          return false if @user == 'anonymous'
+        when :get_file
+          return false if @user != 'anonymous'
+        end
+
+        # We have to map each ftp path to a local file system path to check 
+        # permissions, but when command is 'put_file' the second argument
+        # is an absolute path to temporary that should not be converted
+        if method == :put_file
+          tmp_file = args.delete_at( 1 )
+          args = args.map{ |arg| file_system_path( @user.directory, arg ) }
+        else
+          args = args.map{ |arg| file_system_path( Bawstun::Application.config.ftp_download_base, arg ) }
+        end
+
+
+
+        begin
+          # Bypass permissions for second argument if method is put_file
+          #args.each{ |arg| check_file_system_permissions!( arg ) }
+          args.insert( 1, tmp_file ) if method == :put_file
+
+          value = Ftp::FileOperations.send( method, *args )
+
+          return value
+        rescue Exception => e
+          Rails.logger.error "FTP: #{e.message} when #{@user} trying to #{method}"
+          return false
+        end
+      end
+
+      def file_system_path( base_path, ftp_path )
+        File.join base_path, ftp_path
+      end
   end
 end
 

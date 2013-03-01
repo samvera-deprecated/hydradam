@@ -8,7 +8,7 @@ class DownloadsController < ApplicationController
       @asset = ActiveFedora::Base.find(params[:id], :cast=>true)
       # we can now examine @asset and determine if we should send_content, or some other action.
       if over_threshold?
-        @ftp_link =export_to_ftp(@asset)
+        @ftp_link =@asset.export_to_ftp(request.host)
       else
         send_content (@asset)
       end
@@ -52,38 +52,5 @@ class DownloadsController < ApplicationController
     @asset.file_size.first.to_i > Bawstun::Application.config.ftp_download_threshold
   end
    
-  # Copy the content datastream to a file in the download ftp location
-  # TODO need a way to sweep these files up.
-  def export_to_ftp(asset)
-    filename = asset.filename.first
-    path, key = obscure_directory(asset.pid, filename)
-    if asset.content.external?
-      FileUtils.ln_s(File.expand_path(asset.content.filename), path)
-    else
-      File.open(path, 'wb') do |f|
-        f.write asset.content.content
-      end
-    end
-    ftp_path(key, filename)
-  end
-
-  def ftp_path(directory, filename)
-    "ftp://#{request.host}/#{directory}/#{filename}"
-  end
-
-  def obscure_directory(id, filename)
-    begin
-      key = unique_key(id)
-      base = Bawstun::Application.config.ftp_download_base
-      dirname = File.join(base, key)
-    end while File.exist?(dirname)
-    Dir.mkdir(dirname)
-    [File.join(dirname,filename), key]
-  end
-
-  def unique_key(id)
-    key = Digest::SHA2.new << (DateTime.now.to_f.to_s + id)
-    key.to_s
-  end
 
 end
