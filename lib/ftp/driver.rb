@@ -41,7 +41,7 @@ module Ftp
     end
 
     def get_file(*args, &block)
-      Rails.logger.info "FTP. get #{args} for #{user}"
+      Rails.logger.info "FTP. get #{args} for #{@user}"
       yield ftp_methods(:get_file, args)
     end
 
