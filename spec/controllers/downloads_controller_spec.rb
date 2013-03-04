@@ -19,9 +19,8 @@ describe DownloadsController do
   it "should handle files that are external"
   it "should handle files that are not external"
 
-  describe "for a big file" do
+  describe "for a file larger than the threshold" do
     before do
-      @controller.should_receive(:over_threshold?).and_return(true)
       GenericFile.any_instance.stub(:unique_key).and_return('test_ftp_download')
       @file.filename = "Test.MOV"
       @file.save!
@@ -29,12 +28,19 @@ describe DownloadsController do
       FileUtils.rm_r('tmp/test_ftp_download') if File.exists?('tmp/test_ftp_download')
     end
 
-    it "should give an ftp link if the file is over threshold" do
+    it "should give an ftp link" do
       File.exist?('tmp/test_ftp_download/Test.MOV').should be_false
+      controller.should_receive(:over_threshold?).and_return(true)
       get :show, id: @file
       response.should be_successful
       assigns[:ftp_link].should match /^ftp:\/\/test.host\/[^\/]+\/Test.MOV$/
       File.exist?('tmp/test_ftp_download/Test.MOV').should be_true
+    end
+    it "should not give an ftp link when they want a proxy" do
+      controller.stub(:send_content).with(@file)
+      get :show, id: @file, datastream_id: 'webm'
+      response.should be_successful
+      assigns[:ftp_link].should be_nil
     end
   end
 

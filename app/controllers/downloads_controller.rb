@@ -7,7 +7,7 @@ class DownloadsController < ApplicationController
     if can? :read, params[:id]
       @asset = ActiveFedora::Base.find(params[:id], :cast=>true)
       # we can now examine @asset and determine if we should send_content, or some other action.
-      if over_threshold?
+      if default_datastream? && over_threshold?
         @ftp_link =@asset.export_to_ftp(request.host)
       else
         send_content (@asset)
@@ -26,24 +26,23 @@ class DownloadsController < ApplicationController
 
   # Overriding so that we can use with external datastreams
   def send_content (asset)
-      opts = {}
-      ds = nil
+    opts = {disposition: 'inline'}
+    if default_datastream?
       opts[:filename] = params["filename"] || asset.label
-      opts[:disposition] = 'inline' 
-      if params.has_key?(:datastream_id)
-        opts[:filename] = params[:datastream_id]
-        ds = asset.datastreams[params[:datastream_id]]
-      end
-      ds = default_content_ds(asset) if ds.nil?
-      raise ActionController::RoutingError.new('Not Found') if ds.nil? or !ds.has_content?
-      opts[:type] = ds.mimeType
-      # ds.filename is only for externals
-      if (ds.respond_to? :filename)
-        send_file ds.filename, opts
-      else
-        send_data ds.content, opts
-      end
-      return
+    else
+      opts[:filename] = params[:datastream_id]
+    end
+    ds = asset.datastreams[datastream_name]
+
+    raise ActionController::RoutingError.new('Not Found') if ds.nil? or !ds.has_content?
+    opts[:type] = ds.mimeType
+    # ds.filename is only for externals
+    if (ds.respond_to? :filename)
+      send_file ds.filename, opts
+    else
+      send_data ds.content, opts
+    end
+    return
   end
 
   private
