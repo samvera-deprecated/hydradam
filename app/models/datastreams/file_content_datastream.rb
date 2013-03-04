@@ -13,8 +13,29 @@ class FileContentDatastream < ActiveFedora::Datastream
     out
   end
 
+  # The internal method is just checking that the datastream stored in Fedora is
+  # valid.  Here we check that the file stored in the filesystem is valid too if
+  # this file is stored on the filesystem.
+  def dsChecksumValid
+    super && (!external? || file_checksum_valid?)
+  end
+
+  def file_checksum_valid?
+    # puts "Calculated: #{calculate_file_checksum}"
+    # puts "Stored: #{stored_file_checksum}"
+    calculate_file_checksum == stored_file_checksum
+  end
+
+  def stored_file_checksum
+    GenericFile.find(pid).original_checksum.first
+  end
+
+  def calculate_file_checksum
+    Digest::MD5.file(filename).hexdigest
+  end
+
   def remove_content
-    if live?
+    if has_content? && live?
       File.unlink filename
     else
       false # can't remove the file until the content is live.
@@ -26,7 +47,7 @@ class FileContentDatastream < ActiveFedora::Datastream
   end
 
   def external?
-    controlGroup == 'E'
+    super
   end
 
   def online!
