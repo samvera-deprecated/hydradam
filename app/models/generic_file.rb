@@ -11,6 +11,12 @@ class GenericFile < ActiveFedora::Base
 
   delegate :has_location, to: 'descMetadata'
 
+  before_destroy :remove_content
+
+  def remove_content
+    content.run_callbacks :destroy 
+  end
+
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
     return add_external_file(file, dsid, file_name) if dsid == 'content'
