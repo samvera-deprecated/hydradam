@@ -20,7 +20,7 @@ gem 'jquery-rails'
 
 gem 'blacklight'
 #gem 'sufia', '0.0.8'
-gem 'sufia', github: 'curationexperts/sufia', ref: '7d26084'
+gem 'sufia', github: 'curationexperts/sufia', ref: '514f411'
 #gem 'sufia', path: '../sufia'
 #gem 'hydra-head', github: 'projecthydra/hydra-head', ref: '424152f'
 #gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'daf98ac' #need rc4

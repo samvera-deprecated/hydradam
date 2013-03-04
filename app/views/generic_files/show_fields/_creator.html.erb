@@ -2,7 +2,7 @@
           <th>Creator</th>
           <td>
             <% @generic_file.creator.each do |creator| %>
-              <%= link_to_facet(Array(creator.name).first.to_s, 'desc_metadata__creator_facet') %><br />
+              <%= link_to_facet(Array(creator.name).first.to_s, Solrizer.solr_name("desc_metadata__creator", :facetable)) %><br />
             <% end %>
           </td>
         </tr>
