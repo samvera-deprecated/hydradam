@@ -6,11 +6,17 @@ class DownloadsController < ApplicationController
   def show
     if can? :read, params[:id]
       @asset = ActiveFedora::Base.find(params[:id], :cast=>true)
-      # we can now examine @asset and determine if we should send_content, or some other action.
-      if default_datastream? && over_threshold?
-        @ftp_link =@asset.export_to_ftp(request.host)
+
+      if @asset.content.live?
+        # we can now examine @asset and determine if we should send_content, or some other action.
+        if default_datastream? && over_threshold?
+          @ftp_link =@asset.export_to_ftp(request.host)
+        else
+          send_content (@asset)
+        end
       else
-        send_content (@asset)
+        @asset.content.online!
+        render 'offline'
       end
     else 
       logger.info "[DownloadsController] #{current_user.user_key} does not have access to read #{params['id']}"
