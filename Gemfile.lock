@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 514f411f5e15e5f5ac7c86bca7b60883dfc85b5a
-  ref: 514f411
+  revision: acd31e800cbb56684e63bddcc0908940f2d3a567
+  ref: acd31e8
   specs:
     sufia (1.0.0.pre0)
       activerecord-import (= 0.3.0)
@@ -18,7 +18,7 @@ GIT
       blacklight_advanced_search
       daemons (= 1.1.9)
       devise
-      font-awesome-sass-rails (~> 2.0)
+      font-awesome-sass-rails (~> 3.0)
       hydra-batch-edit (~> 0.1.0)
       hydra-head (>= 6.0.0.rc3)
       mail_form
@@ -154,12 +154,13 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.4.0)
-    font-awesome-sass-rails (2.0.0.0)
+    font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
     foreigner (1.4.0)
       activerecord (>= 3.0.0)
-    haml (3.1.8)
+    haml (4.0.0)
+      tilt
     hike (1.2.1)
     hooks (0.2.2)
     hydra-access-controls (6.0.0.rc3)
@@ -192,7 +193,7 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (2.0.2)
+    jquery-ui-rails (3.0.1)
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.7)
@@ -261,19 +262,20 @@ GEM
       activesupport (= 3.2.12)
       bundler (~> 1.0)
       railties (= 3.2.12)
-    rails_admin (0.3.0)
-      bootstrap-sass (~> 2.1)
+    rails_admin (0.4.5)
+      bootstrap-sass (~> 2.2)
       builder (~> 3.0)
       coffee-rails (~> 3.1)
-      font-awesome-sass-rails (~> 2.0)
-      haml (~> 3.1)
+      font-awesome-sass-rails (~> 3.0, >= 3.0.0.1)
+      haml (~> 4.0)
       jquery-rails (~> 2.1)
-      jquery-ui-rails (~> 2.0)
+      jquery-ui-rails (~> 3.0)
       kaminari (~> 0.14)
-      nested_form (> 0.2.3, < 0.4.0)
+      nested_form (~> 0.3)
       rack-pjax (~> 0.6)
       rails (~> 3.1)
       remotipart (~> 1.0)
+      safe_yaml (~> 0.6)
       sass-rails (~> 3.1)
     rails_autolink (1.0.9)
       rails (~> 3.1)
@@ -338,6 +340,7 @@ GEM
       mime-types
       nokogiri
       rest-client
+    safe_yaml (0.8.4)
     sass (3.2.6)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -405,7 +408,7 @@ DEPENDENCIES
   kaminari!
   mysql2
   rails (= 3.2.12)
-  rails_admin
+  rails_admin (~> 0.4.5)
   rspec-rails
   sass-rails (~> 3.2.3)
   sqlite3

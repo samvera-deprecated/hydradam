@@ -6,6 +6,7 @@ class Ability
   def custom_permissions
     if @user.admin?
       can [:index, :edit, :destroy], User
+      can :index, ChecksumAuditLog
       can :access, :rails_admin   # grant access to rails_admin
       can :dashboard              # grant access to the dashboard
     end
