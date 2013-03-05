@@ -61,12 +61,6 @@ RailsAdmin.config do |config|
   ###  ChecksumAuditLog  ###
 
   config.model 'ChecksumAuditLog' do
-       configure :pid, :string 
-       configure :dsid, :string 
-       configure :version, :string 
-       configure :pass, :integer 
-       configure :created_at, :datetime 
-
   #   # Cross-section configuration:
   
   #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
@@ -96,13 +90,15 @@ RailsAdmin.config do |config|
       list do
         field :email
         field :guest
+        field :admin
         field :directory
-        filters [:email, :guest]  # Array of field names which filters should be shown by default in the table header
+        #filters [:email, :guest]  # Array of field names which filters should be shown by default in the table header
         # items_per_page 100    # Override default_items_per_page
         sort_by :email           # Sort column (default is primary key)
       end
       edit do
         field :email
+        field :admin
         field :password
         field :password_confirmation
         field :directory

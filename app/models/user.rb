@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :as => [:default, :admin]
-  attr_accessible :directory, as: :admin
+  attr_accessible :directory, :admin, as: :admin
 
   validate :directory_must_exist
 
