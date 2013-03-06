@@ -45,7 +45,7 @@ describe DownloadsController do
       end
     end
     it "should not give an ftp link when they want a proxy" do
-      controller.stub(:send_content).with(@file)
+      controller.should_receive(:send_content).with(@file)
       get :show, id: @file, datastream_id: 'webm'
       response.should be_successful
       assigns[:ftp_link].should be_nil
@@ -62,6 +62,11 @@ describe DownloadsController do
       get :show, id: @file
       response.should be_successful
       response.should render_template 'offline'
+    end
+    it "should show the proxy (proxies don't go offline)" do
+      controller.should_receive(:send_content).with(@file)
+      get :show, id: @file, datastream_id: 'webm'
+      response.should be_successful
     end
   end
 
