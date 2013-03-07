@@ -89,8 +89,8 @@ describe GenericFile do
       today_str = "#{Date.today.to_s}T00:00:00Z"
       solr_doc = subject.to_solr
       solr_doc[Solrizer.solr_name('desc_metadata__title')].should == ["Foobar!"]
-      solr_doc[Solrizer.solr_name('desc_metadata__date_modified', type: :date)].should == [today_str]
-      solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded', type: :date)].should == [today_str]
+      solr_doc[Solrizer.solr_name('desc_metadata__date_modified', :stored_sortable, type: :date)].should == [today_str]
+      solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded', :stored_sortable, type: :date)].should == [today_str]
       solr_doc[Solrizer.solr_name('desc_metadata__creator', :facetable)].should == ['Justin']
       solr_doc[Solrizer.solr_name('desc_metadata__creator')].should == ['Justin']
       solr_doc[Solrizer.solr_name('desc_metadata__part_of')].should be_nil
