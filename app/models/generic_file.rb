@@ -134,7 +134,7 @@ class GenericFile < ActiveFedora::Base
 
   def to_pbcore_xml
     doc = HydraPbcore::Datastream::Document.new
-    doc.main_title = title[0]
+    doc.title = title[0]
     doc.alternative_title = title[1]
     descMetadata.creator.each do |c|
       doc.insert_creator c.name.first, c.role.first

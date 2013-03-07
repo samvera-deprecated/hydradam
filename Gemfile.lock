@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/curationexperts/hydra-pbcore.git
-  revision: 61be35be9eefa7fa6d83152ffff8687f6eb650a8
-  branch: devel
-  specs:
-    hydra-pbcore (2.0.0)
-      active-fedora
-
-GIT
   remote: git://github.com/curationexperts/sufia.git
   revision: 58703134f39d63f129bea0bb5a8c5cfc3ac5ecde
   ref: 5870313
@@ -182,6 +174,8 @@ GEM
       hydra-access-controls (= 6.0.0.rc3)
       hydra-core (= 6.0.0.rc3)
       rails (>= 3.2.6)
+    hydra-pbcore (2.2.0rc1)
+      active-fedora
     i18n (0.6.4)
     jettywrapper (1.3.2)
       activesupport (>= 3.0.0)
@@ -402,7 +396,7 @@ DEPENDENCIES
   em-ftpd
   factory_girl_rails
   hydra-head
-  hydra-pbcore!
+  hydra-pbcore (= 2.2.0rc1)
   jettywrapper
   jquery-rails
   kaminari!

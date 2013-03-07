@@ -22,13 +22,10 @@ gem 'blacklight'
 #gem 'sufia', '0.0.8'
 gem 'sufia', github: 'curationexperts/sufia', ref: '5870313'
 #gem 'sufia', path: '../sufia'
-#gem 'hydra-head', github: 'projecthydra/hydra-head', ref: '424152f'
-#gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'daf98ac' #need rc4
-#gem 'hydra-head', '6.0.0.pre6'
 gem 'hydra-head'
-gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
+#gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
 #gem 'hydra-pbcore', :path=>'../hydra-pbcore'
-
+gem 'hydra-pbcore', '2.2.0rc1'
 gem 'rails_admin', "~> 0.4.5"
 
 group :development, :test do
