@@ -15,7 +15,7 @@ module Ftp
     end
 
     def dir_contents(path, &block)
-      yield false
+      yield []
     end
 
     def authenticate(user, pass, &block)
