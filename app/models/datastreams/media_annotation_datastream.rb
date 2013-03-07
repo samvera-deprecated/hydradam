@@ -19,12 +19,12 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     end
     map.date_uploaded(:to => "dateSubmitted", :in => RDF::DC) do |index|
       index.type :date
-      index.as :stored_searchable, :sortable
+      index.as :stored_sortable
     end
 
     map.date_modified(:to => "dateModified", :in => RDF::EbuCore) do |index|
       index.type :date
-      index.as :stored_searchable, :sortable
+      index.as :stored_sortable
     end
     map.date_created(:in => RDF::EbuCore, :to => 'dateCreated') do |index|
       index.as :stored_searchable
