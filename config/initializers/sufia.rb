@@ -66,4 +66,4 @@ Sufia.config do |config|
 
 end
 
-
+Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
