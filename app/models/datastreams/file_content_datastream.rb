@@ -50,8 +50,12 @@ class FileContentDatastream < ActiveFedora::Datastream
     super
   end
 
-  def online!
+  def online!(user)
     storage_manager.bring_online(filename)
+    req = FileRequest.new
+    req.pid = pid
+    req.user = user
+    req.save!
   end
 
   def filename

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115202950) do
+ActiveRecord::Schema.define(:version => 20130312210932) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id",     :null => false
@@ -55,6 +55,17 @@ ActiveRecord::Schema.define(:version => 20130115202950) do
 
   add_index "domain_terms_local_authorities", ["domain_term_id", "local_authority_id"], :name => "dtla_by_ids2"
   add_index "domain_terms_local_authorities", ["local_authority_id", "domain_term_id"], :name => "dtla_by_ids1"
+
+  create_table "file_requests", :force => true do |t|
+    t.string   "pid"
+    t.integer  "user_id"
+    t.datetime "fulfillment_date"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "file_requests", ["pid"], :name => "index_file_requests_on_pid"
+  add_index "file_requests", ["user_id"], :name => "index_file_requests_on_user_id"
 
   create_table "follows", :force => true do |t|
     t.integer  "followable_id",                      :null => false

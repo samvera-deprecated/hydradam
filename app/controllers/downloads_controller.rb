@@ -17,7 +17,7 @@ class DownloadsController < ApplicationController
           end
         else
           # we can now examine @asset and determine if we should send_content, or some other action.
-          @asset.content.online!
+          @asset.content.online!(current_user)
           render 'offline'
         end
       else

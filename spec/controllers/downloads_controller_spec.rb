@@ -58,7 +58,7 @@ describe DownloadsController do
     end
 
     it "should give an ftp link" do
-      FileContentDatastream.any_instance.should_receive(:online!)
+      FileContentDatastream.any_instance.should_receive(:online!).with(@user)
       get :show, id: @file
       response.should be_successful
       response.should render_template 'offline'

@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# This command will automatically be run when you run "rails" with Rails 3 gems installed from the root of your application.
+
+require File.expand_path('../../config/environment.rb',  __FILE__)
+
+FileRequest.where(:fulfillment_date => nil).each do |req|
+  if f = GenericFile.find(req.pid) && f.content.live?
+    UserMailer.file_online_notice(req.user, f) 
+    req.fulfillment_date = DateTime.now
+    req.save!
+  end
+end
