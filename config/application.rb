@@ -79,6 +79,6 @@ module Bawstun
     #config.storage_manager = 'NullStorageManager'
     config.storage_manager = 'ConfigurableStorageManager'
 
-    config.action_mailer.default_options = {host: 'wgbh.curationexperts.com'}
+    config.action_mailer.default_url_options = {host: 'wgbh.curationexperts.com'}
   end
 end
