@@ -37,6 +37,13 @@ GIT
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
 
+GIT
+  remote: git://github.com/yob/em-ftpd.git
+  revision: 5942d92c9e2f296f49034e324a8aa94017ba7830
+  specs:
+    em-ftpd (0.0.1)
+      eventmachine (~> 1.0.0.beta1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -131,8 +138,6 @@ GEM
     devise-guests (0.3.1)
       devise
     diff-lcs (1.2.1)
-    em-ftpd (0.0.1)
-      eventmachine (~> 1.0.0.beta1)
     equivalent-xml (0.3.0)
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
@@ -393,7 +398,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   devise-guests (~> 0.3)
-  em-ftpd
+  em-ftpd!
   factory_girl_rails
   hydra-head
   hydra-pbcore (= 2.2.0rc1)
