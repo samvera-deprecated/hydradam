@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
   
   def file_online_notice(user, file)
     @user = user
-    @url  = url_for(file)
+    @url  = sufia.url_for(file)
     mail(:to => user.email, :subject => "File ready for download")
   end
 
