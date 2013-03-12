@@ -77,6 +77,6 @@ module Bawstun
     # OfflineStorageManager always indicates the file is offline
     # SAMQFSStorageManager for Oracle SAM-QFS
     #config.storage_manager = 'NullStorageManager'
-    config.storage_manager = 'OfflineStorageManager'
+    config.storage_manager = 'ConfigurableStorageManager'
   end
 end
