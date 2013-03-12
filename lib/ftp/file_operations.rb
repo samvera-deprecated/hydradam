@@ -6,6 +6,7 @@ module Ftp
     # @yield [Fixnum] New uploaded file size or false if there were an error
     def self.put_file(path, tmp_path )
       FileUtils.copy( tmp_path, path )
+      FileUtils.chgrp( Process.uid, Process.gid, path )
       File.size( tmp_path )
     end
 
