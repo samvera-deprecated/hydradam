@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/curationexperts/em-ftpd.git
+  revision: 4187da585484e35d0628da67e5dbcc0b47fa4ba5
+  specs:
+    em-ftpd (0.0.1)
+      eventmachine (~> 1.0.0.beta1)
+
+GIT
   remote: git://github.com/curationexperts/sufia.git
   revision: 58703134f39d63f129bea0bb5a8c5cfc3ac5ecde
   ref: 5870313
@@ -36,13 +43,6 @@ GIT
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-
-GIT
-  remote: git://github.com/yob/em-ftpd.git
-  revision: 5942d92c9e2f296f49034e324a8aa94017ba7830
-  specs:
-    em-ftpd (0.0.1)
-      eventmachine (~> 1.0.0.beta1)
 
 GEM
   remote: https://rubygems.org/
