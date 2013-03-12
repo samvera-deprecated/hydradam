@@ -4,8 +4,7 @@
 require File.expand_path('../../config/environment.rb',  __FILE__)
 
 FileRequest.where(:fulfillment_date => nil).each do |req|
-  f = GenericFile.find(req.pid)
-  if f && f.content.live?
+  if f = GenericFile.find(req.pid) && f.content.live?
     puts "Found #{f.pid}"
     UserMailer.file_online_notice(req.user, f) 
     req.fulfillment_date = DateTime.now
