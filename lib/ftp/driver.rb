@@ -7,8 +7,6 @@ require File.expand_path('../file_operations', __FILE__)
 # available for download.
 module Ftp
   class Driver
-    FILE_ONE = "This is the first file available for download.\n\nBy James"
-    FILE_TWO = "This is the file number two.\n\n2009-03-21"
 
     def change_dir(path, &block)
       dirname = File.join(Bawstun::Application.config.ftp_download_base, path)
