@@ -77,6 +77,13 @@ describe Ftp::Driver do
         subject.get_file(@path) {|n| n.read.should == "A test file"}
       end
 
+      it "should be able to download it by cd to the directory" do
+        dir = @path.sub(/\/[^\/]+$/, '')
+        filename = @path.sub("#{dir}/", '')
+        subject.change_dir(dir) {|n| n.should be_true}
+        subject.get_file(filename) {|n| n.read.should == "A test file"}
+      end
+
       it "should be able to get its size" do
         subject.bytes(@path) {|n| n.should == 11}
       end

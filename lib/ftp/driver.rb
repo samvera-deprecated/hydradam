@@ -11,7 +11,8 @@ module Ftp
     FILE_TWO = "This is the file number two.\n\n2009-03-21"
 
     def change_dir(path, &block)
-      yield false
+      @current_dir = path
+      yield true
     end
 
     def dir_contents(path, &block)
@@ -76,7 +77,7 @@ module Ftp
           tmp_file = args.delete_at( 1 )
           args = args.map{ |arg| file_system_path( @user.directory, arg ) }
         else
-          args = args.map{ |arg| file_system_path( Bawstun::Application.config.ftp_download_base, arg ) }
+          args = args.map{ |arg| file_system_path( Bawstun::Application.config.ftp_download_base, arg) }
         end
 
 
@@ -98,6 +99,7 @@ module Ftp
       end
 
       def file_system_path( base_path, ftp_path )
+        ftp_path = File.join(@current_dir, ftp_path ) if @current_dir
         File.join base_path, ftp_path
       end
   end
