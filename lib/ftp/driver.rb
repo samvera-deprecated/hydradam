@@ -61,16 +61,6 @@ module Ftp
     end
 
     private
-
-    def dir_item(name)
-      EM::FTPD::DirectoryItem.new(:name => name, :directory => true, :size => 0)
-    end
-
-    def file_item(name, bytes)
-      EM::FTPD::DirectoryItem.new(:name => name, :directory => false, :size => bytes)
-    end
-
-    private
       def ftp_methods( method, args )
         case method
         when :put_file

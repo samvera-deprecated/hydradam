@@ -10,7 +10,7 @@ module Ftp
     end
 
     def self.get_file(path)
-      File.read path
+      File.open path
     end
   end
 end
