@@ -11,8 +11,13 @@ module Ftp
     FILE_TWO = "This is the file number two.\n\n2009-03-21"
 
     def change_dir(path, &block)
-      @current_dir = path
-      yield true
+      dirname = File.join(Bawstun::Application.config.ftp_download_base, path)
+      if Dir.exists?(dirname)
+        @current_dir = path
+        yield true
+      else
+        yield false
+      end
     end
 
     def dir_contents(path, &block)

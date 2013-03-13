@@ -64,6 +64,10 @@ describe Ftp::Driver do
       subject.dir_contents('/') {|n| n.should == []}
     end
 
+    it "should not be able to change into a non-existant the directory" do
+      subject.change_dir('foobar') {|n| n.should be_false}
+    end
+
     describe "with an existing file" do
       before do
         @file = GenericFile.new
@@ -89,6 +93,7 @@ describe Ftp::Driver do
         subject.bytes(filename) {|n| n.should == 11}
         subject.get_file(filename) {|n| n.read.should == "A test file"}
       end
+
 
       it "should be able to change into the directory, and then request an absolute path" do
         subject.change_dir(File.dirname(@path)) {|n| n.should be_true}
