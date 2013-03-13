@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/curationexperts/em-ftpd.git
-  revision: f4dbbbc50788b15a538306552fad38c448b1fd6a
-  branch: abor
+  revision: 3950f875766255f895dad68c50fccc3711c38dc9
+  branch: devel
   specs:
     em-ftpd (0.0.1)
       eventmachine (~> 1.0.0.beta1)
