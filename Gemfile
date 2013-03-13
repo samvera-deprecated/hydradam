@@ -46,4 +46,4 @@ gem "bootstrap-sass"
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
 
-gem 'em-ftpd', github: 'curationexperts/em-ftpd'
+gem 'em-ftpd', github: 'yob/em-ftpd'
