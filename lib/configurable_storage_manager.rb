@@ -5,7 +5,9 @@ module ConfigurableStorageManager
     return false unless File.exists?(filename)
     if File.exists?(CONFIG_FILE)
       lines = File.readlines(CONFIG_FILE)
-      !lines.reject{ |l| /^\s*#/.match l }.include?(filename)
+      lines.reject!{ |l| /^\s*#/.match l }
+      logger.info "Looking for #{filename} within #{lines}"
+      !lines.include?(filename)
     else
       true
     end
