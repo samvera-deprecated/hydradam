@@ -24,6 +24,6 @@ describe UserMailer do
   end
 
   it 'has a link to the file' do
-    mail.body.encoded.should match(/\/files\/#{file.noid}/)
+    mail.body.encoded.should match(/\/downloads\/#{file.noid}/)
   end
 end
