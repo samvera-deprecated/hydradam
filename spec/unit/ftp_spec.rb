@@ -74,7 +74,7 @@ describe Ftp::Driver do
         @path = key.sub('ftp://test.host', '')
       end
       it "should be able to download it" do
-        subject.get_file(@path) {|n| n.should == "A test file"}
+        subject.get_file(@path) {|n| n.read.should == "A test file"}
       end
     end
 
