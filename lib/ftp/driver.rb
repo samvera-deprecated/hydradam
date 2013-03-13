@@ -16,7 +16,18 @@ module Ftp
     end
 
     def dir_contents(path, &block)
-      yield []
+      dirname = File.join(Bawstun::Application.config.ftp_download_base, path)
+      if Dir.exists?(dirname)
+        entries = []
+        Dir.foreach(dirname) do |f|
+          full_path = File.join(dirname, f)
+          next if File.directory?(full_path)
+          entries << EM::FTPD::DirectoryItem.new(:name => f, :directory => false, :size => File.size(full_path))
+        end
+        yield entries
+      else
+        yield []
+      end
     end
 
     def authenticate(user, pass, &block)

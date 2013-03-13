@@ -78,9 +78,15 @@ describe Ftp::Driver do
       end
 
       it "should be able to download it by cd to the directory" do
-        dir = @path.sub(/\/[^\/]+$/, '')
+        dir = File.dirname(@path)#.sub(/\/[^\/]+$/, '')
         filename = @path.sub("#{dir}/", '')
         subject.change_dir(dir) {|n| n.should be_true}
+        subject.dir_contents(dir) do |n|
+          n.size.should == 1
+          n.first.should be_kind_of EM::FTPD::DirectoryItem
+          n.first.name.should == filename
+        end
+        subject.bytes(filename) {|n| n.should == 11}
         subject.get_file(filename) {|n| n.read.should == "A test file"}
       end
 
