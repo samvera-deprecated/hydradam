@@ -6,7 +6,7 @@
   <body>
     <h1>Your file <%= @file.label %> is now online.</h1>
     <p>
-      To download it, just follow this link: <%= @url %>.
+      To download it, just follow this link: <%= link_to @url, @url %>.
     </p>
   </body>
 </html>
