@@ -31,8 +31,8 @@ module Ftp
       yield val
     end
 
-    def bytes(path, &block)
-      yield false 
+    def bytes(*args, &block)
+      yield ftp_methods(:bytes, args)
     end
 
     def get_file(*args, &block)

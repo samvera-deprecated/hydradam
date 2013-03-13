@@ -12,6 +12,10 @@ module Ftp
     def self.get_file(path)
       File.open path
     end
+
+    def self.bytes(path)
+      File.size(path)
+    end
   end
 end
 

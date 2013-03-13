@@ -76,6 +76,10 @@ describe Ftp::Driver do
       it "should be able to download it" do
         subject.get_file(@path) {|n| n.read.should == "A test file"}
       end
+
+      it "should be able to get its size" do
+        subject.bytes(@path) {|n| n.should == 11}
+      end
     end
 
     it "should not download files that don't exist" do
