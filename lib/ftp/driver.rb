@@ -110,7 +110,7 @@ module Ftp
       end
 
       def file_system_path( base_path, ftp_path )
-        ftp_path = File.join(@current_dir, ftp_path ) if @current_dir
+        ftp_path = File.join(@current_dir, ftp_path ) if @current_dir && !ftp_path.start_with?('/')
         File.join base_path, ftp_path
       end
   end

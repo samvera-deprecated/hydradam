@@ -78,7 +78,7 @@ describe Ftp::Driver do
       end
 
       it "should be able to download it by cd to the directory" do
-        dir = File.dirname(@path)#.sub(/\/[^\/]+$/, '')
+        dir = File.dirname(@path)
         filename = @path.sub("#{dir}/", '')
         subject.change_dir(dir) {|n| n.should be_true}
         subject.dir_contents(dir) do |n|
@@ -88,6 +88,11 @@ describe Ftp::Driver do
         end
         subject.bytes(filename) {|n| n.should == 11}
         subject.get_file(filename) {|n| n.read.should == "A test file"}
+      end
+
+      it "should be able to change into the directory, and then request an absolute path" do
+        subject.change_dir(File.dirname(@path)) {|n| n.should be_true}
+        subject.get_file(@path) {|n| n.read.should == "A test file"}
       end
 
       it "should be able to get its size" do
