@@ -82,3 +82,14 @@ module Bawstun
     config.action_mailer.default_url_options = {host: 'wgbh.curationexperts.com'}
   end
 end
+
+ActionMailer::Base.smtp_settings = {
+  :user_name => "sendgridusername",
+  :password => "sendgridpassword",
+  :domain => "yourdomain.com",
+  :address => "smtp.sendgrid.net",
+  :port => 587,
+  :authentication => :plain,
+  :enable_starttls_auto => true
+}
+
