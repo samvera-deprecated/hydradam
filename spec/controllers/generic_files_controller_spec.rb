@@ -35,6 +35,7 @@ describe GenericFilesController do
       @user.update_attribute(:directory, @mock_upload_directory)
     end
     after do
+      FileContentDatastream.any_instance.stub(:live?).and_return(true)
       GenericFile.destroy_all
     end
     it "should ingest files from the filesystem" do

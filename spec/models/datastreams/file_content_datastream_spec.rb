@@ -12,6 +12,7 @@ describe FileContentDatastream do
     @file.content
   end
   after do
+    subject.stub(:live?).and_return(true)
     @file.destroy
   end
   describe "#dsChecksumValid" do
