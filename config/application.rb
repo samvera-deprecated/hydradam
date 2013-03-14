@@ -73,11 +73,11 @@ module Bawstun
     config.external_store_base = '/opt/storage'
 
     # Module for storage manager 
-    # NullStorageManager for plain filesystem
-    # OfflineStorageManager always indicates the file is offline
-    # SAMQFSStorageManager for Oracle SAM-QFS
-    #config.storage_manager = 'NullStorageManager'
-    config.storage_manager = 'ConfigurableStorageManager'
+    #   NullStorageManager          for plain filesystem
+    #   OfflineStorageManager       always indicates the file is offline
+    #   ConfigurableStorageManager  checks config/offline_files.txt for files to be reported as offline 
+    #   SamfsStorageManager         for Oracle SAM-QFS
+    config.storage_manager = 'SamfsStorageManager'
 
     config.action_mailer.default_url_options = {host: 'wgbh.curationexperts.com'}
   end
