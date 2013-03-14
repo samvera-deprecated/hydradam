@@ -8,19 +8,20 @@ GIT
 
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 58703134f39d63f129bea0bb5a8c5cfc3ac5ecde
-  ref: 5870313
+  revision: 6b75e25fd668887c78ebed1634f09534a05bb58d
+  ref: 6b75e25
   specs:
     sufia (1.0.0.pre0)
       activerecord-import (= 0.3.0)
       acts_as_follower (= 0.1.1)
-      blacklight (~> 4.0.0)
+      blacklight (~> 4.0)
       blacklight_advanced_search
       daemons (= 1.1.9)
       devise
       font-awesome-sass-rails (~> 3.0)
       hydra-batch-edit (~> 0.1.0)
       hydra-head (>= 6.0.0.rc3)
+      jquery-rails (~> 2.1.4)
       mail_form
       mailboxer (= 0.8.0)
       nest (= 1.1.1)
@@ -190,7 +191,7 @@ GEM
       logger
       mediashelf-loggable
     journey (1.0.4)
-    jquery-rails (2.2.1)
+    jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (3.0.1)
