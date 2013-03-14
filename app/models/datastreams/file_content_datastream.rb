@@ -52,10 +52,8 @@ class FileContentDatastream < ActiveFedora::Datastream
 
   def online!(user)
     storage_manager.bring_online(filename)
-    req = FileRequest.new
-    req.pid = pid
-    req.user = user
-    req.save!
+    # This may fail if there already is an existing FileRequest. This is expected.
+    FileRequest.create(pid: pid, user: user)
   end
 
   def filename
