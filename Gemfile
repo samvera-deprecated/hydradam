@@ -20,7 +20,8 @@ gem 'jquery-rails'
 
 gem 'blacklight'
 #gem 'sufia', '0.0.8'
-gem 'sufia', github: 'curationexperts/sufia', ref: '6b75e25'
+gem 'sufia', github: 'curationexperts/sufia', ref: '46fdaec'
+#gem 'sufia', path: '../sufia'
 gem 'hydra-head'
 #gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
 #gem 'hydra-pbcore', :path=>'../hydra-pbcore'
@@ -40,7 +41,6 @@ group :production do
 end
 
 gem "devise"
-gem "devise-guests", "~> 0.3"
 gem "bootstrap-sass"
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'

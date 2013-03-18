@@ -4,5 +4,4 @@ class TrackingEvent < ActiveRecord::Base
 
   validates :event, inclusion: %w(view download)
   validates :pid, presence: true
-  validates :user, presence: true
 end

@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 6b75e25fd668887c78ebed1634f09534a05bb58d
-  ref: 6b75e25
+  revision: 46fdaec71a6bd5132f9d329ff1d0628576887374
+  ref: 46fdaec
   specs:
     sufia (1.0.0.pre0)
       activerecord-import (= 0.3.0)
@@ -19,9 +19,8 @@ GIT
       daemons (= 1.1.9)
       devise
       font-awesome-sass-rails (~> 3.0)
-      hydra-batch-edit (~> 0.1.0)
+      hydra-batch-edit (~> 0.2.0)
       hydra-head (>= 6.0.0.rc3)
-      jquery-rails (~> 2.1.4)
       mail_form
       mailboxer (= 0.8.0)
       nest (= 1.1.1)
@@ -137,8 +136,6 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    devise-guests (0.3.1)
-      devise
     diff-lcs (1.2.1)
     equivalent-xml (0.3.0)
       nokogiri (>= 1.4.3)
@@ -168,7 +165,7 @@ GEM
       blacklight
       cancan
       deprecation
-    hydra-batch-edit (0.1.0)
+    hydra-batch-edit (0.2.0)
       blacklight
     hydra-core (6.0.0.rc3)
       active-fedora
@@ -191,7 +188,7 @@ GEM
       logger
       mediashelf-loggable
     journey (1.0.4)
-    jquery-rails (2.1.4)
+    jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (3.0.1)
@@ -347,7 +344,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    sinatra (1.3.5)
+    sinatra (1.3.6)
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
@@ -399,7 +396,6 @@ DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 3.2.1)
   devise
-  devise-guests (~> 0.3)
   em-ftpd!
   factory_girl_rails
   hydra-head
