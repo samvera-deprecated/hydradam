@@ -24,6 +24,7 @@ config/solr.yml
 config/fedora.yml
 config/database.yml
 config/redis.yml
+config/hydra-ldap.yml
 config/initializers/secret_token.rb
 config/initializers/devise.rb
 config/offline_files.txt

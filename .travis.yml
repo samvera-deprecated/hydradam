@@ -23,6 +23,7 @@ before_script:
   - "cp config/redis.yml.sample config/redis.yml"
   - "cp config/initializers/devise.rb.sample config/initializers/devise.rb"
   - "cp config/solr.yml.sample config/solr.yml"
+  - "cp config/hydra-ldap.yml.sample config/hydra-ldap.yml"
   - "cp config/fedora.yml.sample config/fedora.yml"
   - "cp config/initializers/secret_token.rb.sample config/initializers/secret_token.rb"
   - "redis-cli info"

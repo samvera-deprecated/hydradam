@@ -219,6 +219,8 @@ ActiveRecord::Schema.define(version: 20140211221406) do
     t.datetime "groups_last_update"
     t.string   "directory"
     t.boolean  "admin"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

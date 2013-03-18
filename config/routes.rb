@@ -9,8 +9,6 @@ Hydradam::Application.routes.draw do
   Blacklight.add_routes(self)
   HydraHead.add_routes(self)
   Hydra::BatchEdit.add_routes(self)
-
-  devise_for :users
   
   # Metadata Templates routes (based partly on catalog routes)
   resources 'imported_metadata_manager', :only=>:index do
@@ -26,6 +24,8 @@ Hydradam::Application.routes.draw do
       post 'apply' 
     end
   end
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   # This must be the very last route in the file because it has a catch all route for 404 errors.
   # This behavior seems to show up only in production mode.

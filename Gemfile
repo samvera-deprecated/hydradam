@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.0.3'
-
+# TODO: use strong params instead.
+gem 'protected_attributes'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -27,6 +28,7 @@ group :development, :test do
   #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
   gem 'jettywrapper'
   gem 'rspec-rails'
+  gem 'rspec-its'  # backport of `its` method, which has been removed in rspec 3
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem "unicorn"
@@ -37,6 +39,11 @@ group :production do
 end
 
 gem "devise"
+gem 'hydra-ldap'
+gem 'omniauth-ldap', '~> 1.0.3'
+
+
+
 gem "bootstrap-sass"
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'

@@ -26,7 +26,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  # config.authentication_keys = [ :email ]
+  config.authentication_keys = [ :uid ]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -208,7 +208,13 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  config.omniauth :ldap, :title => 'WGBH ldap',
+    :host => Hydra::LDAP.ldap_config[:host],
+    :base => Hydra::LDAP.ldap_config[:base],
+    :uid => Hydra::LDAP.ldap_config[:uid],
+    :port => Hydra::LDAP.ldap_config[:port]
+    # :bind_dn => 'uid=vanessa,ou=people,dc=example,dc=com',
+    # :password => 'vanessa1'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

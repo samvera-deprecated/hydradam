@@ -1,17 +1,8 @@
-<h2>Sign in</h2>
+<%= form_tag '/users/auth/ldap/callback', :class => "form-signin offset20 span30" do |f| %>
+  <h2 class="form-signin-heading">Please sign in</h2>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <%= text_field_tag :username, nil, :class=>'input-block-level', placeholder: 'User name' %>
+  <%= password_field_tag :password, nil, :class=>'input-block-level', placeholder: 'Password' %>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-
-  <div><%= f.submit "Sign in" %></div>
+  <div><%= submit_tag "Sign in", :class=>"btn btn-large btn-primary" %></div>
 <% end %>
-
-<%= render "devise/shared/links" %>
