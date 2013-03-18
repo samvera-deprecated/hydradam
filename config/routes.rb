@@ -1,5 +1,8 @@
 Bawstun::Application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  namespace :admin do
+    mount RailsAdmin::Engine => '/dashboard', :as => 'rails_admin'
+  end
 
   root :to => "catalog#index"
 
