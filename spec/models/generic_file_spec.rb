@@ -15,6 +15,46 @@ describe GenericFile do
     end
   end
 
+  describe "mxf recognition" do
+    before do
+      subject.characterization.mime_type = ['application/mxf']
+    end
+    describe "when the mxf has video tracks" do
+      before do
+        subject.ffprobe.content =<<EOF
+<ffprobe>
+  <streams>
+    <stream avg_frame_rate="30000/1001" codec_long_name="MPEG-2 video" codec_name="mpeg2video" codec_tag="0x0000" codec_tag_string="[0][0][0][0]" codec_time_base="1001/60000" codec_type="video" display_aspect_ratio="16:9" duration="2.002000" duration_ts="60" has_b_frames="1" height="1080" index="0" level="2" pix_fmt="yuv422p" profile="4:2:2" r_frame_rate="30000/1001" sample_aspect_ratio="1:1" start_pts="0" start_time="0.000000" time_base="1001/30000" timecode="00:00:00:00" width="1920">
+      <disposition attached_pic="0" clean_effects="0" comment="0" default="0" dub="0" forced="0" hearing_impaired="0" karaoke="0" lyrics="0" original="0" visual_impaired="0"></disposition>
+    </stream>
+    <stream avg_frame_rate="0/0" bit_rate="1152000" bits_per_sample="24" channels="1" codec_long_name="PCM signed 24-bit little-endian" codec_name="pcm_s24le" codec_tag="0x0000" codec_tag_string="[0][0][0][0]" codec_time_base="1/48000" codec_type="audio" duration="2.002000" duration_ts="96096" index="1" r_frame_rate="0/0" sample_fmt="s32" sample_rate="48000" start_pts="0" start_time="0.000000" time_base="1/48000">
+      <disposition attached_pic="0" clean_effects="0" comment="0" default="0" dub="0" forced="0" hearing_impaired="0" karaoke="0" lyrics="0" original="0" visual_impaired="0"></disposition>
+    </stream>
+    </streams>
+</ffprobe>
+EOF
+      end
+      its(:video?) { should be_true}
+      its(:audio?) { should be_false}
+    end
+
+    describe "when the mxf only has audio tracks" do
+      before do
+        subject.ffprobe.content =<<EOF
+<ffprobe>
+    <streams>
+        <stream index="0" codec_name="pcm_s16le" codec_long_name="PCM signed 16-bit little-endian" codec_type="audio" codec_time_base="1/48000" codec_tag_string="[0][0][0][0]" codec_tag="0x0000" sample_fmt="s16" sample_rate="48000" channels="1" bits_per_sample="16" r_frame_rate="0/0" avg_frame_rate="0/0" time_base="1/48000" start_pts="0" start_time="0.000000" duration_ts="1723320" duration="35.902500" bit_rate="768000">
+            <disposition default="0" dub="0" original="0" comment="0" lyrics="0" karaoke="0" forced="0" hearing_impaired="0" visual_impaired="0" clean_effects="0" attached_pic="0"/>
+        </stream>
+    </streams>
+</ffprobe>
+EOF
+      end
+      its(:video?) { should be_false}
+      its(:audio?) { should be_true}
+    end
+  end
+
   describe "terms_for_editing" do
     it "should return a list" do
       subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, :publisher,
