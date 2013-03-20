@@ -4,6 +4,7 @@ en:
     account_name: "Account Id"
     institution_name: "WGBH"
     deposit_agreement:  "WGBH's Deposit Agreement"
+    share_button:       "Upload"
     directory:
       suffix:           '@wgbh.org'
 
