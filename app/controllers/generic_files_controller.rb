@@ -35,6 +35,11 @@ class GenericFilesController < ApplicationController
 
   protected
 
+  # overridding this method because we don't want to enfoce that terms are accepted. 
+  def terms_accepted?
+    true
+  end
+
   # overriding this method to initialize more complex RDF assertions (b-nodes)
   def initialize_fields(file)
     file.publisher.build if file.publisher.empty?

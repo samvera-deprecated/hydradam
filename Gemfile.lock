@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: git://github.com/curationexperts/sufia.git
-  revision: 1829b15867305aa13c6ebe04c7f0a145d72a2352
-  ref: 1829b15
+  revision: 4bed4a7f6e2bb47b8a6c571a027cd6b1f9395f41
+  ref: 4bed4a7
   specs:
     sufia (1.0.0.pre0)
       activerecord-import (= 0.3.0)
@@ -20,7 +20,7 @@ GIT
       devise
       font-awesome-sass-rails (~> 3.0)
       hydra-batch-edit (~> 0.2.0)
-      hydra-head (>= 6.0.0.rc3)
+      hydra-head (>= 6.0.0.rc4)
       mail_form
       mailboxer (= 0.8.0)
       nest (= 1.1.1)
@@ -96,12 +96,12 @@ GEM
     arel (3.0.2)
     backports (3.1.1)
     bcrypt-ruby (3.0.1)
-    blacklight (4.0.1)
+    blacklight (4.1.0)
       bootstrap-sass (~> 2.2.0)
       kaminari (~> 0.13)
       marc (>= 0.4.3, < 1.1)
       nokogiri (~> 1.5)
-      rails (~> 3.2)
+      rails (>= 3.2)
       rsolr (~> 1.0.6)
       sass-rails
     blacklight_advanced_search (2.0.0)
@@ -127,7 +127,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.1)
+    coffee-script-source (1.6.2)
     daemons (1.1.9)
     deprecation (0.0.5)
       activesupport
@@ -159,7 +159,7 @@ GEM
       tilt
     hike (1.2.1)
     hooks (0.2.2)
-    hydra-access-controls (6.0.0.rc3)
+    hydra-access-controls (6.0.0.rc4)
       active-fedora (>= 6.0.0.rc2)
       activesupport
       blacklight
@@ -167,21 +167,22 @@ GEM
       deprecation
     hydra-batch-edit (0.2.0)
       blacklight
-    hydra-core (6.0.0.rc3)
+    hydra-core (6.0.0.rc4)
       active-fedora
       blacklight (~> 4.0)
       block_helpers
       deprecation (>= 0.0.5)
-      hydra-access-controls (= 6.0.0.rc3)
+      hydra-access-controls (= 6.0.0.rc4)
+      jettywrapper (>= 1.4.1)
       rails (~> 3.2.3)
-    hydra-head (6.0.0.rc3)
-      hydra-access-controls (= 6.0.0.rc3)
-      hydra-core (= 6.0.0.rc3)
+    hydra-head (6.0.0.rc4)
+      hydra-access-controls (= 6.0.0.rc4)
+      hydra-core (= 6.0.0.rc4)
       rails (>= 3.2.6)
     hydra-pbcore (2.2.0rc1)
       active-fedora
     i18n (0.6.1)
-    jettywrapper (1.4.0)
+    jettywrapper (1.4.1)
       activesupport (>= 3.0.0)
       childprocess
       i18n
@@ -218,7 +219,7 @@ GEM
     nested_form (0.3.1)
     noid (0.5.5)
       backports
-    nokogiri (1.5.6)
+    nokogiri (1.5.8)
     nom-xml (0.5.1)
       activesupport
       i18n
@@ -260,7 +261,7 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails_admin (0.4.5)
+    rails_admin (0.4.6)
       bootstrap-sass (~> 2.2)
       builder (~> 3.0)
       coffee-rails (~> 3.1)
@@ -301,7 +302,7 @@ GEM
     redis (3.0.3)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
-    ref (1.0.2)
+    ref (1.0.4)
     remotipart (1.0.5)
     resque (1.23.1)
       multi_json (~> 1.0)
@@ -338,7 +339,7 @@ GEM
       mime-types
       nokogiri
       rest-client
-    safe_yaml (0.8.5)
+    safe_yaml (0.8.6)
     sass (3.2.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
