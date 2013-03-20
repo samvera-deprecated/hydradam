@@ -25,6 +25,7 @@ END_CMD
     end
     describe "when the file is offline" do
       before do
+        `echo hi` # this works as a mock for $?
         subject.should_receive(:`).with("sls -D /opt/testfile").and_return(<<END_CMD
 testfile:
 mode: -rw------T links: 1 owner: root group: root 
