@@ -41,6 +41,24 @@ class GenericFile < ActiveFedora::Base
     save!
   end
 
+  # Overridden to check that mxf actually has video tracks 
+  def video?
+    if mime_type == 'application/mxf'
+      ffprobe.codec_type.any? {|type| type == 'video'}
+    else
+      super
+    end
+  end
+
+  # If the mxf has no video tracks return true   
+  def audio?
+    if mime_type == 'application/mxf'
+      !ffprobe.codec_type.any? {|type| type == 'video'}
+    else
+      super
+    end
+  end
+
   # Overridden to load the original image from an external datastream
   def load_image_transformer
     Magick::ImageList.new(content.filename)
