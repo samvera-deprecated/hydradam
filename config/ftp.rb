@@ -22,7 +22,7 @@ require File.expand_path('../lib/ftp/driver', __FILE__)
 
 driver    Ftp::Driver
 user      'ftp'
-group     'ftp'
+group     'wgbh' # a group shared by the ftp user and the web app user.
 port      opts['-p'] || 21 
 # configure the server
 #driver_args 1, 2, 3
