@@ -28,4 +28,4 @@ port      opts['-p'] || 21
 #driver_args 1, 2, 3
 daemonise true if opts.has_key?('-D')
 name      "bawstun"
-#pid_file  "/var/run/fakeftp.pid"
+pid_file  "/run/em-ftpd.pid"
