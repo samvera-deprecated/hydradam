@@ -19,17 +19,22 @@ module Ftp
     end
 
     def dir_contents(path, &block)
-      dirname = File.join(Bawstun::Application.config.ftp_download_base, path)
-      if Dir.exists?(dirname)
-        entries = []
-        Dir.foreach(dirname) do |f|
-          full_path = File.join(dirname, f)
-          next if File.directory?(full_path)
-          entries << EM::FTPD::DirectoryItem.new(:name => f, :directory => false, :size => File.size(full_path))
-        end
-        yield entries
-      else
+      # when a user is logged in this should be the current users directory
+      if @user != 'anonymous'
         yield []
+      else 
+        dirname = File.join(Bawstun::Application.config.ftp_download_base, path)
+        if Dir.exists?(dirname)
+          entries = []
+          Dir.foreach(dirname) do |f|
+            full_path = File.join(dirname, f)
+            next if File.directory?(full_path)
+            entries << EM::FTPD::DirectoryItem.new(:name => f, :directory => false, :size => File.size(full_path))
+          end
+          yield entries
+        else
+          yield []
+        end
       end
     end
 
@@ -39,7 +44,7 @@ module Ftp
           @user = 'anonymous'
           true
         else
-          @user = User.where(email: user).first
+          @user = User.find_by_user_key(user)
           @user && @user.valid_password?(pass) && @user.directory
         end
       Rails.logger.info "#{val ? 'Successful' : 'Unsuccessful'} FTP sign in attempt for: #{user}"
