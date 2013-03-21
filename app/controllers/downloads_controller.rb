@@ -25,13 +25,15 @@ class DownloadsController < ApplicationController
         send_content (@asset)
       end
     else 
-      logger.info "[DownloadsController] #{current_user.user_key} does not have access to read #{params['id']}"
+      logger.info "[DownloadsController] #{current_user ? current_user.user_key : 'anonymous user'} does not have access to read #{params['id']}"
       redirect_to "/assets/NoAccess.png"
     end
   end
 
   def log_download
-    @asset.downloads.create!(user: current_user) unless ['thumbnail', 'webm', 'mp4'].include?(params[:datastream_id])
+    if @asset
+      @asset.downloads.create!(user: current_user) unless ['thumbnail', 'webm', 'mp4'].include?(params[:datastream_id])
+    end
   end
 
   protected
