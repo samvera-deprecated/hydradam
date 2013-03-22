@@ -20,7 +20,7 @@ gem 'jquery-rails'
 
 gem 'blacklight'
 #gem 'sufia', '0.0.8'
-gem 'sufia', github: 'curationexperts/sufia', ref: '86766f8'
+gem 'sufia', github: 'curationexperts/sufia', ref: '24e65eb'
 #gem 'sufia', path: '../sufia'
 gem 'hydra-head'
 #gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
