@@ -45,11 +45,11 @@ class DownloadsController < ApplicationController
 
   def stream(asset)
     ds = asset.datastreams[datastream_name]
+    response.headers['Accept-Ranges'] = 'bytes'
 
     if request.head?
       logger.info("Got a head request for streaming")
       # content length header
-      response.headers['Accept-Ranges'] = 'bytes'
       response.headers['Content-Length'] = ds.dsSize
       response.headers['Content-Type'] = ds.mimeType
       return head :ok

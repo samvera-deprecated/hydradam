@@ -116,6 +116,7 @@ describe DownloadsController do
       response.body.should == 'one1two2threfour'
       response.headers["Content-Range"].should == 'bytes 0-16/16'
       response.headers["Content-Length"].should == '16'
+      response.headers['Accept-Ranges'].should == 'bytes'
     end
     it "should send the whole thing when the range is open ended" do
       request.env["Range"] = 'bytes=0-'
