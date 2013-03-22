@@ -22,12 +22,12 @@ class DownloadsController < ApplicationController
         end
       else
         # A proxy datastream
-        # if request.headers["Range"].present?
+        if request.headers["Range"].present?
           logger.info "[DownloadsController] Range? #{request.headers["Range"]}"
           stream(@asset)
-        # else
-        #   send_content(@asset)
-        # end
+        else
+          send_content(@asset)
+        end
       end
     else 
       logger.info "[DownloadsController] #{current_user ? current_user.user_key : 'anonymous user'} does not have access to read #{params['id']}"
