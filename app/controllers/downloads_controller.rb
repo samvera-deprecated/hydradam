@@ -22,12 +22,12 @@ class DownloadsController < ApplicationController
         end
       else
         # A proxy datastream
-        if request.headers["Range"].present?
+        # if request.headers["Range"].present?
           logger.info "[DownloadsController] Range? #{request.headers["Range"]}"
           stream(@asset)
-        else
-          send_content(@asset)
-        end
+        # else
+        #   send_content(@asset)
+        # end
       end
     else 
       logger.info "[DownloadsController] #{current_user ? current_user.user_key : 'anonymous user'} does not have access to read #{params['id']}"
@@ -57,7 +57,8 @@ class DownloadsController < ApplicationController
     
     _, range = request.headers["Range"].split('bytes=')
     from, to = range.split('-').map(&:to_i)
-    to = ds.dsSize unless to
+    to = ds.dsSize - 1 unless to
+    logger.info "Range is #{from} - #{to}"
     repo = ds.send(:repository) # TODO find a better way.
     buffer = StringIO.new
     repo.datastream_dissemination(pid: asset.pid, dsid: datastream_name) do |response|
@@ -69,12 +70,11 @@ class DownloadsController < ApplicationController
     buffer.close_write
     buffer.seek(from||0)
 
-    length = to - from
-    length = 1 if length == 0
+    length = to - from + 1
     response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
     response.headers['Content-Length'] = "#{length}"
 
-    send_data buffer.read(length), content_options(asset, ds)
+    send_data buffer.read(length), content_options(asset, ds).merge(:status=>206)
   end
 
   # Overriding so that we can use with external datastreams
