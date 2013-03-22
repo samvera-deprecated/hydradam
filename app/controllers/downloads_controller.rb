@@ -22,7 +22,12 @@ class DownloadsController < ApplicationController
         end
       else
         # A proxy datastream
-        send_content (@asset)
+        if request.headers["Range"].present?
+          logger.info "[DownloadsController] Range? #{request.headers["Range"]}"
+          stream(@asset)
+        else
+          send_content(@asset)
+        end
       end
     else 
       logger.info "[DownloadsController] #{current_user ? current_user.user_key : 'anonymous user'} does not have access to read #{params['id']}"
@@ -38,25 +43,49 @@ class DownloadsController < ApplicationController
 
   protected
 
+  def stream(asset)
+    ds = asset.datastreams[datastream_name]
+    from, to = request.headers["Range"].split('-').map(&:to_i)
+    repo = ds.send(:repository) # TODO find a better way.
+    buffer = StringIO.new
+    repo.datastream_dissemination(pid: asset.pid, dsid: datastream_name) do |response|
+      response.read_body do |chunk|
+        # TODO discard the parts before from
+        buffer.write(chunk)
+      end
+    end
+    buffer.close_write
+    buffer.seek(from||0)
+    if to
+      length = to - from
+      send_data buffer.read(length), content_options(asset, ds)
+    else
+      send_data buffer.read, content_options(asset, ds)
+    end
+  end
+
   # Overriding so that we can use with external datastreams
-  def send_content (asset)
+  def send_content(asset)
+    ds = asset.datastreams[datastream_name]
+    raise ActionController::RoutingError.new('Not Found') if ds.nil? or !ds.has_content?
+    # ds.filename is only for externals
+    if (ds.respond_to? :filename)
+      send_file ds.filename, content_options(asset, ds)
+    else
+      send_data ds.content, content_options(asset, ds)
+    end
+  end
+
+  def content_options(asset, ds)
     opts = {disposition: 'inline'}
     if default_datastream?
       opts[:filename] = params["filename"] || asset.label
     else
       opts[:filename] = params[:datastream_id]
     end
-    ds = asset.datastreams[datastream_name]
 
-    raise ActionController::RoutingError.new('Not Found') if ds.nil? or !ds.has_content?
     opts[:type] = ds.mimeType
-    # ds.filename is only for externals
-    if (ds.respond_to? :filename)
-      send_file ds.filename, opts
-    else
-      send_data ds.content, opts
-    end
-    return
+    opts
   end
 
   private
