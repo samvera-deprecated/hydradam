@@ -45,7 +45,19 @@ class DownloadsController < ApplicationController
 
   def stream(asset)
     ds = asset.datastreams[datastream_name]
-    from, to = request.headers["Range"].split('-').map(&:to_i)
+
+    if request.head?
+      logger.info("Got a head request for streaming")
+      # content length header
+      response.headers['Accept-Ranges'] = 'bytes'
+      response.headers['Content-Length'] = ds.dsSize
+      response.headers['Content-Type'] = ds.mimeType
+      return head :ok
+    end
+    
+    _, range = request.headers["Range"].split('bytes=')
+    from, to = range.split('-').map(&:to_i)
+    to = ds.dsSize unless to
     repo = ds.send(:repository) # TODO find a better way.
     buffer = StringIO.new
     repo.datastream_dissemination(pid: asset.pid, dsid: datastream_name) do |response|
@@ -56,12 +68,13 @@ class DownloadsController < ApplicationController
     end
     buffer.close_write
     buffer.seek(from||0)
-    if to
-      length = to - from
-      send_data buffer.read(length), content_options(asset, ds)
-    else
-      send_data buffer.read, content_options(asset, ds)
-    end
+
+    length = to - from
+    length = 1 if length == 0
+    response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
+    response.headers['Content-Length'] = "#{length}"
+
+    send_data buffer.read(length), content_options(asset, ds)
   end
 
   # Overriding so that we can use with external datastreams
