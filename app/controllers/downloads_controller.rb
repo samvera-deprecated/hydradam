@@ -60,20 +60,22 @@ class DownloadsController < ApplicationController
     to = ds.dsSize - 1 unless to
     logger.info "Range is #{from} - #{to}"
     length = to - from + 1
-    data = range(ds, from, length)
     response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
     response.headers['Content-Length'] = "#{length}"
-
-    send_data data, content_options(asset, ds).merge(:status=>206)
+    send_data range(ds, from, length), content_options(asset, ds).merge(:status=>206)
   end
 
   def range (ds, from, length)
     repo = ds.send(:repository) # TODO find a better way.
     buffer = StringIO.new
+    counter = 0
     repo.datastream_dissemination(pid: ds.pid, dsid: ds.dsid) do |response|
       response.read_body do |chunk|
-        # TODO discard the parts before from
-        buffer.write(chunk)
+        counter += chunk.size
+        if (counter > from)
+          # TODO discard the parts before from
+          buffer.write(chunk)
+        end
       end
     end
     buffer.close_write
