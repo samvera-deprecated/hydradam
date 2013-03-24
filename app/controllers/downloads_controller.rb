@@ -62,42 +62,40 @@ class DownloadsController < ApplicationController
     length = to - from + 1
     response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
     response.headers['Content-Length'] = "#{length}"
-    send_data range(ds, from, length), content_options(asset, ds).merge(:status=>206)
+    #send_data range(ds, from, length), content_options(asset, ds).merge(:status=>206)
+    self.response_body = range(ds, from, length)#, content_options(asset, ds).merge(:status=>206)
   end
 
   def range (ds, from, length)
     repo = ds.send(:repository) # TODO find a better way.
-    buffer = StringIO.new
     counter = 0
-    repo.datastream_dissemination(pid: ds.pid, dsid: ds.dsid) do |response|
-      response.read_body do |chunk|
-        last_counter = counter
-        counter += chunk.size
-        if (counter > from) # greater than the range minimum
-          if counter > from + length
-            # At the end of what we need. Write the beginning of what was read.
-            offset = (length + from) - counter
-            buffer.write(chunk[0..offset])
-            break
-          elsif from >= last_counter
-            # At the end of what we beginning of what we need. Write the end of what was read.
-            offset = from - last_counter
-            buffer.write(chunk[offset..-1])
-          else 
-            # In the middle. We need all of this
-            buffer.write(chunk)
-          end
-          if (counter == from + length)
-            # Iteration was exactly the right length, no more reads needed.
-            break
+    Enumerator.new do |blk|
+      repo.datastream_dissemination(pid: ds.pid, dsid: ds.dsid) do |response|
+        response.read_body do |chunk|
+          last_counter = counter
+          counter += chunk.size
+          if (counter > from) # greater than the range minimum
+            if counter > from + length
+              # At the end of what we need. Write the beginning of what was read.
+              offset = (length + from) - counter
+              blk << chunk[0..offset]
+              break
+            elsif from >= last_counter
+              # At the end of what we beginning of what we need. Write the end of what was read.
+              offset = from - last_counter
+              blk << chunk[offset..-1]
+            else 
+              # In the middle. We need all of this
+              blk << chunk
+            end
+            if (counter == from + length)
+              # Iteration was exactly the right length, no more reads needed.
+              break
+            end
           end
         end
       end
     end
-    buffer.close_write
-    buffer.rewind
-    #buffer.seek(from||0)
-    buffer.read#(length)
   end
 
   # Overriding so that we can use with external datastreams
