@@ -63,6 +63,8 @@ class DownloadsController < ApplicationController
     response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
     response.headers['Content-Length'] = "#{length}"
     #send_data range(ds, from, length), content_options(asset, ds).merge(:status=>206)
+    self.status = 206
+    send_file_headers! content_options(asset, ds)
     self.response_body = range(ds, from, length)#, content_options(asset, ds).merge(:status=>206)
   end
 

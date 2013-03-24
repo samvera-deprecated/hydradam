@@ -117,6 +117,9 @@ describe DownloadsController do
       response.headers["Content-Range"].should == 'bytes 0-15/16'
       response.headers["Content-Length"].should == '16'
       response.headers['Accept-Ranges'].should == 'bytes'
+      response.headers['Content-Type'].should == "video/webm"
+      response.headers["Content-Disposition"].should == "inline; filename=\"webm\""
+      response.status.should == 206
     end
     it "should send the whole thing when the range is open ended" do
       request.env["Range"] = 'bytes=0-'
