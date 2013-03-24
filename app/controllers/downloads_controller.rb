@@ -59,9 +59,18 @@ class DownloadsController < ApplicationController
     from, to = range.split('-').map(&:to_i)
     to = ds.dsSize - 1 unless to
     logger.info "Range is #{from} - #{to}"
+    length = to - from + 1
+    data = range(ds, from, length)
+    response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
+    response.headers['Content-Length'] = "#{length}"
+
+    send_data data, content_options(asset, ds).merge(:status=>206)
+  end
+
+  def range (ds, from, length)
     repo = ds.send(:repository) # TODO find a better way.
     buffer = StringIO.new
-    repo.datastream_dissemination(pid: asset.pid, dsid: datastream_name) do |response|
+    repo.datastream_dissemination(pid: ds.pid, dsid: ds.dsid) do |response|
       response.read_body do |chunk|
         # TODO discard the parts before from
         buffer.write(chunk)
@@ -69,12 +78,7 @@ class DownloadsController < ApplicationController
     end
     buffer.close_write
     buffer.seek(from||0)
-
-    length = to - from + 1
-    response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
-    response.headers['Content-Length'] = "#{length}"
-
-    send_data buffer.read(length), content_options(asset, ds).merge(:status=>206)
+    buffer.read(length)
   end
 
   # Overriding so that we can use with external datastreams
