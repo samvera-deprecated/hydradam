@@ -71,16 +71,33 @@ class DownloadsController < ApplicationController
     counter = 0
     repo.datastream_dissemination(pid: ds.pid, dsid: ds.dsid) do |response|
       response.read_body do |chunk|
+        last_counter = counter
         counter += chunk.size
-        if (counter > from)
-          # TODO discard the parts before from
-          buffer.write(chunk)
+        if (counter > from) # greater than the range minimum
+          if counter > from + length
+            # At the end of what we need. Write the beginning of what was read.
+            offset = (length + from) - counter
+            buffer.write(chunk[0..offset])
+            break
+          elsif from >= last_counter
+            # At the end of what we beginning of what we need. Write the end of what was read.
+            offset = from - last_counter
+            buffer.write(chunk[offset..-1])
+          else 
+            # In the middle. We need all of this
+            buffer.write(chunk)
+          end
+          if (counter == from + length)
+            # Iteration was exactly the right length, no more reads needed.
+            break
+          end
         end
       end
     end
     buffer.close_write
-    buffer.seek(from||0)
-    buffer.read(length)
+    buffer.rewind
+    #buffer.seek(from||0)
+    buffer.read#(length)
   end
 
   # Overriding so that we can use with external datastreams
