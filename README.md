@@ -2,9 +2,13 @@
 
 ```
 git clone ...
+cd bawstun
 git submodule init
 git submodule update
 bundle install
+cp config/database.yml.sample config/database.yml
+cp config/fedora.yml.sample config/fedora.yml
+cp config/solr.yml.sample config/solr.yml
 rake db:migrate
 ```
 
