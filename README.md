@@ -3,12 +3,21 @@
 ```
 git clone ...
 cd bawstun
+bundle install
+```
+
+It's easiest to use hydra-jetty to get fedora and solr running in your development environment, get a copy from github and update your application config files:
+```
 git submodule init
 git submodule update
-bundle install
 cp config/database.yml.sample config/database.yml
 cp config/fedora.yml.sample config/fedora.yml
+cp config/redis.yml.sample config/redis.yml
 cp config/solr.yml.sample config/solr.yml
+```
+
+Make sure your database configuration is up-to-date:
+```
 rake db:migrate
 ```
 
