@@ -40,46 +40,15 @@ class DownloadsController < ApplicationController
 
   # Overriding so that we can use with external datastreams
   def send_content(asset)
-    ds = asset.datastreams[datastream_name]
-    response.headers['Accept-Ranges'] = 'bytes'
-
-    if request.head?
-      logger.info("Got a head request for streaming")
-      # content length header
-      response.headers['Content-Length'] = ds.dsSize
-      response.headers['Content-Type'] = ds.mimeType
-      return head :ok
-    end
-    
-    if request.headers["Range"]
-      _, range = request.headers["Range"].split('bytes=')
-      from, to = range.split('-').map(&:to_i)
-      to = ds.dsSize - 1 unless to
-      logger.info "Range is #{from} - #{to}"
-      length = to - from + 1
-      response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
-      response.headers['Content-Length'] = "#{length}"
-      self.status = 206
-      send_file_headers! content_options(asset, ds)
-      self.response_body = ds.stream(from, length)
-    elsif (ds.respond_to? :filename)
+    if datastream.respond_to? :filename
       send_file ds.filename, content_options(asset, ds)
     else
-      send_file_headers! content_options(asset, ds)
-      self.response_body = ds.stream
+      super
     end
   end
 
-  def content_options(asset, ds)
-    opts = {disposition: 'inline'}
-    if default_datastream?
-      opts[:filename] = params["filename"] || asset.label
-    else
-      opts[:filename] = params[:datastream_id]
-    end
-
-    opts[:type] = ds.mimeType
-    opts
+  def datastream_name
+    default_datastream? ? super : params[:datastream_id]
   end
 
   private
