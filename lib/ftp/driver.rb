@@ -24,7 +24,7 @@ module Ftp
         yield []
       else 
         dirname = File.join(Bawstun::Application.config.ftp_download_base, path)
-        if Dir.exists?(dirname)
+        if path != '/' && Dir.exists?(dirname)
           entries = []
           Dir.foreach(dirname) do |f|
             full_path = File.join(dirname, f)
