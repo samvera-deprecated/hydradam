@@ -23,7 +23,7 @@ gem 'blacklight'
 #gem 'sufia', path: '../sufia'
 gem 'sufia', github: 'projecthydra/sufia', ref: '973daa8' # > 1.2.0
 #gem 'sufia', '~>1'
-gem 'hydra-head'
+gem 'hydra-head', github: 'projecthydra/hydra', ref: '8c707fd' # > 6.1.1
 #gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
 #gem 'hydra-pbcore', :path=>'../hydra-pbcore'
 gem 'hydra-pbcore', '2.2.0rc1'
