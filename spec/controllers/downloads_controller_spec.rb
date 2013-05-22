@@ -60,6 +60,8 @@ describe DownloadsController do
     describe "for a file that is not online" do
       before do
         FileContentDatastream.any_instance.stub(:live?).and_return(false)
+        @file.add_file_datastream('proxymovie', :dsid=>'webm', :mimeType => 'video/webm')
+        @file.save!
       end
 
       it "should give an ftp link" do
@@ -69,9 +71,12 @@ describe DownloadsController do
         response.should render_template 'offline'
       end
       it "should show the proxy (proxies don't go offline)" do
-        controller.should_receive(:send_content).with(@file)
         get :show, id: @file, datastream_id: 'webm'
         response.should be_successful
+        response.should be_success
+        response.headers['Content-Type'].should == "video/webm"
+        response.headers["Content-Disposition"].should == "inline; filename=\"webm\""
+        response.body.should == 'proxymovie'
       end
     end
   end

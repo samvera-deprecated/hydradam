@@ -17,6 +17,15 @@ class GenericFile < ActiveFedora::Base
     content.run_callbacks :destroy 
   end
 
+  # overriding this method to initialize more complex RDF assertions (b-nodes)
+  def initialize_fields
+    publisher.build if publisher.empty?
+    contributor.build if contributor.empty?
+    creator.build if creator.empty?
+    has_location.build if has_location.empty?
+    super
+  end
+
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
     return add_external_file(file, dsid, file_name) if dsid == 'content'

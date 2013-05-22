@@ -84,6 +84,10 @@ class DownloadsController < ApplicationController
 
   private
 
+  def default_datastream?
+    datastream.dsid == self.class.default_content_dsid
+  end
+
   def over_threshold?
     @asset.file_size.first.to_i > Bawstun::Application.config.ftp_download_threshold
   end
