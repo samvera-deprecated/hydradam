@@ -40,10 +40,33 @@ class DownloadsController < ApplicationController
 
   # Overriding so that we can use with external datastreams
   def send_content(asset)
-    if datastream.respond_to? :filename
+    ds = asset.datastreams[datastream_name]
+    response.headers['Accept-Ranges'] = 'bytes'
+
+    if request.head?
+      # logger.info("Got a head request for streaming")
+      # # content length header
+      # response.headers['Content-Length'] = ds.dsSize
+      # response.headers['Content-Type'] = ds.mimeType
+      # return head :ok
+      content_head(ds)
+    elsif request.headers["Range"]
+      send_range(ds)
+      # _, range = request.headers["Range"].split('bytes=')
+      # from, to = range.split('-').map(&:to_i)
+      # to = ds.dsSize - 1 unless to
+      # logger.info "Range is #{from} - #{to}"
+      # length = to - from + 1
+      # response.headers['Content-Range'] = "bytes #{from}-#{to}/#{ds.dsSize}"
+      # response.headers['Content-Length'] = "#{length}"
+      # self.status = 206
+      # send_file_headers! content_options(asset, ds)
+      # self.response_body = ds.stream(from, length)
+    elsif (ds.respond_to? :filename)
       send_file ds.filename, content_options(asset, ds)
     else
-      super
+      send_file_headers! content_options(asset, ds)
+      self.response_body = ds.stream
     end
   end
 
