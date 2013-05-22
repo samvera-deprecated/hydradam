@@ -16,6 +16,30 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
+  remote: git://github.com/projecthydra/hydra-head.git
+  revision: 8c707fdea2c9c3ee3147055dc72802f909c9bb40
+  ref: 8c707fd
+  specs:
+    hydra-access-controls (6.1.1)
+      active-fedora (~> 6.1)
+      activesupport
+      blacklight
+      cancan
+      deprecation
+    hydra-core (6.1.1)
+      active-fedora
+      blacklight (~> 4.0)
+      block_helpers
+      deprecation (>= 0.0.5)
+      hydra-access-controls (= 6.1.1)
+      jettywrapper (>= 1.4.1)
+      rails (~> 3.2.3)
+    hydra-head (6.1.1)
+      hydra-access-controls (= 6.1.1)
+      hydra-core (= 6.1.1)
+      rails (>= 3.2.6)
+
+GIT
   remote: git://github.com/projecthydra/sufia.git
   revision: 973daa80c5ef7b044f7072372bba5465d42dec6e
   ref: 973daa8
@@ -157,30 +181,12 @@ GEM
       tilt
     hike (1.2.2)
     hooks (0.2.2)
-    hydra-access-controls (6.1.1)
-      active-fedora (~> 6.1)
-      activesupport
-      blacklight
-      cancan
-      deprecation
     hydra-batch-edit (1.0.1)
       blacklight
       hydra-collections
     hydra-collections (0.0.1)
       blacklight
       hydra-head
-    hydra-core (6.1.1)
-      active-fedora
-      blacklight (~> 4.0)
-      block_helpers
-      deprecation (>= 0.0.5)
-      hydra-access-controls (= 6.1.1)
-      jettywrapper (>= 1.4.1)
-      rails (~> 3.2.3)
-    hydra-head (6.1.1)
-      hydra-access-controls (= 6.1.1)
-      hydra-core (= 6.1.1)
-      rails (>= 3.2.6)
     hydra-pbcore (2.2.0rc1)
       active-fedora
     i18n (0.6.1)
@@ -398,7 +404,7 @@ DEPENDENCIES
   devise
   em-ftpd!
   factory_girl_rails
-  hydra-head
+  hydra-head!
   hydra-pbcore (= 2.2.0rc1)
   jettywrapper
   jquery-rails
