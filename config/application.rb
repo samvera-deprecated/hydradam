@@ -67,7 +67,7 @@ module Bawstun
     config.ftp_download_base = '/opt/ftp'
 
     # Threshold for ftp download
-    config.ftp_download_threshold = 2000000000 
+    config.ftp_download_threshold = 200000000000 
 
     # Base directory for original content storage 
     config.external_store_base = '/opt/storage'
