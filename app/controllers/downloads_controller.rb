@@ -47,7 +47,7 @@ class DownloadsController < ApplicationController
     elsif request.headers["Range"]
       send_range
     elsif (datastream.respond_to? :filename)
-      send_file datastream.filename, content_options
+      send_file datastream.filename, content_options.merge(disposition: 'attachment')
     else
       send_file_headers! content_options
       self.response_body = datastream.stream
