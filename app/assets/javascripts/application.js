@@ -17,3 +17,7 @@
 //= require blacklight/blacklight
 //= require sufia
 //= require_tree .
+max_file_size = 2000000000
+max_file_size_string = "2 GB"
+max_total_file_size = 2000000000
+max_total_file_size_string = "2 GB"
