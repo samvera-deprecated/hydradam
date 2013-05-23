@@ -40,18 +40,17 @@ class DownloadsController < ApplicationController
 
   # Overriding so that we can use with external datastreams
   def send_content(asset)
-    ds = asset.datastreams[datastream_name]
     response.headers['Accept-Ranges'] = 'bytes'
 
     if request.head?
       content_head
     elsif request.headers["Range"]
       send_range
-    elsif (ds.respond_to? :filename)
-      send_file ds.filename, content_options(asset, ds)
+    elsif (datastream.respond_to? :filename)
+      send_file datastream.filename, content_options
     else
       send_file_headers! content_options
-      self.response_body = ds.stream
+      self.response_body = datastream.stream
     end
   end
 
