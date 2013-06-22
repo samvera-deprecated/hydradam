@@ -70,34 +70,30 @@ EOF
   end
   describe "contributor attribute" do
     it "should delegate to the bnode" do
-      subject.contributor = ["Sally", "Mary"]
+      subject.contributor_attributes = [{name: "Sally"}, {name:"Mary"}]
       subject.descMetadata.contributor.first.name.should == ["Sally"]
       subject.descMetadata.contributor.last.name.should == ["Mary"]
       subject.contributor.first.should be_kind_of MediaAnnotationDatastream::Person
       subject.contributor.first.name.first.should == "Sally"
     end
-    it "should remove contributors" do
-      subject.contributor = ["Sally", "Mary"]
-      subject.contributor = ["Bob"]
-      subject.contributor.size.should == 1
-      subject.contributor.first.name.should == ["Bob"]
+  end
+  describe "publisher attribute" do
+    it "should delegate to the bnode" do
+      subject.publisher_attributes = [{name: "Sally"}, {name:"Mary"}]
+      subject.descMetadata.publisher.first.name.should == ["Sally"]
+      subject.descMetadata.publisher.last.name.should == ["Mary"]
+      subject.publisher.first.should be_kind_of MediaAnnotationDatastream::Person
+      subject.publisher.first.name.first.should == "Sally"
     end
   end
 
   describe "creator attribute" do
     it "should delegate to the bnode" do
-      subject.creator = ["Sally", "Mary"]
+      subject.creator_attributes = [{name: "Sally"}, {name:"Mary"}]
       subject.descMetadata.creator.first.name.should == ["Sally"]
       subject.descMetadata.creator.last.name.should == ["Mary"]
       subject.creator.first.should be_kind_of MediaAnnotationDatastream::Person
       subject.creator.first.name.first.should == "Sally"
-    end
-
-    it "should remove creators" do
-      subject.creator = ["Sally", "Mary"]
-      subject.creator = ["Bob"]
-      subject.creator.size.should == 1
-      subject.creator.first.name.should == ["Bob"]
     end
   end
 
@@ -106,12 +102,14 @@ EOF
       now = DateTime.now
       subject.date_modified = now
       subject.date_uploaded = now
-      subject.creator = 'Justin'
+      subject.creator.build(name: 'Justin')
       subject.part_of = "Arabiana"
-      subject.contributor = "Mohammad"
-      subject.title = "Foobar!"
-      subject.description = "The work by Allah"
-      subject.publisher = "Vertigo Comics"
+      subject.contributor.build(name: "Martin Smith")
+      subject.title.build(value: "Frontline", title_type: "Series")
+      subject.title.build(value: "The Retirement Gamble", title_type: "Program")
+      subject.title.build(value: "12", title_type: "Episode")
+      subject.description = "An examination of retirement accounts. Included: the lack of uniformity in plans, which results in some workers paying much more than others; the cost of a seemingly small annual fee when spread out across a worker's lifetime; hidden fees some 401(k) providers charge consumers."
+      subject.publisher.build(name: "Vertigo Comics")
       subject.date_created = "1200-01-01"
       subject.subject = "Theology"
       subject.language = "Arabic"
@@ -128,7 +126,9 @@ EOF
     it "should have some fields" do
       today_str = "#{Date.today.to_s}T00:00:00Z"
       solr_doc = subject.to_solr
-      solr_doc[Solrizer.solr_name('desc_metadata__title')].should == ["Foobar!"]
+      solr_doc[Solrizer.solr_name('desc_metadata__series_title')].should == ["Frontline"]
+      solr_doc[Solrizer.solr_name('desc_metadata__program_title')].should == ["The Retirement Gamble"]
+      solr_doc[Solrizer.solr_name('desc_metadata__episode_title')].should == ["12"]
       solr_doc[Solrizer.solr_name('desc_metadata__date_modified', :stored_sortable, type: :date)].should == today_str
       solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded', :stored_sortable, type: :date)].should == today_str
       solr_doc[Solrizer.solr_name('desc_metadata__creator', :facetable)].should == ['Justin']
@@ -138,8 +138,8 @@ EOF
       solr_doc[Solrizer.solr_name('desc_metadata__date_modified')].should be_nil
       solr_doc[Solrizer.solr_name('desc_metadata__rights')].should == ["Wide open, buddy."]
       solr_doc[Solrizer.solr_name('desc_metadata__related_url')].should be_nil
-      solr_doc[Solrizer.solr_name('desc_metadata__contributor')].should == ["Mohammad"]
-      solr_doc[Solrizer.solr_name('desc_metadata__description')].should == ["The work by Allah"]
+      solr_doc[Solrizer.solr_name('desc_metadata__contributor')].should == ["Martin Smith"]
+      solr_doc[Solrizer.solr_name('desc_metadata__description')].should == ["An examination of retirement accounts. Included: the lack of uniformity in plans, which results in some workers paying much more than others; the cost of a seemingly small annual fee when spread out across a worker's lifetime; hidden fees some 401(k) providers charge consumers."]
       solr_doc[Solrizer.solr_name('desc_metadata__publisher')].should == ["Vertigo Comics"]
       solr_doc[Solrizer.solr_name('desc_metadata__subject')].should == ["Theology"]
       solr_doc[Solrizer.solr_name('desc_metadata__language')].should == ["Arabic"]
@@ -209,7 +209,8 @@ EOF
 
   describe "#to_pbcore_xml" do
     before do
-      subject.title = ["title one", "second title"]
+      subject.title.build(value: "title one", title_type: 'Program')
+      subject.title.build(value: "second title", title_type: 'Series')
       c = subject.descMetadata.contributor.build
       c.name = "Fred"
       c.role = "Carpenter"
@@ -251,6 +252,8 @@ EOF
       puts str
       xml = Nokogiri::XML(str)
       # pbcoretitle
+      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "title one"
+      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "second title"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Main"]').text.should == "title one"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Alternative"]').text.should == "second title"
       # pbcorecreator

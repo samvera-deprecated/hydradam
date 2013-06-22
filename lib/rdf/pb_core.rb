@@ -8,5 +8,6 @@ module RDF
     property :pbcoreCreator
     property :creator
     property :creatorRole
+    property :titleType
   end
 end

@@ -40,6 +40,11 @@ class GenericFilesController < ApplicationController
     true
   end
 
+  # overriding to destroy any existing nested attributes
+  def update_metadata
+    @generic_file.destroy_existing_nested_nodes(params[:generic_file])
+    super
+  end
   private
 
   def ingest_local_file
@@ -47,8 +52,7 @@ class GenericFilesController < ApplicationController
     filename = params[:local_file][0]
     params[:local_file].each do |filename|
       @generic_file = GenericFile.new
-      #TODO Test this
-      @generic_file.set_title_and_label( filename, :only_if_blank=>true )
+      @generic_file.label = File.basename(filename)
       Sufia::GenericFile::Actions.create_metadata(@generic_file, current_user, params[:batch_id] )
       Sufia.queue.push(IngestLocalFileJob.new(@generic_file.id, current_user.directory, filename, current_user.user_key))
     end

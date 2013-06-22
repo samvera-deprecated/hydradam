@@ -88,12 +88,12 @@ class CatalogController < ApplicationController
     }
 
     # solr field configuration for search results/index views
-    config.index.show_link = solr_name("desc_metadata__title", :displayable)
+    config.index.show_link = solr_name("desc_metadata__program_title", :displayable)
     config.index.record_display_type = "id"
 
     # solr field configuration for document/show views
-    config.show.html_title = solr_name("desc_metadata__title", :displayable)
-    config.show.heading = solr_name("desc_metadata__title", :displayable)
+    config.show.html_title = solr_name("desc_metadata__program_title", :displayable)
+    config.show.heading = solr_name("desc_metadata__program_title", :displayable)
     config.show.display_type = solr_name("has_model", :symbol)
 
     # solr fields that will be treated as facets by the blacklight application
@@ -115,7 +115,9 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field solr_name("desc_metadata__title", :stored_searchable, type: :string), :label => "Title"
+    config.add_index_field solr_name("desc_metadata__program_title", :stored_searchable, type: :string), :label => "Program Title"
+    config.add_index_field solr_name("desc_metadata__series_title", :stored_searchable, type: :string), :label => "Series Title"
+    config.add_index_field solr_name("desc_metadata__episode_title", :stored_searchable, type: :string), :label => "Episode Title"
     config.add_index_field solr_name("desc_metadata__description", :stored_searchable, type: :string), :label => "Description"
     config.add_index_field solr_name("desc_metadata__tag", :stored_searchable, type: :string), :label => "Keyword"
     config.add_index_field solr_name("desc_metadata__subject", :stored_searchable, type: :string), :label => "Subject"
@@ -134,7 +136,9 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field solr_name("desc_metadata__title", :stored_searchable, type: :string), :label => "Title"
+    config.add_show_field solr_name("desc_metadata__program_title", :stored_searchable, type: :string), :label => "Program Title"
+    config.add_show_field solr_name("desc_metadata__series_title", :stored_searchable, type: :string), :label => "Series Title"
+    config.add_show_field solr_name("desc_metadata__episode_title", :stored_searchable, type: :string), :label => "Episode Title"
     config.add_show_field solr_name("desc_metadata__description", :stored_searchable, type: :string), :label => "Description"
     config.add_show_field solr_name("desc_metadata__tag", :stored_searchable, type: :string), :label => "Keyword"
     config.add_show_field solr_name("desc_metadata__subject", :stored_searchable, type: :string), :label => "Subject"

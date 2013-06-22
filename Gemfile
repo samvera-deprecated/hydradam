@@ -18,14 +18,11 @@ end
 gem 'jquery-rails'
 
 
-gem 'blacklight'
-#gem 'sufia', '0.0.8'
-#gem 'sufia', path: '../sufia'
-gem 'sufia', github: 'projecthydra/sufia', ref: '973daa8' # > 1.2.0
-#gem 'sufia', '~>1'
-gem 'hydra-head', '~> 6.2.0'
+gem 'sufia', github: 'projecthydra/sufia', ref: '1652368' #'~> 2.1.0'
 #gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
 #gem 'hydra-pbcore', :path=>'../hydra-pbcore'
+gem 'rdf', github: 'ruby-rdf/rdf', ref: '9b20f6d' # Keep until rdf 1.0.8 is released
+gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'c7dd14e' #'6.4.0.rc2'
 gem 'hydra-pbcore', '2.2.0rc1'
 gem 'rails_admin', "~> 0.4.5"
 

@@ -1,7 +1,7 @@
       <div class="controls" <%  if index == 0 %> id="additional_<%= key.to_s %>_clone" <% end %>>
         <% required = render_req && (index == 0) && required?(key) %>
-        <%= f.text_field :title, :name=>"generic_file[#{key}][][name]", :id => "generic_file_#{key}_#{index}_name", :value=>v.name.first, :class => "input-large", :required => required, placeholder: 'Name'  %>
-        <%= f.text_field :title, :name=>"generic_file[#{key}][][role]", :id => "generic_file_#{key}_#{index}_role", :value=>v.role.first, :class => "input-large", :required => required, placeholder: 'Role'  %>
+        <%= f.text_field :title, :name=>"generic_file[#{key}_attributes][#{index}][name]", :id => "generic_file_#{key}_attributes_#{index}_name", :value=>v.name.first, :class => "input-large", :required => required, placeholder: 'Name'  %>
+        <%= f.text_field :title, :name=>"generic_file[#{key}_attributes][#{index}][role]", :id => "generic_file_#{key}_attributes_#{index}_role", :value=>v.role.first, :class => "input-large", :required => required, placeholder: 'Role'  %>
         <%= render :partial=>"generic_files/edit_fields/suffix", :locals=>{key: key, index: index} %>
       </div><!-- /controls -->              
       <div id="additional_<%= key %>_elements"></div>

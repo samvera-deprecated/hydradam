@@ -9,7 +9,15 @@ class GenericFile < ActiveFedora::Base
   has_metadata 'descMetadata', type: MediaAnnotationDatastream
   has_file_datastream "content", type: FileContentDatastream, control_group: 'E'
 
-  delegate :has_location, to: 'descMetadata'
+  delegate_to 'descMetadata', [:has_location, :program_title, :series_title,
+                               :creator_attributes, :contributor_attributes, 
+                               :publisher_attributes, :has_location_attributes,
+                               :title_attributes]
+
+  attr_accessible *(ds_specs['descMetadata'][:type].config.keys + 
+                    [:permissions, :creator_attributes, :contributor_attributes, 
+                     :publisher_attributes, :has_location_attributes,
+                     :title_attributes])
 
   before_destroy :remove_content
 
@@ -46,7 +54,8 @@ class GenericFile < ActiveFedora::Base
     content.dsLocation = URI.escape("file://#{path}")
     mime = MIME::Types.type_for(path).first
     content.mimeType = mime.content_type if mime # mime can't always be detected by filename
-    set_title_and_label( file_name, :only_if_blank=>true )
+    title = self.title.build(value: file_name, title_type: 'Program')
+    self.label = file_name
     save!
   end
 
@@ -129,20 +138,16 @@ class GenericFile < ActiveFedora::Base
 
   ### Map creator[] -> creator[].name
   # @param [Array,String] creator_properties a list of hashes with role and name or just names
-  def creator=(creator_properties)
-    assign_member_with_name_and_role(:creator, creator_properties)
+  def creator=(args)
+    raise ArgumentError unless args.is_a? String
+    self.creator_attributes = [{name: args, role: "Uploader"}]
   end
 
-  ### Map contributor[] -> contributor[].name
-  # @param [Array,String] contributor_properties a list of hashes with role and name or just names
-  def contributor=(contributor_properties)
-    assign_member_with_name_and_role(:contributor, contributor_properties)
-  end
-
-  ### Map publisher[] -> publisher[].name
-  # @param [Array,String] publisher_properties a list of hashes with role and name or just names
-  def publisher=(publisher_properties)
-    assign_member_with_name_and_role(:publisher, publisher_properties)
+  ### Map title[] -> title[].value
+  # @param [Array,String] title_properties a list of hashes with type and value
+  def title=(args)
+    raise ArgumentError unless args.is_a? String
+    self.title_attributes = [{name: args, title_type: "Program"}]
   end
 
   ### Map based_near[] -> has_location[].locationName
@@ -159,10 +164,21 @@ class GenericFile < ActiveFedora::Base
     end
   end
 
+  # normally if you want to remove exising nested params you pass:
+  #   {:_delete => true, :id => '_:g1231011230128'}
+  # since the editor doesn't know about that, we just delete
+  # all nested objects if they will be replaced.
+  def destroy_existing_nested_nodes(params)
+    self.creator.each { |c| c.destroy } if params[:creator_attributes]
+    self.contributor.each { |c| c.destroy } if params[:contributor_attributes]
+    self.producer.each { |c| c.destroy } if params[:producer_attributes]
+    self.title.each { |c| c.destroy } if params[:title_attributes]
+  end
+
   def to_pbcore_xml
     doc = HydraPbcore::Datastream::Document.new
-    doc.title = title[0]
-    doc.alternative_title = title[1]
+    doc.title = program_title
+    doc.alternative_title = series_title
     descMetadata.creator.each do |c|
       doc.insert_creator c.name.first, c.role.first
     end
@@ -265,24 +281,5 @@ class GenericFile < ActiveFedora::Base
     doc.to_xml
 
   end
-
-  private 
-  def assign_member_with_name_and_role(field, values)
-    existing = descMetadata.send field
-    descMetadata.send(field.to_s + '=', []) if existing.size > values.size
-    Array(values).each_with_index do |val, index|
-      obj = existing[index]
-      if obj.nil?
-        obj = existing.build
-      end
-      if (val.kind_of? String) 
-        obj.name = val
-      else
-        obj.name = val['name']
-        obj.role = val['role']
-      end
-    end
-  end
-
 
 end
