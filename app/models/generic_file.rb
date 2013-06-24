@@ -32,6 +32,7 @@ class GenericFile < ActiveFedora::Base
     contributor.build if contributor.empty?
     creator.build if creator.empty?
     has_location.build if has_location.empty?
+    description.build if description.empty?
     super
   end
 
@@ -140,14 +141,20 @@ class GenericFile < ActiveFedora::Base
   ### Map creator[] -> creator[].name
   # @param [Array,String] creator_properties a list of hashes with role and name or just names
   def creator=(args)
-    raise ArgumentError unless args.is_a? String
+    unless args.is_a?(String) || args.is_a?(Array)
+      raise ArgumentError, "You must provide a string or an array.  You provided #{args.inspect}"
+    end
+    args = Array(args)
     self.creator_attributes = [{name: args, role: "Uploader"}]
   end
 
   ### Map title[] -> title[].value
   # @param [Array,String] title_properties a list of hashes with type and value
   def title=(args)
-    raise ArgumentError unless args.is_a? String
+    unless args.is_a?(String) || args.is_a?(Array)
+      raise ArgumentError, "You must provide a string or an array.  You provided #{args.inspect}"
+    end
+    args = Array(args)
     self.title_attributes = [{name: args, title_type: "Program"}]
   end
 
