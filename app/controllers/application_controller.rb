@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     redirect_to sufia.root_url, :alert => exception.message
   end
 
-  layout 'hydra-head'
+  layout 'sufia-one-column'
 
   protect_from_forgery
 end
