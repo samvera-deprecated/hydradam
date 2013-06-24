@@ -33,6 +33,8 @@ module RDF
     property :hasCreator
     property :locator
     property :hasCoverage
+    property :eventName
+    property :eventDefinition
     property :hasLocation
     property :locationName
 

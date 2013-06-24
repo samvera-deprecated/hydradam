@@ -9,5 +9,8 @@ module RDF
     property :creator
     property :creatorRole
     property :titleType
+
+    property :descriptionType
+    property :locationType  #had to make this up. WGBH is just using @ref for this
   end
 end

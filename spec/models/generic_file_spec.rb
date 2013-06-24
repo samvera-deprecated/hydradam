@@ -97,6 +97,15 @@ EOF
     end
   end
 
+  describe "description attribute" do
+    it "should delegate to the bnode" do
+      subject.description_attributes = [{value: "Order online", type:"Promotional Information"}]
+      subject.description.first.value.should == ["Order online"]
+      subject.description.first.type.should == ["Promotional Information"]
+      subject.description.first.should be_kind_of MediaAnnotationDatastream::Description
+    end
+  end
+
   describe "to_solr" do
     before do
       now = DateTime.now
@@ -108,7 +117,7 @@ EOF
       subject.title.build(value: "Frontline", title_type: "Series")
       subject.title.build(value: "The Retirement Gamble", title_type: "Program")
       subject.title.build(value: "12", title_type: "Episode")
-      subject.description = "An examination of retirement accounts. Included: the lack of uniformity in plans, which results in some workers paying much more than others; the cost of a seemingly small annual fee when spread out across a worker's lifetime; hidden fees some 401(k) providers charge consumers."
+      subject.description.build(value: "An examination of retirement accounts. Included: the lack of uniformity in plans, which results in some workers paying much more than others; the cost of a seemingly small annual fee when spread out across a worker's lifetime; hidden fees some 401(k) providers charge consumers.", type: 'summary')
       subject.publisher.build(name: "Vertigo Comics")
       subject.date_created = "1200-01-01"
       subject.subject = "Theology"

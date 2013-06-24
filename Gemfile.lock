@@ -16,27 +16,12 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git://github.com/projecthydra/active_fedora.git
-  revision: c7dd14ec0726035b77fb80b1066cce9dba5f28a3
-  ref: c7dd14e
-  specs:
-    active-fedora (6.3.0)
-      activesupport (>= 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 3.0.0)
-      rdf
-      rdf-rdfxml (~> 1.0.0)
-      rsolr
-      rubydora (~> 1.6, >= 1.6.5)
-
-GIT
   remote: git://github.com/projecthydra/sufia.git
-  revision: 165236899b2741f4d92219b3e5d5a74812234714
-  ref: 1652368
+  revision: c03505236ef2e7c3c47535ae6d2be086b5a5bd87
+  ref: c035052
   specs:
     sufia (2.1.0.beta)
+      active-fedora (= 6.4.0.rc3)
       blacklight (~> 4.0)
       blacklight_advanced_search
       daemons (= 1.1.9)
@@ -88,6 +73,16 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active-fedora (6.4.0.rc3)
+      activesupport (>= 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 3.0.0)
+      rdf
+      rdf-rdfxml (~> 1.0.0)
+      rsolr
+      rubydora (~> 1.6, >= 1.6.5)
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -410,7 +405,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-fedora!
   bootstrap-sass
   coffee-rails (~> 3.2.1)
   devise

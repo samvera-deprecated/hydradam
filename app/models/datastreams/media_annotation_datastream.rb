@@ -8,12 +8,11 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     map.publisher(:in=> RDF::EbuCore, :to=>'hasPublisher', :class_name=>'Person')
     #map.publication_events(:in=> RDF::EbuCore, :to=>'hasPublicationEvent', :class_name=>'Event')
     map.video_tracks(:in=> RDF::EbuCore, :to=>'hasVideoTrack', :class_name=>'Video')
+    map.description(in: RDF::EbuCore, :class_name=>'Description')
 
     map.title(:in=> RDF::DC, :class_name=>'Title')
 
-    # TODO to video tracks add bitRate
-
-    # location is already defined as a method name on Datastream, so we use has_location
+    map.has_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'Event')
     map.has_location(:in => RDF::EbuCore, :to=>'hasLocation', :class_name=>'Location')
 
     map.date_uploaded(:to => "dateSubmitted", in: RDF::DC) do |index|
@@ -32,6 +31,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     map.filename(in: RDF::EbuCore)
     map.fileByteSize(in: RDF::EbuCore)
 
+    # This is "Media" (e.g. Moving Image, Text, Static Image)
     map.format(in: RDF::EbuCore, :to=>'hasFormat') do |index|
       index.as :stored_searchable
     end
@@ -43,9 +43,6 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
     map.summary(in: RDF::EbuCore) do |index|
-      index.as :stored_searchable
-    end
-    map.description(in: RDF::EbuCore) do |index|
       index.as :stored_searchable
     end
     map.duration(in: RDF::EbuCore) do |index|
@@ -76,16 +73,25 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     
   end
 
-  accepts_nested_attributes_for :title, :creator, :contributor, :publisher, :has_location
+  accepts_nested_attributes_for :title, :creator, :contributor, :publisher, :description, :has_location
 
   class Title
     include ActiveFedora::RdfObject
-    rdf_type RDF.Description
     map_predicates do |map|
       map.value(in: RDF, to: 'value') do |index|
         index.as :stored_searchable
       end
       map.title_type(in: RDF::PBCore, to: 'titleType') 
+    end
+  end
+
+  class Description
+    include ActiveFedora::RdfObject
+    map_predicates do |map|
+      map.value(in: RDF, to: 'value') do |index|
+        index.as :stored_searchable
+      end
+      map.type(in: RDF::PBCore, to: 'titleType') 
     end
   end
 
@@ -102,11 +108,19 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
 
   class Location
     include ActiveFedora::RdfObject
-    rdf_type 'http://www.ebu.ch/metadata/ontologies/ebucore#Location'
+    rdf_type RDF::EbuCore.Location
     map_predicates do |map|
       map.location_name(:in => RDF::EbuCore, :to=>'locationName') do |index|
         index.as :stored_searchable, :facetable
       end
+    end
+  end
+
+  class Event
+    include ActiveFedora::RdfObject
+    rdf_type RDF::PBCore.Event
+    map_predicates do |map|
+      map.event_name(:in => RDF::EbuCore, :to=>'eventName')
     end
   end
 
@@ -128,6 +142,9 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     based_near = self.has_location.map { |c| c.location_name }.flatten
     store_in_solr_doc(solr_doc, 'based_near', based_near, [:stored_searchable, type: :text], :facetable)
 
+    self.description.each do |t|
+      store_in_solr_doc(solr_doc, "description", t.value, [:stored_searchable, type: :text])
+    end
     self.title.each do |t|
       store_in_solr_doc(solr_doc, "#{t.title_type.first.downcase}_title", t.value, [:stored_searchable, type: :text])
     end

@@ -71,21 +71,24 @@ describe GenericFilesController do
       post :update, id: @file, generic_file: {
            title_attributes: [{"value" => "Frontline", "title_type"=>"Series"}, {"value"=>"How did this happen?", "title_type"=>"Program"}],
            creator_attributes: [{"name" => "Frank", "role"=>"Producer"}, {"name"=>"Dave", "role"=>"Director"}],
+           description_attributes: [{"value"=> "it's a documentary show", "type" => 'summary'}],
            has_location_attributes:[{'location_name' => 'France'}],
            resource_type: ["Article", "Audio", "Book"]
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
-      @file.descMetadata.creator[0].name.should == ['Frank']
-      @file.descMetadata.creator[0].role.should == ['Producer']
-      @file.descMetadata.creator[1].name.should == ['Dave']
-      @file.descMetadata.creator[1].role.should == ['Director']
-      @file.descMetadata.has_location[0].location_name.should == ['France']
-      @file.descMetadata.title[0].title_type.should == ['Series']
-      @file.descMetadata.title[0].value.should == ['Frontline']
-      @file.descMetadata.title[1].value.should == ['How did this happen?']
-      @file.descMetadata.title[1].title_type.should == ['Program']
-      @file.descMetadata.resource_type.should == [ "Article", "Audio", "Book"]      
+      @file.creator[0].name.should == ['Frank']
+      @file.creator[0].role.should == ['Producer']
+      @file.creator[1].name.should == ['Dave']
+      @file.creator[1].role.should == ['Director']
+      @file.has_location[0].location_name.should == ['France']
+      @file.title[0].title_type.should == ['Series']
+      @file.title[0].value.should == ['Frontline']
+      @file.title[1].value.should == ['How did this happen?']
+      @file.title[1].title_type.should == ['Program']
+      @file.description[0].value.should == ["it's a documentary show"]
+      @file.description[0].type.should == ['summary']
+      @file.resource_type.should == [ "Article", "Audio", "Book"]      
     end
   end
 end

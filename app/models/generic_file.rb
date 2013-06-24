@@ -12,12 +12,13 @@ class GenericFile < ActiveFedora::Base
   delegate_to 'descMetadata', [:has_location, :program_title, :series_title,
                                :creator_attributes, :contributor_attributes, 
                                :publisher_attributes, :has_location_attributes,
-                               :title_attributes]
+                               :description_attributes, :title_attributes]
 
-  attr_accessible *(ds_specs['descMetadata'][:type].config.keys + 
-                    [:permissions, :creator_attributes, :contributor_attributes, 
-                     :publisher_attributes, :has_location_attributes,
-                     :title_attributes])
+  attr_accessible  :part_of, :contributor_attributes, :creator_attributes,
+        :title_attributes, :description_attributes, :publisher_attributes,
+        :date_created, :date_uploaded, :date_modified, :subject, :language,
+        :rights, :resource_type, :identifier, :has_location_attributes, :tag,
+        :related_url, :permissions
 
   before_destroy :remove_content
 
@@ -109,7 +110,7 @@ class GenericFile < ActiveFedora::Base
 
   def terms_for_display
     [ :part_of, :contributor, :creator, :title, :description, 
-        :publisher, :date_created, :date_uploaded, :date_modified,:subject, :language, :rights, 
+        :publisher, :date_created, :date_uploaded, :date_modified, :subject, :language, :rights, 
         :resource_type, :identifier, :has_location, :tag, :related_url]
   end
   
