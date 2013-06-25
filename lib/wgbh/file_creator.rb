@@ -18,6 +18,7 @@ module WGBH
       file_list.each do |file_name|
         GenericFile.new.tap do |file|
           file.relative_path = file_name
+          puts "Set FN to #{file.relative_path}"
           file.save(validate:false)
         end
       end

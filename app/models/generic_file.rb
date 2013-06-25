@@ -14,6 +14,8 @@ class GenericFile < ActiveFedora::Base
                                :publisher_attributes, :has_location_attributes,
                                :description_attributes, :title_attributes]
 
+  delegate_to 'properties', [:unarranged], unique: true
+
   attr_accessible  :part_of, :contributor_attributes, :creator_attributes,
         :title_attributes, :description_attributes, :publisher_attributes,
         :date_created, :date_uploaded, :date_modified, :subject, :language,

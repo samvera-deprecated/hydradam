@@ -106,6 +106,18 @@ EOF
     end
   end
 
+  describe "unarranged" do
+    after do
+      subject.delete
+    end
+    it "should have it" do
+      subject.unarranged.should be_false
+      subject.unarranged = true
+      subject.save(validate: false)
+      subject.reload.unarranged.should be_true
+    end
+  end
+
   describe "to_solr" do
     before do
       now = DateTime.now
@@ -130,6 +142,7 @@ EOF
       subject.related_url = "http://example.org/TheWork/"
       subject.mime_type = "image/jpeg"
       subject.format_label = "JPEG Image"
+      subject.unarranged = true
     end
       
     it "should have some fields" do
@@ -154,6 +167,7 @@ EOF
       solr_doc[Solrizer.solr_name('desc_metadata__language')].should == ["Arabic"]
       solr_doc[Solrizer.solr_name('desc_metadata__date_created')].should == ["1200-01-01"]
       solr_doc[Solrizer.solr_name('desc_metadata__resource_type')].should == ["Book"]
+      solr_doc['unarranged_bsi'].should == true
       solr_doc[Solrizer.solr_name('file_format')].should == "jpeg (JPEG Image)"
       solr_doc[Solrizer.solr_name('desc_metadata__identifier')].should == ["urn:isbn:1234567890"]
       solr_doc[Solrizer.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]

@@ -10,10 +10,13 @@ describe WGBH::FileCreator do
        "./NOVA3806_SmartestMachine_Dan/Stanford Transfer /Stanford 1/C0005.mov",
        "./NOVA3806_SmartestMachine_Dan/Stanford Transfer /Stanford 1/C0006.mov",
        "./NOVA3806_SmartestMachine_Dan/Stanford Transfer /Stanford 1/C0007.mov"])
-    GenericFile.destroy_all
+    GenericFile.delete_all
   end
   it "should create one file for every line in the list" do
-    expect { subject.instantiate_files }.to change{GenericFile.count}.by(7)
-    GenericFile.first.relative_path.should == "./NOVA3806_SmartestMachine_Dan/Stanford Transfer /Stanford 1/C0001.mov"
+     subject.instantiate_files
+    GenericFile.count.should == 7
+    first = GenericFile.first
+    first.relative_path.should == "./NOVA3806_SmartestMachine_Dan/Stanford Transfer /Stanford 1/C0001.mov"
+    first.unarranged.should be_true
   end
 end
