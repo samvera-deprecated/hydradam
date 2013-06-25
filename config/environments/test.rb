@@ -40,4 +40,5 @@ Bawstun::Application.configure do
 
   # Base directory for original content storage 
   config.external_store_base = File.expand_path('../../../spec/storage', __FILE__)
+  config.storage_manager = 'NullStorageManager'
 end
