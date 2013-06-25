@@ -34,4 +34,5 @@ Bawstun::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = false
+  config.storage_manager = 'NullStorageManager'
 end
