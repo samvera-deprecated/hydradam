@@ -146,7 +146,9 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
       store_in_solr_doc(solr_doc, "description", t.value, [:stored_searchable, type: :text])
     end
     self.title.each do |t|
-      store_in_solr_doc(solr_doc, "#{t.title_type.first.downcase}_title", t.value, [:stored_searchable, type: :text])
+      if t.title_type.first
+        store_in_solr_doc(solr_doc, "#{t.title_type.first.downcase}_title", t.value, [:stored_searchable, type: :text])
+      end
     end
 
     solr_doc

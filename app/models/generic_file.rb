@@ -183,6 +183,11 @@ class GenericFile < ActiveFedora::Base
     self.title.each { |c| c.destroy } if params[:title_attributes]
   end
 
+
+  def to_s
+    val = [program_title.first, series_title.first].compact.join(' | ')
+  end
+
   def to_pbcore_xml
     doc = HydraPbcore::Datastream::Document.new
     doc.title = program_title
