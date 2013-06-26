@@ -10,8 +10,16 @@ Bawstun::Application.routes.draw do
   HydraHead.add_routes(self)
   Hydra::BatchEdit.add_routes(self)
 
-
   devise_for :users
   mount Sufia::Engine => '/'
-
+  
+  # Metadata Templates routes (based partly on catalog routes)
+  resources 'metadata_manager', :only=>:index do
+    collection do
+      get 'page/:page', :action => :index
+      get 'activity', :action => :activity, :as => :dashboard_activity
+      get 'facet/:id', :action => :facet, :as => :dashboard_facet
+    end
+  end
+  
 end

@@ -1,0 +1,96 @@
+<%#
+Copyright © 2012 The Pennsylvania State University
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+%>
+
+<% content_for :local_js do %>
+
+  initialize_audio();
+
+  function getSingleUse(id) {
+    <% rurl = root_url %>
+    <% rurl = rurl.slice(0, rurl.length-1) if rurl[rurl.length-1] == "/" %>
+    var resp = $.ajax({
+      headers: { Accept: "application/javascript" },
+      type: 'get',
+      url: "<%= rurl %>/single_use_link/generate_show/" + id.slice(10),
+      async: false,
+    });
+    return "<%= rurl %>/" + resp.responseText;
+  }
+
+  // Load clipboard swf
+  $(document).ready(function() {
+    ZeroClipboard.setDefaults({ moviePath: "/assets/ZeroClipboard.swf" });
+    $.each($(".copypaste"), function() {
+      var clip = new ZeroClipboard();
+      clip.on("dataRequested", function(client, args) {
+        clip.setText(getSingleUse(this.id));
+      })
+      clip.on("complete", function(client, args) {
+        alert("A single use link to " + args.text + " was copied to your clipboard.")
+      })
+      clip.on("noflash", function(client, args) {
+        alert("Your single-use link: " + getSingleUse(this.id))
+      })
+      clip.on("wrongflash", function(client, args) {
+        alert("Your single-use link: " + getSingleUse(this.id))
+      })
+      clip.glue($("#" + this.id))
+    })
+  });
+
+  // hide or show the batch update buttons on page startup
+  window.batch_part_on_other_page = <%= @batch_part_on_other_page%>;
+  window.batch_size_on_other_page = <%= @batch_size_on_other_page%>;
+  window.result_set_size = <%= @result_set_size%>;
+  window.document_list_count = <%= @document_list.count %>;
+  toggleButtons(<%= !@empty_batch %>);
+
+  // initialize hydra batch edit and set up select all button toggle after checkboxes have been created
+  $('#documents').batchEdit({afterCheckboxUpdate: setup_buttontoggle});
+
+
+ <% end %>
+
+
+  <% @page_title = application_name + " Metadata Manager" %>
+
+  <div class="accessible-hidden" id="current_user"><%=@user.user_key%></div>
+  <div class="row">
+    <%= render :partial => 'dashboard/search_form' %>
+    <h2 class="heading1">Metadata Manager</h2>
+  </div>
+
+  <% extra_head_content << render_opensearch_response_metadata.html_safe %>
+  <% if params.has_key?("q") %>
+    <div class="alert alert-info"><i class="icon-search icon-large"></i> You searched for: <strong><%= params[:q] %></strong></div>
+  <% end %>
+
+  <%= render :partial => 'dashboard/did_you_mean' %>
+  <%= render :partial => 'dashboard/facet_selected' %>
+
+	<%= render 'dashboard/constraints', :localized_params=>params %>
+  
+  <% render_pagination_info @response, :entry_name=>'item' %>
+
+  <%= render 'dashboard/sort_and_per_page' %>
+
+  <%= render :partial=>'dashboard/document_list'  %>  
+	<% content_for :sidebar do %>
+	  <%= render :partial=>'metadata_management/facets' %>
+	<%  end %>
+
+  <%= render 'dashboard/results_pagination' %>
+  <%= render :partial => 'users/activity_log', :locals => {:events => @events} %>

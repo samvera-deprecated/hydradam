@@ -18,8 +18,8 @@ end
 gem 'jquery-rails'
 
 
-gem 'sufia', github: 'projecthydra/sufia', ref: '9b94922' #'~> 2.1.0'
-#gem 'sufia', path: '../sufia'
+gem 'sufia', github: 'projecthydra/sufia', ref: 'f60144e37' #'~> 2.1.0'
+# gem 'sufia', path: '../sufia'
 #gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
 #gem 'hydra-pbcore', :path=>'../hydra-pbcore'
 gem 'rdf', github: 'ruby-rdf/rdf', ref: '9b20f6d' # Keep until rdf 1.0.8 is released
