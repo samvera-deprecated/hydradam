@@ -38,6 +38,7 @@ class FileContentDatastream < ActiveFedora::Datastream
     if has_content? && live?
       File.unlink filename
     else
+      logger.warn "#{filename} could not be removed. So #{pid} is not being destroyed"
       false # can't remove the file until the content is live.
     end
   end

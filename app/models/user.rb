@@ -25,8 +25,10 @@ class User < ActiveRecord::Base
 
   def files
     return [] unless directory.present? && File.directory?(directory)
-    Dir.entries(directory).reject { |f| File.directory?(f) }
-
+    Dir[File.join(directory, '*')].inject([]) do |accum, val|
+      accum << { name: File.basename(val), directory: File.directory?(val)}
+      accum
+    end
   end
 
   # Method added by Blacklight; Blacklight uses #to_s on your

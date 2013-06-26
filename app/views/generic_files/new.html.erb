@@ -14,7 +14,7 @@
         <%current_user.files.each do |f| %>
           <tr>
             <td>
-              <label><%= check_box_tag 'local_file[]', f %> <%= f %></label>
+              <label><%= check_box_tag 'local_file[]', f[:name] %> <%= f[:directory] ? '<i class="icon-folder-close"></i>'.html_safe : '<i class="icon-file"></i>'.html_safe %> <%= f[:name] %></label>
             </td>
           </tr>
         <%end%>

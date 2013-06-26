@@ -20,7 +20,7 @@ class GenericFilesController < ApplicationController
   # routed to /files (POST)
   def create
     if params[:local_file].present?
-      if (ingest_local_file)
+      if ingest_local_file
         redirect_to sufia.batch_edit_path(params[:batch_id])
       else
         flash[:alert] = "Error creating generic file."
@@ -49,14 +49,26 @@ class GenericFilesController < ApplicationController
 
   def ingest_local_file
     # Ingest files already on disk
-    filename = params[:local_file][0]
     params[:local_file].each do |filename|
-      @generic_file = GenericFile.new
-      @generic_file.label = File.basename(filename)
-      Sufia::GenericFile::Actions.create_metadata(@generic_file, current_user, params[:batch_id] )
-      Sufia.queue.push(IngestLocalFileJob.new(@generic_file.id, current_user.directory, filename, current_user.user_key))
+      if File.directory?(File.join(current_user.directory, filename))
+        Dir[File.join(current_user.directory, filename, '**', '*')].each do |single|
+          next if File.directory? single
+          ingest_one(single.sub(current_user.directory + '/', ''))
+        end
+      else
+        ingest_one(filename)
+      end
     end
     true
+  end
+
+  def ingest_one(filename)
+    @generic_file = GenericFile.new
+    basename = File.basename(filename)
+    @generic_file.label = basename
+    @generic_file.relative_path = filename if filename != basename
+    Sufia::GenericFile::Actions.create_metadata(@generic_file, current_user, params[:batch_id] )
+    Sufia.queue.push(IngestLocalFileJob.new(@generic_file.id, current_user.directory, filename, current_user.user_key))
   end
 
 
