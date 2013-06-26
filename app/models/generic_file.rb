@@ -188,6 +188,7 @@ class GenericFile < ActiveFedora::Base
 
   def to_s
     val = [program_title.first, series_title.first].compact.join(' | ')
+    val.empty? ? label : val 
   end
 
   def to_pbcore_xml
