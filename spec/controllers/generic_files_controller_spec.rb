@@ -61,6 +61,7 @@ describe GenericFilesController do
         gf.thumbnail.mimeType.should == 'image/png'
       end
       files.first.label.should == 'world.png'
+      files.first.unarranged.should == false
       files.last.label.should == 'sheepb.jpg'
     end
     it "should ingest directories from the filesystem" do
@@ -79,8 +80,10 @@ describe GenericFilesController do
         File.exist?(gf.content.filename).should be_true
       end
       files.first.label.should == 'world.png'
+      files.first.unarranged.should be_true
       files.first.thumbnail.mimeType.should == 'image/png'
       files.last.relative_path.should == 'import/manifests/manifest-nova-smartest-machine-3.txt'
+      files.last.unarranged.should be_true
       files.last.label.should == 'manifest-nova-smartest-machine-3.txt'
     end
     it "should ingest uploaded files"

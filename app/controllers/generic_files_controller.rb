@@ -49,24 +49,31 @@ class GenericFilesController < ApplicationController
 
   def ingest_local_file
     # Ingest files already on disk
+    has_directories = false
+    files = []
     params[:local_file].each do |filename|
       if File.directory?(File.join(current_user.directory, filename))
+        has_directories = true
         Dir[File.join(current_user.directory, filename, '**', '*')].each do |single|
           next if File.directory? single
-          ingest_one(single.sub(current_user.directory + '/', ''))
+          files << single.sub(current_user.directory + '/', '')
         end
       else
-        ingest_one(filename)
+        files << filename
       end
+    end
+    files.each do |filename|
+      ingest_one(filename, has_directories)
     end
     true
   end
 
-  def ingest_one(filename)
+  def ingest_one(filename, unarranged)
     @generic_file = GenericFile.new
     basename = File.basename(filename)
     @generic_file.label = basename
     @generic_file.relative_path = filename if filename != basename
+    @generic_file.unarranged = unarranged 
     Sufia::GenericFile::Actions.create_metadata(@generic_file, current_user, params[:batch_id] )
     Sufia.queue.push(IngestLocalFileJob.new(@generic_file.id, current_user.directory, filename, current_user.user_key))
   end
