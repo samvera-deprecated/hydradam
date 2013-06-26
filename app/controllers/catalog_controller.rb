@@ -181,6 +181,7 @@ class CatalogController < ApplicationController
       solr_name << solr_name("desc_metadata__creator", :stored_searchable, type: :string)
       solr_name << solr_name("desc_metadata__resource_type", :stored_searchable, type: :string)
       solr_name << solr_name("desc_metadata__file_format", :stored_searchable, type: :string)
+      solr_name << 'relative_path'
       solr_name << 'noid_tsi'
       field.solr_parameters = {
         :qf => solr_name.join(' '),

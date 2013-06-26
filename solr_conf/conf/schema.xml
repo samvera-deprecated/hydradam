@@ -13,6 +13,8 @@
     <field name="lat" type="tdouble" stored="true" indexed="true" multiValued="false"/>
     <field name="lng" type="tdouble" stored="true" indexed="true" multiValued="false"/>
 
+	<field name="relative_path" type="descendent_path" stored="true" indexed="true"/>
+
 	<!--these fields are hard coded in places in hydra-head -->
 	<field name="active_fedora_model_s" type="string" stored="true" indexed="true"/>
 	<field name="object_profile_display" type="string" stored="true" indexed="true"/>

@@ -143,6 +143,7 @@ EOF
       subject.mime_type = "image/jpeg"
       subject.format_label = "JPEG Image"
       subject.unarranged = true
+      subject.relative_path = 'fortune/smiles/on/the/bold.mkv'
     end
       
     it "should have some fields" do
@@ -167,11 +168,12 @@ EOF
       solr_doc[Solrizer.solr_name('desc_metadata__language')].should == ["Arabic"]
       solr_doc[Solrizer.solr_name('desc_metadata__date_created')].should == ["1200-01-01"]
       solr_doc[Solrizer.solr_name('desc_metadata__resource_type')].should == ["Book"]
-      solr_doc['unarranged_bsi'].should == true
       solr_doc[Solrizer.solr_name('file_format')].should == "jpeg (JPEG Image)"
       solr_doc[Solrizer.solr_name('desc_metadata__identifier')].should == ["urn:isbn:1234567890"]
       solr_doc[Solrizer.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
       solr_doc[Solrizer.solr_name('mime_type')].should == ["image/jpeg"]    
+      solr_doc['unarranged_bsi'].should == true
+      solr_doc['relative_path'].should == ['fortune/smiles/on/the/bold.mkv']    
       #solr_doc[Solrizer.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
       solr_doc["noid_tsi"].should == "__DO_NOT_USE__"
     end

@@ -40,6 +40,7 @@
           all_text_timv
           active_fedora_model_ssi
           object_type_si
+          relative_path
         </str>
         <str name="pf">
           all_text_timv^10

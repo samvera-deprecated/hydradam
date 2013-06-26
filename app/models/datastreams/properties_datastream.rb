@@ -6,9 +6,17 @@ class PropertiesDatastream < ActiveFedora::OmDatastream
     # This is where we put the relative path of the file if submitted as a folder
     t.relative_path
 
+    t.import_url path: 'importUrl'
+
     # unarranged is true when this is just a pointer at a file on a disk,
     # once descriptive metadata has been added, then mark it false.
     t.unarranged type: :boolean, index_as: :stored_searchable
+  end
+
+  def to_solr(solr_doc={})
+    super
+    solr_doc['relative_path'] = relative_path
+    solr_doc
   end
 
   def self.xml_template
