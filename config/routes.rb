@@ -14,12 +14,14 @@ Bawstun::Application.routes.draw do
   mount Sufia::Engine => '/'
   
   # Metadata Templates routes (based partly on catalog routes)
-  resources 'imported_metadata', :only=>:index do
+  resources 'imported_metadata_manager', :only=>:index do
     collection do
       get 'page/:page', :action => :index
       get 'activity', :action => :activity, :as => :dashboard_activity
       get 'facet/:id', :action => :facet, :as => :dashboard_facet
     end
   end
+  
+  resources "imported_metadata_files", except:[:index]
   
 end

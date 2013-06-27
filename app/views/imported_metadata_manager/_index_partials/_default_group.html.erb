@@ -17,8 +17,8 @@
     <% if document["active_fedora_model_ssi"] == "GenericFile" %>
       <%= render :partial => 'dashboard/_index_partials/list_files', :locals => {:document => document, :counter => counter} %>
     <% elsif document["active_fedora_model_ssi"] == "ImportedMetadata" %>
-      <%= document.inspect%>
-      <%#= render :partial => 'imported_metadata/_index_partials/imported_metadata', :locals => {:document => document, :counter => counter} %>
+      <%#= document.inspect%>
+      <%= render :partial => 'imported_metadata_manager/_index_partials/imported_metadata', :locals => {:document => document, :counter => counter} %>
     <% else %>
     <% end %>
   <% end %>
