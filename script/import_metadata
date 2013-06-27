@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 
 filename = ARGV[0]
+user_key = ARGV[1]
 
-if filename.nil?
-  puts "Please provide the a file path you want to import."
+if user_key.nil?
+  puts "Usage: #{$PROGRAM_NAME} filename username"
+  puts "Please provide the a file path you want to import and a user key."
   exit(1)
 end
 
@@ -17,7 +19,7 @@ puts "Loading environment..."
 require File.join(File.dirname(__FILE__), '../config/environment.rb')
 puts "Importing..."
 
-size = WGBH::MetadataImporter.new(filename).import
+size = WGBH::MetadataImporter.new(filename, user_key).import
 
 puts "Imported #{size} records."
 

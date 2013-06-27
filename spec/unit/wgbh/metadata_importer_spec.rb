@@ -3,7 +3,7 @@ require 'spec_helper'
 describe WGBH::MetadataImporter do
   before { ImportedMetadata.delete_all }
   let(:filename) { fixture_path + '/import/metadata/broadway_or_bust.pbcore.xml' }
-  subject { WGBH::MetadataImporter.new(filename) }
+  subject { WGBH::MetadataImporter.new(filename, 'jane') }
 
   it "should create a template for each entry" do
     expect { subject.import.should == 65 }.to change { ImportedMetadata.count }.by(65)
