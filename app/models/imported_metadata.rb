@@ -8,9 +8,9 @@ class ImportedMetadata < ActiveFedora::Base
   has_metadata 'descMetadata', type: ImportPbcoreDatastream
   
   delegate_to :properties, [:relative_path, :depositor, :import_url], :unique => true
-  delegate_to :descMetadata, [:item_title, :episode_title, :program_title, :series_title], :unique => true
+  delegate_to :descMetadata, [:item_title, :episode_title, :program_title, :series_title, :filename, :folder, :drive], :unique => true
   
   def terms_for_display
-    [:item_title, :episode_title, :program_title, :series_title]
+    [:item_title, :episode_title, :program_title, :series_title, :filename, :folder, :drive]
   end
 end
