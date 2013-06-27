@@ -1,7 +1,13 @@
 <%# convert class variable to a local variable if the local hasn't been set %>
 <% imported_metadata = @imported_metadata unless imported_metadata  %>
 
-    <h2 class="non lower">Descriptions</h2>
+    <h2 class="non lower">Descriptions
+      <% if can? :edit, @imported_metadata %>
+        <span style='font-size: small; font-weight: normal'>
+        (<%= link_to "Edit", edit_imported_metadata_file_path %>)
+        </span>
+      <%end %>
+    </h2>
     <table class="table table-striped"><!-- class="verticalheadings"> -->
       <tbody>
         <% imported_metadata.terms_for_display.each do |term| %>

@@ -4,7 +4,11 @@
       <tbody>
         <% @imported_metadata.terms_for_editing.each do |term| %>
           <%= f.label term %>
-          <%= f.text_field term, :class => "input-large" %>
+          <% if [:description, :filenames].include? term %>
+            <%= f.text_area term, :class => "input-large" %>
+          <% else %>
+            <%= f.text_field term, :class => "input-large" %>
+          <% end %>
         <% end %>
       </tbody>
     </table> <!-- /verticalheadings -->
