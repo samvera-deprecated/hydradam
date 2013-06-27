@@ -16,7 +16,12 @@ class ImportedMetadataFilesController < ApplicationController
     pid = @imported_metadata.noid
     @imported_metadata.destroy
     Sufia.queue.push(ContentDeleteEventJob.new(pid, current_user.user_key))
-    redirect_to imported_metadata_manager_index_path, :notice => render_to_string(:partial=>'generic_files/asset_deleted_flash', :locals => { :generic_file => @imported_metadata })
+    redirect_to imported_metadata_manager_index_path, notice: render_to_string(:partial=>'generic_files/asset_deleted_flash', :locals => { :generic_file => @imported_metadata })
+  end
+
+  def update
+    @imported_metadata.update_attributes(params[:imported_metadata])
+    redirect_to imported_metadata_file_path(@imported_metadata), notice: "Template has been updated"
   end
   
 end
