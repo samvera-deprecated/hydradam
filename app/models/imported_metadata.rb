@@ -22,4 +22,8 @@ class ImportedMetadata < ActiveFedora::Base
   def match_files_with_path
     drive_name + "/" + folder_name
   end
+  
+  def matching_files
+    GenericFile.where(Solrizer.solr_name(:relative_path) => match_files_with_path)
+  end
 end
