@@ -66,13 +66,12 @@ describe GenericFilesController do
     end
     it "should ingest directories from the filesystem" do
       #TODO this test is very slow because it kicks off CharacterizeJob.
-      lambda { post :create, local_file: ["world.png", "import"], batch_id: "xw42n7934"}.should change(GenericFile, :count).by(5)
+      lambda { post :create, local_file: ["world.png", "import"], batch_id: "xw42n7934"}.should change(GenericFile, :count).by(4)
       response.should redirect_to Sufia::Engine.routes.url_helpers.batch_edit_path('xw42n7934')
       # These files should have been moved out of the upload directory
       File.exist?("#{@mock_upload_directory}/import/manifests/manifest-broadway-or-bust.txt").should be_false
-      File.exist?("#{@mock_upload_directory}/manifest-nova-smartest-machine-1.txt").should be_false
-      File.exist?("#{@mock_upload_directory}/manifest-nova-smartest-machine-2.txt").should be_false
-      File.exist?("#{@mock_upload_directory}/manifest-nova-smartest-machine-3.txt").should be_false
+      File.exist?("#{@mock_upload_directory}/import/manifests/manifest-nova-smartest-machine-1.txt").should be_false
+      File.exist?("#{@mock_upload_directory}/import/metadata/broadway_or_bust.pbcore.xml").should be_false
       File.exist?("#{@mock_upload_directory}/world.png").should be_false
       # And into the storage directory
       files = GenericFile.find(Solrizer.solr_name("is_part_of",:symbol) => 'info:fedora/sufia:xw42n7934')
@@ -82,9 +81,9 @@ describe GenericFilesController do
       files.first.label.should == 'world.png'
       files.first.unarranged.should be_true
       files.first.thumbnail.mimeType.should == 'image/png'
-      files.last.relative_path.should == 'import/manifests/manifest-nova-smartest-machine-3.txt'
+      files.last.relative_path.should == 'import/metadata/broadway_or_bust.pbcore.xml'
       files.last.unarranged.should be_true
-      files.last.label.should == 'manifest-nova-smartest-machine-3.txt'
+      files.last.label.should == 'broadway_or_bust.pbcore.xml'
     end
     it "should ingest uploaded files"
   end
