@@ -4,7 +4,7 @@
     <h2 class="non lower">Descriptions</h2>
     <table class="table table-striped"><!-- class="verticalheadings"> -->
       <tbody>
-        <% (imported_metadata.terms_for_display - [:resource_type]).each do |term| %>
+        <% imported_metadata.terms_for_display.each do |term| %>
           <%= render_show_field_partial(term, generic_file: imported_metadata) %>
         <% end %>
       </tbody>

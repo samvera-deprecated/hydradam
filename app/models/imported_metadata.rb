@@ -13,4 +13,8 @@ class ImportedMetadata < ActiveFedora::Base
   def terms_for_display
     [:item_title, :episode_title, :program_title, :series_title, :filename, :folder, :drive]
   end
+
+  def terms_for_editing
+    terms_for_display
+  end
 end
