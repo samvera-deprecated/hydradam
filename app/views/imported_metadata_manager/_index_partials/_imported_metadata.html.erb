@@ -7,7 +7,12 @@
   <td width="37%">
     <a href="" title="Click for more details"><i id="expand_<%= noid %>" class="icon-plus icon-large fleft"></i></a>&nbsp;
     <%= render :partial => 'dashboard/_index_partials/thumbnail_display', :locals => {:document=>document} %>
-    <span class=center><%= link_to document.title_or_label, imported_metadata_file_path(im.noid), :id => "src_copy_link#{noid}" %> <br /></span>
+    <span class=center><%= link_to imported_metadata_file_path(im.noid), :id => "src_copy_link#{noid}" do %>
+      <%= render_index_field_value document, :field => 'series_title_tesim' %><br>
+      <%= render_index_field_value document, :field => 'program_title_tesim' %><br>
+      <%= render_index_field_value document, :field => 'episode_title_tesim' %><br>
+      <%= render_index_field_value document, :field => 'item_title_tesim' %><br>
+    <% end %> <br /></span>
   </td>
   <td width="17%"><%= document["system_create_dtsi"] %> </td>
   <td width="5%" align="center">
