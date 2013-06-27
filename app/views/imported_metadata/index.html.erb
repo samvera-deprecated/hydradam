@@ -65,12 +65,12 @@ limitations under the License.
  <% end %>
 
 
-  <% @page_title = application_name + " Metadata Manager" %>
+  <% @page_title = application_name + " Imported Metadata Manager" %>
 
   <div class="accessible-hidden" id="current_user"><%=@user.user_key%></div>
   <div class="row">
     <%= render :partial => 'dashboard/search_form' %>
-    <h2 class="heading1">Metadata Manager</h2>
+    <h2 class="heading1">Imported Metadata Manager</h2>
   </div>
 
   <% extra_head_content << render_opensearch_response_metadata.html_safe %>
@@ -89,7 +89,7 @@ limitations under the License.
 
   <%= render :partial=>'dashboard/document_list'  %>  
 	<% content_for :sidebar do %>
-	  <%= render :partial=>'metadata_manager/facets' %>
+	  <%= render :partial=>'imported_metadata/facets' %>
 	<%  end %>
 
   <%= render 'dashboard/results_pagination' %>

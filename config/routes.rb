@@ -14,7 +14,7 @@ Bawstun::Application.routes.draw do
   mount Sufia::Engine => '/'
   
   # Metadata Templates routes (based partly on catalog routes)
-  resources 'metadata_manager', :only=>:index do
+  resources 'imported_metadata', :only=>:index do
     collection do
       get 'page/:page', :action => :index
       get 'activity', :action => :activity, :as => :dashboard_activity
