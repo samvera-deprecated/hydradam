@@ -54,7 +54,7 @@ Interviews with Brittany and Hazel at home
 Even Greenberg intv at home, broll of house, family, Evan making a nature film, Evan rehearsing ']
       end
       it "should have a list of files" do
-        subject.filename.should == ['BB0612A01_C001 - BB0612A13_C022_']
+        subject.filenames.should == ['BB0612A01_C001 - BB0612A13_C022_']
       end
       it "should have a folder" do
         subject.folder.should == ['ATLANTA']
@@ -77,9 +77,9 @@ Even Greenberg intv at home, broll of house, family, Evan making a nature film, 
         subject['episode_title_tesim'].should == ['']
         subject['program_title_tesim'].should == ['']
         subject['item_title_tesim'].should == ["Rehearsals, Coaching, Solos, Medley's and Choreography, Kids take NYC tour bus\n\n\n"]
-        subject['filename_tesim'].should == ['BB0621E01_C0001 - BB0621E04_C0012']
-        subject['folder_tesim'].should == ['NY Footage/0621 NY']
-        subject['drive_tesim'].should == ['Broadway_or_Bust_NYC']
+        subject['filenames_tesim'].should == ['BB0621E01_C0001 - BB0621E04_C0012']
+        subject['folder_name_tesim'].should == ['NY Footage/0621 NY']
+        subject['drive_name_tesim'].should == ['Broadway_or_Bust_NYC']
       end
     end
     describe "setting fields" do
@@ -89,16 +89,16 @@ Even Greenberg intv at home, broll of house, family, Evan making a nature film, 
         subject.episode_title.should == ["Bam"]
       end
       it "should set filename" do
-        subject.filename = "Bam"
-        subject.filename.should == ["Bam"]
+        subject.filenames = "Bam"
+        subject.filenames.should == ["Bam"]
       end
       it "should set folder" do
-        subject.folder = "Bam"
-        subject.folder.should == ["Bam"]
+        subject.folder_name = "Bam"
+        subject.folder_name.should == ["Bam"]
       end
       it "should set drive" do
-        subject.drive = "Bam"
-        subject.drive.should == ["Bam"]
+        subject.drive_name = "Bam"
+        subject.drive_name.should == ["Bam"]
       end
     end
   end

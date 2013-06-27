@@ -7,7 +7,7 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
       t.program_title path: 'pbcoreTitle', attributes: { titleType: "Program"}
       t.series_title path: 'pbcoreTitle', attributes: { titleType: "Series"}
 
-      t.filename(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_FILENAME"]/oxns:pbcoreRelationIdentifier')
+      t.filenames(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_FILENAME"]/oxns:pbcoreRelationIdentifier')
       t.folder(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_FOLDERNAME"]/oxns:pbcoreRelationIdentifier')
       t.drive(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_DRIVENAME"]/oxns:pbcoreRelationIdentifier')
 
@@ -18,7 +18,7 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
     t.program_title proxy: [:description_document, :program_title], index_as: :stored_searchable
     t.episode_title proxy: [:description_document, :episode_title], index_as: :stored_searchable
     t.item_title proxy: [:description_document, :item_title], index_as: :stored_searchable
-    t.filename proxy: [:description_document, :filename], index_as: :stored_searchable
+    t.filenames proxy: [:description_document, :filenames], index_as: :stored_searchable
     t.folder_name proxy: [:description_document, :folder], index_as: :stored_searchable
     t.drive_name proxy: [:description_document, :drive], index_as: :stored_searchable
     t.description proxy: [:description_document, :description], index_as: :stored_searchable
