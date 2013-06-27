@@ -1,0 +1,26 @@
+<table class="table table-striped dashboard">
+  <caption class="accessible-hidden">Listing of files you have deposited in <%= t('sufia.product_name') %></caption>
+<% unless params[:display_type] == 'list' %>
+  <thead> 
+  <tr>
+    <th class="sm"><%= render :partial => 'batch_edits/check_all' %></th>
+    <th>&nbsp;</th>
+    <th class="center">Title</th>
+    <th class="sorts-dash"><i id="desc_metadata__date_uploaded_dt" class="<%=params[:sort]== "desc_metadata__date_uploaded_dt desc" ? 'icon-caret-down' : params[:sort]== "desc_metadata__date_uploaded_dt asc" ? 'icon-caret-up' : ''%>"></i>Date Uploaded</th>
+    <th>Visibility</th>
+    <th class="center">Action</th>
+  </tr>
+  </thead> 
+  <% end %>
+  <tbody> 
+  <% docs.each_with_index do |document,counter| %>
+    <% if document["active_fedora_model_ssi"] == "GenericFile" %>
+      <%= render :partial => 'dashboard/_index_partials/list_files', :locals => {:document => document, :counter => counter} %>
+    <% elsif document["active_fedora_model_ssi"] == "ImportedMetadata" %>
+      <%= document.inspect%>
+      <%#= render :partial => 'imported_metadata/_index_partials/imported_metadata', :locals => {:document => document, :counter => counter} %>
+    <% else %>
+    <% end %>
+  <% end %>
+  </tbody> 
+</table>
