@@ -12,8 +12,17 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
       t.drive(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_DRIVENAME"]/oxns:pbcoreRelationIdentifier')
 
       t.description path: 'pbcoreDescription'
-
     end
+
+    t.series_title proxy: [:description_document, :series_title], index_as: :stored_searchable
+    t.program_title proxy: [:description_document, :program_title], index_as: :stored_searchable
+    t.episode_title proxy: [:description_document, :episode_title], index_as: :stored_searchable
+    t.item_title proxy: [:description_document, :item_title], index_as: :stored_searchable
+    t.filename proxy: [:description_document, :filename], index_as: :stored_searchable
+    t.folder proxy: [:description_document, :folder], index_as: :stored_searchable
+    t.drive proxy: [:description_document, :drive], index_as: :stored_searchable
+    t.description proxy: [:description_document, :description], index_as: :stored_searchable
+
   end
 
   def self.xml_template

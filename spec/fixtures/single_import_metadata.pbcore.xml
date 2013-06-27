@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pbcoreCollection xmlns="http://www.pbcore.org/PBCore/PBCoreNamespace.html">
+  <pbcoreDescriptionDocument>
+<pbcoreAssetType>Original footage</pbcoreAssetType>
+<pbcoreAssetDate dateType="Item Date">6/21/2012</pbcoreAssetDate>
+<pbcoreIdentifier source="DATABASE RECORD_ID" version="1">Broadway_Or_Bust_Drives_5_22_13_for_test.fp7:3563</pbcoreIdentifier>
+<pbcoreTitle titleType="Series">Broadway or Bust</pbcoreTitle>
+<pbcoreTitle titleType="Episode"/>
+<pbcoreTitle titleType="Program"/>
+<pbcoreTitle titleType="Item">Rehearsals, Coaching, Solos, Medley's and Choreography, Kids take NYC tour bus
+
+
+</pbcoreTitle>
+<pbcoreDescription descriptionType="Log">Stage rehearsals at Burrows Theater with E and A camera
+
+Sing "Fascinatin' Rhythm"
+
+Kiesha Lalama begins coaching on dancing and choreography 
+
+Sing and dance to "King of New York"
+
+Keisha move kids to correct positions, lines them up, jokes around
+
+kids sing and dance to "Fascinatin' Rhythm"
+
+Nicholas Wetherbee gets coached and sings "It's Your Wedding Day" - then sings "They Can't Take That Away From Me"
+
+Carly sings "Pulled"
+
+Sheridan sings "You Can't Get a Man With a Gun"
+
+Kyra sings "Cute Boys With Short Haircuts"
+
+
+
+Mostly studio 3 sessions onto "The Ride"
+
+Nicholas Wetherbee and Evyn Mirasol get coached and Nicholas sings "They can't take that Away From Me"
+
+Carly Moffie and Zack Kozlow get coached and Zack sings "I Chose Right"
+
+Alli Kramer sings "There's More to the Story" and get's coached 
+
+Alli Kramer sings "The Life of the Party"
+
+Peter Lambert sings "Everybody says Don't" get's coached
+
+Billy Cohen sings "Come Back to Me" to Sheridan Hearn
+
+Billy Cohen sings "I Want to Go Home"
+
+Brittany Dankwa sings "And I'm Telling You I'm Not Going"  to Nicholas Wetherbee 
+
+Brittany Dankwa sings "Rain On My Parade"
+
+Kyle Conroy sings "Suppertime"
+
+Kids are dismissed from rehearsal - walk around outside and get on tour bus
+
+"The Ride"
+
+Kids go on a tour bus ride of NYC 
+
+take pictures, goof around
+
+Bus tour ends, kids line up outside on NY street 
+
+Brittany Dankwa and Shavance Stephens chat
+
+Kids walk into Minskoff Theater
+
+Kids walk into Sardi's Restaurant
+
+
+
+
+
+</pbcoreDescription>
+<pbcoreRelation>
+<pbcoreRelationType source="SOURCE_FILENAME">File Name</pbcoreRelationType>
+<pbcoreRelationIdentifier>BB0621E01_C0001 - BB0621E04_C0012</pbcoreRelationIdentifier>
+</pbcoreRelation>
+<pbcoreRelation>
+<pbcoreRelationType source="SOURCE_FOLDERNAME">Folder Name</pbcoreRelationType>
+<pbcoreRelationIdentifier>NY Footage/0621 NY</pbcoreRelationIdentifier>
+</pbcoreRelation>
+<pbcoreRelation>
+<pbcoreRelationType source="SOURCE_DRIVENAME">Drive Name</pbcoreRelationType>
+<pbcoreRelationIdentifier>Broadway_or_Bust_NYC</pbcoreRelationIdentifier>
+</pbcoreRelation>
+<pbcoreCoverage>
+<coverage source="COVERAGE_EVENT_LOCATION">New York, NY</coverage>
+<coverageType>Spatial</coverageType>
+</pbcoreCoverage>
+<pbcoreCoverage>
+<coverage source="COVERAGE_DATE_PORTRAYED">06/21/2012</coverage>
+<coverageType>Temporal</coverageType>
+</pbcoreCoverage>
+<pbcoreContributor>
+<contributor/>
+<contributorRole>Producer</contributorRole>
+</pbcoreContributor>
+<pbcoreRightsSummary>
+<rightsEmbedded>
+<NOTES_ACCESS_RESTRICTIONS>cleaned up</NOTES_ACCESS_RESTRICTIONS>
+</rightsEmbedded>
+</pbcoreRightsSummary>
+<pbcoreInstantiation>
+<instantiationIdentifier source="SOURCE_FILENAME" version="1" annotation="may be a range of file names">BB0621E01_C0001 - BB0621E04_C0012</instantiationIdentifier>
+<instantiationDate>6/21/2012</instantiationDate>
+<instantiationDigital>Quicktime</instantiationDigital>
+<instantiationStandard>NTSC</instantiationStandard>
+<instantiationLocation/>
+<instantiationLanguage/>
+<instantiationEssenceTrack>
+<essenceTrackType>Video</essenceTrackType>
+<essenceTrackEncoding>DNxHD</essenceTrackEncoding>
+<essenceTrackPlaybackSpeed unitsOfMeasure="frames per second">23.98 fps</essenceTrackPlaybackSpeed>
+<essenceTrackAspectRatio annotation="width:height">16:9</essenceTrackAspectRatio>
+</instantiationEssenceTrack>
+<instantiationAnnotation annotationType="FORMAT_ITEM">Digital File</instantiationAnnotation>
+</pbcoreInstantiation>
+<pbcoreAnnotation annotationType="FORMAT_QUALITY">Sony PDW &#x2013; F800 </pbcoreAnnotation>
+<pbcoreAnnotation annotationType="FORMAT_SCAN_LINES">1080p</pbcoreAnnotation>
+<pbcoreAnnotation annotationType="TYPE_ITEM">Original footage</pbcoreAnnotation>
+</pbcoreDescriptionDocument>
+</pbcoreCollection>

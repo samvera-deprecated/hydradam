@@ -62,6 +62,23 @@ Even Greenberg intv at home, broll of house, family, Evan making a nature film, 
       it "should have a drive" do
         subject.drive.should == ['G-DRIVE_BoB_Auditions']
       end
+
+    end
+  end
+
+
+  describe "a file with one record" do
+    let(:file) { File.open(fixture_path + '/single_import_metadata.pbcore.xml') }
+    let(:datastream) { ImportPbcoreDatastream.from_xml(file) }
+    subject {datastream.to_solr }
+    it "should be indexed into solr" do
+      subject['series_title_tesim'].should == ['Broadway or Bust']
+      subject['episode_title_tesim'].should == ['']
+      subject['program_title_tesim'].should == ['']
+      subject['item_title_tesim'].should == ["Rehearsals, Coaching, Solos, Medley's and Choreography, Kids take NYC tour bus\n\n\n"]
+      subject['filename_tesim'].should == ['BB0621E01_C0001 - BB0621E04_C0012']
+      subject['folder_tesim'].should == ['NY Footage/0621 NY']
+      subject['drive_tesim'].should == ['Broadway_or_Bust_NYC']
     end
   end
 end
