@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ImportedMetadataController do
+describe ImportedMetadataManagerController do
   before do
     GenericFile.any_instance.stub(:terms_of_service).and_return('1')
     User.any_instance.stub(:groups).and_return([])
@@ -19,7 +19,7 @@ describe ImportedMetadataController do
       end
       it "should be a success" do
         response.should be_success
-        response.should render_template('imported_metadata/index')
+        response.should render_template('imported_metadata_manager/index')
       end
       it "should return an array of documents I can edit" do
         user_results = Blacklight.solr.get "select", :params=>{:fq=>["edit_access_group_ssim:public OR edit_access_person_ssim:#{@user.user_key}"]}

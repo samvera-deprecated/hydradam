@@ -1,6 +1,6 @@
 class ImportedMetadata < ActiveFedora::Base
   #include Sufia::ModelMethods
-  #include Sufia::Noid
+  include Sufia::Noid
   #include Sufia::GenericFile::Permissions
   # include Sufia::GenericFile::WebForm
   # has_metadata 'templateMetadata', type: HydraPbcore::Datastream::Document
