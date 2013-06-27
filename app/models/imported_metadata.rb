@@ -1,4 +1,4 @@
-class MetadataTemplate < ActiveFedora::Base
+class ImportedMetadata < ActiveFedora::Base
   include Sufia::ModelMethods
   include Sufia::Noid
   include Sufia::GenericFile::Permissions

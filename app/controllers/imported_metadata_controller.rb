@@ -13,7 +13,7 @@
 # limitations under the License.
 
 require 'blacklight/catalog'
-class MetadataManagerController < ApplicationController
+class ImportedMetadataController < ApplicationController
   include  Sufia::DashboardControllerBehavior
   
   self.copy_blacklight_config_from(CatalogController)
