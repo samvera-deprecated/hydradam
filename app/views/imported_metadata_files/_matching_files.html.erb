@@ -2,3 +2,21 @@
 <% imported_metadata = @imported_metadata unless imported_metadata  %>
 
     <h2 class="non lower">Matching Files</h2>
+    Files are matched based on the path implied by the <b>Drive Name</b> and <b>Folder Name</b> in the imported metadata.
+    <table class="table table-striped"><!-- class="verticalheadings"> -->
+      <tbody>
+        <%= render_show_field_partial(:drive_name, generic_file: imported_metadata) %>
+        <%= render_show_field_partial(:folder_name, generic_file: imported_metadata) %>
+        <tr>
+          <th><%= get_label(:calculated_path_for_search) %></th>
+          <td>
+              <div itemprop="name">
+                <%= imported_metadata.match_files_with_path %>
+              </div>
+          </td>
+        </tr>
+      </tbody>
+    </table> <!-- /verticalheadings -->
+    
+    
+    

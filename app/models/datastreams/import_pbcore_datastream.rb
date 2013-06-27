@@ -19,8 +19,8 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
     t.episode_title proxy: [:description_document, :episode_title], index_as: :stored_searchable
     t.item_title proxy: [:description_document, :item_title], index_as: :stored_searchable
     t.filename proxy: [:description_document, :filename], index_as: :stored_searchable
-    t.folder proxy: [:description_document, :folder], index_as: :stored_searchable
-    t.drive proxy: [:description_document, :drive], index_as: :stored_searchable
+    t.folder_name proxy: [:description_document, :folder], index_as: :stored_searchable
+    t.drive_name proxy: [:description_document, :drive], index_as: :stored_searchable
     t.description proxy: [:description_document, :description], index_as: :stored_searchable
 
   end
