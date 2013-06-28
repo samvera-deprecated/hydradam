@@ -36,15 +36,26 @@ describe ImportedMetadataFilesController do
           f.apply_depositor_metadata(@user.user_key)
           f.save!
         end
-        xhr :get, :show, id: file.noid
       end
       it "should be a success" do
+        xhr :get, :show, id: file.noid
         response.should be_success
         response.should render_template('imported_metadata_files/show')
         assigns[:imported_metadata].should == file
         assigns[:matches].size.should == 2
         assigns[:matches].first.id.should == @file1.id
       end
+      it "should support querying paths" do
+        xhr :get, :show, id: file.noid, q: "G-DRIVE_BoB_Auditions/ATLANTA/002.wav"
+        assigns[:matches].size.should == 1
+        assigns[:matches].first.id.should == @file2.id
+      end
+      it "should support querying noids" do
+        xhr :get, :show, id: file.noid, q: @file2.noid
+        assigns[:matches].size.should == 1
+        assigns[:matches].first.id.should == @file2.id
+      end
+      
     end
     describe "#edit" do
       before (:each) do

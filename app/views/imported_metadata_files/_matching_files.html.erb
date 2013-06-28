@@ -2,39 +2,8 @@
 <% imported_metadata = @imported_metadata unless imported_metadata  %>
 
     <h2>Matching Files</h2>
-    Files are matched based on the path implied by the <b>Drive Name</b> and <b>Folder Name</b> in the imported metadata.
-    <table class="table table-striped">
-      <tbody>
-        <%= render_show_field_partial(:drive_name, generic_file: imported_metadata) %>
-        <%= render_show_field_partial(:folder_name, generic_file: imported_metadata) %>
-        <tr>
-          <th><%= get_label(:calculated_path_for_search) %></th>
-          <td>
-              <div itemprop="name">
-                <%= imported_metadata.match_files_with_path %>
-              </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    By default, files are matched based on the path implied by the <b>Drive Name</b> and <b>Folder Name</b> in the imported metadata.
 
     <h3>Candidate matches:</h3>
-    <% if @matches.empty? %>
-      No results match.
-    <% else %>
-      <%= form_for @imported_metadata, url: apply_imported_metadata_file_path(@imported_metadata), method: :post do |f| %>
-        <table>
-          <tbody>
-            <% @matches.each do |m| %>
-              <tr>
-                <td><%= check_box_tag 'imported_metadata[apply_to][]', m.id %></td>
-                <td><%= m.relative_path %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <div class="form-actions">
-        <%= f.submit 'Apply to selected files', class: 'btn btn-primary' %>
-      </div>
-      <% end %>
-    <% end %>
+    <%= render partial: 'search_form'%>
+    <%= render partial:'matching_files_list', locals:{matching_files: @matches} %>

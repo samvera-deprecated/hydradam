@@ -13,6 +13,7 @@
  *= require wgbh
  *= require base
  *= require video-js
+ *= require imported_metadata_files
  */
 
  #upload_tooltip {

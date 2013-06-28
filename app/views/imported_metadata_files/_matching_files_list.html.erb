@@ -1,0 +1,27 @@
+  <div id="documents" class="clear">
+    <% if @matches.empty? %>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>No results match.</td>
+        </tr>        
+      </tbody>
+    </table>
+    <% else %>
+      <%= form_for @imported_metadata, url: apply_imported_metadata_file_path(@imported_metadata), method: :post do |f| %>
+        <table class="table table-striped">
+          <tbody>
+            <% @matches.each do |m| %>
+              <tr>
+                <td><%= check_box_tag 'imported_metadata[apply_to][]', m.id %></td>
+                <td><%= m[:relative_path] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <div class="form-actions">
+        <%= f.submit 'Apply Metadata to selected files', class: 'btn btn-primary' %>
+      </div>
+      <% end %>
+    <% end %>
+  </div>
