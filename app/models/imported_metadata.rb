@@ -24,6 +24,6 @@ class ImportedMetadata < ActiveFedora::Base
   end
   
   def matching_files
-    GenericFile.where(Solrizer.solr_name(:relative_path) => match_files_with_path)
+    GenericFile.to_enum(:find_each, "_query_:\"{!raw f=relative_path}#{match_files_with_path}\"").to_a
   end
 end
