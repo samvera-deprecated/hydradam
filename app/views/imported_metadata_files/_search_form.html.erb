@@ -1,5 +1,5 @@
 <div style="float: right;" >
-  <%= form_for(@imported_metadata, url:imported_metadata_file_path(@imported_metadata, anchor:"documents") , :method => :get, :class => "well form-search") do |f| %>
+  <%= form_for(@imported_metadata, url:imported_metadata_file_path(@imported_metadata, anchor:"matching_files") , :method => :get, :class => "well form-search") do |f| %>
 
       <label class="accessible-hidden">Search by file path</label>
       <%= text_field_tag :q, params[:q], :class => "filepath-query", :placeholder => "Search by file path", :size => '30', :type => "search", :id => "filepath_search" %>

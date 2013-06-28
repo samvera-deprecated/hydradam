@@ -1,9 +1,12 @@
 <%# convert class variable to a local variable if the local hasn't been set %>
 <% imported_metadata = @imported_metadata unless imported_metadata  %>
 
-    <h2>Matching Files</h2>
+    <h2 id="matching_files">Matching Files</h2>
     By default, files are matched based on the path implied by the <b>Drive Name</b> and <b>Folder Name</b> in the imported metadata.
 
     <h3>Candidate matches:</h3>
     <%= render partial: 'search_form'%>
+    <%= render partial: 'sort_and_per_page', locals:{response: @matches_response, documents:@matches} %>
     <%= render partial:'matching_files_list', locals:{matching_files: @matches} %>
+    <%#= render partial: 'catalog/results_pagination', locals:{response: @matches_response, documents:@matches} %>
+    
