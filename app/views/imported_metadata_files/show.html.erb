@@ -22,7 +22,7 @@ limitations under the License.
   </script>
 <% end %>
 
-<%= render :partial => 'generic_files/breadcrumbs', locals: {generic_file: @imported_metadata} %>
+<%= render :partial => 'breadcrumbs', locals: {imported_metadata: @imported_metadata} %>
 
 <h1 class="lower"><%= @imported_metadata.item_title %></h1>
 

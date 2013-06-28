@@ -1,0 +1,16 @@
+
+<div class="breadcrumbs">
+  <%
+     crumbs = []
+     crumbs << link_to('Home', root_path)
+     crumbs << link_to('Back to Imported Metadata Manager', imported_metadata_manager_index_path)
+
+     crumbs.each do |crumb| %>
+       <% if crumb == crumbs.last %>
+       <span class="active"> <%= crumb %>
+       <% else %>
+       <span> <%= crumb %> <span class="divider">/</span>
+       <% end %>
+       </span>
+  <% end %>
+</div><!-- /breadcrumbs -->
