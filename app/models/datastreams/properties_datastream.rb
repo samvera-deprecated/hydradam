@@ -11,6 +11,7 @@ class PropertiesDatastream < ActiveFedora::OmDatastream
     # unarranged is true when this is just a pointer at a file on a disk,
     # once descriptive metadata has been added, then mark it false.
     t.unarranged type: :boolean, index_as: :stored_searchable
+    t.applied_template_id
   end
 
   def to_solr(solr_doc={})

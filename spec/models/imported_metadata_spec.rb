@@ -44,7 +44,9 @@ describe ImportedMetadata do
       subject.apply_to = [@file1.id, @file2.id, @file3.id]  
       subject.apply!
       @file1.reload.series_title.should == ['Nova']
+      @file1.reload.applied_template_id.should == subject.pid
       @file2.reload.series_title.should == ['Nova']
+      @file2.reload.applied_template_id.should == subject.pid
     end
   end
   

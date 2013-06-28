@@ -19,13 +19,14 @@ class ImportedMetadata < ActiveFedora::Base
   def apply!
     raise "Must save ImportedMetadata before calling apply!" if new_object?
     template = metadata_as_template
-    apply_to.each do |pid|
-      Sufia.queue.push(ApplyTemplateJob.new(depositor, pid, metadata_as_template))
+    apply_to.each do |file_pid|
+      Sufia.queue.push(ApplyTemplateJob.new(depositor, file_pid, metadata_as_template))
     end
   end
   
   def metadata_as_template
-    {'title_attributes' =>[{'title_type' => 'Series', 'value' => series_title}]
+    {'title_attributes' =>[{'title_type' => 'Series', 'value' => series_title}],
+     'applied_template_id' => pid
     }.with_indifferent_access
   end
 
