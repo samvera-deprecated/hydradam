@@ -40,6 +40,9 @@ class ImportedMetadata < ActiveFedora::Base
      'has_location_attributes' => [
        {'location_name' => event_location},
      ],
+     'has_event_attributes' => [
+       {'date_time' => date_portrayed},
+     ],
      'applied_template_id' => pid, 'unarranged' => 'false'
     }.with_indifferent_access
   end

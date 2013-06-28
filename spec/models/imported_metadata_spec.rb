@@ -57,6 +57,7 @@ describe ImportedMetadata do
         f.episode_title.should == ['sample episode']
         f.description.first.value.should == ['my description']
         f.has_location.first.location_name.should == ['New York, NY']
+        f.has_event.first.date_time.should == ['06/21/2012']
         f.applied_template_id.should == subject.pid
         f.unarranged.should be_false
       end

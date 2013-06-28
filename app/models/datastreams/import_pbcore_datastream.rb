@@ -13,6 +13,7 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
 
       t.pbcoreCoverage {
         t.location path: 'coverage', attributes: { source: 'COVERAGE_EVENT_LOCATION'}
+        t.date_portrayed path: 'coverage', attributes: { source: 'COVERAGE_DATE_PORTRAYED'}
       }
 
       t.description path: 'pbcoreDescription'
@@ -27,6 +28,7 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
     t.drive_name proxy: [:description_document, :drive], index_as: :stored_searchable
     t.description proxy: [:description_document, :description], index_as: :stored_searchable
     t.event_location proxy: [:description_document, :pbcoreCoverage, :location], index_as: :stored_searchable
+    t.date_portrayed proxy: [:description_document, :pbcoreCoverage, :date_portrayed], index_as: :stored_searchable
 
     
 

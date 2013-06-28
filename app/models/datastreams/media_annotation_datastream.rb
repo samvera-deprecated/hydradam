@@ -73,7 +73,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     
   end
 
-  accepts_nested_attributes_for :title, :creator, :contributor, :publisher, :description, :has_location
+  accepts_nested_attributes_for :title, :creator, :contributor, :publisher, :description, :has_location, :has_event
 
   class Title
     include ActiveFedora::RdfObject
@@ -121,6 +121,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     rdf_type RDF::PBCore.Event
     map_predicates do |map|
       map.event_name(:in => RDF::EbuCore, :to=>'eventName')
+      map.date_time(:in => RDF::EbuCore, :to=>'dateTime', type: :date)
     end
   end
 

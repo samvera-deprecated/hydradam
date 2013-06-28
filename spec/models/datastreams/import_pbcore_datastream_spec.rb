@@ -103,6 +103,10 @@ Even Greenberg intv at home, broll of house, family, Evan making a nature film, 
         subject.event_location = "NY"
         subject.event_location.should == ["NY"]
       end
+      it "should set date portrayed" do
+        subject.date_portrayed = '06/21/2012'
+        subject.date_portrayed.should == ['06/21/2012']
+      end
     end
   end
 end

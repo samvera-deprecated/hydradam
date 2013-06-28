@@ -45,6 +45,7 @@ module RDF
     property :originalTitle
     property :hasFormat
 
+    property :dateTime
     property :dateCreated
     property :dateIssued
     property :dateDigitized
