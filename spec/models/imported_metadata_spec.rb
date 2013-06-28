@@ -37,19 +37,24 @@ describe ImportedMetadata do
         f.save!
       end
       subject.series_title = 'Nova'
+      subject.program_title = 'The Smartest Machine'
+      subject.item_title = 'sample item'
+      subject.episode_title = 'sample episode'
       subject.apply_depositor_metadata(@user.user_key)
       subject.save!
     end
     it "should apply the metadata" do
       subject.apply_to = [@file1.id, @file2.id, @file3.id]  
       subject.apply!
-      @file1.reload.series_title.should == ['Nova']
-      @file1.reload.applied_template_id.should == subject.pid
-      @file1.reload.unarranged.should be_false
-
-      @file2.reload.series_title.should == ['Nova']
-      @file2.reload.applied_template_id.should == subject.pid
-      @file2.reload.unarranged.should be_false
+      [@file1, @file2, @file3].each do |f|
+        f.reload
+        f.series_title.should == ['Nova']
+        f.program_title.should == ['The Smartest Machine']
+        f.item_title.should == ['sample item']
+        f.episode_title.should == ['sample episode']
+        f.applied_template_id.should == subject.pid
+        f.unarranged.should be_false
+      end
     end
   end
   

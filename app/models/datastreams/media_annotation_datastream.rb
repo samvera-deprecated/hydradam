@@ -168,6 +168,14 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     find_title('Series')
   end
 
+  def item_title
+    find_title('Item')
+  end
+
+  def episode_title
+    find_title('Episode')
+  end
+
   def find_title(type)
     self.title.reduce([]) do |acc, t|
       acc += t.value if t.title_type.first == type

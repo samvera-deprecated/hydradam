@@ -10,6 +10,7 @@ class GenericFile < ActiveFedora::Base
   has_file_datastream "content", type: FileContentDatastream, control_group: 'E'
 
   delegate_to 'descMetadata', [:has_location, :program_title, :series_title,
+                               :item_title, :episode_title,
                                :creator_attributes, :contributor_attributes, 
                                :publisher_attributes, :has_location_attributes,
                                :description_attributes, :title_attributes]
