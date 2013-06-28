@@ -40,6 +40,7 @@ describe ImportedMetadata do
       subject.program_title = 'The Smartest Machine'
       subject.item_title = 'sample item'
       subject.episode_title = 'sample episode'
+      subject.description = 'my description'
       subject.apply_depositor_metadata(@user.user_key)
       subject.save!
     end
@@ -52,6 +53,7 @@ describe ImportedMetadata do
         f.program_title.should == ['The Smartest Machine']
         f.item_title.should == ['sample item']
         f.episode_title.should == ['sample episode']
+        f.description.first.value.should == ['my description']
         f.applied_template_id.should == subject.pid
         f.unarranged.should be_false
       end
