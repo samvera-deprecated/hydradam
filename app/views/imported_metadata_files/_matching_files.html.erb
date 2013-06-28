@@ -24,8 +24,8 @@
     <% else %>
       <table>
         <tbody>
-          <%= @matches.each do |f| %>
-            <tr><td><%= f.title %></td></tr>
+          <% @matches.each do |f| %>
+            <tr><td><%= f.relative_path %></td></tr>
           <% end %>
         </tbody>
       </table>
