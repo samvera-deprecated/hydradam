@@ -2,14 +2,33 @@ class ImportedMetadata < ActiveFedora::Base
   include Sufia::ModelMethods
   include Sufia::Noid
   include Sufia::GenericFile::Permissions
-  # include Sufia::GenericFile::WebForm
-  # has_metadata 'templateMetadata', type: HydraPbcore::Datastream::Document
   has_metadata :name => "properties", :type => PropertiesDatastream
   has_metadata 'descMetadata', type: ImportPbcoreDatastream
   
   delegate_to :properties, [:relative_path, :depositor, :import_url], :unique => true
   delegate_to :descMetadata, [:item_title, :episode_title, :program_title, :series_title, :filenames, :description, :drive_name, :folder_name], :unique => true
+
+  attr_accessor :apply_to
+
+  after_initialize :init
+
+  def init
+    self.apply_to = []
+  end
+
+  def apply!
+    raise "Must save ImportedMetadata before calling apply!" if new_object?
+    template = metadata_as_template
+    apply_to.each do |pid|
+      Sufia.queue.push(ApplyTemplateJob.new(depositor, pid, metadata_as_template))
+    end
+  end
   
+  def metadata_as_template
+    {'title_attributes' =>[{'title_type' => 'Series', 'value' => series_title}]
+    }.with_indifferent_access
+  end
+
   def terms_for_display
     [:item_title, :episode_title, :program_title, :series_title, :filenames]
   end

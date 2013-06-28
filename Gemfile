@@ -27,6 +27,7 @@ gem 'hydra-pbcore', '2.2.0rc1'
 gem 'rails_admin', "~> 0.4.5"
 
 group :development, :test do
+  #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
   gem 'jettywrapper'
   gem 'rspec-rails'
   gem 'factory_girl_rails'

@@ -18,15 +18,23 @@
       </tbody>
     </table>
 
-    <h2>Results</h2>
+    <h3>Candidate matches:</h3>
     <% if @matches.empty? %>
       No results match.
     <% else %>
-      <table>
-        <tbody>
-          <% @matches.each do |f| %>
-            <tr><td><%= f.relative_path %></td></tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= form_for @imported_metadata, url: apply_imported_metadata_file_path(@imported_metadata), method: :post do |f| %>
+        <table>
+          <tbody>
+            <% @matches.each do |m| %>
+              <tr>
+                <td><%= check_box_tag 'imported_metadata[apply_to][]', m.id %></td>
+                <td><%= m.relative_path %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <div class="form-actions">
+        <%= f.submit 'Apply to selected files', class: 'btn btn-primary' %>
+      </div>
+      <% end %>
     <% end %>

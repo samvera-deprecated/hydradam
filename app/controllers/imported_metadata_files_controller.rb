@@ -24,5 +24,12 @@ class ImportedMetadataFilesController < ApplicationController
     @imported_metadata.update_attributes(params[:imported_metadata])
     redirect_to imported_metadata_file_path(@imported_metadata), notice: "Template has been updated"
   end
+
+  def apply
+    @imported_metadata.apply_to = params[:imported_metadata][:apply_to]
+    @imported_metadata.apply!
+    redirect_to imported_metadata_manager_index_path, notice: "Template is now being applied"
+
+  end
   
 end

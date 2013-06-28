@@ -68,7 +68,7 @@ describe ImportedMetadataFilesController do
     end
 
     describe "#update" do
-      before (:each) do
+      before do
         put :update, id: file.noid, imported_metadata: { program_title: 'new program title', 
           series_title: 'new series title', item_title: 'new item title', episode_title: 'new episode title' } 
       end
@@ -79,6 +79,25 @@ describe ImportedMetadataFilesController do
         file.item_title.should == 'new item title'
         file.series_title.should == 'new series title'
         file.episode_title.should == 'new episode title'
+      end
+    end
+
+    describe "#apply" do
+      before do
+        file.series_title = "This Old House"
+        file.save!
+        @file1 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/001.wav")
+        @file2 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/002.wav")
+        @file3 = GenericFile.new(relative_path: "TheDRIVE/SEATTLE/001.wav")
+        [@file1, @file2, @file3].each do |f| 
+          f.apply_depositor_metadata(@user.user_key)
+          f.save!
+        end
+      end
+      it "should be a success" do
+        post :apply, id: file.noid, imported_metadata: { apply_to: [@file1.id, @file2.id, @file3.id]} 
+        response.should redirect_to(imported_metadata_manager_index_path)
+        @file1.reload.series_title.should == ["This Old House"]
       end
     end
   end

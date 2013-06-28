@@ -4,6 +4,8 @@ class Ability
   include Hydra::Ability
 
   def custom_permissions
+    alias_action :apply, :to => :update
+    
     if @user.admin?
       can [:index, :edit, :destroy], User
       can :index, ChecksumAuditLog

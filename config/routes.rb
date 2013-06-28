@@ -22,6 +22,10 @@ Bawstun::Application.routes.draw do
     end
   end
   
-  resources "imported_metadata_files", except:[:index]
+  resources "imported_metadata_files", except:[:index] do
+    member do
+      post 'apply' 
+    end
+  end
   
 end

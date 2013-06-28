@@ -19,7 +19,34 @@ describe ImportedMetadata do
     subject.depositor.should == 'frank'
     subject.save!
   end
-  
+
+  it "should have an apply_to accessor" do
+    subject.apply_to.should == []  
+    subject.apply_to = ["zw132p31r", "zw132p321", "zw132p339"]  
+    subject.apply_to.should == ["zw132p31r", "zw132p321", "zw132p339"]  
+  end
+
+  describe "applying the metadata" do
+    before do
+      @user = FactoryGirl.create(:user)
+      @file1 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/001.wav")
+      @file2 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/002.wav")
+      @file3 = GenericFile.new(relative_path: "TheDRIVE/SEATTLE/001.wav")
+      [@file1, @file2, @file3].each do |f| 
+        f.apply_depositor_metadata(@user.user_key)
+        f.save!
+      end
+      subject.series_title = 'Nova'
+      subject.apply_depositor_metadata(@user.user_key)
+      subject.save!
+    end
+    it "should apply the metadata" do
+      subject.apply_to = [@file1.id, @file2.id, @file3.id]  
+      subject.apply!
+      @file1.reload.series_title.should == ['Nova']
+      @file2.reload.series_title.should == ['Nova']
+    end
+  end
   
   describe "match_files_with_path" do
     it "should combine drive_name and folder_name" do
