@@ -1,9 +1,9 @@
 <%# convert class variable to a local variable if the local hasn't been set %>
 <% imported_metadata = @imported_metadata unless imported_metadata  %>
 
-    <h2 class="non lower">Matching Files</h2>
+    <h2>Matching Files</h2>
     Files are matched based on the path implied by the <b>Drive Name</b> and <b>Folder Name</b> in the imported metadata.
-    <table class="table table-striped"><!-- class="verticalheadings"> -->
+    <table class="table table-striped">
       <tbody>
         <%= render_show_field_partial(:drive_name, generic_file: imported_metadata) %>
         <%= render_show_field_partial(:folder_name, generic_file: imported_metadata) %>
@@ -16,7 +16,17 @@
           </td>
         </tr>
       </tbody>
-    </table> <!-- /verticalheadings -->
-    
-    
-    
+    </table>
+
+    <h2>Results</h2>
+    <% if @matches.empty? %>
+      No results match.
+    <% else %>
+      <table>
+        <tbody>
+          <%= @matches.each do |f| %>
+            <tr><td><%= f.title %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>

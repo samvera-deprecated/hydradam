@@ -5,6 +5,7 @@ class ImportedMetadataFilesController < ApplicationController
   
   #show
   def show
+    @matches = @imported_metadata.matching_files
   end
   
   #edit

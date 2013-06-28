@@ -26,11 +26,25 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
   end
 
   def self.xml_template
-    builder = Nokogiri::XML::Builder.new do |xml|
-      xml.pbcoreCollection(:xmlns => "http://www.pbcore.org/PBCore/PBCoreNamespace.html")
-    end
 
-    builder.doc
+    xml = '<?xml version="1.0" encoding="UTF-8"?>
+<pbcoreCollection xmlns="http://www.pbcore.org/PBCore/PBCoreNamespace.html">
+<pbcoreDescriptionDocument>
+<pbcoreRelation>
+<pbcoreRelationType source="SOURCE_FILENAME">File Name</pbcoreRelationType>
+<pbcoreRelationIdentifier></pbcoreRelationIdentifier>
+</pbcoreRelation>
+<pbcoreRelation>
+<pbcoreRelationType source="SOURCE_FOLDERNAME">Folder Name</pbcoreRelationType>
+<pbcoreRelationIdentifier></pbcoreRelationIdentifier>
+</pbcoreRelation>
+<pbcoreRelation>
+<pbcoreRelationType source="SOURCE_DRIVENAME">Drive Name</pbcoreRelationType>
+<pbcoreRelationIdentifier></pbcoreRelationIdentifier>
+</pbcoreRelation>
+</pbcoreDescriptionDocument>
+</pbcoreCollection>'
+    Nokogiri::XML.parse(xml)
   end
 
 end

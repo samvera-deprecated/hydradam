@@ -25,12 +25,25 @@ describe ImportedMetadataFilesController do
     end
     describe "#show" do
       before (:each) do
+        GenericFile.delete_all
+        file.drive_name = "G-DRIVE_BoB_Auditions"
+        file.folder_name = "ATLANTA"
+        file.save!
+        @file1 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/001.wav")
+        @file2 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/002.wav")
+        @file3 = GenericFile.new(relative_path: "TheDRIVE/SEATTLE/001.wav")
+        [@file1, @file2, @file3].each do |f| 
+          f.apply_depositor_metadata(@user.user_key)
+          f.save!
+        end
         xhr :get, :show, id: file.noid
       end
       it "should be a success" do
         response.should be_success
         response.should render_template('imported_metadata_files/show')
         assigns[:imported_metadata].should == file
+        assigns[:matches].size.should == 2
+        assigns[:matches].first.id.should == @file1.id
       end
     end
     describe "#edit" do

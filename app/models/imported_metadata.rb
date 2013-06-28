@@ -20,7 +20,7 @@ class ImportedMetadata < ActiveFedora::Base
   end
   
   def match_files_with_path
-    drive_name + "/" + folder_name
+    "#{drive_name}/#{folder_name}"
   end
   
   def matching_files
