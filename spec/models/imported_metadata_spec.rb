@@ -29,9 +29,9 @@ describe ImportedMetadata do
   describe "applying the metadata" do
     before do
       @user = FactoryGirl.create(:user)
-      @file1 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/001.wav")
-      @file2 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/002.wav")
-      @file3 = GenericFile.new(relative_path: "TheDRIVE/SEATTLE/001.wav")
+      @file1 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/001.wav", unarranged: true)
+      @file2 = GenericFile.new(relative_path: "G-DRIVE_BoB_Auditions/ATLANTA/002.wav", unarranged: true)
+      @file3 = GenericFile.new(relative_path: "TheDRIVE/SEATTLE/001.wav", unarranged: true)
       [@file1, @file2, @file3].each do |f| 
         f.apply_depositor_metadata(@user.user_key)
         f.save!
@@ -45,8 +45,11 @@ describe ImportedMetadata do
       subject.apply!
       @file1.reload.series_title.should == ['Nova']
       @file1.reload.applied_template_id.should == subject.pid
+      @file1.reload.unarranged.should be_false
+
       @file2.reload.series_title.should == ['Nova']
       @file2.reload.applied_template_id.should == subject.pid
+      @file2.reload.unarranged.should be_false
     end
   end
   

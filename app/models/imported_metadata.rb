@@ -26,7 +26,7 @@ class ImportedMetadata < ActiveFedora::Base
   
   def metadata_as_template
     {'title_attributes' =>[{'title_type' => 'Series', 'value' => series_title}],
-     'applied_template_id' => pid
+     'applied_template_id' => pid, 'unarranged' => 'false'
     }.with_indifferent_access
   end
 
