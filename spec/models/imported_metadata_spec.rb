@@ -41,6 +41,8 @@ describe ImportedMetadata do
       subject.item_title = 'sample item'
       subject.episode_title = 'sample episode'
       subject.description = 'my description'
+      subject.event_location = 'New York, NY'
+      subject.date_portrayed = '06/21/2012'
       subject.apply_depositor_metadata(@user.user_key)
       subject.save!
     end
@@ -54,6 +56,7 @@ describe ImportedMetadata do
         f.item_title.should == ['sample item']
         f.episode_title.should == ['sample episode']
         f.description.first.value.should == ['my description']
+        f.has_location.first.location_name.should == ['New York, NY']
         f.applied_template_id.should == subject.pid
         f.unarranged.should be_false
       end

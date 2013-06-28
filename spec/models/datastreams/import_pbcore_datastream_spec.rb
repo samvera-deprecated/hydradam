@@ -62,7 +62,6 @@ Even Greenberg intv at home, broll of house, family, Evan making a nature film, 
       it "should have a drive" do
         subject.drive.should == ['G-DRIVE_BoB_Auditions']
       end
-
     end
   end
 
@@ -99,6 +98,10 @@ Even Greenberg intv at home, broll of house, family, Evan making a nature film, 
       it "should set drive" do
         subject.drive_name = "Bam"
         subject.drive_name.should == ["Bam"]
+      end
+      it "should set location" do
+        subject.event_location = "NY"
+        subject.event_location.should == ["NY"]
       end
     end
   end

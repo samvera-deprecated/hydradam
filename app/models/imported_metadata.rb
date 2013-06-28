@@ -6,7 +6,10 @@ class ImportedMetadata < ActiveFedora::Base
   has_metadata 'descMetadata', type: ImportPbcoreDatastream
   
   delegate_to :properties, [:relative_path, :depositor, :import_url], :unique => true
-  delegate_to :descMetadata, [:item_title, :episode_title, :program_title, :series_title, :filenames, :description, :drive_name, :folder_name], :unique => true
+  delegate_to :descMetadata, [:item_title, :episode_title, :program_title, 
+                              :series_title, :filenames, :description,
+                              :event_location, :date_portrayed,
+                              :drive_name, :folder_name], :unique => true
 
   attr_accessor :apply_to
 
@@ -33,6 +36,9 @@ class ImportedMetadata < ActiveFedora::Base
      ],
      'description_attributes' => [
        {'type' => 'Log', 'value' => description},
+     ],
+     'has_location_attributes' => [
+       {'location_name' => event_location},
      ],
      'applied_template_id' => pid, 'unarranged' => 'false'
     }.with_indifferent_access

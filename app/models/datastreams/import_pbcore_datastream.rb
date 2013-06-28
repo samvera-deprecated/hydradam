@@ -11,6 +11,10 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
       t.folder(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_FOLDERNAME"]/oxns:pbcoreRelationIdentifier')
       t.drive(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_DRIVENAME"]/oxns:pbcoreRelationIdentifier')
 
+      t.pbcoreCoverage {
+        t.location path: 'coverage', attributes: { source: 'COVERAGE_EVENT_LOCATION'}
+      }
+
       t.description path: 'pbcoreDescription'
     end
 
@@ -22,6 +26,9 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
     t.folder_name proxy: [:description_document, :folder], index_as: :stored_searchable
     t.drive_name proxy: [:description_document, :drive], index_as: :stored_searchable
     t.description proxy: [:description_document, :description], index_as: :stored_searchable
+    t.event_location proxy: [:description_document, :pbcoreCoverage, :location], index_as: :stored_searchable
+
+    
 
   end
 
@@ -29,20 +36,28 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>
 <pbcoreCollection xmlns="http://www.pbcore.org/PBCore/PBCoreNamespace.html">
-<pbcoreDescriptionDocument>
-<pbcoreRelation>
-<pbcoreRelationType source="SOURCE_FILENAME">File Name</pbcoreRelationType>
-<pbcoreRelationIdentifier></pbcoreRelationIdentifier>
-</pbcoreRelation>
-<pbcoreRelation>
-<pbcoreRelationType source="SOURCE_FOLDERNAME">Folder Name</pbcoreRelationType>
-<pbcoreRelationIdentifier></pbcoreRelationIdentifier>
-</pbcoreRelation>
-<pbcoreRelation>
-<pbcoreRelationType source="SOURCE_DRIVENAME">Drive Name</pbcoreRelationType>
-<pbcoreRelationIdentifier></pbcoreRelationIdentifier>
-</pbcoreRelation>
-</pbcoreDescriptionDocument>
+  <pbcoreDescriptionDocument>
+    <pbcoreRelation>
+      <pbcoreRelationType source="SOURCE_FILENAME">File Name</pbcoreRelationType>
+      <pbcoreRelationIdentifier></pbcoreRelationIdentifier>
+    </pbcoreRelation>
+    <pbcoreRelation>
+      <pbcoreRelationType source="SOURCE_FOLDERNAME">Folder Name</pbcoreRelationType>
+      <pbcoreRelationIdentifier></pbcoreRelationIdentifier>
+    </pbcoreRelation>
+    <pbcoreRelation>
+    <pbcoreRelationType source="SOURCE_DRIVENAME">Drive Name</pbcoreRelationType>
+    <pbcoreRelationIdentifier></pbcoreRelationIdentifier>
+    </pbcoreRelation>
+    <pbcoreCoverage>
+    <coverage source="COVERAGE_EVENT_LOCATION"></coverage>
+    <coverageType>Spatial</coverageType>
+    </pbcoreCoverage>
+    <pbcoreCoverage>
+    <coverage source="COVERAGE_DATE_PORTRAYED"></coverage>
+    <coverageType>Temporal</coverageType>
+    </pbcoreCoverage>
+  </pbcoreDescriptionDocument>
 </pbcoreCollection>'
     Nokogiri::XML.parse(xml)
   end
