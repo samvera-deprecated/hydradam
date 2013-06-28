@@ -14,6 +14,7 @@
             <% @matches.each do |m| %>
               <tr>
                 <td><%= check_box_tag 'imported_metadata[apply_to][]', m.id %></td>
+                <td><%= link_to raw('<i class="icon-file"></i> View File'), sufia.generic_file_path(m.noid), :class=> 'itemicon itemedit', :title => 'View File'  %></td>
                 <td><%= m[:relative_path] %></td>
               </tr>
             <% end %>

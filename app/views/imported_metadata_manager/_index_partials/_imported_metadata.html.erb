@@ -5,16 +5,22 @@
   <td width="1%">
   </td>
   <td width="37%">
-    <a href="" title="Click for more details"><i id="expand_<%= noid %>" class="icon-plus icon-large fleft"></i></a>&nbsp;
-    <%= render :partial => 'dashboard/_index_partials/thumbnail_display', :locals => {:document=>document} %>
-    <span class=center><%= link_to imported_metadata_file_path(imported_metadata.noid), :id => "src_copy_link#{noid}" do %>
+    <span class=center>
+    <%= link_to imported_metadata_file_path(imported_metadata.noid), :id => "src_copy_link#{noid}" do %>
       <%= render_index_field_value document, :field => 'series_title_tesim' %><br>
-      <%= render_index_field_value document, :field => 'program_title_tesim' %><br>
       <%= render_index_field_value document, :field => 'episode_title_tesim' %><br>
-      <%= render_index_field_value document, :field => 'item_title_tesim' %><br>
     <% end %> <br /></span>
   </td>
-  <td width="17%"><%= document["system_create_dtsi"] %> </td>
+  <td>
+    <%= link_to render_index_field_value(document, :field => 'program_title_tesim'), imported_metadata_file_path(imported_metadata.noid),  :id => "src_copy_link#{noid}" %>    
+  </td>
+  <td>
+    <%= link_to render_index_field_value(document, :field => 'item_title_tesim'), imported_metadata_file_path(imported_metadata.noid),  :id => "src_copy_link#{noid}" %>
+  </td>
+  <td width="17%"><%= render_index_field_value(document, :field => 'drive_name_tesim') %> </td>
+
+  <td width="17%"><%= render_index_field_value(document, :field => 'folder_name_tesim')%> </td>
+
   <td width="5%" align="center">
     <%# visibility %>
   </td>
@@ -24,10 +30,10 @@
       <button class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon-caret-down"></span></button>
       <ul class="dropdown-menu">
        <li>
-         <%= link_to raw('<i class="icon-pencil"></i> Edit File'), edit_imported_metadata_file_path(imported_metadata.noid), :class=> 'itemicon itemedit', :title => 'Edit File'  %>
+         <%= link_to raw('<i class="icon-pencil"></i> Edit Metadata Record'), edit_imported_metadata_file_path(imported_metadata.noid), :class=> 'itemicon itemedit', :title => 'Edit Metadata Record'  %>
        </li>
        <li>
-         <%= link_to raw('<i class="icon-trash"></i> Delete File'), imported_metadata_file_path(imported_metadata.noid), :class=> 'itemicon itemtrash', :title => 'Delete File', :method => :delete, :data => { :confirm => "Deleting a file from #{t('sufia.product_name')} is permanent. Click OK to delete this file from #{t('sufia.product_name')}, or Cancel to cancel this operation"} %>
+         <%= link_to raw('<i class="icon-trash"></i> Delete Metadata Record'), imported_metadata_file_path(imported_metadata.noid), :class=> 'itemicon itemtrash', :title => 'Delete Metadata Record', :method => :delete, :data => { :confirm => "Deleting a file from #{t('sufia.product_name')} is permanent. Click OK to delete this file from #{t('sufia.product_name')}, or Cancel to cancel this operation"} %>
        </li>
       </ul>
     </div>

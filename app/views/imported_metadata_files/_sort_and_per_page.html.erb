@@ -3,8 +3,7 @@
   <div class="sorting">
       <%#= label_tag(:sort, "<strong>Sort by</strong> ".html_safe) %>
       <%#= select_tag(:sort, options_for_select(sort_fields, h(params[:sort])), :class => "input-medium") %>
-      <%= label_tag(:currently_showing) %>
-      <%= render_pagination_info response, :entry_name=>'item' %> matching files. <br/  >
+      <%= render_pagination_info response, :entry_name=>'matching file' %>
       <% unless response.response['numFound'] < 2 %>
       <%= label_tag(:per_page) do %>
         <strong>Show</strong> <%= select_tag(:per_page, options_for_select(['10', '20', '50', '100', '250', '500'], h(params[:per_page])), :title => "Number of results to display per page", :class => "input-small")  %> per page
