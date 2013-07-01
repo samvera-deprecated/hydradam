@@ -17,17 +17,16 @@ GIT
 
 GIT
   remote: git://github.com/projecthydra/sufia.git
-  revision: f9955e1c137b1b2127de8970959ac31da53c1015
-  ref: f9955e1
+  revision: 2e29fa6dc5734522d17a9e7979d73b98777882bf
+  ref: 2e29fa6
   specs:
     sufia (2.1.0.beta)
-      active-fedora (= 6.4.0.rc4)
       blacklight (~> 4.0)
       blacklight_advanced_search
       daemons (= 1.1.9)
       font-awesome-sass-rails (~> 3.0)
       hydra-batch-edit (~> 1.0)
-      hydra-head (= 6.3.0.rc1)
+      hydra-head (~> 6.3.0)
       mail_form
       rails (~> 3.2.13)
       rails_autolink (~> 1.1.0)
@@ -103,7 +102,7 @@ GEM
     acts_as_follower (0.1.1)
     addressable (2.3.5)
     arel (3.0.2)
-    backports (3.3.2)
+    backports (3.3.3)
     bcrypt-ruby (3.0.1)
     blacklight (4.2.1)
       bootstrap-sass (>= 2.2.0, < 2.4)
@@ -170,7 +169,7 @@ GEM
       tilt
     hike (1.2.3)
     hooks (0.3.1)
-    hydra-access-controls (6.3.0.rc1)
+    hydra-access-controls (6.3.0)
       active-fedora (~> 6.1)
       activesupport
       blacklight (~> 4.0)
@@ -182,17 +181,17 @@ GEM
     hydra-collections (0.0.2)
       blacklight
       hydra-head
-    hydra-core (6.3.0.rc1)
+    hydra-core (6.3.0)
       active-fedora
       blacklight (~> 4.0)
       block_helpers
       deprecation (>= 0.0.5)
-      hydra-access-controls (= 6.3.0.rc1)
+      hydra-access-controls (= 6.3.0)
       jettywrapper (>= 1.4.1)
       rails (>= 3.2.3, < 5)
-    hydra-head (6.3.0.rc1)
-      hydra-access-controls (= 6.3.0.rc1)
-      hydra-core (= 6.3.0.rc1)
+    hydra-head (6.3.0)
+      hydra-access-controls (= 6.3.0)
+      hydra-core (= 6.3.0)
       rails (>= 3.2.6)
     hydra-pbcore (2.2.0rc1)
       active-fedora
