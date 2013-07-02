@@ -1,9 +1,9 @@
 <tr>
   <th><%= get_label(key) %></th>
   <td>
-    <% generic_file.title.each do |title| %>
+    <% generic_file.description.each do |description| %>
       <div itemprop="name">
-        <%= title.value.first %>
+        <%= description.value.first %>
       </div>
     <% end %>
   </td>
