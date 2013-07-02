@@ -11,7 +11,6 @@ Bawstun::Application.routes.draw do
   Hydra::BatchEdit.add_routes(self)
 
   devise_for :users
-  mount Sufia::Engine => '/'
   
   # Metadata Templates routes (based partly on catalog routes)
   resources 'imported_metadata_manager', :only=>:index do
@@ -27,5 +26,8 @@ Bawstun::Application.routes.draw do
       post 'apply' 
     end
   end
-  
+
+  # This must be the very last route in the file because it has a catch all route for 404 errors.
+  # This behavior seems to show up only in production mode.
+  mount Sufia::Engine => '/'
 end
