@@ -22,7 +22,7 @@
           <%- stat= @generic_file.audit_stat(false)  %>
           <td> <%= (stat == 1 ? 'passing' : (stat == 0 ? 'failing' : stat)) %></td>
         </tr>
-<% unless @generic_file.relative_path.empty? %>
+<% unless @generic_file.relative_path %>
         <tr>
           <th>File path</th>
           <td><%= @generic_file.relative_path %></td>
