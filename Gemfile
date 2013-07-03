@@ -26,6 +26,8 @@ gem 'rdf', github: 'ruby-rdf/rdf', ref: '9b20f6d' # Keep until rdf 1.0.8 is rele
 gem 'hydra-pbcore', '2.2.0rc1'
 gem 'rails_admin', "~> 0.4.5"
 
+gem 'active-fedora', github: 'projecthydra/active_fedora', ref: "53265e8" # 6.4.1
+
 group :development, :test do
   #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
   gem 'jettywrapper'

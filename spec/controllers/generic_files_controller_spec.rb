@@ -100,10 +100,10 @@ describe GenericFilesController do
       #TODO we can't just do: @file.descMetadata.creator = [], because that will leave an orphan person
       # this works: @file.descMetadata.creator.each { |c| c.destroy }
       post :update, id: @file, generic_file: {
-           title_attributes: [{"value" => "Frontline", "title_type"=>"Series"}, {"value"=>"How did this happen?", "title_type"=>"Program"}],
-           creator_attributes: [{"name" => "Frank", "role"=>"Producer"}, {"name"=>"Dave", "role"=>"Director"}],
-           description_attributes: [{"value"=> "it's a documentary show", "type" => 'summary'}],
-           has_location_attributes:[{'location_name' => 'France'}],
+           title_attributes: {'0' => {"value" => "Frontline", "title_type"=>"Series"}, '1' => {"value"=>"How did this happen?", "title_type"=>"Program"}},
+           creator_attributes: {'0' => {"name" => "Frank", "role"=>"Producer"}, '1' => {"name"=>"Dave", "role"=>"Director"}},
+           description_attributes: {'0' => {"value"=> "it's a documentary show", "type" => 'summary'}},
+           has_location_attributes: {'0' => {'location_name' => 'France'}},
            resource_type: ["Article", "Audio", "Book"]
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
