@@ -16,22 +16,6 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git://github.com/projecthydra/active_fedora.git
-  revision: 53265e8078751466d830d3b2b4f752e80d652293
-  ref: 53265e8
-  specs:
-    active-fedora (6.4.0)
-      activesupport (>= 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 3.0.0)
-      rdf
-      rdf-rdfxml (~> 1.0.0)
-      rsolr
-      rubydora (~> 1.6, >= 1.6.5)
-
-GIT
   remote: git://github.com/projecthydra/sufia.git
   revision: 2c8a438227767e9f314128f4a887fbe25c8890c9
   ref: 2c8a438
@@ -71,6 +55,20 @@ GIT
   specs:
     rdf (1.0.7)
       addressable (>= 2.2)
+
+PATH
+  remote: ../active_fedora
+  specs:
+    active-fedora (6.4.0)
+      activesupport (>= 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 3.0.0)
+      rdf
+      rdf-rdfxml (~> 1.0.0)
+      rsolr
+      rubydora (~> 1.6, >= 1.6.5)
 
 GEM
   remote: https://rubygems.org/

@@ -40,6 +40,18 @@ class GenericFile < ActiveFedora::Base
     super
   end
 
+  
+  def remove_blank_assertions
+    self.publisher = publisher.select { |p| p.name.first != '' || p.role.first != ''}
+    self.contributor = contributor.select { |p| p.name.first != '' || p.role.first != ''}
+    self.creator = creator.select { |p| p.name.first != '' || p.role.first != ''}
+    self.has_location = has_location.select { |p| p.location_name.first != '' }
+    self.description = description.select { |p| p.value.first != '' || p.type.first != ''}
+    self.title = title.select { |p| p.value.first != '' || p.title_type.first != ''}
+
+    super
+  end
+
   # Overridden to write the file into the external store instead of a datastream
   def add_file(file, dsid, file_name) 
     return add_external_file(file, dsid, file_name) if dsid == 'content'
@@ -149,6 +161,7 @@ class GenericFile < ActiveFedora::Base
       raise ArgumentError, "You must provide a string or an array.  You provided #{args.inspect}"
     end
     args = Array(args)
+    return if args == [''] 
     self.creator_attributes = [{name: args, role: "Uploader"}]
   end
 
@@ -159,22 +172,23 @@ class GenericFile < ActiveFedora::Base
       raise ArgumentError, "You must provide a string or an array.  You provided #{args.inspect}"
     end
     args = Array(args)
+    return if args == [''] 
     self.title_attributes = [{name: args, title_type: "Program"}]
   end
 
-  ### Map based_near[] -> has_location[].locationName
-  # @param [Array] vals a list of hashes with location_name
-  def has_location=(vals)
-    existing = descMetadata.has_location
-    descMetadata.has_location = [] if existing.size > vals.size
-    Array(vals).each_with_index do |val, index|
-      obj = descMetadata.has_location[index]
-      if obj.nil?
-        obj = descMetadata.has_location.build
-      end
-      obj.location_name = val['location_name']
-    end
-  end
+  # ### Map based_near[] -> has_location[].locationName
+  # # @param [Array] vals a list of hashes with location_name
+  # def has_location=(vals)
+  #   existing = descMetadata.has_location
+  #   descMetadata.has_location = [] if existing.size > vals.size
+  #   Array(vals).each_with_index do |val, index|
+  #     obj = descMetadata.has_location[index]
+  #     if obj.nil?
+  #       obj = descMetadata.has_location.build
+  #     end
+  #     obj.location_name = val['location_name']
+  #   end
+  # end
 
   # normally if you want to remove exising nested params you pass:
   #   {:_delete => true, :id => '_:g1231011230128'}
@@ -184,7 +198,9 @@ class GenericFile < ActiveFedora::Base
     self.creator.each { |c| c.destroy } if params[:creator_attributes]
     self.contributor.each { |c| c.destroy } if params[:contributor_attributes]
     self.producer.each { |c| c.destroy } if params[:producer_attributes]
+    self.publisher.each { |c| c.destroy } if params[:publisher_attributes]
     self.title.each { |c| c.destroy } if params[:title_attributes]
+    self.has_location.each { |c| c.destroy } if params[:has_location_attributes]
   end
 
 

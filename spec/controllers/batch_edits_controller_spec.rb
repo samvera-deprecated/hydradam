@@ -11,9 +11,9 @@ describe BatchEditsController do
 
   describe "edit" do
     before do
-      @one = GenericFile.new(creator_attributes:{name: "Fred"}, :language=>'en')
+      @one = GenericFile.new(creator_attributes:[{name: "Fred"}], :language=>'en')
       @one.apply_depositor_metadata('mjg36')
-      @two = GenericFile.new(creator_attributes:{name: "Wilma"}, publisher_attributes:{name:'Rand McNally'}, :language=>'en')
+      @two = GenericFile.new(creator_attributes:[{name: "Wilma"}], publisher_attributes:[{name:'Rand McNally'}], :language=>'en')
       @two.apply_depositor_metadata('mjg36')
       @one.save!
       @two.save!
@@ -32,9 +32,9 @@ describe BatchEditsController do
   
   describe "update" do
     before do
-      @one = GenericFile.new(creator_attributes:{name: "Fred"}, :language=>'en')
+      @one = GenericFile.new(creator_attributes:[{name: "Fred"}], :language=>'en')
       @one.apply_depositor_metadata('mjg36')
-      @two = GenericFile.new(creator_attributes:{name: "Wilma"}, publisher_attributes:{name:'Rand McNally'}, :language=>'en')
+      @two = GenericFile.new(creator_attributes:[{name: "Wilma"}], publisher_attributes:[{name:'Rand McNally'}], :language=>'en')
       @two.apply_depositor_metadata('mjg36')
       @one.save!
       @two.save!
@@ -45,8 +45,8 @@ describe BatchEditsController do
     it "should be successful" do
       put :update , update_type:"delete_all"
       response.should be_redirect
-      expect {GenericFIle.find(@one.id)}.to raise_error
-      expect {GenericFIle.find(@two.id)}.to raise_error
+      expect {GenericFile.find(@one.id)}.to raise_error ActiveFedora::ObjectNotFoundError
+      expect {GenericFile.find(@two.id)}.to raise_error ActiveFedora::ObjectNotFoundError
     end
   end
 

@@ -1,6 +1,9 @@
       <div class="controls" <%  if index == 0 %> id="additional_<%= key.to_s %>_clone" <% end %>>
         <% required = render_req && (index == 0) && required?(key) %>
-        <%= f.text_field :title, :name=>"generic_file[#{key}][][location_name]", :id => "generic_file_#{key}_#{index}_location_name", :value=>v.location_name.first, :class => "input-large", :required => required  %>
+        <%= f.text_field :value, :name=>"generic_file[#{key}_attributes][#{index}][location_name]", :id => "generic_file_#{key}_#{index}_location_name", :value=>v.location_name.first, :class => "input-large", :required => required  %>
+        <% if v.new_record? %>
+          <%= hidden_field_tag "generic_file[#{key}_attributes][#{index}][id]", v.rdf_subject.to_s %>
+        <% end %>
         <%= render :partial=>"generic_files/edit_fields/suffix", :locals=>{key: key, index: index} %>
       </div><!-- /controls -->              
       <div id="additional_<%= key %>_elements"></div>

@@ -121,5 +121,24 @@ describe GenericFilesController do
       @file.description[0].type.should == ['summary']
       @file.resource_type.should == [ "Article", "Audio", "Book"]      
     end
+
+    it "should remove blank assertions" do
+      post :update, id: @file, generic_file: {
+        "publisher_attributes"=>{"0"=>{"name"=>"", "role"=>""}, "1"=>{"name"=>"Test", "role"=>""},
+                                 "2"=>{"name"=>"", "role"=>"Foo"}, "3"=>{"name"=>"", "role"=>""}},
+        "description_attributes"=>{"0"=>{"value"=>"", "type"=>""}, "1"=>{"value"=>"Justin's desc", "type"=>""}, 
+                                   "2"=>{"value"=>"", "type"=>"valuable"}}
+      }
+      response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
+      @file.reload
+      @file.publisher.size.should == 2
+      @file.publisher[0].name.should == ['Test']
+      @file.publisher[1].role.should == ['Foo']
+      @file.description.size.should == 2
+      @file.description[0].value.should == ["Justin's desc"]
+      @file.description[1].type.should == ['valuable']
+
+
+    end
   end
 end
