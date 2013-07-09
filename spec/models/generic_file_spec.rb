@@ -236,6 +236,8 @@ EOF
     before do
       subject.title.build(value: "title one", title_type: 'Program')
       subject.title.build(value: "second title", title_type: 'Series')
+      subject.title.build(value: "third title", title_type: 'Item')
+      subject.title.build(value: "fourth title", title_type: 'Episode')
       c = subject.descMetadata.contributor.build
       c.name = "Fred"
       c.role = "Carpenter"
@@ -277,10 +279,12 @@ EOF
       puts str
       xml = Nokogiri::XML(str)
       # pbcoretitle
-      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "title one"
-      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "second title"
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Main"]').text.should == "title one"
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Alternative"]').text.should == "second title"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "title one"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "second title"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text.should == "third title"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text.should == "fourth title"
+      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Main"]').text.should == "title one"
+      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Alternative"]').text.should == "second title"
       # pbcorecreator
       #   creator
       #   creatorrole

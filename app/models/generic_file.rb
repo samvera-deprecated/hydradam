@@ -206,9 +206,10 @@ class GenericFile < ActiveFedora::Base
   end
 
   def to_pbcore_xml
-    doc = HydraPbcore::Datastream::Document.new
-    doc.title = program_title
-    doc.alternative_title = series_title
+    doc = ExportPbcoreDatastream.new 
+    title.each do |t|
+      doc.title(t.title_type, t.value)
+    end
     descMetadata.creator.each do |c|
       doc.insert_creator c.name.first, c.role.first
     end
