@@ -18,16 +18,13 @@ end
 gem 'jquery-rails'
 
 
-#gem 'sufia', github: 'projecthydra/sufia', ref: '2c8a438' #'~> 2.1.0'
-gem 'sufia', path: '../sufia'
+gem 'sufia', github: 'projecthydra/sufia', ref: '7f659b7' #'~> 2.1.0'
+#gem 'sufia', path: '../sufia'
 #gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
 #gem 'hydra-pbcore', :path=>'../hydra-pbcore'
 gem 'rdf', github: 'ruby-rdf/rdf', ref: '9b20f6d' # Keep until rdf 1.0.8 is released
 gem 'hydra-pbcore', '2.2.0rc1'
 gem 'rails_admin', "~> 0.4.5"
-
-#gem 'active-fedora', github: 'projecthydra/active_fedora', ref: "53265e8" # 6.4.1
-gem 'active-fedora', path: '../active_fedora' # develop branch 
 
 group :development, :test do
   #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
