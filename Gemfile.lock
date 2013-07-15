@@ -240,7 +240,7 @@ GEM
       activesupport
       i18n
       nokogiri
-    om (3.0.1)
+    om (3.0.2)
       activemodel
       activesupport
       deprecation
