@@ -11,10 +11,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :as => [:default, :admin]
-  attr_accessible :directory, :admin, as: :admin
-
   validate :directory_must_exist
 
   def directory_must_exist
