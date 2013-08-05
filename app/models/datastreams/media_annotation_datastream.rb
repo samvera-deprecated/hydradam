@@ -56,6 +56,8 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable, :facetable
     end
 
+    map.has_source(:to => "hasSource",in: RDF::EbuCore, class_name: 'Resource')
+
     map.identifier(in: RDF::EbuCore) do |index|
       index.as :stored_searchable
     end
@@ -127,11 +129,20 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     end
     accepts_nested_attributes_for :has_location
   end
+
   class DepictedEvent
     include ActiveFedora::RdfObject
     rdf_type RDF::PBCore.DepictedEvent
     map_predicates do |map|
       map.date_time(:in => RDF::EbuCore, :to=>'dateTime')
+    end
+  end
+
+  class Resource
+    include ActiveFedora::RdfObject
+    rdf_type RDF::PBCore.Resource
+    map_predicates do |map|
+      map.description(:in => RDF::EbuCore)
     end
   end
 
@@ -183,6 +194,15 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   def date_portrayed= date_val
     depicted_event = has_depicted_event.first || has_depicted_event.build
     depicted_event.date_time = date_val
+  end
+
+  def source
+    has_source.first ? has_source.first.description : []
+  end
+
+  def source= val
+    src = has_source.first || has_source.build
+    src.description = val
   end
 
 
