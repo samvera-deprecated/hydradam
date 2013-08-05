@@ -9,21 +9,19 @@ class GenericFile < ActiveFedora::Base
   has_metadata 'descMetadata', type: MediaAnnotationDatastream
   has_file_datastream "content", type: FileContentDatastream, control_group: 'E'
 
-  delegate_to 'descMetadata', [:has_location, :program_title, :series_title,
-                               :item_title, :episode_title, :has_event,
-                               :event_location, :production_location,
-                               :filming_event, :production_event, :date_portrayed,
-                               :has_event_attributes, :source,
-                               :creator_attributes, :contributor_attributes, 
-                               :publisher_attributes, :has_location_attributes,
-                               :description_attributes, :title_attributes]
+  delegate_to 'descMetadata', [:has_location, :program_title, :series_title, :item_title,
+              :episode_title, :has_event, :event_location, :production_location, :filming_event,
+              :production_event, :date_portrayed, :has_event_attributes, :source, :source_reference,
+              :creator_attributes, :contributor_attributes, :publisher_attributes, 
+              :has_location_attributes, :description_attributes, :title_attributes]
 
   delegate_to 'properties', [:unarranged, :applied_template_id], unique: true
 
   attr_accessible  :part_of, :contributor_attributes, :creator_attributes, :title_attributes,
         :description_attributes, :publisher_attributes, :date_created, :date_uploaded,
         :date_modified, :subject, :language, :rights, :resource_type, :identifier, :event_location,
-        :production_location, :date_portrayed, :source, :tag, :related_url, :permissions
+        :production_location, :date_portrayed, :source, :source_reference, :tag, :related_url,
+        :permissions
 
   before_destroy :remove_content
 
@@ -132,8 +130,8 @@ class GenericFile < ActiveFedora::Base
 
   def terms_for_display
     [ :part_of, :contributor, :creator, :title, :description, :event_location, :production_location,
-      :date_portrayed, :source, :publisher, :date_created, :date_uploaded, :date_modified, :subject,
-      :language, :rights, :resource_type, :identifier, :tag, :related_url]
+      :date_portrayed, :source, :source_reference, :publisher, :date_created, :date_uploaded,
+      :date_modified, :subject, :language, :rights, :resource_type, :identifier, :tag, :related_url]
   end
   
   ## Extract the metadata from the content datastream and record it in the characterization datastream

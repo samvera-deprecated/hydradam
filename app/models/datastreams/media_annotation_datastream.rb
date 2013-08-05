@@ -143,6 +143,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     rdf_type RDF::PBCore.Resource
     map_predicates do |map|
       map.description(:in => RDF::EbuCore)
+      map.identifier(:in => RDF::EbuCore)
     end
   end
 
@@ -203,6 +204,15 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   def source= val
     src = has_source.first || has_source.build
     src.description = val
+  end
+
+  def source_reference
+    has_source.first ? has_source.first.identifier : []
+  end
+
+  def source_reference= val
+    src = has_source.first || has_source.build
+    src.identifier = val
   end
 
 
