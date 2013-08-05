@@ -13,7 +13,6 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     map.title(:in=> RDF::DC, :class_name=>'Title')
 
     map.has_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'Event')
-    map.has_location(:in => RDF::EbuCore, :to=>'hasLocation', :class_name=>'Location')
 
     map.date_uploaded(:to => "dateSubmitted", in: RDF::DC) do |index|
       index.type :date
@@ -121,13 +120,54 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     rdf_type RDF::PBCore.Event
     map_predicates do |map|
       map.event_name(:in => RDF::EbuCore, :to=>'eventName')
-      map.date_time(:in => RDF::EbuCore, :to=>'dateTime', type: :date)
+      map.event_definition(:in => RDF::EbuCore, :to=>'eventDefinition')
+      map.date_time(:in => RDF::EbuCore, :to=>'dateTime')
+      map.has_location(in: RDF::EbuCore, to: 'hasLocation', class_name: "Location")
     end
+    accepts_nested_attributes_for :has_location
   end
 
   LocalAuthority.register_vocabulary(self, "subject", "lc_subjects")
   LocalAuthority.register_vocabulary(self, "language", "lexvo_languages")
   LocalAuthority.register_vocabulary(self, "tag", "lc_genres")
+
+  # finds or creates an Event node where eventDefinition = Filming 
+  def filming_event
+    has_event.find {|e| e.event_definition.first == 'Filming'} || has_event.build(event_definition: 'Filming')
+  end
+
+  # finds or creates an Event node where eventDefinition = Production 
+  def production_event
+    has_event.find {|e| e.event_definition.first == 'Production'} || has_event.build(event_definition: 'Production')
+  end
+
+  # Set the location for a filming_event
+  def event_location= location_names
+    filming_event.has_location = []
+    location_names.each do |name|
+      filming_event.has_location.build(location_name: name)
+    end
+  end
+
+  # required to stand in for GenericFile#remove_blank_assertions
+  def event_location
+    has_event.select {|e| e.event_definition.first == 'Filming'}
+  end
+
+  # Set the location for a production_event
+  def production_location= location_names
+    production_event.has_location = []
+    location_names.each do |name|
+      production_event.has_location.build(location_name: name)
+    end
+  end
+
+
+  # required to stand in for GenericFile#remove_blank_assertions
+  def production_location
+    has_event.select {|e| e.event_definition.first == 'Production'}
+  end
+
 
   def to_solr(solr_doc = {})
     solr_doc = super
@@ -140,8 +180,8 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     publishers = self.publisher.map { |c| c.name }.flatten
     store_in_solr_doc(solr_doc, 'publisher', publishers, [:stored_searchable, type: :text], :facetable)
 
-    based_near = self.has_location.map { |c| c.location_name }.flatten
-    store_in_solr_doc(solr_doc, 'based_near', based_near, [:stored_searchable, type: :text], :facetable)
+    # based_near = self.has_location.map { |c| c.location_name }.flatten
+    # store_in_solr_doc(solr_doc, 'based_near', based_near, [:stored_searchable, type: :text], :facetable)
 
     self.description.each do |t|
       store_in_solr_doc(solr_doc, "description", t.value, [:stored_searchable, type: :text])

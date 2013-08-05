@@ -11,6 +11,8 @@ class GenericFile < ActiveFedora::Base
 
   delegate_to 'descMetadata', [:has_location, :program_title, :series_title,
                                :item_title, :episode_title, :has_event,
+                               :event_location, :production_location,
+                               :filming_event, :production_event,
                                :has_event_attributes,
                                :creator_attributes, :contributor_attributes, 
                                :publisher_attributes, :has_location_attributes,
@@ -21,8 +23,8 @@ class GenericFile < ActiveFedora::Base
   attr_accessible  :part_of, :contributor_attributes, :creator_attributes,
         :title_attributes, :description_attributes, :publisher_attributes,
         :date_created, :date_uploaded, :date_modified, :subject, :language,
-        :rights, :resource_type, :identifier, :has_location_attributes, :tag,
-        :related_url, :permissions
+        :rights, :resource_type, :identifier, :event_location,
+        :production_location, :tag, :related_url, :permissions
 
   before_destroy :remove_content
 
@@ -35,7 +37,7 @@ class GenericFile < ActiveFedora::Base
     publisher.build if publisher.empty?
     contributor.build if contributor.empty?
     creator.build if creator.empty?
-    has_location.build if has_location.empty?
+    #has_location.build if has_location.empty?
     description.build if description.empty?
     super
   end
@@ -45,7 +47,12 @@ class GenericFile < ActiveFedora::Base
     publisher.select { |p| p.name.first == '' && p.role.first == ''}.each(&:destroy)
     contributor.select { |p| p.name.first == '' && p.role.first == ''}.each(&:destroy)
     creator.select { |p| p.name.first == '' && p.role.first == ''}.each(&:destroy)
-    has_location.select { |p| p.location_name.first == '' }.each(&:destroy)
+    # events (filming events and production events specifically) must have locations
+    has_event.each do |event|
+      event.has_location.each do |location|
+        location.destroy if location.location_name.first == ''
+      end
+    end
     description.select { |p| p.value.first == '' && p.type.first == ''}.each(&:destroy)
     title.select { |p| p.value.first == '' && p.title_type.first == ''}.each(&:destroy)
     super
@@ -125,9 +132,10 @@ class GenericFile < ActiveFedora::Base
   end
 
   def terms_for_display
-    [ :part_of, :contributor, :creator, :title, :description, 
+    [ :part_of, :contributor, :creator, :title, :description, :event_location, :production_location,
         :publisher, :date_created, :date_uploaded, :date_modified, :subject, :language, :rights, 
-        :resource_type, :identifier, :has_location, :tag, :related_url]
+        :resource_type, :identifier, :tag, :related_url]
+    # :has_location
   end
   
   ## Extract the metadata from the content datastream and record it in the characterization datastream
@@ -152,6 +160,7 @@ class GenericFile < ActiveFedora::Base
   def based_near
     descMetadata.has_location #.map(&:location_name).flatten
   end
+
 
   # Necessary because parts of sufia call creator= with a string.
   ### Map creator[] -> creator[].name
@@ -195,7 +204,7 @@ class GenericFile < ActiveFedora::Base
     self.producer.each { |c| c.destroy } if params[:producer_attributes]
     self.publisher.each { |c| c.destroy } if params[:publisher_attributes]
     self.title.each { |c| c.destroy } if params[:title_attributes]
-    self.has_location.each { |c| c.destroy } if params[:has_location_attributes]
+    self.event.each { |c| c.destroy } if params[:event_attributes]
     self.description.each { |c| c.destroy } if params[:description_attributes]
   end
 
@@ -219,9 +228,9 @@ class GenericFile < ActiveFedora::Base
     descMetadata.publisher.each do |c|
       doc.insert_publisher c.name.first, c.role.first
     end
-    descMetadata.has_location.each do |l|
-      doc.insert_place l.location_name.first
-    end
+    # descMetadata.has_location.each do |l|
+    #   doc.insert_place l.location_name.first
+    # end
 
     doc.insert_date(date_created.first)
     doc.asset_type = resource_type.to_a
