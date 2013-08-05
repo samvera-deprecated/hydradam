@@ -16,6 +16,22 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
+  remote: git://github.com/projecthydra/active_fedora.git
+  revision: 8e2674e9feebaba638e4dc0e86003ab8ccd06fbe
+  ref: 8e2674e
+  specs:
+    active-fedora (6.4.5)
+      activesupport (>= 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 3.0.0)
+      rdf
+      rdf-rdfxml (= 1.0.1)
+      rsolr
+      rubydora (~> 1.6, >= 1.6.5)
+
+GIT
   remote: git://github.com/ruby-rdf/rdf.git
   revision: 9b20f6d0a2a6dd8d60c5583eaba0afa5a3274c54
   ref: 9b20f6d
@@ -35,16 +51,6 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    active-fedora (6.4.5)
-      activesupport (>= 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 3.0.0)
-      rdf
-      rdf-rdfxml (= 1.0.1)
-      rsolr
-      rubydora (~> 1.6, >= 1.6.5)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -397,6 +403,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active-fedora!
   bootstrap-sass
   coffee-rails (~> 4.0.0)
   devise

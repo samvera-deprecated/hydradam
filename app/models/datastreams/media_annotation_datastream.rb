@@ -13,6 +13,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     map.title(:in=> RDF::DC, :class_name=>'Title')
 
     map.has_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'Event')
+    map.has_depicted_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'DepictedEvent')
 
     map.date_uploaded(:to => "dateSubmitted", in: RDF::DC) do |index|
       index.type :date
@@ -126,6 +127,13 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     end
     accepts_nested_attributes_for :has_location
   end
+  class DepictedEvent
+    include ActiveFedora::RdfObject
+    rdf_type RDF::PBCore.DepictedEvent
+    map_predicates do |map|
+      map.date_time(:in => RDF::EbuCore, :to=>'dateTime')
+    end
+  end
 
   LocalAuthority.register_vocabulary(self, "subject", "lc_subjects")
   LocalAuthority.register_vocabulary(self, "language", "lexvo_languages")
@@ -166,6 +174,15 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   # required to stand in for GenericFile#remove_blank_assertions
   def production_location
     has_event.select {|e| e.event_definition.first == 'Production'}
+  end
+
+  def date_portrayed
+    has_depicted_event.first ? has_depicted_event.first.date_time : []
+  end
+
+  def date_portrayed= date_val
+    depicted_event = has_depicted_event.first || has_depicted_event.build
+    depicted_event.date_time = date_val
   end
 
 

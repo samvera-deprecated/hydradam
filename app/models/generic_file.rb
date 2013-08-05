@@ -12,7 +12,7 @@ class GenericFile < ActiveFedora::Base
   delegate_to 'descMetadata', [:has_location, :program_title, :series_title,
                                :item_title, :episode_title, :has_event,
                                :event_location, :production_location,
-                               :filming_event, :production_event,
+                               :filming_event, :production_event, :date_portrayed,
                                :has_event_attributes,
                                :creator_attributes, :contributor_attributes, 
                                :publisher_attributes, :has_location_attributes,
@@ -24,7 +24,7 @@ class GenericFile < ActiveFedora::Base
         :title_attributes, :description_attributes, :publisher_attributes,
         :date_created, :date_uploaded, :date_modified, :subject, :language,
         :rights, :resource_type, :identifier, :event_location,
-        :production_location, :tag, :related_url, :permissions
+        :production_location, :date_portrayed, :tag, :related_url, :permissions
 
   before_destroy :remove_content
 
@@ -133,7 +133,7 @@ class GenericFile < ActiveFedora::Base
 
   def terms_for_display
     [ :part_of, :contributor, :creator, :title, :description, :event_location, :production_location,
-        :publisher, :date_created, :date_uploaded, :date_modified, :subject, :language, :rights, 
+      :date_portrayed, :publisher, :date_created, :date_uploaded, :date_modified, :subject, :language, :rights, 
         :resource_type, :identifier, :tag, :related_url]
     # :has_location
   end
