@@ -7,7 +7,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     map.creator(:in=> RDF::EbuCore, :to=>'hasCreator', :class_name=>'Person')
     map.publisher(:in=> RDF::EbuCore, :to=>'hasPublisher', :class_name=>'Person')
     #map.publication_events(:in=> RDF::EbuCore, :to=>'hasPublicationEvent', :class_name=>'Event')
-    map.video_tracks(:in=> RDF::EbuCore, :to=>'hasVideoTrack', :class_name=>'Video')
+    map.video_tracks(:in=> RDF::EbuCore, :to=>'hasVideoTrack', :class_name=>'VideoTrack')
     map.description(in: RDF::EbuCore, :class_name=>'Description')
 
     map.title(:in=> RDF::DC, :class_name=>'Title')
@@ -33,10 +33,6 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     map.filename(in: RDF::EbuCore)
     map.fileByteSize(in: RDF::EbuCore)
 
-    # This is "Media" (e.g. Moving Image, Text, Static Image)
-    map.format(in: RDF::EbuCore, :to=>'hasFormat') do |index|
-      index.as :stored_searchable
-    end
 
     map.subject(in: RDF::EbuCore, :to=>'hasSubject') do |index|
       index.as :stored_searchable
@@ -180,6 +176,23 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     end
   end
 
+  class VideoTrack
+    include ActiveFedora::RdfObject
+    rdf_type RDF::EbuCore.VideoTrack
+    map_predicates do |map|
+      map.frame_rate(in: RDF::EbuCore, to: 'hasFormat') #type is double
+      map.format(in: RDF::EbuCore, to: 'hasFormat', class_name: 'VideoFormat')
+    end
+  end
+
+  class VideoFormat
+    include ActiveFedora::RdfObject
+    rdf_type RDF::EbuCore.VideoFormat
+    map_predicates do |map|
+      map.aspect_ratio(in: RDF::EbuCore, to: 'aspectRatio')
+    end
+  end
+
   LocalAuthority.register_vocabulary(self, "subject", "lc_subjects")
   LocalAuthority.register_vocabulary(self, "language", "lexvo_languages")
   LocalAuthority.register_vocabulary(self, "tag", "lc_genres")
@@ -225,7 +238,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   end
 
   def date_portrayed= date_val
-    depicted_event = has_depicted_event.first || has_depicted_event.build
+    depicted_event = has_depicted_event.first_or_create
     depicted_event.date_time = date_val
   end
 
@@ -234,7 +247,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   end
 
   def source= val
-    src = has_source.first || has_source.build
+    src = has_source.first_or_create
     src.description = val
   end
 
@@ -243,7 +256,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   end
 
   def source_reference= val
-    src = has_source.first || has_source.build
+    src = has_source.first_or_create
     src.identifier = val
   end
 
@@ -255,7 +268,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
 
   def rights_holder= val
     r = rights.first || is_covered_by.build
-    holder = r.has_rights_holder.first || r.has_rights_holder.build
+    holder = r.has_rights_holder.first_or_create
     holder.name = val
   end
 
@@ -265,8 +278,22 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   end
 
   def release_date= val
-    evt = related_publication_event.first || related_publication_event.build
+    evt = related_publication_event.first_or_create
     evt.start_date_time = val
+  end
+
+  def aspect_ratio
+    track = video_tracks.first
+    return [] if track.nil?
+    format = track.format.first
+    return [] if format.nil?
+    format.aspect_ratio
+  end
+
+  def aspect_ratio= val
+    track = video_tracks.first_or_create
+    format = track.format.first_or_create
+    format.aspect_ratio = val
   end
 
   def to_solr(solr_doc = {})
