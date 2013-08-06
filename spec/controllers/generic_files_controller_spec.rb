@@ -103,35 +103,37 @@ describe GenericFilesController do
            title_attributes: {'0' => {"value" => "Frontline", "title_type"=>"Series"}, '1' => {"value"=>"How did this happen?", "title_type"=>"Program"}},
            creator_attributes: {'0' => {"name" => "Frank", "role"=>"Producer"}, '1' => {"name"=>"Dave", "role"=>"Director"}},
            description_attributes: {'0' => {"value"=> "it's a documentary show", "type" => 'summary'}},
-           date_portrayed: ['12/24/1913'],
            'event_location' => ['france', 'portugual'],
            'production_location' => ['Boston', 'Minneapolis'],
+           date_portrayed: ['12/24/1913'],
+           resource_type: ["Article", "Audio", "Book"],
            source: ['Some shady looking character'],
            source_reference: ['Less shady guy'],
            rights_holder: ['WGBH', 'WNYC'],
-           resource_type: ["Article", "Audio", "Book"]
+           release_date: ['12/15/2012']
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
-      @file.creator[0].name.should == ['Frank']
-      @file.creator[0].role.should == ['Producer']
-      @file.creator[1].name.should == ['Dave']
-      @file.creator[1].role.should == ['Director']
-      @file.event_location.first.has_location[0].location_name.should == ['france']
-      @file.event_location.first.has_location[1].location_name.should == ['portugual']
-      @file.production_location.first.has_location[0].location_name.should == ['Boston']
-      @file.production_location.first.has_location[1].location_name.should == ['Minneapolis']
-      @file.source.should == ['Some shady looking character']
-      @file.source_reference.should == ['Less shady guy']
       @file.title[0].title_type.should == ['Series']
       @file.title[0].value.should == ['Frontline']
       @file.title[1].value.should == ['How did this happen?']
       @file.title[1].title_type.should == ['Program']
       @file.description[0].value.should == ["it's a documentary show"]
       @file.description[0].type.should == ['summary']
-      @file.rights_holder.should == [ "WGBH", 'WNYC']      
-      @file.resource_type.should == [ "Article", "Audio", "Book"]      
+      @file.event_location.first.has_location[0].location_name.should == ['france']
+      @file.event_location.first.has_location[1].location_name.should == ['portugual']
+      @file.production_location.first.has_location[0].location_name.should == ['Boston']
+      @file.production_location.first.has_location[1].location_name.should == ['Minneapolis']
       @file.date_portrayed.should == ['12/24/1913']
+      @file.resource_type.should == [ "Article", "Audio", "Book"]      
+      @file.source.should == ['Some shady looking character']
+      @file.source_reference.should == ['Less shady guy']
+      @file.rights_holder.should == [ "WGBH", 'WNYC']      
+      @file.creator[0].name.should == ['Frank']
+      @file.creator[0].role.should == ['Producer']
+      @file.creator[1].name.should == ['Dave']
+      @file.creator[1].role.should == ['Director']
+      @file.release_date.should == ['12/15/2012']
     end
 
     it "should remove blank assertions" do

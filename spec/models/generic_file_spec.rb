@@ -59,7 +59,7 @@ EOF
     it "should return a list" do
       subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, 
        :event_location, :production_location, :date_portrayed, :source, :source_reference,
-       :rights_holder, :publisher, :date_created, :subject, :language, :rights, :resource_type,
+       :rights_holder, :release_date, :publisher, :date_created, :subject, :language, :rights, :resource_type,
        :identifier, :tag, :related_url]
     end
   end
@@ -67,7 +67,7 @@ EOF
     it "should return a list" do
       subject.terms_for_display.should == [ :part_of, :contributor, :creator, :title, :description, 
         :event_location, :production_location, :date_portrayed, :source, :source_reference,
-        :rights_holder, :publisher, :date_created, :date_uploaded, :date_modified,:subject,
+        :rights_holder, :release_date, :publisher, :date_created, :date_uploaded, :date_modified,:subject,
         :language, :rights, :resource_type, :identifier, :tag, :related_url]
     end
   end

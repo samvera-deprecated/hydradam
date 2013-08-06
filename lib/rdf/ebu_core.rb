@@ -80,6 +80,10 @@ module RDF
     property :relatedResource
     property :replaces
     property :requires
+
+    property :publishedStartDateTime
+    property :publishedEndDateTime
+    property :publicationEventName
   end
 end
 
