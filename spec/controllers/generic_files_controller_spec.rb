@@ -108,6 +108,7 @@ describe GenericFilesController do
            'production_location' => ['Boston', 'Minneapolis'],
            source: ['Some shady looking character'],
            source_reference: ['Less shady guy'],
+           rights_holder: ['WGBH', 'WNYC'],
            resource_type: ["Article", "Audio", "Book"]
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
@@ -128,6 +129,7 @@ describe GenericFilesController do
       @file.title[1].title_type.should == ['Program']
       @file.description[0].value.should == ["it's a documentary show"]
       @file.description[0].type.should == ['summary']
+      @file.rights_holder.should == [ "WGBH", 'WNYC']      
       @file.resource_type.should == [ "Article", "Audio", "Book"]      
       @file.date_portrayed.should == ['12/24/1913']
     end

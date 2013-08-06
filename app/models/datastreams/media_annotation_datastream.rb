@@ -15,6 +15,8 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     map.has_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'Event')
     map.has_depicted_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'DepictedEvent')
 
+    map.is_covered_by(in: RDF::EbuCore, to: 'isCoveredBy', class_name: 'Rights')
+
     map.date_uploaded(:to => "dateSubmitted", in: RDF::DC) do |index|
       index.type :date
       index.as :stored_sortable
@@ -99,12 +101,22 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
 
   class Person
     include ActiveFedora::RdfObject
-    rdf_type 'http://www.ebu.ch/metadata/ontologies/ebucore#Person'
+    rdf_type RDF::EbuCore.Person
     map_predicates do |map|
       map.name(:in => RDF::EbuCore) do |index|
         index.as :stored_searchable
       end
       map.role(:in => RDF::EbuCore, :to=>'hasRole') 
+    end
+  end
+
+  class Agent
+    include ActiveFedora::RdfObject
+    rdf_type RDF::EbuCore.Agent
+    map_predicates do |map|
+      map.name(:in => RDF::EbuCore) do |index|
+        index.as :stored_searchable
+      end
     end
   end
 
@@ -120,7 +132,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
 
   class Event
     include ActiveFedora::RdfObject
-    rdf_type RDF::PBCore.Event
+    rdf_type RDF::EbuCore.Event
     map_predicates do |map|
       map.event_name(:in => RDF::EbuCore, :to=>'eventName')
       map.event_definition(:in => RDF::EbuCore, :to=>'eventDefinition')
@@ -130,9 +142,18 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     accepts_nested_attributes_for :has_location
   end
 
+  class Rights
+    include ActiveFedora::RdfObject
+    rdf_type RDF::EbuCore.Rights
+    map_predicates do |map|
+      map.rights_expression(in: RDF::EbuCore, :to=>'rightsExpression')
+      map.has_rights_holder(in: RDF::EbuCore, to: 'hasRightsHolder', class_name: "Agent")
+    end
+  end
+
   class DepictedEvent
     include ActiveFedora::RdfObject
-    rdf_type RDF::PBCore.DepictedEvent
+    rdf_type RDF::EbuCore.DepictedEvent
     map_predicates do |map|
       map.date_time(:in => RDF::EbuCore, :to=>'dateTime')
     end
@@ -140,7 +161,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
 
   class Resource
     include ActiveFedora::RdfObject
-    rdf_type RDF::PBCore.Resource
+    rdf_type RDF::EbuCore.Resource
     map_predicates do |map|
       map.description(:in => RDF::EbuCore)
       map.identifier(:in => RDF::EbuCore)
@@ -215,6 +236,17 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     src.identifier = val
   end
 
+  def rights_holder
+    return [] if is_covered_by.empty?
+    is_covered_by.first.has_rights_holder.first.name
+    # rights.has_rights_holder.present? ? right.has_rights_holder.first
+  end
+
+  def rights_holder= val
+    r = rights.first || is_covered_by.build
+    holder = r.has_rights_holder.first || r.has_rights_holder.build
+    holder.name = val
+  end
 
   def to_solr(solr_doc = {})
     solr_doc = super

@@ -16,6 +16,7 @@ module RDF
     property :createdIn
     property :hasRightsContact
     property :hasRightsHolder
+    property :isCoveredBy
     property :rightsExpression
     property :duration
     property :summary
