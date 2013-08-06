@@ -209,28 +209,30 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
 
   # Set the location for a filming_event
   def event_location= location_names
+    return unless location_names
     filming_event.has_location = []
     location_names.each do |name|
       filming_event.has_location.build(location_name: name)
     end
   end
 
-  # required to stand in for GenericFile#remove_blank_assertions
   def event_location
-    has_event.select {|e| e.event_definition.first == 'Filming'}
+    has_event.select {|e| e.event_definition.first == 'Filming'}.
+      map {|e| e.has_location.
+           map{ |l| l.location_name}}.flatten || []
   end
 
   # Set the location for a production_event
   def production_location= location_names
+    return unless location_names
     production_event.has_location = []
     location_names.each do |name|
       production_event.has_location.build(location_name: name)
     end
   end
 
-  # required to stand in for GenericFile#remove_blank_assertions
   def production_location
-    has_event.select {|e| e.event_definition.first == 'Production'}
+    has_event.select {|e| e.event_definition.first == 'Production'}.map {|e| e.has_location.map{ |l| l.location_name}}.flatten || []
   end
 
   def date_portrayed

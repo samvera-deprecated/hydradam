@@ -121,10 +121,8 @@ describe GenericFilesController do
       @file.title[1].title_type.should == ['Program']
       @file.description[0].value.should == ["it's a documentary show"]
       @file.description[0].type.should == ['summary']
-      @file.event_location.first.has_location[0].location_name.should == ['france']
-      @file.event_location.first.has_location[1].location_name.should == ['portugual']
-      @file.production_location.first.has_location[0].location_name.should == ['Boston']
-      @file.production_location.first.has_location[1].location_name.should == ['Minneapolis']
+      @file.event_location.should == ['france', 'portugual']
+      @file.production_location.should == ['Boston', 'Minneapolis']
       @file.date_portrayed.should == ['12/24/1913']
       @file.resource_type.should == [ "Article", "Audio", "Book"]      
       @file.source.should == ['Some shady looking character']
@@ -155,10 +153,8 @@ describe GenericFilesController do
       @file.description.size.should == 2
       @file.description[0].value.should == ["Justin's desc"]
       @file.description[1].type.should == ['valuable']
-      @file.event_location.first.has_location[0].location_name.should == ['Brazil']
-      # @file.event_location.first.has_location[1].location_name.should == ['portugual']
-      @file.production_location.first.has_location[0].location_name.should == ['Cuba']
-      # @file.production_location.first.has_location[1].location_name.should == ['Minneapolis']
+      @file.event_location.should == ['Brazil']
+      @file.production_location.should == ['Cuba']
 
 
     end
