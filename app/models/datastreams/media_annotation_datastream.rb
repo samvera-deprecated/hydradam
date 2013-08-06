@@ -267,7 +267,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   end
 
   def rights_holder= val
-    r = rights.first || is_covered_by.build
+    r = is_covered_by.first_or_create
     holder = r.has_rights_holder.first_or_create
     holder.name = val
   end
