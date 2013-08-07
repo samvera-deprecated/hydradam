@@ -88,6 +88,22 @@ describe GenericFilesController do
     it "should ingest uploaded files"
   end
 
+  describe "#edit" do
+    before do
+      @file = GenericFile.new.tap do |f|
+        f.apply_depositor_metadata(@user.user_key)
+        f.creator = "Samantha"
+        f.title = "A good day"
+        f.save!
+      end
+    end
+    it "should be successful" do
+      get :edit, id: @file
+      response.should be_successful
+    end
+  end
+
+
   describe "#update" do
     before do
       @file = GenericFile.new
@@ -112,7 +128,8 @@ describe GenericFilesController do
            rights_holder: ['WGBH', 'WNYC'],
            release_date: ['12/15/2012'],
            aspect_ratio: ['4:3'],
-           frame_rate: ['25']
+           frame_rate: ['25'],
+           metadata_filename: ['a_movie.mov']
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
@@ -136,6 +153,7 @@ describe GenericFilesController do
       @file.release_date.should == ['12/15/2012']
       @file.aspect_ratio.should == ['4:3']
       @file.frame_rate.should == ['25']
+      @file.metadata_filename.should == ['a_movie.mov']
     end
 
     it "should remove blank assertions" do

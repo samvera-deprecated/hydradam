@@ -22,10 +22,34 @@ class GenericFile < ActiveFedora::Base
         :description_attributes, :publisher_attributes, :date_created, :date_uploaded,
         :date_modified, :subject, :language, :rights, :resource_type, :identifier, :event_location,
         :production_location, :date_portrayed, :source, :source_reference, :rights_holder,
-        :release_date, :aspect_ratio, :frame_rate, :tag,
+        :release_date, :aspect_ratio, :frame_rate, :metadata_filename, :tag,
         :related_url, :permissions
 
   before_destroy :remove_content
+
+
+  def metadata_filename
+    descMetadata.filename
+  end
+
+  def metadata_filename= val
+    descMetadata.filename= val
+  end
+
+  def [](key)
+    if key == :metadata_filename
+      metadata_filename
+    else
+      super
+    end
+  end
+  def []=(key, value)
+    if key == :metadata_filename
+      self.metadata_filename = value
+    else
+      super
+    end
+  end
 
   def remove_content
     content.run_callbacks :destroy 
@@ -133,7 +157,7 @@ class GenericFile < ActiveFedora::Base
   def terms_for_display
     [ :part_of, :contributor, :creator, :title, :description, :event_location, :production_location,
       :date_portrayed, :source, :source_reference, :rights_holder, :publisher, :date_created,
-      :release_date, :aspect_ratio, :frame_rate, :filename,
+      :release_date, :aspect_ratio, :frame_rate, :metadata_filename,
       :date_uploaded,
       :date_modified, :subject, :language, :rights, :resource_type, :identifier, :tag, :related_url]
   end

@@ -4,4 +4,5 @@
 en:
   sufia:
     field_label:
-      description:      "Summary"
+      description:       "Summary"
+      metadata_filename: "[digital file name from logs?]"
