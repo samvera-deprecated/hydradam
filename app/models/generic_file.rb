@@ -305,7 +305,7 @@ class GenericFile < ActiveFedora::Base
                   when "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10"
                     "H.264/MPEG-4 AVC"
                   else
-                    stream.codec_name.first.upcase
+                    stream.codec_name.first.to_s.upcase
                   end
               }
               xml.essenceTrackEncoding(:source=>"PBCore essenceTrackEncoding")
