@@ -59,6 +59,7 @@ module RDF
     property :filename
     property :fileByteSize
     property :aspectRatio
+    property :frameRate
 
     property :isRelatedTo
     # The following are subproperties of isRelatedTo

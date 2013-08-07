@@ -180,7 +180,7 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     include ActiveFedora::RdfObject
     rdf_type RDF::EbuCore.VideoTrack
     map_predicates do |map|
-      map.frame_rate(in: RDF::EbuCore, to: 'hasFormat') #type is double
+      map.frame_rate(in: RDF::EbuCore, to: 'frameRate') #type is double
       map.format(in: RDF::EbuCore, to: 'hasFormat', class_name: 'VideoFormat')
     end
   end
@@ -296,6 +296,17 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     track = video_tracks.first_or_create
     format = track.format.first_or_create
     format.aspect_ratio = val
+  end
+
+  def frame_rate
+    track = video_tracks.first
+    return [] if track.nil?
+    track.frame_rate
+  end
+
+  def frame_rate= val
+    track = video_tracks.first_or_create
+    track.frame_rate = val
   end
 
   def to_solr(solr_doc = {})

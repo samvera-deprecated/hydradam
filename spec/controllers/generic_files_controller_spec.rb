@@ -111,7 +111,8 @@ describe GenericFilesController do
            source_reference: ['Less shady guy'],
            rights_holder: ['WGBH', 'WNYC'],
            release_date: ['12/15/2012'],
-           aspect_ratio: ['4:3']
+           aspect_ratio: ['4:3'],
+           frame_rate: ['25']
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
@@ -134,6 +135,7 @@ describe GenericFilesController do
       @file.creator[1].role.should == ['Director']
       @file.release_date.should == ['12/15/2012']
       @file.aspect_ratio.should == ['4:3']
+      @file.frame_rate.should == ['25']
     end
 
     it "should remove blank assertions" do

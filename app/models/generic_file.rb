@@ -12,7 +12,8 @@ class GenericFile < ActiveFedora::Base
   delegate_to 'descMetadata', [:has_location, :program_title, :series_title, :item_title,
               :episode_title, :has_event, :event_location, :production_location, :filming_event,
               :production_event, :date_portrayed, :has_event_attributes, :source, :source_reference,
-              :rights_holder, :release_date, :aspect_ratio, :creator_attributes, :contributor_attributes, :publisher_attributes, 
+              :rights_holder, :release_date, :aspect_ratio, :frame_rate, 
+              :creator_attributes, :contributor_attributes, :publisher_attributes, 
               :has_location_attributes, :description_attributes, :title_attributes]
 
   delegate_to 'properties', [:unarranged, :applied_template_id], unique: true
@@ -20,7 +21,8 @@ class GenericFile < ActiveFedora::Base
   attr_accessible  :part_of, :contributor_attributes, :creator_attributes, :title_attributes,
         :description_attributes, :publisher_attributes, :date_created, :date_uploaded,
         :date_modified, :subject, :language, :rights, :resource_type, :identifier, :event_location,
-        :production_location, :date_portrayed, :source, :source_reference, :rights_holder, :release_date, :aspect_ratio, :tag,
+        :production_location, :date_portrayed, :source, :source_reference, :rights_holder,
+        :release_date, :aspect_ratio, :frame_rate, :tag,
         :related_url, :permissions
 
   before_destroy :remove_content
@@ -130,7 +132,8 @@ class GenericFile < ActiveFedora::Base
 
   def terms_for_display
     [ :part_of, :contributor, :creator, :title, :description, :event_location, :production_location,
-      :date_portrayed, :source, :source_reference, :rights_holder, :release_date, :aspect_ratio, :publisher, :date_created, :date_uploaded,
+      :date_portrayed, :source, :source_reference, :rights_holder, :release_date, :aspect_ratio,
+      :frame_rate, :publisher, :date_created, :date_uploaded,
       :date_modified, :subject, :language, :rights, :resource_type, :identifier, :tag, :related_url]
   end
   
