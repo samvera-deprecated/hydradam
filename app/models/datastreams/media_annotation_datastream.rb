@@ -155,6 +155,20 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     track.frame_rate = val
   end
 
+  def cc
+    track = captioning.first
+    return [] if track.nil?
+    language = track.language.first
+    return [] if language.nil?
+    language.name
+  end
+
+  def cc= val
+    track = captioning.first_or_create
+    language = track.language.first_or_create
+    language.name = val
+  end
+
   def notes= val
     annotation = annotations.first_or_create
     annotation.textual_annotation = val

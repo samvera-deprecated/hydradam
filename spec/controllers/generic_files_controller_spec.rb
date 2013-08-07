@@ -130,6 +130,7 @@ describe GenericFilesController do
            release_date: ['12/15/2012'],
            aspect_ratio: ['4:3'],
            frame_rate: ['25'],
+           cc: ['English', 'French'], 
            metadata_filename: ['a_movie.mov'],
            notes: ['foo bar']
           }
@@ -156,6 +157,7 @@ describe GenericFilesController do
       @file.release_date.should == ['12/15/2012']
       @file.aspect_ratio.should == ['4:3']
       @file.frame_rate.should == ['25']
+      @file.cc.should == ['English', 'French']
       @file.metadata_filename.should == ['a_movie.mov']
       @file.notes.should == ['foo bar']
     end

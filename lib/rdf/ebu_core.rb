@@ -63,6 +63,8 @@ module RDF
       hasGenre
       hasAudioTrack
       hasLanguage
+      languageName
+      hasCaptioning
       title
       filename
       fileByteSize
@@ -100,6 +102,9 @@ module RDF
       Agent
       Person
       Location
+      Language
+      Captioning
+      Track
       Event
       DepictedEvent
       PublicationEvent

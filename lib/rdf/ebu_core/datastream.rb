@@ -9,6 +9,7 @@ module RDF
         map.creator(in: RDF::EbuCore, to:'hasCreator', class_name: 'Person')
         map.publisher(in: RDF::EbuCore, to:'hasPublisher', class_name: 'Person')
         map.video_tracks(in: RDF::EbuCore, to:'hasVideoTrack', class_name: 'VideoTrack')
+        map.captioning(in: RDF::EbuCore, to:'hasCaptioning', class_name: 'Captioning')
         map.description(in: RDF::EbuCore)
 
         map.has_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'Event')
@@ -151,13 +152,33 @@ module RDF
         end
       end
 
-      class VideoTrack
+      class Language
+        include ActiveFedora::RdfObject
+        rdf_type RDF::EbuCore.Language
+        map_predicates do |map|
+          map.name(in: RDF::EbuCore, to: 'languageName')
+        end
+      end
+      
+      class Track
+        include ActiveFedora::RdfObject
+        rdf_type RDF::EbuCore.Track
+        map_predicates do |map|
+          map.language(in: RDF::EbuCore, to: 'hasLanguage', class_name: 'Language')
+        end
+      end
+
+      class VideoTrack < Track
         include ActiveFedora::RdfObject
         rdf_type RDF::EbuCore.VideoTrack
         map_predicates do |map|
           map.frame_rate(in: RDF::EbuCore, to: 'frameRate') #type is double
           map.format(in: RDF::EbuCore, to: 'hasFormat', class_name: 'VideoFormat')
         end
+      end
+
+      class Captioning < Track
+        rdf_type RDF::EbuCore.Captioning
       end
 
       class VideoFormat
