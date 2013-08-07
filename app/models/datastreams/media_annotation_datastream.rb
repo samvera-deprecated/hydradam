@@ -58,6 +58,8 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
 
     map.related_publication_event(to: "relatedPublicationEvent", in: RDF::EbuCore, class_name: 'PublicationEvent')
 
+    map.annotations(to: "hasAnnotation", in: RDF::EbuCore, class_name: 'Annotation')
+
     map.identifier(in: RDF::EbuCore) do |index|
       index.as :stored_searchable
     end
@@ -193,9 +195,13 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
     end
   end
 
-  LocalAuthority.register_vocabulary(self, "subject", "lc_subjects")
-  LocalAuthority.register_vocabulary(self, "language", "lexvo_languages")
-  LocalAuthority.register_vocabulary(self, "tag", "lc_genres")
+  class Annotation
+    include ActiveFedora::RdfObject
+    rdf_type RDF::EbuCore.Annotation
+    map_predicates do |map|
+      map.textual_annotation(in: RDF::EbuCore, to: 'textualAnnotation')
+    end
+  end
 
   # finds or creates an Event node where eventDefinition = Filming 
   def filming_event
@@ -307,6 +313,17 @@ class MediaAnnotationDatastream < ActiveFedora::NtriplesRDFDatastream
   def frame_rate= val
     track = video_tracks.first_or_create
     track.frame_rate = val
+  end
+
+  def notes= val
+    annotation = annotations.first_or_create
+    annotation.textual_annotation = val
+  end
+
+  def notes
+    annotation = annotations.first
+    return [] if annotation.nil?
+    annotation.textual_annotation
   end
 
   def to_solr(solr_doc = {})

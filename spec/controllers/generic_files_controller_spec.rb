@@ -129,7 +129,8 @@ describe GenericFilesController do
            release_date: ['12/15/2012'],
            aspect_ratio: ['4:3'],
            frame_rate: ['25'],
-           metadata_filename: ['a_movie.mov']
+           metadata_filename: ['a_movie.mov'],
+           notes: ['foo bar']
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
@@ -154,6 +155,7 @@ describe GenericFilesController do
       @file.aspect_ratio.should == ['4:3']
       @file.frame_rate.should == ['25']
       @file.metadata_filename.should == ['a_movie.mov']
+      @file.notes.should == ['foo bar']
     end
 
     it "should remove blank assertions" do

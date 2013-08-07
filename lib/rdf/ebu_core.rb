@@ -38,6 +38,8 @@ module RDF
     property :eventDefinition
     property :hasLocation
     property :locationName
+    property :hasAnnotation
+    property :textualAnnotation
 
     property :identifier
     property :hasVideoTrack
