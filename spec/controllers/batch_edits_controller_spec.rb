@@ -26,8 +26,8 @@ describe BatchEditsController do
       response.should be_successful
       assigns[:terms].should == [ :contributor, :creator, :description, :event_location,
           :production_location, :date_portrayed, :source, :source_reference, :rights_holder,
-          :publisher, :date_created, :release_date, :aspect_ratio, :frame_rate, :metadata_filename,
-          :notes, :subject, :language, :rights, :identifier, :tag, :related_url]
+          :rights_summary, :publisher, :date_created, :release_date, :aspect_ratio, :frame_rate,
+          :metadata_filename, :notes, :subject, :language, :rights, :identifier, :tag, :related_url]
     end
   end
   

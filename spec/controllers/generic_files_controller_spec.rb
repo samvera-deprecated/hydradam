@@ -126,6 +126,7 @@ describe GenericFilesController do
            source: ['Some shady looking character'],
            source_reference: ['Less shady guy'],
            rights_holder: ['WGBH', 'WNYC'],
+           rights_summary: ["Don't copy me bro"],
            release_date: ['12/15/2012'],
            aspect_ratio: ['4:3'],
            frame_rate: ['25'],
@@ -147,6 +148,7 @@ describe GenericFilesController do
       @file.source.should == ['Some shady looking character']
       @file.source_reference.should == ['Less shady guy']
       @file.rights_holder.should == [ "WGBH", 'WNYC']      
+      @file.rights_summary.should == ["Don't copy me bro"]
       @file.creator[0].name.should == ['Frank']
       @file.creator[0].role.should == ['Producer']
       @file.creator[1].name.should == ['Dave']

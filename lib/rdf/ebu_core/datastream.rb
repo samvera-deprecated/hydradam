@@ -70,7 +70,7 @@ module RDF
 
       end
 
-      accepts_nested_attributes_for :creator, :contributor, :publisher, :description, :has_location, :has_event
+      accepts_nested_attributes_for :creator, :contributor, :publisher, :has_location, :has_event
 
       class Person
         include ActiveFedora::RdfObject

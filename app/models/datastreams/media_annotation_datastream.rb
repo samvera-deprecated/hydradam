@@ -11,7 +11,7 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     map.description(in: RDF::EbuCore, class_name: 'Description')
   end
 
-  accepts_nested_attributes_for :title
+  accepts_nested_attributes_for :title, :description
 
   class Title
     include ActiveFedora::RdfObject
@@ -108,6 +108,16 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     r = is_covered_by.first_or_create
     holder = r.has_rights_holder.first_or_create
     holder.name = val
+  end
+
+  def rights_summary
+    return [] if is_covered_by.empty?
+    is_covered_by.first.rights_expression
+  end
+
+  def rights_summary= val
+    r = is_covered_by.first_or_create
+    r.rights_expression = val
   end
 
   def release_date
