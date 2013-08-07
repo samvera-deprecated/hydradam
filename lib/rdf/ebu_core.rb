@@ -2,92 +2,119 @@ module RDF
   ##
   # European Broadcasting Union (EBUCore) vocabulary.
   # @see http://tech.ebu.ch/lang/en/MetadataEbuCore 
-  class EbuCore < Vocabulary("http://www.ebu.ch/metadata/ontologies/ebucore#")
+  module EbuCore
+    extend ActiveSupport::Autoload
 
-    property :isPartOf
-    property :isChapterOf
-    property :isFragmentOf
-    property :hasPart
+    autoload :Datastream
 
-    property :hasAudioFormat
-    property :hasVideoFormat
-    property :hasRole
-    property :name
-    property :createdIn
-    property :hasRightsContact
-    property :hasRightsHolder
-    property :isCoveredBy
-    property :rightsExpression
-    property :duration
-    property :summary
-    property :hasSubject
-    property :alternativeTitle
+    def self.to_uri
+      RDF::URI.intern("http://www.ebu.ch/metadata/ontologies/ebucore#")
+    end
 
-    property :hasPublicationEvent
-    property :hasOriginalLanguage
-    property :hasContributor
-    property :description
+    # Vocabulary terms
+    %w(
+      isPartOf
+      isChapterOf
+      isFragmentOf
+      hasPart
 
-    property :topic
-    property :hasKeyword
-    property :hasObjectType
-    property :hasCreator
-    property :locator
-    property :hasCoverage
-    property :eventName
-    property :eventDefinition
-    property :hasLocation
-    property :locationName
-    property :hasAnnotation
-    property :textualAnnotation
+      hasAudioFormat
+      hasVideoFormat
+      hasRole
+      name
+      createdIn
+      hasRightsContact
+      hasRightsHolder
+      isCoveredBy
+      rightsExpression
+      duration
+      summary
+      hasSubject
+      alternativeTitle
 
-    property :identifier
-    property :hasVideoTrack
-    property :hasThumbnail
-    property :hasPublisher
-    property :originalTitle
-    property :hasFormat
+      hasPublicationEvent
+      hasOriginalLanguage
+      hasContributor
+      description
 
-    property :dateTime
-    property :dateCreated
-    property :dateIssued
-    property :dateDigitized
-    property :dateModified
-    property :hasGenre
+      topic
+      hasKeyword
+      hasObjectType
+      hasCreator
+      locator
+      hasCoverage
+      eventName
+      eventDefinition
+      hasLocation
+      locationName
+      hasAnnotation
+      textualAnnotation
+      identifier
+      hasVideoTrack
+      hasThumbnail
+      hasPublisher
+      originalTitle
+      hasFormat
+      dateTime
+      dateCreated
+      dateIssued
+      dateDigitized
+      dateModified
+      hasGenre
+      hasAudioTrack
+      hasLanguage
+      title
+      filename
+      fileByteSize
+      aspectRatio
+      frameRate
+      isRelatedTo
+      references
+      hasMember
+      hasRelatedImage
+      hasRelatedResource
+      hasSource
+      hasVersion
+      isImageRelatedTo
+      isMemberOf
+      isReferencedBy
+      isReplacedBy
+      isRequiredBy
+      isSourceOf
+      isVersionOf
+      references
+      relatedEditorialObject
+      relatedPublicationEvent
+      relatedResource
+      replaces
+      requires
+      publishedStartDateTime
+      publishedEndDateTime
+      publicationEventName
 
-    property :hasAudioTrack
-    property :hasLanguage
-    property :title
-    property :filename
-    property :fileByteSize
-    property :aspectRatio
-    property :frameRate
+      Resource
+      MediaResource
+      VideoTrack
+      VideoFormat
+      Annotation
+      Agent
+      Person
+      Location
+      Event
+      DepictedEvent
+      PublicationEvent
+      Rights
+    ).each do |term|
+      define_method(term) {self[term.to_sym]}
+      module_function term.to_sym
+    end
 
-    property :isRelatedTo
-    # The following are subproperties of isRelatedTo
-    property :references
-    property :hasMember
-    property :hasRelatedImage
-    property :hasRelatedResource
-    property :hasSource
-    property :hasVersion
-    property :isImageRelatedTo
-    property :isMemberOf
-    property :isReferencedBy
-    property :isReplacedBy
-    property :isRequiredBy
-    property :isSourceOf
-    property :isVersionOf
-    property :references
-    property :relatedEditorialObject
-    property :relatedPublicationEvent
-    property :relatedResource
-    property :replaces
-    property :requires
-
-    property :publishedStartDateTime
-    property :publishedEndDateTime
-    property :publicationEventName
+    ##
+    # @return [#to_s] property
+    # @return [URI]
+    def self.[](property)
+      RDF::URI.intern([to_uri.to_s, property.to_s].join)
+    end
   end
 end
 
