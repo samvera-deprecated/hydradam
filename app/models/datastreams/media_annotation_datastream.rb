@@ -10,6 +10,7 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
 
     map.description(in: RDF::EbuCore, class_name: 'Description')
     map.review_date(in: RDF::WGBH, to: 'hasReviewDate')
+    map.physical_location(in: RDF::WGBH, to: 'hasPhysicalLocation')
   end
 
   accepts_nested_attributes_for :title, :description
