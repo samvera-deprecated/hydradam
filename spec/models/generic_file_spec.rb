@@ -59,18 +59,18 @@ EOF
     it "should return a list" do
       subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, 
        :event_location, :production_location, :date_portrayed, :source, :source_reference,
-       :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :aspect_ratio,
-       :frame_rate, :metadata_filename, :notes, :subject, :language, :rights, :resource_type,
-       :identifier, :tag, :related_url]
+       :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
+       :aspect_ratio, :frame_rate, :metadata_filename, :notes, :subject, :language, :rights,
+       :resource_type, :identifier, :tag, :related_url]
     end
   end
   describe "terms_for_display" do
     it "should return a list" do
       subject.terms_for_display.should == [ :part_of, :contributor, :creator, :title, :description, 
         :event_location, :production_location, :date_portrayed, :source, :source_reference,
-        :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :aspect_ratio,
-        :frame_rate, :metadata_filename, :notes, :date_uploaded, :date_modified,:subject,
-        :language, :rights, :resource_type, :identifier, :tag, :related_url]
+        :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
+        :aspect_ratio, :frame_rate, :metadata_filename, :notes, :date_uploaded, :date_modified,
+        :subject, :language, :rights, :resource_type, :identifier, :tag, :related_url]
     end
   end
   describe "contributor attribute" do

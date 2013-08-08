@@ -12,9 +12,10 @@ class GenericFile < ActiveFedora::Base
   delegate_to 'descMetadata', [:has_location, :program_title, :series_title, :item_title,
               :episode_title, :has_event, :event_location, :production_location, :filming_event,
               :production_event, :date_portrayed, :has_event_attributes, :source, :source_reference,
-              :rights_holder, :rights_summary, :release_date, :aspect_ratio, :frame_rate, :cc,
-              :notes, :creator_attributes, :contributor_attributes, :publisher_attributes, 
-              :has_location_attributes, :description_attributes, :title_attributes]
+              :rights_holder, :rights_summary, :release_date, :review_date,:aspect_ratio,
+              :frame_rate, :cc, :notes, :creator_attributes, :contributor_attributes,
+              :publisher_attributes, :has_location_attributes, :description_attributes,
+              :title_attributes]
 
   delegate_to 'properties', [:unarranged, :applied_template_id], unique: true
 
@@ -22,8 +23,8 @@ class GenericFile < ActiveFedora::Base
         :description_attributes, :publisher_attributes, :date_created, :date_uploaded,
         :date_modified, :subject, :language, :rights, :resource_type, :identifier, :event_location,
         :production_location, :date_portrayed, :source, :source_reference, :rights_holder,
-        :rights_summary, :release_date, :aspect_ratio, :frame_rate, :cc, :metadata_filename, :notes,
-        :tag, :related_url, :permissions
+        :rights_summary, :release_date, :review_date, :aspect_ratio, :frame_rate, :cc,
+        :metadata_filename, :notes, :tag, :related_url, :permissions
 
   before_destroy :remove_content
 
@@ -157,8 +158,8 @@ class GenericFile < ActiveFedora::Base
   def terms_for_display
     [ :part_of, :contributor, :creator, :title, :description, :event_location, :production_location,
       :date_portrayed, :source, :source_reference, :rights_holder, :rights_summary, :publisher,
-      :date_created, :release_date, :aspect_ratio, :frame_rate, :metadata_filename, :notes,
-      :date_uploaded,
+      :date_created, :release_date, :review_date, :aspect_ratio, :frame_rate, :metadata_filename,
+      :notes, :date_uploaded,
       :date_modified, :subject, :language, :rights, :resource_type, :identifier, :tag, :related_url]
   end
   

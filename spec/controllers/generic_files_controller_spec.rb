@@ -128,6 +128,7 @@ describe GenericFilesController do
            rights_holder: ['WGBH', 'WNYC'],
            rights_summary: ["Don't copy me bro"],
            release_date: ['12/15/2012'],
+           review_date: ['1/18/2013'],
            aspect_ratio: ['4:3'],
            frame_rate: ['25'],
            cc: ['English', 'French'], 
@@ -155,6 +156,7 @@ describe GenericFilesController do
       @file.creator[1].name.should == ['Dave']
       @file.creator[1].role.should == ['Director']
       @file.release_date.should == ['12/15/2012']
+      @file.review_date.should == ['1/18/2013']
       @file.aspect_ratio.should == ['4:3']
       @file.frame_rate.should == ['25']
       @file.cc.should == ['English', 'French']

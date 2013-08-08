@@ -9,6 +9,7 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     map.related_url(:to => "seeAlso", in: RDF::RDFS)
 
     map.description(in: RDF::EbuCore, class_name: 'Description')
+    map.review_date(in: RDF::WGBH, to: 'hasReviewDate')
   end
 
   accepts_nested_attributes_for :title, :description
