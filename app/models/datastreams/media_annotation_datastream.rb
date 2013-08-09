@@ -185,6 +185,15 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     find_identifier('NOLA_CODE')
   end
 
+  def tape_id
+    find_identifier('ITEM_IDENTIFIER')
+  end
+
+  def barcode
+    find_identifier('PO_REFERENCE')
+  end
+
+
   def nola_code= val
   end
 

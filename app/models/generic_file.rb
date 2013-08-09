@@ -13,9 +13,10 @@ class GenericFile < ActiveFedora::Base
               :episode_title, :has_event, :event_location, :production_location, :filming_event,
               :production_event, :date_portrayed, :has_event_attributes, :source, :source_reference,
               :rights_holder, :rights_summary, :release_date, :review_date,:aspect_ratio,
-              :frame_rate, :cc, :physical_location, :nola_code, :notes, :creator_attributes,
-              :contributor_attributes, :publisher_attributes, :has_location_attributes,
-              :description_attributes, :title_attributes, :identifier_attributes]
+              :frame_rate, :cc, :physical_location, :nola_code, :tape_id, :barcode, :notes, 
+              :creator_attributes, :contributor_attributes, :publisher_attributes, 
+              :has_location_attributes, :description_attributes, :title_attributes, 
+              :identifier_attributes]
 
   delegate_to 'properties', [:unarranged, :applied_template_id], unique: true
 
