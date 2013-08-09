@@ -370,8 +370,7 @@ class CatalogController < ApplicationController
   end
 
   def sort_field
-    "#{self.class.solr_name('system_create', :sortable)} desc"
-    "#{solr_name('desc_metadata__date_uploaded', :stored_sortable, type: :date)} desc"
+    "#{self.class.solr_name('desc_metadata__date_uploaded', :stored_sortable, type: :date)} desc"
   end
   
 end
