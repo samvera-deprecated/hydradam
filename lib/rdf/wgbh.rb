@@ -3,8 +3,6 @@ module RDF
   class WGBH < Vocabulary('http://wgbh.org/terms/')
     property :hasReviewDate
     property :hasPhysicalLocation
-    property :hasIdentifier
-    property :identifierValue
     property :identifierType
     property :originatingDepartment
   end

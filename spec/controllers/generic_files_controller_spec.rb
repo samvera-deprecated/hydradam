@@ -133,6 +133,7 @@ describe GenericFilesController do
            frame_rate: ['25'],
            cc: ['English', 'French'], 
            physical_location: ['Down in the vault'], 
+           identifier_attributes: {'0' =>{"value" => "123-456789", "identifier_type"=>"NOLA_CODE"}},
            metadata_filename: ['a_movie.mov'],
            notes: ['foo bar']
           }
@@ -162,6 +163,7 @@ describe GenericFilesController do
       @file.frame_rate.should == ['25']
       @file.cc.should == ['English', 'French']
       @file.physical_location.should == ['Down in the vault']
+      @file.nola_code.should == ['123-456789']
       @file.metadata_filename.should == ['a_movie.mov']
       @file.notes.should == ['foo bar']
     end

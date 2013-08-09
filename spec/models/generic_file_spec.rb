@@ -58,10 +58,10 @@ EOF
   describe "terms_for_editing" do
     it "should return a list" do
       subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, 
-       :event_location, :production_location, :date_portrayed, :source, :source_reference,
-       :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
-       :aspect_ratio, :frame_rate, :cc, :physical_location, :metadata_filename, :notes, :subject,
-       :language, :rights, :resource_type, :identifier, :tag, :related_url]
+        :event_location, :production_location, :date_portrayed, :source, :source_reference,
+        :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
+        :aspect_ratio, :frame_rate, :cc, :physical_location, :identifier, :metadata_filename,
+        :notes, :subject, :language, :rights, :resource_type, :tag, :related_url]
     end
   end
   describe "terms_for_display" do
@@ -69,8 +69,8 @@ EOF
       subject.terms_for_display.should == [ :part_of, :contributor, :creator, :title, :description, 
         :event_location, :production_location, :date_portrayed, :source, :source_reference,
         :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
-        :aspect_ratio, :frame_rate, :cc, :physical_location, :metadata_filename, :notes,
-        :date_uploaded, :date_modified, :subject, :language, :rights, :resource_type, :identifier,
+        :aspect_ratio, :frame_rate, :cc, :physical_location, :identifier, :metadata_filename,
+        :notes, :date_uploaded, :date_modified, :subject, :language, :rights, :resource_type,
         :tag, :related_url]
     end
   end
@@ -161,7 +161,7 @@ EOF
       subject.language = "Arabic"
       subject.rights = "Wide open, buddy."
       subject.resource_type = "Book"
-      subject.identifier = "urn:isbn:1234567890"
+      subject.identifier.build(value: "1234567890", identifier_type: 'PO_REFERENCE')
       # location = subject.based_near.build
       # location.location_name = "Medina, Saudi Arabia"
       subject.related_url = "http://example.org/TheWork/"
@@ -194,7 +194,7 @@ EOF
       solr_doc[Solrizer.solr_name('desc_metadata__date_created')].should == ["1200-01-01"]
       solr_doc[Solrizer.solr_name('desc_metadata__resource_type')].should == ["Book"]
       solr_doc[Solrizer.solr_name('file_format')].should == "jpeg (JPEG Image)"
-      solr_doc[Solrizer.solr_name('desc_metadata__identifier')].should == ["urn:isbn:1234567890"]
+      solr_doc[Solrizer.solr_name('desc_metadata__identifier')].should == ["1234567890"]
       # solr_doc[Solrizer.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
       solr_doc[Solrizer.solr_name('mime_type')].should == ["image/jpeg"]    
       solr_doc['unarranged_bsi'].should == true

@@ -11,9 +11,10 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     map.description(in: RDF::EbuCore, class_name: 'Description')
     map.review_date(in: RDF::WGBH, to: 'hasReviewDate')
     map.physical_location(in: RDF::WGBH, to: 'hasPhysicalLocation')
+    map.identifier(in: RDF::EbuCore, class_name: 'Identifier')
   end
 
-  accepts_nested_attributes_for :title, :description
+  accepts_nested_attributes_for :title, :description, :identifier
 
   class Title
     include ActiveFedora::RdfObject
@@ -34,6 +35,15 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
       map.type(in: RDF::PBCore, to: 'titleType') 
     end
   end
+
+  class Identifier
+    include ActiveFedora::RdfObject
+    map_predicates do |map|
+      map.value(in: RDF, to: 'value')
+      map.identifier_type(in: RDF::WGBH, to: 'identifierType') 
+    end
+  end
+  
 
   # finds or creates an Event node where eventDefinition = Filming 
   def filming_event
@@ -171,6 +181,13 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     language.name = val
   end
 
+  def nola_code
+    find_identifier('NOLA_CODE')
+  end
+
+  def nola_code= val
+  end
+
   def notes= val
     annotation = annotations.first_or_create
     annotation.textual_annotation = val
@@ -192,6 +209,9 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
 
     publishers = self.publisher.map { |c| c.name }.flatten
     store_in_solr_doc(solr_doc, 'publisher', publishers, [:stored_searchable, type: :text], :facetable)
+
+    identifiers = self.identifier.map { |c| c.value }.flatten
+    store_in_solr_doc(solr_doc, 'identifier', identifiers, [:stored_searchable, type: :text], :facetable)
 
     # based_near = self.has_location.map { |c| c.location_name }.flatten
     # store_in_solr_doc(solr_doc, 'based_near', based_near, [:stored_searchable, type: :text], :facetable)
@@ -231,8 +251,16 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
   end
 
   def find_title(type)
-    self.title.reduce([]) do |acc, t|
-      acc += t.value if t.title_type.first == type
+    find_with_matching_property(title, type, :title_type)
+  end
+
+  def find_identifier(type)
+    find_with_matching_property(identifier, type, :identifier_type)
+  end
+
+  def find_with_matching_property(collection, type, property_name)
+    collection.reduce([]) do |acc, t|
+      acc += t.value if t.send(property_name).first == type
       acc
     end
   end
