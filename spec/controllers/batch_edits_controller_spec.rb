@@ -27,8 +27,8 @@ describe BatchEditsController do
       assigns[:terms].should == [ :contributor, :creator, :description, :event_location,
           :production_location, :date_portrayed, :source, :source_reference, :rights_holder,
           :rights_summary, :publisher, :date_created, :release_date, :review_date, :aspect_ratio,
-          :frame_rate, :cc, :physical_location, :identifier, :metadata_filename, :notes, :subject,
-          :language, :rights, :tag, :related_url]
+          :frame_rate, :cc, :physical_location, :identifier, :metadata_filename, :notes,
+          :originating_department, :subject, :language, :rights, :tag, :related_url]
     end
   end
   

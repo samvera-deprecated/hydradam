@@ -137,7 +137,8 @@ describe GenericFilesController do
                                    '1' =>{"value" => "777", "identifier_type"=>"ITEM_IDENTIFIER"},
                                    '2' =>{"value" => "929343", "identifier_type"=>"PO_REFERENCE"}},
            metadata_filename: ['a_movie.mov'],
-           notes: ['foo bar']
+           notes: ['foo bar'],
+           originating_department: ['Accounts receivable']
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
@@ -170,6 +171,7 @@ describe GenericFilesController do
       @file.barcode.should == ['929343']
       @file.metadata_filename.should == ['a_movie.mov']
       @file.notes.should == ['foo bar']
+      @file.originating_department = ['Accounts receivable']
     end
 
     it "should remove blank assertions" do

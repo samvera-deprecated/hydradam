@@ -61,7 +61,8 @@ EOF
         :event_location, :production_location, :date_portrayed, :source, :source_reference,
         :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
         :aspect_ratio, :frame_rate, :cc, :physical_location, :identifier, :metadata_filename,
-        :notes, :subject, :language, :rights, :resource_type, :tag, :related_url]
+        :notes, :originating_department, :subject, :language, :rights, :resource_type, :tag,
+        :related_url]
     end
   end
   describe "terms_for_display" do
@@ -70,8 +71,8 @@ EOF
         :event_location, :production_location, :date_portrayed, :source, :source_reference,
         :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
         :aspect_ratio, :frame_rate, :cc, :physical_location, :identifier, :metadata_filename,
-        :notes, :date_uploaded, :date_modified, :subject, :language, :rights, :resource_type,
-        :tag, :related_url]
+        :notes, :originating_department, :date_uploaded, :date_modified, :subject, :language,
+        :rights, :resource_type, :tag, :related_url]
     end
   end
   describe "contributor attribute" do
