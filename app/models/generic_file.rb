@@ -62,7 +62,7 @@ class GenericFile < ActiveFedora::Base
     publisher.build if publisher.empty?
     contributor.build if contributor.empty?
     creator.build if creator.empty?
-    #has_location.build if has_location.empty?
+    identifier.build if identifier.empty?
     description.build if description.empty?
     super
   end
