@@ -57,15 +57,16 @@ EOF
 
   describe "terms_for_editing" do
     it "should return a list" do
-      subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, :publisher,
-       :date_created, :subject, :language, :rights, :resource_type, :identifier, :has_location, :tag, :related_url]
+      subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, 
+       :event_location, :production_location, :publisher, :date_created, :subject, :language, 
+       :rights, :resource_type, :identifier, :tag, :related_url]
     end
   end
   describe "terms_for_display" do
     it "should return a list" do
       subject.terms_for_display.should == [ :part_of, :contributor, :creator, :title, :description, 
-        :publisher, :date_created, :date_uploaded, :date_modified,:subject, :language, :rights, 
-        :resource_type, :identifier, :has_location, :tag, :related_url]
+        :event_location, :production_location, :publisher, :date_created, :date_uploaded,
+        :date_modified,:subject, :language, :rights, :resource_type, :identifier, :tag, :related_url]
     end
   end
   describe "contributor attribute" do
@@ -106,6 +107,25 @@ EOF
     end
   end
 
+  describe "event location" do
+    before do
+      subject.event_location = ["one", "two"]
+    end
+    it "should delegate to the bnode" do
+      subject.filming_event.has_location[0].location_name.should == ['one']
+      subject.filming_event.has_location[1].location_name.should == ['two']
+    end
+  end
+  describe "production location" do
+    before do
+      subject.production_location = ["one", "two"]
+    end
+    it "should delegate to the bnode" do
+      subject.production_event.has_location[0].location_name.should == ['one']
+      subject.production_event.has_location[1].location_name.should == ['two']
+    end
+  end
+
   describe "unarranged" do
     after do
       subject.delete
@@ -137,8 +157,8 @@ EOF
       subject.rights = "Wide open, buddy."
       subject.resource_type = "Book"
       subject.identifier = "urn:isbn:1234567890"
-      location = subject.based_near.build
-      location.location_name = "Medina, Saudi Arabia"
+      # location = subject.based_near.build
+      # location.location_name = "Medina, Saudi Arabia"
       subject.related_url = "http://example.org/TheWork/"
       subject.mime_type = "image/jpeg"
       subject.format_label = "JPEG Image"
@@ -170,7 +190,7 @@ EOF
       solr_doc[Solrizer.solr_name('desc_metadata__resource_type')].should == ["Book"]
       solr_doc[Solrizer.solr_name('file_format')].should == "jpeg (JPEG Image)"
       solr_doc[Solrizer.solr_name('desc_metadata__identifier')].should == ["urn:isbn:1234567890"]
-      solr_doc[Solrizer.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
+      # solr_doc[Solrizer.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
       solr_doc[Solrizer.solr_name('mime_type')].should == ["image/jpeg"]    
       solr_doc['unarranged_bsi'].should == true
       solr_doc['relative_path'].should == ['fortune/smiles/on/the/bold.mkv']    
@@ -236,6 +256,8 @@ EOF
     before do
       subject.title.build(value: "title one", title_type: 'Program')
       subject.title.build(value: "second title", title_type: 'Series')
+      subject.title.build(value: "third title", title_type: 'Item')
+      subject.title.build(value: "fourth title", title_type: 'Episode')
       c = subject.descMetadata.contributor.build
       c.name = "Fred"
       c.role = "Carpenter"
@@ -247,8 +269,8 @@ EOF
       c.name = "Kelly"
       c.role = "Distributor"
 
-      location = subject.descMetadata.has_location.build
-      location.location_name = "France"
+      # location = subject.descMetadata.has_location.build
+      # location.location_name = "France"
 
       subject.date_created = ["Sept 2009"]
       subject.resource_type = ['Scene']
@@ -277,10 +299,12 @@ EOF
       puts str
       xml = Nokogiri::XML(str)
       # pbcoretitle
-      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "title one"
-      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "second title"
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Main"]').text.should == "title one"
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Alternative"]').text.should == "second title"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "title one"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "second title"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text.should == "third title"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text.should == "fourth title"
+      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Main"]').text.should == "title one"
+      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Alternative"]').text.should == "second title"
       # pbcorecreator
       #   creator
       #   creatorrole
@@ -297,7 +321,7 @@ EOF
       # pbcoreCoverage
       #   coverage
       #   coveragetype
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage').text.should == "France"
+      # xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage').text.should == "France"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage').text.should == "Sept 2009"
       
       # pbcoreAssetType

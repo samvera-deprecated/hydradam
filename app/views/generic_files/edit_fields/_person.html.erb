@@ -2,6 +2,9 @@
         <% required = render_req && (index == 0) && required?(key) %>
         <%= f.text_field :title, :name=>"generic_file[#{key}_attributes][#{index}][name]", :id => "generic_file_#{key}_attributes_#{index}_name", :value=>v.name.first, :class => "input-large", :required => required, placeholder: 'Name'  %>
         <%= f.text_field :title, :name=>"generic_file[#{key}_attributes][#{index}][role]", :id => "generic_file_#{key}_attributes_#{index}_role", :value=>v.role.first, :class => "input-large", :required => required, placeholder: 'Role'  %>
+        <% if v.new_record? %>
+          <%= hidden_field_tag "generic_file[#{key}_attributes][#{index}][id]", v.rdf_subject.to_s %>
+        <% end %>
         <%= render :partial=>"generic_files/edit_fields/suffix", :locals=>{key: key, index: index} %>
       </div><!-- /controls -->              
       <div id="additional_<%= key %>_elements"></div>

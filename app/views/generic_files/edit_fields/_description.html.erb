@@ -1,7 +1,12 @@
       <div class="controls" <%  if index == 0 %> id="additional_<%= key.to_s %>_clone" <% end %>>
         <% required = render_req && (index == 0) && required?(key) %>
-        <%= f.text_field :value, :name=>"generic_file[#{key}_attributes][#{index}][value]", :id => "generic_file_#{key}_attributes_#{index}_value", :value=>v.value.first, :class => "input-large", :required => required, placeholder: 'Summary'  %>
+        <%= text_area_tag "generic_file[#{key}_attributes][#{index}][value]", v.value.first,
+          id: "generic_file_#{key}_attributes_#{index}_value", class: "input-large", 
+          required: required, placeholder: 'Summary'  %>
         <%= f.text_field :type, :name=>"generic_file[#{key}_attributes][#{index}][type]", :id => "generic_file_#{key}_attributes_#{index}_type", :value=>v.type.first, :class => "input-large", :required => required, placeholder: 'Summary Type'  %>
+        <% if v.new_record? %>
+          <%= hidden_field_tag "generic_file[#{key}_attributes][#{index}][id]", v.rdf_subject.to_s %>
+        <% end %>
         <%= render :partial=>"generic_files/edit_fields/suffix", :locals=>{key: key, index: index} %>
       </div><!-- /controls -->              
       <div id="additional_<%= key %>_elements"></div>

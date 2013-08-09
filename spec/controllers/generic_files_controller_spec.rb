@@ -100,10 +100,11 @@ describe GenericFilesController do
       #TODO we can't just do: @file.descMetadata.creator = [], because that will leave an orphan person
       # this works: @file.descMetadata.creator.each { |c| c.destroy }
       post :update, id: @file, generic_file: {
-           title_attributes: [{"value" => "Frontline", "title_type"=>"Series"}, {"value"=>"How did this happen?", "title_type"=>"Program"}],
-           creator_attributes: [{"name" => "Frank", "role"=>"Producer"}, {"name"=>"Dave", "role"=>"Director"}],
-           description_attributes: [{"value"=> "it's a documentary show", "type" => 'summary'}],
-           has_location_attributes:[{'location_name' => 'France'}],
+           title_attributes: {'0' => {"value" => "Frontline", "title_type"=>"Series"}, '1' => {"value"=>"How did this happen?", "title_type"=>"Program"}},
+           creator_attributes: {'0' => {"name" => "Frank", "role"=>"Producer"}, '1' => {"name"=>"Dave", "role"=>"Director"}},
+           description_attributes: {'0' => {"value"=> "it's a documentary show", "type" => 'summary'}},
+          'event_location' => ['france', 'portugual'],
+          'production_location' => ['Boston', 'Minneapolis'],
            resource_type: ["Article", "Audio", "Book"]
           }
       response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
@@ -112,7 +113,10 @@ describe GenericFilesController do
       @file.creator[0].role.should == ['Producer']
       @file.creator[1].name.should == ['Dave']
       @file.creator[1].role.should == ['Director']
-      @file.has_location[0].location_name.should == ['France']
+      @file.event_location.first.has_location[0].location_name.should == ['france']
+      @file.event_location.first.has_location[1].location_name.should == ['portugual']
+      @file.production_location.first.has_location[0].location_name.should == ['Boston']
+      @file.production_location.first.has_location[1].location_name.should == ['Minneapolis']
       @file.title[0].title_type.should == ['Series']
       @file.title[0].value.should == ['Frontline']
       @file.title[1].value.should == ['How did this happen?']
@@ -120,6 +124,31 @@ describe GenericFilesController do
       @file.description[0].value.should == ["it's a documentary show"]
       @file.description[0].type.should == ['summary']
       @file.resource_type.should == [ "Article", "Audio", "Book"]      
+    end
+
+    it "should remove blank assertions" do
+      post :update, id: @file, generic_file: {
+        "publisher_attributes"=>{"0"=>{"name"=>"", "role"=>""}, "1"=>{"name"=>"Test", "role"=>""},
+                                 "2"=>{"name"=>"", "role"=>"Foo"}, "3"=>{"name"=>"", "role"=>""}},
+        "description_attributes"=>{"0"=>{"value"=>"", "type"=>""}, "1"=>{"value"=>"Justin's desc", "type"=>""}, 
+                                   "2"=>{"value"=>"", "type"=>"valuable"}},
+        'event_location' => ['', 'Brazil'],
+        'production_location' => ['', 'Cuba']
+      }
+      response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
+      @file.reload
+      @file.publisher.size.should == 2
+      @file.publisher[0].name.should == ['Test']
+      @file.publisher[1].role.should == ['Foo']
+      @file.description.size.should == 2
+      @file.description[0].value.should == ["Justin's desc"]
+      @file.description[1].type.should == ['valuable']
+      @file.event_location.first.has_location[0].location_name.should == ['Brazil']
+      # @file.event_location.first.has_location[1].location_name.should == ['portugual']
+      @file.production_location.first.has_location[0].location_name.should == ['Cuba']
+      # @file.production_location.first.has_location[1].location_name.should == ['Minneapolis']
+
+
     end
   end
 end
