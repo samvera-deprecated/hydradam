@@ -1,5 +1,5 @@
 class FileContentDatastream < ActiveFedora::Datastream
-  include Sufia::FileContent::ExtractMetadata
+  include Hydra::Derivatives::ExtractMetadata
   include Sufia::FileContent::Versions
 
   before_destroy :remove_content
