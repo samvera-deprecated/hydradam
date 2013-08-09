@@ -18,7 +18,7 @@ end
 gem 'jquery-rails'
 
 
-gem 'sufia', '~> 3.0.0'
+gem 'sufia', '~> 3.1.0'
 #gem 'sufia', path: '../sufia'
 #gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', branch: 'devel'
 #gem 'hydra-pbcore', :path=>'../hydra-pbcore'
