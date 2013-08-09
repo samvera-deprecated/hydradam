@@ -68,7 +68,7 @@ module Bawstun
     #   OfflineStorageManager       always indicates the file is offline
     #   ConfigurableStorageManager  checks config/offline_files.txt for files to be reported as offline 
     #   SamfsStorageManager         for Oracle SAM-QFS
-    config.storage_manager = 'SamfsStorageManager'
+    config.storage_manager = 'NullStorageManager'
 
     config.action_mailer.default_url_options = {host: 'wgbh.curationexperts.com'}
   end
