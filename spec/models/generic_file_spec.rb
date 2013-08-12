@@ -268,9 +268,6 @@ EOF
       subject.descMetadata.creator.build(name: "Sally", role: "Author")
       subject.descMetadata.publisher.build(name: "Kelly", role: "Distributor")
 
-      # location = subject.descMetadata.has_location.build
-      # location.location_name = "France"
-      #
       subject.subject = "Test subject"
       subject.description.build(type: 'summary', value: "Test summary")
 
@@ -280,6 +277,10 @@ EOF
       subject.date_portrayed = ["Sept 2009"]
       subject.resource_type = ['Scene']
 
+      subject.language = ['Kiswahili', 'Lakota']
+
+      subject.source = ['relationship source']
+      subject.source_reference = ['relationship identifier']
 
 
       subject.ffprobe.content = '<ffprobe>
@@ -319,6 +320,13 @@ EOF
 
       # pbcoreDescriptionDocument/pbcoreCoverage[@ref='DATE_PORTRAYED']
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage').text.should == "Sept 2009"
+
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[1]').text.should == 'Kiswahili'
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[2]').text.should == 'Lakota'
+
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationType[@annotation="SOURCE"]').text.should == "relationship source"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationIdentifier').text.should == "relationship identifier"
+
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
       #   TODO contributorrole Source is MARC?
@@ -364,6 +372,7 @@ EOF
       # instantiationTracks
       # instantiationChannelConfiguration
       # instantiationLanguage
+      #
       # instantiationAlternativeModes
       # instantiationEssenceTrack
 

@@ -13,8 +13,19 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
     }
   end
 
+  define_template :relation do |xml, value, annotation, type="Is Part Of"|
+    xml.pbcoreRelation {
+      xml.pbcoreRelationType(type, :annotation=>annotation)
+      xml.pbcoreRelationIdentifier(value)
+    }
+  end
+
   def insert_place(location, type)
     add_child_node(ng_xml.root, :event_place, location, type)
+  end
+
+  def insert_relation(description, identifier)
+    add_child_node(ng_xml.root, :relation,  identifier, 'SOURCE', description)
   end
 
   

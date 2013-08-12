@@ -123,6 +123,7 @@ describe GenericFilesController do
            'event_location' => ['france', 'portugual'],
            'production_location' => ['Boston', 'Minneapolis'],
            date_portrayed: ['12/24/1913'],
+           language: ['french', 'english'],
            resource_type: ["Article", "Audio", "Book"],
            source: ['Some shady looking character'],
            source_reference: ['Less shady guy'],
@@ -153,6 +154,7 @@ describe GenericFilesController do
       @file.event_location.should == ['france', 'portugual']
       @file.production_location.should == ['Boston', 'Minneapolis']
       @file.date_portrayed.should == ['12/24/1913']
+      @file.language.should == ['french', 'english']
       @file.resource_type.should == [ "Article", "Audio", "Book"]      
       @file.source.should == ['Some shady looking character']
       @file.source_reference.should == ['Less shady guy']
