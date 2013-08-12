@@ -24,7 +24,7 @@ gem 'sufia', '~> 3.1.0'
 #gem 'hydra-pbcore', :path=>'../hydra-pbcore'
 gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'bdc84ec' # > 6.4.5
 gem 'rdf', github: 'ruby-rdf/rdf', ref: '9b20f6d' # Keep until rdf 1.0.8 (or 1.1.0) is released
-gem 'hydra-pbcore', '2.2.0rc1'
+gem 'hydra-pbcore', '3.0.0.rc1'#, '2.2.0rc1'
 gem 'rails_admin', "~> 0.5.0"
 
 group :development, :test do
