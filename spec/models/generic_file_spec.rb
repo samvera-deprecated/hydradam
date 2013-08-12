@@ -272,6 +272,7 @@ EOF
       # location.location_name = "France"
       #
       subject.subject = "Test subject"
+      subject.description.build(type: 'summary', value: "Test summary")
 
       subject.date_created = ["Sept 2009"]
       subject.resource_type = ['Scene']
@@ -305,6 +306,7 @@ EOF
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text.should == "third title"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text.should == "fourth title"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreSubject').text.should == "Test subject"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreDescription[@annotation="Summary"]').text.should == "Test summary"
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
       #   TODO contributorrole Source is MARC?

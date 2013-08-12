@@ -259,6 +259,9 @@ class GenericFile < ActiveFedora::Base
     end
 
     doc.subject = descMetadata.subject
+    descMetadata.description.each do |d|
+      doc.summary = d.value if d.type.first == 'summary'
+    end
     # descMetadata.has_location.each do |l|
     #   doc.insert_place l.location_name.first
     # end
