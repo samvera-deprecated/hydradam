@@ -119,6 +119,7 @@ describe GenericFilesController do
            title_attributes: {'0' => {"value" => "Frontline", "title_type"=>"Series"}, '1' => {"value"=>"How did this happen?", "title_type"=>"Program"}},
            creator_attributes: {'0' => {"name" => "Frank", "role"=>"Producer"}, '1' => {"name"=>"Dave", "role"=>"Director"}},
            description_attributes: {'0' => {"value"=> "it's a documentary show", "type" => 'summary'}},
+           subject: ['Racecars'],
            'event_location' => ['france', 'portugual'],
            'production_location' => ['Boston', 'Minneapolis'],
            date_portrayed: ['12/24/1913'],
@@ -146,6 +147,7 @@ describe GenericFilesController do
       @file.title[0].value.should == ['Frontline']
       @file.title[1].value.should == ['How did this happen?']
       @file.title[1].title_type.should == ['Program']
+      @file.subject.should == ["Racecars"]
       @file.description[0].value.should == ["it's a documentary show"]
       @file.description[0].type.should == ['summary']
       @file.event_location.should == ['france', 'portugual']

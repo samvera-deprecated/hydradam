@@ -264,19 +264,14 @@ EOF
       subject.title.build(value: "second title", title_type: 'Series')
       subject.title.build(value: "third title", title_type: 'Item')
       subject.title.build(value: "fourth title", title_type: 'Episode')
-      c = subject.descMetadata.contributor.build
-      c.name = "Fred"
-      c.role = "Carpenter"
-      c = subject.descMetadata.creator.build
-      c.name = "Sally"
-      c.role = "Author"
-
-      c = subject.descMetadata.publisher.build
-      c.name = "Kelly"
-      c.role = "Distributor"
+      subject.descMetadata.contributor.build(name: "Fred", role: "Carpenter")
+      subject.descMetadata.creator.build(name: "Sally", role: "Author")
+      subject.descMetadata.publisher.build(name: "Kelly", role: "Distributor")
 
       # location = subject.descMetadata.has_location.build
       # location.location_name = "France"
+      #
+      subject.subject = "Test subject"
 
       subject.date_created = ["Sept 2009"]
       subject.resource_type = ['Scene']
@@ -309,25 +304,13 @@ EOF
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "second title"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text.should == "third title"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text.should == "fourth title"
-      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Main"]').text.should == "title one"
-      # xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Alternative"]').text.should == "second title"
-      # pbcorecreator
-      #   creator
-      #   creatorrole
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreSubject').text.should == "Test subject"
+
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
-      # pbcorecontributor
-      #   contributor
       #   TODO contributorrole Source is MARC?
       xml.xpath('/pbcoreDescriptionDocument/pbcoreContributor[contributorRole="Carpenter"]/contributor').text.should == "Fred"
-      # pbcorepublisher
-      #   publisher
-      #   publisherrole
       xml.xpath('/pbcoreDescriptionDocument/pbcorePublisher[publisherRole="Distributor"]/publisher').text.should == "Kelly"
 
-      # pbcoreCoverage
-      #   coverage
-      #   coveragetype
-      # xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage').text.should == "France"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage').text.should == "Sept 2009"
       
       # pbcoreAssetType

@@ -257,6 +257,8 @@ class GenericFile < ActiveFedora::Base
     descMetadata.publisher.each do |c|
       doc.insert_publisher c.name.first, c.role.first
     end
+
+    doc.subject = descMetadata.subject
     # descMetadata.has_location.each do |l|
     #   doc.insert_place l.location_name.first
     # end
