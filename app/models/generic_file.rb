@@ -262,11 +262,18 @@ class GenericFile < ActiveFedora::Base
     descMetadata.description.each do |d|
       doc.summary = d.value if d.type.first == 'summary'
     end
-    # descMetadata.has_location.each do |l|
-    #   doc.insert_place l.location_name.first
-    # end
 
-    doc.insert_date(date_created.first)
+    descMetadata.event_location.each do |location|
+      doc.insert_place(location, 'EVENT_LOCATION')
+    end
+    descMetadata.production_location.each do |location|
+      doc.insert_place(location, 'PRODUCTION_LOCATION')
+    end
+
+    doc.insert_date(date_portrayed.first)
+
+    #date_created should be pbcoreAssetDate
+    #doc.insert_date(date_created.first)
     doc.asset_type = resource_type.to_a
 
 

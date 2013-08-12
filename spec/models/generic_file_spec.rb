@@ -274,7 +274,10 @@ EOF
       subject.subject = "Test subject"
       subject.description.build(type: 'summary', value: "Test summary")
 
-      subject.date_created = ["Sept 2009"]
+      subject.event_location = ['France']
+      subject.production_location = ['Boston']
+
+      subject.date_portrayed = ["Sept 2009"]
       subject.resource_type = ['Scene']
 
 
@@ -307,6 +310,15 @@ EOF
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text.should == "fourth title"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreSubject').text.should == "Test subject"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreDescription[@annotation="Summary"]').text.should == "Test summary"
+
+      # pbcoreDescriptionDocument/pbcoreCoverage[@ref='EVENT_LOCATION']
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage[@annotation="EVENT_LOCATION"]').text.should == "France"
+
+      # pbcoreDescriptionDocument/pbcoreCoverage[@ref='PRODUCTION_LOCATION']
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage[@annotation="PRODUCTION_LOCATION"]').text.should == "Boston"
+
+      # pbcoreDescriptionDocument/pbcoreCoverage[@ref='DATE_PORTRAYED']
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage').text.should == "Sept 2009"
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
       #   TODO contributorrole Source is MARC?
