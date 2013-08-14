@@ -20,12 +20,22 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
     }
   end
 
+  define_template :rights do |xml, holder, rights|
+    xml.rightsEmbedded {
+      xml.WGBH_RIGHTS(:RIGHTS_HOLDER=> holder, :RIGHTS=>rights)
+    }
+  end
+
   def insert_place(location, type)
     add_child_node(ng_xml.root, :event_place, location, type)
   end
 
   def insert_relation(description, identifier)
-    add_child_node(ng_xml.root, :relation,  identifier, 'SOURCE', description)
+    add_child_node(ng_xml.root, :relation, identifier, 'SOURCE', description)
+  end
+
+  def insert_rights(holder, summary)
+    add_child_node(ng_xml.root, :rights, holder, summary)
   end
 
   

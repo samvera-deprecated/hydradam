@@ -36,6 +36,11 @@ module PbcoreExport
       doc.insert_relation(src.description.first, src.identifier.first)
     end
 
+    length = descMetadata.rights_summary.size
+    length = descMetadata.rights_holder.size if descMetadata.rights_holder.size > length
+    0.upto(length) do |n|
+      doc.insert_rights(descMetadata.rights_holder[n], descMetadata.rights_summary[n])
+    end
 
     instantiation = build_instantiation
 

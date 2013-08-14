@@ -282,6 +282,9 @@ EOF
       subject.source = ['relationship source']
       subject.source_reference = ['relationship identifier']
 
+      subject.rights_holder = ["Test rights holder"]
+      subject.rights_summary = ["Test rights summary"]
+
 
       subject.ffprobe.content = '<ffprobe>
   <streams>
@@ -326,6 +329,9 @@ EOF
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationType[@annotation="SOURCE"]').text.should == "relationship source"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationIdentifier').text.should == "relationship identifier"
+
+      xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS_HOLDER').text.should == "Test rights holder"
+      xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS').text.should == "Test rights summary"
 
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
