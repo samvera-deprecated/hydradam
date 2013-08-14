@@ -288,6 +288,7 @@ EOF
       subject.date_created = ['2013-08-15']
 
       subject.release_date = ['2013-08-31']
+      subject.review_date = ['2014-08-31']
 
 
       subject.ffprobe.content = '<ffprobe>
@@ -339,6 +340,7 @@ EOF
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetDate').text.should == "2013-08-15"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Release date information"]/WGBH_DATE_RELEASE/@DATE_RELEASE').text.should == "2013-08-31"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Lifecycle information"]/WGBH_DATE/@REVIEW_DATE').text.should == "2014-08-31"
 
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"

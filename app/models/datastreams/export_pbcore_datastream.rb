@@ -39,6 +39,12 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
     }
   end
 
+  define_template :review do |xml, date|
+    xml.pbcoreExtension(:annotation=>"Lifecycle information") {
+      xml.WGBH_DATE(:REVIEW_DATE=>date)
+    }
+  end
+
   def insert_place(location, type)
     add_child_node(ng_xml.root, :event_place, location, type)
   end
@@ -53,6 +59,10 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
 
   def insert_release_date(date)
     add_child_node(ng_xml.root, :release, date)
+  end
+
+  def insert_review_date(date)
+    add_child_node(ng_xml.root, :review, date)
   end
 
   

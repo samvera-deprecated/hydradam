@@ -32,6 +32,9 @@ module PbcoreExport
     release_date.each do |date|
       doc.insert_release_date(date)
     end
+    review_date.each do |date|
+      doc.insert_review_date(date)
+    end
 
     doc.asset_type = resource_type.to_a
 
