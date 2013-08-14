@@ -96,6 +96,7 @@ module PbcoreExport
           0.upto(ffprobe.streams.stream.count - 1).each do |n|
             stream = ffprobe.streams.stream(n)
             xml.instantiationEssenceTrack {
+              xml.essenceTrackAspectRatio(aspect_ratio[n])
               xml.essenceTrackType {
                 xml.text stream.codec_type.first.capitalize if stream.codec_type.present?
               }
