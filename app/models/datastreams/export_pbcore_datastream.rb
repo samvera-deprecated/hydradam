@@ -1,4 +1,11 @@
 class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
+  
+  extend_terminology do |t|
+    # Needed until hydra-pbcore > 3.0.0 is out
+    t.asset_date(path: 'pbcoreAssetDate', index_as: :displayable)
+  end
+
+
   def title(type, value)
     ng_xml_will_change!
     ng_xml.root.add_child("<pbcoreTitle titleType=\"#{Array(type).first}\">#{Array(value).first}</pbcoreTitle>")

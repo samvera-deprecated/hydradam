@@ -285,6 +285,8 @@ EOF
       subject.rights_holder = ["Test rights holder"]
       subject.rights_summary = ["Test rights summary"]
 
+      subject.date_created = ['2013-08-15']
+
 
       subject.ffprobe.content = '<ffprobe>
   <streams>
@@ -332,6 +334,8 @@ EOF
 
       xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS_HOLDER').text.should == "Test rights holder"
       xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS').text.should == "Test rights summary"
+
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetDate').text.should == "2013-08-15"
 
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
