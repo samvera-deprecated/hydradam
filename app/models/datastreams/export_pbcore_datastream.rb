@@ -33,6 +33,12 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
     }
   end
 
+  define_template :release do |xml, date|
+    xml.pbcoreExtension(:annotation=>"Release date information") {
+      xml.WGBH_DATE_RELEASE(:DATE_RELEASE=>date)
+    }
+  end
+
   def insert_place(location, type)
     add_child_node(ng_xml.root, :event_place, location, type)
   end
@@ -43,6 +49,10 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
 
   def insert_rights(holder, summary)
     add_child_node(ng_xml.root, :rights, holder, summary)
+  end
+
+  def insert_release_date(date)
+    add_child_node(ng_xml.root, :release, date)
   end
 
   

@@ -29,6 +29,10 @@ module PbcoreExport
     doc.insert_date(date_portrayed.first)
     doc.asset_date = date_created.first
 
+    release_date.each do |date|
+      doc.insert_release_date(date)
+    end
+
     doc.asset_type = resource_type.to_a
 
     descMetadata.has_source.each do |src|

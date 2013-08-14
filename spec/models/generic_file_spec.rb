@@ -287,6 +287,8 @@ EOF
 
       subject.date_created = ['2013-08-15']
 
+      subject.release_date = ['2013-08-31']
+
 
       subject.ffprobe.content = '<ffprobe>
   <streams>
@@ -336,6 +338,7 @@ EOF
       xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS').text.should == "Test rights summary"
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetDate').text.should == "2013-08-15"
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Release date information"]/WGBH_DATE_RELEASE/@DATE_RELEASE').text.should == "2013-08-31"
 
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
