@@ -48,6 +48,10 @@ module PbcoreExport
       doc.insert_rights(descMetadata.rights_holder[n], descMetadata.rights_summary[n])
     end
 
+    nola_code.each do |nola|
+      doc.insert_identifier(nola, 'NOLA_CODE')
+    end
+
     instantiation = build_instantiation
 
     doc.ng_xml.root.add_child instantiation.root.children

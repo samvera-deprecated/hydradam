@@ -45,6 +45,10 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
     }
   end
 
+  define_template :identifier do |xml, identifier, source, annotation|
+    xml.pbcoreIdentifier(identifier, source: source, annotation: annotation)
+  end
+
   def insert_place(location, type)
     add_child_node(ng_xml.root, :event_place, location, type)
   end
@@ -65,6 +69,9 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
     add_child_node(ng_xml.root, :review, date)
   end
 
+  def insert_identifier(identifier, source=HydraPbcore.config["institution"], annotation=nil)
+    add_child_node(ng_xml.root, :identifier, identifier, source, annotation)
+  end
   
 
   # Just a very minimal template 

@@ -194,10 +194,6 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     find_identifier('PO_REFERENCE')
   end
 
-
-  def nola_code= val
-  end
-
   def notes= val
     annotation = annotations.first_or_create
     annotation.textual_annotation = val

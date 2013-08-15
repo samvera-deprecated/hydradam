@@ -297,6 +297,8 @@ EOF
 
       subject.physical_location = ['On the shelf']
 
+      subject.identifier.build(value: "Test nola", identifier_type: 'NOLA_CODE')
+
       subject.ffprobe.content = '<ffprobe>
   <streams>
     <stream avg_frame_rate="2997/100" bit_rate="7664514" codec_long_name="H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10" codec_name="h264" codec_tag="0x31637661" codec_tag_string="avc1" codec_time_base="1/5994" codec_type="video" display_aspect_ratio="0:1" duration="16.016016" duration_ts="48000" has_b_frames="0" height="1080" index="0" is_avc="1" level="41" nal_length_size="4" nb_frames="480" pix_fmt="yuv420p" profile="Main" r_frame_rate="2997/100" sample_aspect_ratio="0:1" start_pts="0" start_time="0.000000" time_base="1/2997" width="1920">
@@ -346,12 +348,21 @@ EOF
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetDate').text.should == "2013-08-15"
       xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Release date information"]/WGBH_DATE_RELEASE/@DATE_RELEASE').text.should == "2013-08-31"
+
+      # review_date
       xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Lifecycle information"]/WGBH_DATE/@REVIEW_DATE').text.should == "2014-08-31"
 
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackAspectRatio').text.should == "3:5"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/instantiationAlternativeModes').text.should == "CC in French"
+      # aspect_ratio
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackAspectRatio').text.should == "3:5"
 
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "On the shelf"
+      # cc
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/instantiationAlternativeModes').text.should == "CC in French"
+
+      # physical_location
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "On the shelf"
+
+      # nola_code
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="NOLA_CODE"]').text.should == "Test nola"
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
       #   TODO contributorrole Source is MARC?
