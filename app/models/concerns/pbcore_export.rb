@@ -44,12 +44,12 @@ module PbcoreExport
 
     length = descMetadata.rights_summary.size
     length = descMetadata.rights_holder.size if descMetadata.rights_holder.size > length
-    0.upto(length) do |n|
+    0.upto(length - 1) do |n|
       doc.insert_rights(descMetadata.rights_holder[n], descMetadata.rights_summary[n])
     end
 
-    nola_code.each do |nola|
-      doc.insert_identifier(nola, 'NOLA_CODE')
+    identifier.each do |ident|
+      doc.insert_identifier(ident.value.first, ident.identifier_type.first)
     end
 
     instantiation = build_instantiation

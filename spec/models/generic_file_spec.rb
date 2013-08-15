@@ -298,6 +298,7 @@ EOF
       subject.physical_location = ['On the shelf']
 
       subject.identifier.build(value: "Test nola", identifier_type: 'NOLA_CODE')
+      subject.identifier.build(value: "Test tape id", identifier_type: 'ITEM_IDENTIFIER')
 
       subject.ffprobe.content = '<ffprobe>
   <streams>
@@ -363,6 +364,9 @@ EOF
 
       # nola_code
       xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="NOLA_CODE"]').text.should == "Test nola"
+
+      # tape_id
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="ITEM_IDENTIFIER"]').text.should == "Test tape id"
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
       #   TODO contributorrole Source is MARC?
