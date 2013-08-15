@@ -97,6 +97,9 @@ module PbcoreExport
             stream = ffprobe.streams.stream(n)
             xml.instantiationEssenceTrack {
               xml.essenceTrackAspectRatio(aspect_ratio[n])
+              cc.each do |cc_lang|
+                xml.instantiationAlternativeModes("CC in #{cc_lang}")
+              end
               xml.essenceTrackType {
                 xml.text stream.codec_type.first.capitalize if stream.codec_type.present?
               }
