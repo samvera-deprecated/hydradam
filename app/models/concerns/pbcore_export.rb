@@ -68,9 +68,11 @@ module PbcoreExport
           xml.instantiationIdentifier {
             xml.text noid
           }
-          xml.instantiationLocation {
-            xml.text content.filename
-          }
+          physical_location.each do |loc|
+            xml.instantiationLocation(loc)
+          end
+
+          #xml.text content.filename
           # xml.instantiationDate(:dateType=>"created")
           # xml.instantiationDigital(:source=>"EBU file formats")
           if video?
