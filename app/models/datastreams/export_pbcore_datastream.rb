@@ -45,11 +45,6 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
     }
   end
 
-  # TODO move to hydra-pbcore gem
-  define_template :identifier do |xml, identifier, source, annotation|
-    xml.pbcoreIdentifier(identifier, source: source, annotation: annotation)
-  end
-
   define_template :originating_department do |xml, dept|
     xml.pbcoreExtension(annotation: "Originating department information") {
       xml.WGBH_META(META_SOURCE: dept)
@@ -76,11 +71,6 @@ class ExportPbcoreDatastream < HydraPbcore::Datastream::Document
   def insert_review_date(date)
     add_child_node(ng_xml.root, :review, date)
   end
-
-  def insert_identifier(identifier, source=HydraPbcore.config["institution"], annotation=nil)
-    add_child_node(ng_xml.root, :identifier, identifier, source, annotation)
-  end
-
 
   def insert_originating_department(dept)
     add_child_node(ng_xml.root, :originating_department, dept)

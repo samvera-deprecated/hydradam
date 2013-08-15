@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: git://github.com/curationexperts/hydra-pbcore.git
-  revision: 6328d2d703d28be73009e6af8be931023c7f8780
-  ref: 6328d2d
+  revision: 99e1454524e52ad4e8337d94319dbb3b1ab78e2e
+  ref: 99e1454
   specs:
-    hydra-pbcore (3.0.1)
+    hydra-pbcore (3.0.2)
       active-fedora
       solrizer
 
