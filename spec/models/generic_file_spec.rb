@@ -301,6 +301,10 @@ EOF
       subject.identifier.build(value: "Test tape id", identifier_type: 'ITEM_IDENTIFIER')
       subject.identifier.build(value: "Test barcode", identifier_type: 'PO_REFERENCE')
 
+      subject.notes = ["Test notes"]
+
+      subject.originating_department = ["Test originating department"]
+
       subject.ffprobe.content = '<ffprobe>
   <streams>
     <stream avg_frame_rate="2997/100" bit_rate="7664514" codec_long_name="H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10" codec_name="h264" codec_tag="0x31637661" codec_tag_string="avc1" codec_time_base="1/5994" codec_type="video" display_aspect_ratio="0:1" duration="16.016016" duration_ts="48000" has_b_frames="0" height="1080" index="0" is_avc="1" level="41" nal_length_size="4" nb_frames="480" pix_fmt="yuv420p" profile="Main" r_frame_rate="2997/100" sample_aspect_ratio="0:1" start_pts="0" start_time="0.000000" time_base="1/2997" width="1920">
@@ -322,33 +326,52 @@ EOF
       str = subject.to_pbcore_xml
       puts str
       xml = Nokogiri::XML(str)
-      # pbcoretitle
+      # program title
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "title one"
+      # series title
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "second title"
+
+      # item title
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text.should == "third title"
+
+      # episode title
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text.should == "fourth title"
+
+      # category
       xml.xpath('/pbcoreDescriptionDocument/pbcoreSubject').text.should == "Test subject"
+
+      # summary
       xml.xpath('/pbcoreDescriptionDocument/pbcoreDescription[@annotation="Summary"]').text.should == "Test summary"
 
-      # pbcoreDescriptionDocument/pbcoreCoverage[@ref='EVENT_LOCATION']
+      # event_location
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage[@annotation="EVENT_LOCATION"]').text.should == "France"
 
-      # pbcoreDescriptionDocument/pbcoreCoverage[@ref='PRODUCTION_LOCATION']
+      # production_location 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage[@annotation="PRODUCTION_LOCATION"]').text.should == "Boston"
 
-      # pbcoreDescriptionDocument/pbcoreCoverage[@ref='DATE_PORTRAYED']
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage').text.should == "Sept 2009"
+      # date_portrayed
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage[@annotation="DATE_PORTRAYED"]').text.should == "Sept 2009"
 
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[1]').text.should == 'Kiswahili'
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[2]').text.should == 'Lakota'
+      # language
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[1]').text.should == 'Kiswahili'
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[2]').text.should == 'Lakota'
 
+      # source
       xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationType[@annotation="SOURCE"]').text.should == "relationship source"
+
+      # source_reference 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationIdentifier').text.should == "relationship identifier"
 
+      # rights_holder
       xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS_HOLDER').text.should == "Test rights holder"
+
+      # rights_summary
       xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS').text.should == "Test rights summary"
 
+      # item_date
       xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetDate').text.should == "2013-08-15"
+
+      # release_date
       xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Release date information"]/WGBH_DATE_RELEASE/@DATE_RELEASE').text.should == "2013-08-31"
 
       # review_date
@@ -371,6 +394,12 @@ EOF
 
       # barcode
       xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="PO_REFERENCE"]').text.should == "Test barcode"
+
+      # notes
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreAnnotation').text.should == "Test notes"
+
+      # originating_department
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Originating department information"]/WGBH_META/@META_SOURCE').text.should == "Test originating department"
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
       #   TODO contributorrole Source is MARC?

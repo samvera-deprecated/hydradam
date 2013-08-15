@@ -26,7 +26,7 @@ module PbcoreExport
       doc.insert_place(location, 'PRODUCTION_LOCATION')
     end
 
-    doc.insert_date(date_portrayed.first)
+    doc.insert_date(date_portrayed.first, 'DATE_PORTRAYED')
     doc.asset_date = date_created.first
 
     release_date.each do |date|
@@ -50,6 +50,12 @@ module PbcoreExport
 
     identifier.each do |ident|
       doc.insert_identifier(ident.value.first, ident.identifier_type.first)
+    end
+
+    doc.note = notes
+
+    originating_department.each do |dept|
+      doc.insert_originating_department(dept)
     end
 
     instantiation = build_instantiation

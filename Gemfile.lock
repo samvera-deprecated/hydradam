@@ -7,6 +7,15 @@ GIT
       eventmachine (~> 1.0.0.beta1)
 
 GIT
+  remote: git://github.com/curationexperts/hydra-pbcore.git
+  revision: 6328d2d703d28be73009e6af8be931023c7f8780
+  ref: 6328d2d
+  specs:
+    hydra-pbcore (3.0.1)
+      active-fedora
+      solrizer
+
+GIT
   remote: git://github.com/harai/kaminari.git
   revision: 384fcb5d11b66a0cc8fad030104bf80f82616355
   branch: route_prefix_prototype
@@ -189,9 +198,6 @@ GEM
       hydra-access-controls (= 6.3.2)
       hydra-core (= 6.3.2)
       rails (>= 3.2.6)
-    hydra-pbcore (3.0.0.rc1)
-      active-fedora
-      solrizer
     i18n (0.6.5)
     jettywrapper (1.4.1)
       activesupport (>= 3.0.0)
@@ -420,7 +426,7 @@ DEPENDENCIES
   devise
   em-ftpd!
   factory_girl_rails
-  hydra-pbcore (= 3.0.0.rc1)
+  hydra-pbcore!
   jettywrapper
   jquery-rails
   kaminari!
