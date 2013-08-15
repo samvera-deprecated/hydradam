@@ -65,14 +65,14 @@ module PbcoreExport
               xml.text lang
             }
           end
-          xml.instantiationIdentifier {
-            xml.text noid
+          xml.instantiationIdentifier(noid, source: "HydraDAM")
+          xml.instantiationIdentifier(source: "Original file name") {
+            xml.text content.filename
           }
           physical_location.each do |loc|
             xml.instantiationLocation(loc)
           end
 
-          #xml.text content.filename
           # xml.instantiationDate(:dateType=>"created")
           # xml.instantiationDigital(:source=>"EBU file formats")
           if video?

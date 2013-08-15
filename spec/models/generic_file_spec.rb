@@ -362,73 +362,8 @@ EOF
       
       # pbcoreAssetType
       xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetType').text.should == "Scene"
-
-      # pbcoreassetdate TODO
-      # pbcoreidentifier TODO
-      # pbcoresubject TODO
-      # pbcoredescription TODO
-      # pbcoregenre TODO
-      # pbcorerelation TODO
-      # pbcorerelationtype TODO
-      # pbcorerelationidentifier TODO
-      # pbcoreaudiencelevel TODO
-      # pbcoreaudiencerating TODO
-      # pbcoreannotation TODO
-      # pbcorerightssummary TODO
-      #   rightssummary
-      #   rightslink
-      #   rightsembedded
-
-      # pbcoreInstantiation
-      # instantiationIdentifier
-      # instantiationDate
-      # instantiationDimensions
-      # instantiationPhysical
-      # instantiationDigital
-      # instantiationStandard
-      # instantiationLocation
-      # instantiationMediaType
-      # instantiationGenerations
-      # instantiationFileSize
-      # instantiationTimeStart
-      # instantiationDuration
-      # instantiationDataRate
-      # instantiationColors
-      # instantiationTracks
-      # instantiationChannelConfiguration
-      # instantiationLanguage
-      #
-      # instantiationAlternativeModes
-      # instantiationEssenceTrack
-
-      # essenceTrackType
-      # essenceTrackIdentifier
-      # essenceTrackStandard
-      # essenceTrackEncoding
-      # essenceTrackDataRate
-      # essenceTrackFrameRate
-      # essenceTrackPlaybackSpeed
-      # essenceTrackSamplingRate
-      # essenceTrackBitDepth
-      # essenceTrackFrameSize
-      # essenceTrackAspectRatio
-      # essenceTrackTimeStart
-      # essenceTrackDuration
-      # essenceTrackLanguage
-      # essenceTrackAnnotation
-      # essenceTrackExtension
-      # instantiationRelation
-      # instantiationRelationType
-      # instantiationRelationIdentifier
-      # instantiationRights
-      # rightsSummary
-      # rightsLink
-      # rightsEmbedded
-      # instantiationAnnotation
-      # instantiationPart
-      # instantiationExtension
-
     end
+
     describe "with audio data" do
       before do
         subject.ffprobe.content = '
@@ -449,8 +384,8 @@ EOF
       it "should have instantiation info" do
         str = subject.to_pbcore_xml
         xml = Nokogiri::XML(str)
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier').text.should == subject.noid
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "/opt/storage/one/two/three/fake.wav"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="HydraDAM"]').text.should == subject.noid
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="Original file name"]').text.should == "/opt/storage/one/two/three/fake.wav"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "3583.318000"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text.should == "343998572"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text.should == "Sound"
@@ -487,8 +422,8 @@ EOF
       it "should have instantiation info" do
         str = subject.to_pbcore_xml
         xml = Nokogiri::XML(str)
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier').text.should == subject.noid
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "/opt/storage/one/two/three/fake.m4v"
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="HydraDAM"]').text.should == subject.noid
+        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="Original file name"]').text.should == "/opt/storage/one/two/three/fake.m4v"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "128.762095"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text.should == "16168799"
         xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text.should == "Moving Image"
