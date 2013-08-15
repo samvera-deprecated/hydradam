@@ -299,6 +299,7 @@ EOF
 
       subject.identifier.build(value: "Test nola", identifier_type: 'NOLA_CODE')
       subject.identifier.build(value: "Test tape id", identifier_type: 'ITEM_IDENTIFIER')
+      subject.identifier.build(value: "Test barcode", identifier_type: 'PO_REFERENCE')
 
       subject.ffprobe.content = '<ffprobe>
   <streams>
@@ -367,6 +368,9 @@ EOF
 
       # tape_id
       xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="ITEM_IDENTIFIER"]').text.should == "Test tape id"
+
+      # barcode
+      xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="PO_REFERENCE"]').text.should == "Test barcode"
 
       xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
       #   TODO contributorrole Source is MARC?
