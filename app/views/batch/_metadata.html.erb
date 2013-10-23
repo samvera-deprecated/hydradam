@@ -9,7 +9,8 @@
         <div class="control-group">
           <%= f.label :program_title, "<span class='error'>*</span> Title #{index+1}".html_safe, :class=>"control-label" %> 
           <div class="controls" id="additional_title_clone">
-            <%= f.text_field :program_title, :name=>"program_title[#{gen_f.id}][]", :value=>gen_f.label, :required=> true %>  
+            <%= f.text_field :value, :name=>"generic_file[title_attributes][#{index}][value]", :id => "generic_file_title_attributes_#{index}_value", :value=>gen_f.label, :required => true %>
+            <%= f.hidden_field :title_type, :name=>"generic_file[title_attributes][#{index}][title_type]", :id => "generic_file_title_attributes_#{index}_title_type", :value=>'Program', :class => "input-large", :required => true, placeholder: 'Title Type'  %>
             <%= help_icon(:title) %>
           </div>
         </div>
