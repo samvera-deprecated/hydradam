@@ -7,10 +7,18 @@ class FileContentDatastream < ActiveFedora::Datastream
   def extract_metadata
     out = [] 
     to_tempfile do |f|
-      out << run_fits!(f.path)
-      out << run_ffprobe!(f.path)
+      out << Hydra::FileCharacterization.characterize(f, :fits)
+      begin
+        out << Hydra::FileCharacterization.characterize(f, :ffprobe)
+      rescue RuntimeError
+        # FFMpeg doesn't exit with success if it's not a format it knows about.
+      end
     end
     out
+  end
+
+  def tool_names
+    [:fits, :ffprobe]
   end
 
   # The internal method is just checking that the datastream stored in Fedora is
@@ -77,22 +85,4 @@ class FileContentDatastream < ActiveFedora::Datastream
   def storage_manager
     @storage_manager ||= Rails.configuration.storage_manager.constantize
   end
-
-  def run_ffprobe!(file_path)
-    out = nil
-    command = "#{ffprobe_path} -i \"#{file_path}\" -print_format xml -show_streams -v quiet"
-    stdin, stdout, stderr = popen3(command)
-    stdin.close
-    out = stdout.read
-    stdout.close
-    err = stderr.read
-    stderr.close
-    raise "Unable to execute command \"#{command}\"\n#{err}" unless err.empty?
-    out
-  end
-
-  def ffprobe_path
-    'ffprobe'
-  end
-
 end

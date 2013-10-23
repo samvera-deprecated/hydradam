@@ -74,7 +74,7 @@ describe ImportedMetadataFilesController do
       end
       it "should be a success" do
         response.should redirect_to(imported_metadata_manager_index_path)
-        expect { ActiveFedora::Base.find(file.pid) }.to raise_error(ActiveFedora::ObjectNotFoundError)
+        expect { ActiveFedora::Base.find(file.pid, cast:true) }.to raise_error(ActiveFedora::ObjectNotFoundError)
       end
     end
 

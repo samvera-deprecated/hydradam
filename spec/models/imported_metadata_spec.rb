@@ -9,7 +9,8 @@ describe ImportedMetadata do
   end
 
   it "should respond to noid" do
-    subject.save
+    subject.apply_depositor_metadata("frank")
+    subject.save!
     subject.noid.should_not be_empty
   end
 

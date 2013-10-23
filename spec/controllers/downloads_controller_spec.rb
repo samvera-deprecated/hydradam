@@ -35,6 +35,8 @@ describe DownloadsController do
       describe "when requesting content" do
         before do
           GenericFile.any_instance.stub(:unique_key).and_return('test_ftp_download')
+          GenericFile.any_instance.stub(:characterize)
+          GenericFile.any_instance.stub(:filename => ['Test.MOV'])
           @file.add_file(StringIO.new("A test file"), 'content', 'Test.MOV')
           File.unlink('tmp/test_ftp_download/Test.MOV') if File.exists?('tmp/test_ftp_download/Test.MOV')
           FileUtils.rm_r('tmp/test_ftp_download') if File.exists?('tmp/test_ftp_download')

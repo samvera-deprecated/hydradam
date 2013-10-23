@@ -8,7 +8,6 @@ describe ExportPbcoreDatastream do
     subject.title('Episode', "Sample Episode")
 
     xml = subject.ng_xml
-    puts "XML: #{xml}"
     xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "Sample Program"
     xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "Sample Series"
     xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text.should == "Sample Item"

@@ -4,6 +4,7 @@ describe GenericFile do
   describe "characterize" do
     before do
       subject.apply_depositor_metadata('frank')
+      subject.stub(noid: 'abcdefg')
       subject.add_file(File.open(fixture_path + '/sample.mov', 'rb'), 'content', 'sample.mov')
     end
     it "should get fits and ffprobe metadata" do
@@ -174,6 +175,7 @@ EOF
       
     it "should have some fields" do
       today_str = "#{Date.today.to_s}T00:00:00Z"
+      subject.stub(pid: 'testme:123')
       solr_doc = subject.to_solr
       solr_doc[Solrizer.solr_name('desc_metadata__series_title')].should == ["Frontline"]
       solr_doc[Solrizer.solr_name('desc_metadata__program_title')].should == ["The Retirement Gamble"]
@@ -201,7 +203,7 @@ EOF
       solr_doc['unarranged_bsi'].should == true
       solr_doc['relative_path'].should == ['fortune/smiles/on/the/bold.mkv']    
       #solr_doc[Solrizer.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
-      solr_doc["noid_tsi"].should == "__DO_NOT_USE__"
+      solr_doc["noid_tsi"].should == "123"
     end
 
   end
@@ -240,6 +242,7 @@ EOF
   describe "#add_external_file" do
     before do
       subject.apply_depositor_metadata('frank')
+      subject.stub(noid: 'abcdefg')
       subject.stub(:characterize_if_changed).and_yield #don't run characterization
       FileUtils.copy(File.join(fixture_path + '/sample.mov'), File.join(fixture_path + '/my sample.mov'))
       subject.add_external_file(fixture_path + '/my sample.mov', 'content', 'my sample.mov')
@@ -247,9 +250,9 @@ EOF
 
     it "should handle files with spaces in them" do
       # store the URI with spaces escaped to %20
-      subject.content.dsLocation.should match /^file:\/\/.*\/__\/DO\/_N\/OT\/_U\/SE\/__\/my%20sample.mov$/
+      subject.content.dsLocation.should match /^file:\/\/.*\/ab\/cd\/ef\/g\/my%20sample.mov$/
       # But filename should unescape
-      subject.content.filename.should match /^\/.*\/__\/DO\/_N\/OT\/_U\/SE\/__\/my sample.mov$/
+      subject.content.filename.should match /^\/.*\/ab\/cd\/ef\/g\/my sample.mov$/
     end
 
     it "should set the label" do
@@ -324,7 +327,6 @@ EOF
     end
     it "should have a title" do
       str = subject.to_pbcore_xml
-      puts str
       xml = Nokogiri::XML(str)
       # program title
       xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "title one"
@@ -427,6 +429,7 @@ EOF
          subject.content.dsLocation = 'file:///opt/storage/one/two/three/fake.wav'
          subject.stub(:file_size).and_return(["343998572"])
          subject.stub(:audio?).and_return(true)
+         subject.stub(:noid => 'abcdefg')
       end
 
       it "should have instantiation info" do
@@ -466,6 +469,7 @@ EOF
          subject.content.dsLocation = 'file:///opt/storage/one/two/three/fake.m4v'
          subject.stub(:file_size).and_return(["16168799"])
          subject.stub(:video?).and_return(true)
+         subject.stub(:noid => 'abcdefg')
       end
       it "should have instantiation info" do
         str = subject.to_pbcore_xml

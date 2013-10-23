@@ -18,13 +18,10 @@ end
 gem 'jquery-rails'
 
 
-gem 'sufia', '~> 3.1.0'
-#gem 'sufia', path: '../sufia'
-#gem 'hydra-pbcore', :path=>'../hydra-pbcore'
-gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'bdc84ec' # > 6.4.5
-gem 'om', github: 'projecthydra/om', ref: '8809df0' # > 3.0.3
-gem 'rdf', github: 'ruby-rdf/rdf', ref: '9b20f6d' # Keep until rdf 1.0.8 (or 1.1.0) is released
+gem 'sufia', '~> 3.4.0.rc3'
 gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', ref: '99e1454'
+gem 'active-fedora', '~> 6.6.1'
+gem 'hydra-file_characterization', github: 'projecthydra/hydra-file_characterization', ref: '645c113' # need a 0.3.0 release
 #gem 'hydra-pbcore', '3.0.4'
 gem 'rails_admin', "~> 0.5.0"
 

@@ -18,9 +18,9 @@ class GenericFile < ActiveFedora::Base
               :originating_department,
               :creator_attributes, :contributor_attributes, :publisher_attributes, 
               :has_location_attributes, :description_attributes, :title_attributes, 
-              :identifier_attributes]
+              :identifier_attributes], multiple: true
 
-  delegate_to 'properties', [:unarranged, :applied_template_id], unique: true
+  delegate_to 'properties', [:unarranged, :applied_template_id], multiple: false
 
   attr_accessible  :part_of, :contributor_attributes, :creator_attributes, :title_attributes,
         :description_attributes, :publisher_attributes, :date_created, :date_uploaded,
@@ -137,7 +137,6 @@ class GenericFile < ActiveFedora::Base
   def directory
     dir_parts = noid.scan(/.{1,2}/)
     dir = File.join(Rails.configuration.external_store_base, dir_parts)
-    puts "Making #{dir}"
     FileUtils.mkdir_p(dir) unless Dir.exists?(dir)
     dir
   end  
@@ -173,7 +172,7 @@ class GenericFile < ActiveFedora::Base
     fits_xml, ffprobe_xml = self.content.extract_metadata
     self.characterization.ng_xml = fits_xml
     fix_mxf_characterization!
-    self.ffprobe.ng_xml = ffprobe_xml
+    self.ffprobe.ng_xml = ffprobe_xml if ffprobe_xml
     self.append_metadata
     self.filename = self.label
     save unless self.new_object?
