@@ -25,6 +25,7 @@ config/fedora.yml
 config/database.yml
 config/redis.yml
 config/initializers/secret_token.rb
+config/initializers/devise.rb
 config/offline_files.txt
 
 # Ignore any local jetty directory
