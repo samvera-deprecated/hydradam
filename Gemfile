@@ -18,7 +18,8 @@ end
 gem 'jquery-rails'
 
 
-gem 'sufia', '~> 3.4.0.rc3'
+#gem 'sufia', '~> 3.4.0.rc3'
+gem 'sufia', github: 'projecthydra/sufia', ref: 'b9f5338' #'~> 3.4.0.rc4'
 gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', ref: '99e1454'
 gem 'active-fedora', '~> 6.6.1'
 gem 'hydra-file_characterization', github: 'projecthydra/hydra-file_characterization', ref: '645c113' # need a 0.3.0 release
