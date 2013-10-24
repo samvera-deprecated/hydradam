@@ -11,6 +11,7 @@
           <div class="controls" id="additional_title_clone">
             <%= f.text_field :value, :name=>"generic_file[title_attributes][#{index}][value]", :id => "generic_file_title_attributes_#{index}_value", :value=>gen_f.label, :required => true %>
             <%= f.hidden_field :title_type, :name=>"generic_file[title_attributes][#{index}][title_type]", :id => "generic_file_title_attributes_#{index}_title_type", :value=>'Program', :class => "input-large", :required => true, placeholder: 'Title Type'  %>
+            <%= f.hidden_field :id, :name=>"generic_file[title_attributes][#{index}][id]", :id => "generic_file_title_attributes_#{index}_id", :value=>gen_f.title.first.rdf_subject.to_s, :class => "input-large", :required => true, placeholder: 'Title Type'  %>
             <%= help_icon(:title) %>
           </div>
         </div>
