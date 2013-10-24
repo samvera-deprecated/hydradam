@@ -180,6 +180,7 @@ EOF
       solr_doc[Solrizer.solr_name('desc_metadata__series_title')].should == ["Frontline"]
       solr_doc[Solrizer.solr_name('desc_metadata__program_title')].should == ["The Retirement Gamble"]
       solr_doc[Solrizer.solr_name('desc_metadata__episode_title')].should == ["12"]
+      solr_doc[Solrizer.solr_name('desc_metadata__title')].should == ["The Retirement Gamble"]
       solr_doc[Solrizer.solr_name('desc_metadata__date_modified', :stored_sortable, type: :date)].should == today_str
       solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded', :stored_sortable, type: :date)].should == today_str
       solr_doc[Solrizer.solr_name('desc_metadata__creator', :facetable)].should == ['Justin']

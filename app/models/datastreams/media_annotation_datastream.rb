@@ -208,36 +208,30 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
   def to_solr(solr_doc = {})
     solr_doc = super
     creators = self.creator.map { |c| c.name }.flatten
-    store_in_solr_doc(solr_doc, 'creator', creators, [:stored_searchable, type: :text], :facetable)
+    Solrizer.insert_field(solr_doc, prefix("creator"), creators, :stored_searchable, :facetable)
 
     contributors = self.contributor.map { |c| c.name }.flatten
-    store_in_solr_doc(solr_doc, 'contributor', contributors, [:stored_searchable, type: :text], :facetable)
+    Solrizer.insert_field(solr_doc, prefix("contributor"), contributors, :stored_searchable, :facetable)
 
     publishers = self.publisher.map { |c| c.name }.flatten
-    store_in_solr_doc(solr_doc, 'publisher', publishers, [:stored_searchable, type: :text], :facetable)
+    Solrizer.insert_field(solr_doc, prefix("publisher"), publishers, :stored_searchable, :facetable)
 
     identifiers = self.identifier.map { |c| c.value }.flatten
-    store_in_solr_doc(solr_doc, 'identifier', identifiers, [:stored_searchable, type: :text], :facetable)
-
-    # based_near = self.has_location.map { |c| c.location_name }.flatten
-    # store_in_solr_doc(solr_doc, 'based_near', based_near, [:stored_searchable, type: :text], :facetable)
+    Solrizer.insert_field(solr_doc, prefix("identifier"), identifiers, :stored_searchable, :facetable)
 
     self.description.each do |t|
-      store_in_solr_doc(solr_doc, "description", t.value, [:stored_searchable, type: :text])
+      Solrizer.insert_field(solr_doc, prefix("description"), t.value)
     end
     self.title.each do |t|
       if t.title_type.first
-        store_in_solr_doc(solr_doc, "#{t.title_type.first.downcase}_title", t.value, [:stored_searchable, type: :text])
+        Solrizer.insert_field(solr_doc, prefix("#{t.title_type.first.downcase}_title"), t.value)
       end
     end
+    Solrizer.insert_field(solr_doc, prefix("title"), program_title)
+
+
 
     solr_doc
-  end
-
-  def store_in_solr_doc(solr_doc, name, value, *types)
-    types.each do |type|
-      solr_doc[ActiveFedora::SolrService.solr_name(prefix(name), *type)] = value
-    end
   end
 
   def program_title
