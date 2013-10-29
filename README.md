@@ -1,4 +1,4 @@
-# Setting up a local dev copy
+# Setting up a local development copy
 
 ```
 git clone ...
