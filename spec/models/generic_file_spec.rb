@@ -12,7 +12,6 @@ describe GenericFile do
       subject.characterization.mime_type.should == ["video/quicktime", "video/mp4"]
       subject.ffprobe.streams.stream(1).duration == "8.033"
       subject.should be_video
-      
     end
   end
 
