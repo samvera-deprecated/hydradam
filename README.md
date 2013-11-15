@@ -22,7 +22,7 @@ Make sure your database configuration is up-to-date:
 rake db:migrate
 ```
 
-Set up your secret token.
+Set up your application secret token.
 ```
 cp config/initializers/secret_token.rb.sample config/initializers/secret_token.rb
 ```
