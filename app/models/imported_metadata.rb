@@ -2,14 +2,13 @@ class ImportedMetadata < ActiveFedora::Base
   include Sufia::ModelMethods
   include Sufia::Noid
   include Sufia::GenericFile::Permissions
-  has_metadata :name => "properties", :type => PropertiesDatastream
+  has_metadata "properties", type: PropertiesDatastream
   has_metadata 'descMetadata', type: ImportPbcoreDatastream
   
-  delegate_to :properties, [:relative_path, :depositor, :import_url], multiple: false
-  delegate_to :descMetadata, [:item_title, :episode_title, :program_title, 
-                              :series_title, :filenames, :description,
-                              :event_location, :date_portrayed,
-                              :drive_name, :folder_name], multiple: false
+  has_attributes :relative_path, :depositor, :import_url, datastream: :properties, multiple: false
+  has_attributes :item_title, :episode_title, :program_title, :series_title,
+                 :filenames, :description, :event_location, :date_portrayed,
+                 :drive_name, :folder_name, datastream: :descMetadata, multiple: false
 
   attr_accessor :apply_to
 

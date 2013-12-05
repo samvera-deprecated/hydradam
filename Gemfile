@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.2'
 
 
 # Gems used only for assets and not required
@@ -18,11 +18,8 @@ end
 gem 'jquery-rails'
 
 
-#gem 'sufia', '~> 3.4.0.rc3'
-gem 'sufia', github: 'projecthydra/sufia', ref: 'b9f5338' #'~> 3.4.0.rc4'
+gem 'sufia', '~> 3.5.0'
 gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', ref: '99e1454'
-gem 'active-fedora', '~> 6.6.1'
-gem 'hydra-file_characterization', github: 'projecthydra/hydra-file_characterization', ref: '645c113' # need a 0.3.0 release
 #gem 'hydra-pbcore', '3.0.4'
 gem 'rails_admin', "~> 0.5.0"
 

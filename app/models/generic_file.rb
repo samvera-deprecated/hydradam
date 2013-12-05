@@ -10,7 +10,7 @@ class GenericFile < ActiveFedora::Base
   has_metadata 'descMetadata', type: MediaAnnotationDatastream
   has_file_datastream "content", type: FileContentDatastream, control_group: 'E'
 
-  delegate_to 'descMetadata', [:has_location, :program_title, :series_title, :item_title,
+  has_attributes :has_location, :program_title, :series_title, :item_title,
               :episode_title, :has_event, :event_location, :production_location, :filming_event,
               :production_event, :date_portrayed, :has_event_attributes, :source, :source_reference,
               :rights_holder, :rights_summary, :release_date, :review_date,:aspect_ratio,
@@ -18,9 +18,9 @@ class GenericFile < ActiveFedora::Base
               :originating_department,
               :creator_attributes, :contributor_attributes, :publisher_attributes, 
               :has_location_attributes, :description_attributes, :title_attributes, 
-              :identifier_attributes], multiple: true
+              :identifier_attributes, datastream: 'descMetadata', multiple: true
 
-  delegate_to 'properties', [:unarranged, :applied_template_id], multiple: false
+  has_attributes :unarranged, :applied_template_id, datastream: 'properties', multiple: false
 
   attr_accessible  :part_of, :contributor_attributes, :creator_attributes, :title_attributes,
         :description_attributes, :publisher_attributes, :date_created, :date_uploaded,
