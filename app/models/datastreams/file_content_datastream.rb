@@ -31,7 +31,9 @@ class FileContentDatastream < ActiveFedora::Datastream
   def file_checksum_valid?
     # puts "Calculated: #{calculate_file_checksum}"
     # puts "Stored: #{stored_file_checksum}"
-    calculate_file_checksum == stored_file_checksum
+    return true if calculate_file_checksum == stored_file_checksum
+    logger.warn "[AUDIT] *** Failure for #{pid}. #{filename} failed checksum. Calculated: #{calculate_file_checksum} Expected: #{stored_file_checksum}"
+    false
   end
 
   def stored_file_checksum
