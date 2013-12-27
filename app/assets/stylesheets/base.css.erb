@@ -1,6 +1,6 @@
 
 .navbar .brand {
-  background: transparent url(/assets/logo.gif) no-repeat top right;
+  background: transparent url(<%= asset_path 'logo.gif' %>) no-repeat top right;
   overflow: hidden;
   display: inline-block;
   white-space: nowrap;
@@ -12,7 +12,7 @@
 }
 
 body {
-  background: url(/assets/bg_body.gif) 50% 0 repeat-y;
+  background: url(<%= asset_path 'bg_body.gif' %>) 50% 0 repeat-y;
 }
 
 h2 {
@@ -34,7 +34,7 @@ h3 {
 
 #wrap {
   padding-top: 38px;
-  background: url(/assets/bg_holder.jpg) 50% 0 no-repeat;
+  background: url(<%= asset_path 'bg_holder.jpg' %>) 50% 0 no-repeat;
 }
 
 .fornav {
@@ -84,6 +84,6 @@ ul.nav li a.top_nav {
 
 footer {
   padding-top: 28px;
-  background: url(/assets/bg_footer.jpg) 50% 0 no-repeat;
+  background: url(<%= asset_path 'bg_footer.jpg' %>) 50% 0 no-repeat;
 }
 
