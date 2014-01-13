@@ -273,7 +273,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (1.1.4)
     raindrops (0.12.0)
-    rake (10.1.0)
+    rake (10.1.1)
     rdf (1.0.10.2)
       addressable (>= 2.3)
     rdf-rdfxml (1.0.1)
