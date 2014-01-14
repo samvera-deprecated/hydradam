@@ -15,6 +15,21 @@ describe GenericFile do
     end
   end
 
+  describe "append_metadata" do
+    before do
+      subject.file_title = ['test1', 'test2']
+      subject.file_author = ['author1', 'author2']
+      subject.creator = ['author3', 'author4']
+      subject.title = ['title3', 'title4']
+    end
+    it "should append each term only once" do
+      subject.creator.map(&:name).flatten.should == ['author3', 'author4']
+      subject.append_metadata
+      subject.title.map(&:value).flatten.should == ['title3', 'title4', 'test1', 'test2']
+      subject.creator.map(&:name).flatten.should == ['author3', 'author4', 'author1', 'author2']
+    end
+  end
+
   describe "mxf recognition" do
     before do
       subject.characterization.mime_type = ['application/mxf']

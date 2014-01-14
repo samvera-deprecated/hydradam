@@ -178,6 +178,15 @@ class GenericFile < ActiveFedora::Base
     save unless self.new_object?
   end
 
+  # Override so that we use the creator= method (which makes a Person node) and don't
+  # just append to the RDF node.
+  def append_metadata
+    terms = self.characterization_terms
+    Sufia.config.fits_to_desc_mapping.each_pair do |k, v|
+      self.send("#{v}=", terms[k]) if terms.has_key?(k)
+    end
+  end
+
 
   # The present version of fits.sh (0.6.1) doesn't set a mime-type for MXF files
   # this method rectifies that until a fixed version of fits.sh is released.
@@ -201,7 +210,9 @@ class GenericFile < ActiveFedora::Base
     args = Array(args)
     if args.first.is_a?(String)
       return if args == [''] 
-      self.creator_attributes = [{name: args, role: "Uploader"}]
+      args.each do |creator_name|
+        self.creator_attributes = [{name: creator_name, role: "Uploader"}]
+      end
     else
       descMetadata.creator = args
     end
@@ -217,7 +228,9 @@ class GenericFile < ActiveFedora::Base
     args = Array(args)
     if args.first.is_a?(String)
       return if args == [''] 
-      self.title_attributes = [{name: args, title_type: "Program"}]
+      args.each do |title_name|
+        self.title_attributes = [{value: title_name, title_type: "Program"}]
+      end
     else
       descMetadata.title=args
     end

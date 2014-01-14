@@ -25,6 +25,10 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
       end
       map.title_type(in: RDF::PBCore, to: 'titleType') 
     end
+
+    def inspect
+      "#<Title @value=\"#{value}\">"
+    end
   end
 
   class Description
