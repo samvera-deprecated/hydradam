@@ -1,16 +1,9 @@
 # -*- encoding : utf-8 -*-
-require 'blacklight/catalog'
-require 'blacklight_advanced_search'
-
-# bl_advanced_search 1.2.4 is doing unitialized constant on these because we're calling ParseBasicQ directly
-require 'parslet'  
-require 'parsing_nesting/tree'
 
 class CatalogController < ApplicationController
   include Blacklight::Catalog
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Hydra::Controller::ControllerBehavior
-  include BlacklightAdvancedSearch::ParseBasicQ
 
   # These before_filters apply the hydra access controls
   before_filter :enforce_show_permissions, :only=>:show
@@ -67,7 +60,19 @@ class CatalogController < ApplicationController
 
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
+    title_name = solr_name("desc_metadata__title", :stored_searchable, type: :string)
+    solr_name = [title_name]
+    solr_name << solr_name("desc_metadata__contributor", :stored_searchable, type: :string)
+    solr_name << solr_name("desc_metadata__tag", :stored_searchable, type: :string)
+    solr_name << solr_name("desc_metadata__description", :stored_searchable, type: :string)
+    solr_name << solr_name("desc_metadata__creator", :stored_searchable, type: :string)
+    solr_name << solr_name("desc_metadata__resource_type", :stored_searchable, type: :string)
+    solr_name << solr_name("desc_metadata__file_format", :stored_searchable, type: :string)
+    solr_name << 'relative_path'
+    solr_name << 'noid_tsi'
     config.default_solr_params = {
+      :qf => solr_name.join(' '),
+      :pf => title_name,
       :qt => "search",
       :rows => 10
     }
