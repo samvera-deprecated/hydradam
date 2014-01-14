@@ -65,7 +65,7 @@ class DownloadsController < ApplicationController
   end
 
   def over_threshold?
-    @asset.file_size.first.to_i > Bawstun::Application.config.ftp_download_threshold
+    @asset.file_size.first.to_i > Hydradam::Application.config.ftp_download_threshold
   end
    
 

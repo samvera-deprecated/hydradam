@@ -1,4 +1,4 @@
-Bawstun::Application.routes.draw do
+Hydradam::Application.routes.draw do
 
   namespace :admin do
     mount RailsAdmin::Engine => '/dashboard', :as => 'rails_admin'

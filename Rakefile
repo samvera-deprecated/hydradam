@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Bawstun::Application.load_tasks
+Hydradam::Application.load_tasks
