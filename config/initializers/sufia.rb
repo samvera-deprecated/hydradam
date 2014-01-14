@@ -60,7 +60,7 @@ Sufia.config do |config|
       "Edit" => "edit"
     }
 
-    config.temp_file_base = '/opt/bawstun_tmp' if Rails.env.production?
+    config.temp_file_base = '/opt/hydradam_tmp' if Rails.env.production?
 
     config.enable_ffmpeg = true
 

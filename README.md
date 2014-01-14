@@ -2,16 +2,15 @@
 
 ```
 git clone ...
-cd bawstun
+cd hydradam
 cp config/database.yml.sample config/database.yml   # setup local config files with dev environment defaults
 cp config/redis.yml.sample config/redis.yml
 cp config/solr.yml.sample config/solr.yml
 cp config/fedora.yml.sample config/fedora.yml
 bundle install
 ```
-**Note:* You will want to edit `config/solr.yml`, `config/fedora.yml` to include urls for your production Fedora and Solr
-
 It's easiest to use hydra-jetty to get fedora and solr running in your development environment, get a copy from github and update your application config files:
+
 ```
 rake jetty:unzip
 rake jetty:config

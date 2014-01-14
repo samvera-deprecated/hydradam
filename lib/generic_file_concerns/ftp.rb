@@ -23,7 +23,7 @@ module GenericFileConcerns
     def obscure_directory(filename)
       begin
         key = unique_key()
-        base = Bawstun::Application.config.ftp_download_base
+        base = Hydradam::Application.config.ftp_download_base
         dirname = File.join(base, key)
       end while File.exist?(dirname)
       Dir.mkdir(dirname)

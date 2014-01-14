@@ -27,5 +27,5 @@ port      opts['-p'] || 21
 # configure the server
 #driver_args 1, 2, 3
 daemonise true if opts.has_key?('-D')
-name      "bawstun"
+name      "hydradam"
 pid_file  "/run/em-ftpd.pid"
