@@ -1,0 +1,30 @@
+/* Use this file to override the colors */
+/* of the buttons on the upload page */
+
+/* the "Select files" button */
+.fileinput-button {
+        background: #417c92;
+}
+.fileinput-button:hover {
+        background: #6395a6;
+}
+
+
+/* the "Start upload" button */
+
+.start {
+        background: #468847;
+}
+.start:hover {
+        background: #55a656;
+}
+
+/* the "Cancel upload" button */
+.cancel {
+	background: #c86004;
+}
+.cancel:hover {
+	background: #d98236;
+}
+
+
