@@ -1,13 +1,4 @@
 GIT
-  remote: git://github.com/curationexperts/hydra-pbcore.git
-  revision: 99e1454524e52ad4e8337d94319dbb3b1ab78e2e
-  ref: 99e1454
-  specs:
-    hydra-pbcore (3.0.2)
-      active-fedora
-      solrizer
-
-GIT
   remote: git://github.com/harai/kaminari.git
   revision: 384fcb5d11b66a0cc8fad030104bf80f82616355
   branch: route_prefix_prototype
@@ -203,6 +194,9 @@ GEM
       hydra-access-controls (= 6.4.1)
       hydra-core (= 6.4.1)
       rails (>= 3.2.6)
+    hydra-pbcore (3.3.1)
+      active-fedora
+      solrizer
     i18n (0.6.9)
     jettywrapper (1.5.0)
       activesupport (>= 3.0.0)
@@ -420,7 +414,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   factory_girl_rails
-  hydra-pbcore!
+  hydra-pbcore (= 3.3.1)
   jettywrapper
   jquery-rails
   kaminari!

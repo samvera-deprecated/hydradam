@@ -20,8 +20,7 @@ gem 'jquery-rails'
 
 #gem 'sufia', '~> 3.5.0'
 gem 'sufia', github:'projecthydra/sufia', ref: 'bdc1439'
-gem 'hydra-pbcore', github:'curationexperts/hydra-pbcore', ref: '99e1454'
-#gem 'hydra-pbcore', '3.0.4'
+gem 'hydra-pbcore', '3.3.1'
 gem 'rails_admin', "~> 0.5.0"
 
 group :development, :test do

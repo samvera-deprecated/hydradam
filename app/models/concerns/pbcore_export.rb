@@ -49,7 +49,7 @@ module PbcoreExport
     end
 
     identifier.each do |ident|
-      doc.insert_identifier(ident.value.first, ident.identifier_type.first)
+      doc.insert_identifier(ident.value.first, nil, ident.identifier_type.first)
     end
 
     doc.note = notes
