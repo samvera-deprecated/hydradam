@@ -9,7 +9,7 @@ describe GenericFile do
     end
     it "should get fits and ffprobe metadata" do
       subject.characterize
-      subject.characterization.mime_type.should == ["video/quicktime", "video/mp4"]
+      subject.characterization.mime_type.should include "video/quicktime"
       subject.ffprobe.streams.stream(1).duration == "8.033"
       subject.should be_video
     end
