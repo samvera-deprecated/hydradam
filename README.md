@@ -35,6 +35,29 @@ cp config/initializers/devise.rb.sample config/initializers/devise.rb
  
 You also need ffmpeg installed with some extra codecs enabled.  See the [Sufia README file](https://github.com/projecthydra/sufia/blob/master/README.md#if-you-want-to-enable-transcoding-of-video-instal-ffmpeg-version-10) for instructions.
 
+## Import Authority files
+
+### Subjects
+
+Go to http://id.loc.gov/download/ and find the "LC Subject Headings (SKOS/RDF only)" file.
+Download the .nt version of that file.
+Uncompress the file and move it to ```/tmp/subjects-skos.nt```.
+
+Run the rake task to import it:
+```bash
+rake hydradam:harvest:lc_subjects
+```
+
+### Languages
+
+Download and unzip this file: http://www.lexvo.org/resources/lexvo_2012-03-04.rdf.gz
+Move the file to ```/tmp/lexvo_2012-03-04.rdf```
+
+Run the rake task to import it:
+```bash
+rake hydradam:harvest:lexvo_languages
+```
+
 ## Start workers
 ```
 QUEUE=* rake environment resque:work
