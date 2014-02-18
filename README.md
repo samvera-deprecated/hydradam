@@ -35,6 +35,16 @@ cp config/initializers/devise.rb.sample config/initializers/devise.rb
  
 You also need ffmpeg installed with some extra codecs enabled.  See the [Sufia README file](https://github.com/projecthydra/sufia/blob/master/README.md#if-you-want-to-enable-transcoding-of-video-instal-ffmpeg-version-10) for instructions.
 
+## Importing metadata
+
+```bash
+# Usage:
+./script/import_metadata <file> <user_id>
+  
+# Example:
+./script/import_metadata spec/fixtures/import/metadata/broadway_or_bust.pbcore.xml archivist1@example.com
+```
+
 ## Start workers
 ```
 QUEUE=* rake environment resque:work

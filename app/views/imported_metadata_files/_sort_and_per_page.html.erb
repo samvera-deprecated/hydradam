@@ -3,6 +3,10 @@
   <div class="sorting">
       <%#= label_tag(:sort, "<strong>Sort by</strong> ".html_safe) %>
       <%#= select_tag(:sort, options_for_select(sort_fields, h(params[:sort])), :class => "input-medium") %>
+      <%
+        # hack for blacklight. Rails no longer lets helpers access controller instance variables. Fixed in blacklight 4.6.
+        @response = response
+      %>
       <%= render_pagination_info response, :entry_name=>'matching file' %>
       <% unless response.response['numFound'] < 2 %>
       <%= label_tag(:per_page) do %>
