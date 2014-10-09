@@ -57,17 +57,8 @@ Move the file to ```/tmp/lexvo_2012-03-04.rdf```
 Run the rake task to import it:
 ```bash
 rake hydradam:harvest:lexvo_languages
-
-=======
-## Importing metadata templates
-
-```bash
-# Usage:
-./script/import_metadata <file> <user_id>
-  
-# Example:
-./script/import_metadata spec/fixtures/import/metadata/broadway_or_bust.pbcore.xml archivist1@example.com
 ```
+
 
 ## Start workers
 ```
@@ -86,4 +77,15 @@ rake spec
 To run the whole test suite, including spinning jetty up & down, loading fedora fixtures, etc. 
 ```
 rake ci
+```
+
+=======
+## Importing metadata templates
+
+```bash
+# Usage:
+./script/import_metadata <file> <user_id>
+  
+# Example:
+./script/import_metadata spec/fixtures/import/metadata/broadway_or_bust.pbcore.xml archivist1@example.com
 ```
