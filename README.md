@@ -16,11 +16,6 @@ rake jetty:unzip
 rake jetty:config
 ```
 
-Make sure your database configuration is up-to-date:
-```
-rake db:migrate
-```
-
 Set up your application secret token.
 ```
 cp config/initializers/secret_token.rb.sample config/initializers/secret_token.rb
@@ -33,6 +28,12 @@ cp config/initializers/devise.rb.sample config/initializers/devise.rb
 ```
 ... then replace the sample secret token in that file with one of your own. You can use `rake secret` to generate a token for you.
  
+
+Make sure your database configuration is up-to-date:
+```
+rake db:migrate
+```
+
 You also need ffmpeg installed with some extra codecs enabled.  See the [Sufia README file](https://github.com/projecthydra/sufia/blob/master/README.md#if-you-want-to-enable-transcoding-of-video-instal-ffmpeg-version-10) for instructions.
 
 ## Import Authority files
