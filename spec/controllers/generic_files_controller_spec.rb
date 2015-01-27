@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GenericFilesController do
+describe GenericFilesController, type: :controller do
   before do
     @user = FactoryGirl.create(:user)
     sign_in @user
