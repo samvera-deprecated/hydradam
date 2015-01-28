@@ -32,6 +32,13 @@ group :development, :test do
   gem "unicorn"
 end
 
+group :development do
+  # There's a bug in net-ssh that causes a failure during capistrano deployments.
+  # Failure is that it will fail to connect to remote server without asking for username or password.
+  # Pinning to 2.7.x fixes it.
+  gem 'net-ssh', "2.7.0"
+end
+
 group :production do
   gem 'mysql2'
 end
