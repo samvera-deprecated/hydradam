@@ -24,7 +24,7 @@ gem 'hydra-pbcore', '3.3.1'
 gem 'rails_admin', "~> 0.5.0"
 
 group :development, :test do
-  #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
+  gem 'byebug' # This is a debugger, can be removed when not needed by the developer
   gem 'jettywrapper'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -40,3 +40,5 @@ gem "devise"
 gem "bootstrap-sass"
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
+
+gem 'rspec-its'
