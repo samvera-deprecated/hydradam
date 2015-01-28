@@ -21,4 +21,7 @@ Hydradam::Application.configure do
   config.storage_manager = 'NullStorageManager'
 
   config.eager_load = false
+
+  # Base directory for original content storage 
+  config.external_store_base = File.join(Rails.root, 'tmp')
 end
