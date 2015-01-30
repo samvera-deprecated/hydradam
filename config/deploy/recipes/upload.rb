@@ -1,5 +1,3 @@
-require 'byebug'
-
 namespace :deploy do
   task :upload do
 
@@ -35,7 +33,7 @@ namespace :deploy do
     answer = ''
     while !%w(y yes n no).include?(answer)
       puts "Type 'y' or 'n'" unless answer == ''
-      set :answer, Capistrano::CLI.ui.ask("Upload #{file_list.count} file(s) to #{dest_dir} ? (y/N)")
+      set :answer, Capistrano::CLI.ui.ask("Upload #{file_list.count} file(s) from #{opts[:from]} to #{dest_dir} ? (y/N)")
       answer = fetch(:answer).downcase
 
       # if the user just hit Enter without typing anything, assume "no" is the answer
