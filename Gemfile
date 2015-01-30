@@ -24,12 +24,19 @@ gem 'hydra-pbcore', '3.3.1'
 gem 'rails_admin', "~> 0.5.0"
 
 group :development, :test do
-  #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
+  gem 'byebug' # This is a debugger, can be removed when not needed by the developer
   gem 'jettywrapper'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem "unicorn"
+end
+
+group :development do
+  # There's a bug in net-ssh that causes a failure during capistrano deployments.
+  # Failure is that it will fail to connect to remote server without asking for username or password.
+  # Pinning to 2.7.x fixes it.
+  gem 'net-ssh', "2.7.0"
 end
 
 group :production do
@@ -40,3 +47,5 @@ gem "devise"
 gem "bootstrap-sass"
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
+
+gem 'rspec-its'
