@@ -9,6 +9,13 @@ set :stages, %w(production staging)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 
+
+###############################################################################
+# LOAD OTHER RECIPES
+###############################################################################
+load 'config/deploy/recipes/upload'
+
+
 ###############################################################################
 # COMMON CONFIG - Set configuration common to all stages and tasks
 #   Config for specific stages should be set in config/deploy/name_of_stage.rb
