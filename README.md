@@ -9,24 +9,21 @@ cp config/solr.yml.sample config/solr.yml
 cp config/fedora.yml.sample config/fedora.yml
 bundle install
 ```
-It's easiest to use hydra-jetty to get fedora and solr running in your development environment, get a copy from github and update your application config files:
+It's easiest to use hydra-jetty to get fedora and solr running in your development environment.
+Get a copy from github and update your application config files:
 
 ```
 rake jetty:unzip
 rake jetty:config
 ```
 
-Set up your application secret token.
+Set up your secret tokens.
 ```
 cp config/initializers/secret_token.rb.sample config/initializers/secret_token.rb
-```
-... then replace the sample secret token in that file with one of your own. You can use `rake secret` to generate a token for you.
-
-Set up a devise secret token.
-```
 cp config/initializers/devise.rb.sample config/initializers/devise.rb
 ```
-... then replace the sample secret token in that file with one of your own. You can use `rake secret` to generate a token for you.
+For production environments you will want to replace the default values.
+You can use `rake secret` to generate a token for you.
  
 
 Make sure your database configuration is up-to-date:
@@ -37,6 +34,8 @@ rake db:migrate
 You also need ffmpeg installed with some extra codecs enabled.  See the [Sufia README file](https://github.com/projecthydra/sufia/blob/master/README.md#if-you-want-to-enable-transcoding-of-video-instal-ffmpeg-version-10) for instructions.
 
 ## Import Authority files
+
+(These vocabularies are not actually necessary for most development tests, and the LCSH file is big.) 
 
 ### Subjects
 
@@ -59,18 +58,20 @@ Run the rake task to import it:
 rake hydradam:harvest:lexvo_languages
 ```
 
+## Redis
 
-## Start workers
+Installation and startup will depend on your environment. For a Mac with Homebrew:
+
 ```
+brew install redis
+sudo redis-server /usr/local/etc/redis.conf
 QUEUE=* rake environment resque:work
 ```
 
 # Running tests
 
-
-If you have jetty running, run 
-
 ```
+rake jetty:start # If it's not running already.
 rake spec
 ```
 
