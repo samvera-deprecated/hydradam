@@ -1,6 +1,15 @@
+# namespace :ci do
+#   desc "Prepare to run specs via continuous integration"
+#   task :prepare => ["jetty:clean", "jetty:config"]
+# end
+
 desc "Run ci"
-task :ci do 
-  puts "Updating Solr config"
+task :ci do
+
+  # Download a clean copy of Jetty, preloaded with Solr and Fedora from the hydra-jetty gem.
+  Rake::Task['jetty:clean'].invoke
+
+  # Copy config from solr_conf/ and fedora_conf/ directories to Solr and Fedora downloaded from hydra-jetty gem.
   Rake::Task['jetty:config'].invoke
   
   require 'jettywrapper'

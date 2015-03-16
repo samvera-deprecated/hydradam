@@ -1,0 +1,49 @@
+## Based on .travis.yml from ScholarSphere: https://github.com/psu-stewardship/scholarsphere/blob/develop/.travis.yml
+language: ruby
+cache: bundler
+sudo: false
+
+rvm:
+  - 2.1
+
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+    - JS=true
+  # matrix:
+  #   - TEST_SUITE=mainfeature
+  #   - TEST_SUITE=subfeature
+  #   - TEST_SUITE=unit
+
+before_install:
+  - export PATH="$PATH:$(pwd)/fits"
+
+services:
+  - redis-server
+
+before_script:
+  - "cp config/database.yml.sample config/database.yml"
+  - "cp config/redis.yml.sample config/redis.yml"
+  - "cp config/initializers/devise.rb.sample config/initializers/devise.rb"
+  - "cp config/solr.yml.sample config/solr.yml"
+  - "cp config/fedora.yml.sample config/fedora.yml"
+  - "cp config/initializers/secret_token.rb.sample config/initializers/secret_token.rb"
+  - redis-cli info
+
+matrix:
+  fast_finish: true
+
+script:
+  - "bundle exec rake ci"
+
+notifications:
+  email:
+    recipients:
+      - "andrew_myers@wgbh.org"
+    on_success: "change"
+    on_failure: "always"
+  irc:
+    channels:
+      - "irc.freenode.org#hydradam"
+    template:
+      - "%{repository}//%{branch}@%{commit} by %{author}: %{message} - %{build_url}"
