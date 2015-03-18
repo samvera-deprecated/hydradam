@@ -8,15 +8,12 @@ rvm:
 
 env:
   global:
+    - TRAVIS=true
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
     - JS=true
-  # matrix:
-  #   - TEST_SUITE=mainfeature
-  #   - TEST_SUITE=subfeature
-  #   - TEST_SUITE=unit
 
 before_install:
-  - export PATH="$PATH:$(pwd)/fits"
+  - export PATH="$PATH:$(pwd)/fits-0.8.4"
 
 services:
   - redis-server
@@ -28,7 +25,7 @@ before_script:
   - "cp config/solr.yml.sample config/solr.yml"
   - "cp config/fedora.yml.sample config/fedora.yml"
   - "cp config/initializers/secret_token.rb.sample config/initializers/secret_token.rb"
-  - redis-cli info
+  - "redis-cli info"
 
 matrix:
   fast_finish: true
@@ -37,11 +34,11 @@ script:
   - "bundle exec rake ci"
 
 notifications:
-  email:
-    recipients:
-      - "andrew_myers@wgbh.org"
-    on_success: "change"
-    on_failure: "always"
+  # email:
+  #   recipients:
+  #     - "andrew_myers@wgbh.org"
+  #   on_success: "change"
+  #   on_failure: "always"
   irc:
     channels:
       - "irc.freenode.org#hydradam"

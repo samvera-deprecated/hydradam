@@ -1,10 +1,8 @@
-# namespace :ci do
-#   desc "Prepare to run specs via continuous integration"
-#   task :prepare => ["jetty:clean", "jetty:config"]
-# end
-
 desc "Run ci"
 task :ci do
+
+  # Install fits
+  Rake::Task['fits:install'].invoke
 
   # Download a clean copy of Jetty, preloaded with Solr and Fedora from the hydra-jetty gem.
   Rake::Task['jetty:clean'].invoke

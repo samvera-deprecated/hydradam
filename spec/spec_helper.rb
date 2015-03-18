@@ -10,6 +10,10 @@ Resque.inline = Rails.env.test?
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+# Global variable? Sure, why not? Use $in_travis in your tests to, say, exclude tests from running when on Travis CI.
+# NOTE: Then environment variable being checked here is set in .travis.yml.
+$in_travis = !ENV['TRAVIS'].nil? && ENV['TRAVIS'] == 'true'
+
 RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   
@@ -30,4 +34,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.filter_run_excluding :unless => true
 end
