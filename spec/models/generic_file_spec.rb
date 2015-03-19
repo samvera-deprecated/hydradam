@@ -7,7 +7,7 @@ describe GenericFile do
       subject.stub(noid: 'abcdefg')
       subject.add_file(File.open(fixture_path + '/sample.mov', 'rb'), 'content', 'sample.mov')
     end
-    it "should get fits and ffprobe metadata" do
+    it "should get fits and ffprobe metadata", unless: $in_travis do
       subject.characterize
       subject.characterization.mime_type.should include "video/quicktime"
       subject.ffprobe.streams.stream(1).duration == "8.033"

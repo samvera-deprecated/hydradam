@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/projecthydra-labs/hydradam.svg?branch=HDM-37-set-up-Travis-CI-for-github-repo)](https://travis-ci.org/projecthydra-labs/hydradam)
+
 # Setting up a local development copy
 
 ```

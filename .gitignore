@@ -33,3 +33,6 @@ config/offline_files.txt
 
 spec/mock_upload_directory
 spec/storage
+
+# Ignore any download of FITS
+/fits*
