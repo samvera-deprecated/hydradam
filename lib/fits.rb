@@ -26,7 +26,7 @@ module Fits
     end
 
     def remove_zip_file
-      within_dir(install_dir) do
+      Dir.chdir(install_dir) do
         puts_around("Removing #{File.expand_path(zipped_filename)}") { FileUtils.rm_r(zipped_filename, secure: true) if File.exists? zipped_filename }
       end
     end
@@ -37,13 +37,6 @@ module Fits
     end
 
     private
-
-    def within_dir(dir)
-      orig_dir = Dir.pwd
-      Dir.chdir(dir)
-      yield if block_given?
-      Dir.chdir(orig_dir)
-    end
 
     def zipped_filename
       File.basename(download_url)
