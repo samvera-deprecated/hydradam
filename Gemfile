@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.3'
+gem 'rails', '~> 4.1'
 
 
 # Gems used only for assets and not required
@@ -18,10 +18,9 @@ end
 gem 'jquery-rails'
 
 
-#gem 'sufia', '~> 3.5.0'
-gem 'sufia', github:'projecthydra/sufia', ref: 'bdc1439'
+gem 'sufia', '~> 6.0.0'
 gem 'hydra-pbcore', '3.3.1'
-gem 'rails_admin', "~> 0.5.0"
+gem 'rails_admin'
 
 group :development, :test do
   #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
@@ -41,5 +40,5 @@ end
 gem "devise"
 gem "bootstrap-sass"
 
-gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
+# gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
 gem 'rspec-its'
