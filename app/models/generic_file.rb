@@ -2,7 +2,7 @@ require 'fileutils'
 
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
-  include Open3
+  # include Open3
   include GenericFileConcerns::Ftp
   include PbcoreExport
 
