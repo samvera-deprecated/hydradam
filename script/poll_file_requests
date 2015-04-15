@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # This command will automatically be run when you run "rails" with Rails 3 gems installed from the root of your application.
 
-require File.expand_path('../../config/environment.rb',  __FILE__)
+require_relative('../config/environment')
 
 FileRequest.where(:fulfillment_date => nil).each do |req|
   if (f = GenericFile.find(req.pid)) && f.content.live?

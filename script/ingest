@@ -12,7 +12,7 @@ puts "depositing #{path}"
 puts "on behalf of #{depositor}"
 
 
-require File.expand_path('../../config/environment.rb',  __FILE__)
+require_relative('../config/environment')
 
 gf = GenericFile.new()
 gf.apply_depositor_metadata(depositor)
