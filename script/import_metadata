@@ -16,7 +16,7 @@ end
 
 
 puts "Loading environment..."
-require File.join(File.dirname(__FILE__), '../config/environment.rb')
+require_relative('../config/environment')
 puts "Importing..."
 
 size = WGBH::MetadataImporter.new(filename, user_key).import
