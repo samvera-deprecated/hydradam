@@ -36,3 +36,6 @@ spec/storage
 
 # Ignore any download of FITS
 /fits*
+
+# IDE
+/nbproject
