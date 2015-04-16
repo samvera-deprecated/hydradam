@@ -18,12 +18,12 @@ describe ImportedMetadataManagerController do
         xhr :get, :index
       end
       it "should be a success" do
-        response.should be_success
-        response.should render_template('imported_metadata_manager/index')
+        expect(response).to be_success
+        expect(response).to render_template('imported_metadata_manager/index')
       end
       it "should return an array of documents I can edit" do
         user_results = Blacklight.solr.get "select", :params=>{:fq=>["edit_access_group_ssim:public OR edit_access_person_ssim:#{@user.user_key}"]}
-        assigns(:document_list).count.should eql(user_results["response"]["numFound"])
+        expect(assigns(:document_list).count).to eql(user_results["response"]["numFound"])
       end
     end
   end
@@ -31,7 +31,7 @@ describe ImportedMetadataManagerController do
     describe "#index" do
       it "should return an error" do
         xhr :post, :index
-        response.should_not be_success
+        expect(response).to_not be_success
       end
     end
   end

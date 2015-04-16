@@ -15,6 +15,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 $in_travis = !ENV['TRAVIS'].nil? && ENV['TRAVIS'] == 'true'
 
 RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
   config.include Devise::TestHelpers, :type => :controller
   
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
