@@ -10,6 +10,9 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+# Ignore redis dump
+dump.rdb
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
