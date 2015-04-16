@@ -18,13 +18,14 @@ describe BatchEditsController do
       @one.save!
       @two.save!
       controller.batch = [@one.pid, @two.pid]
-      controller.should_receive(:can?).with(:edit, @one.pid).and_return(true)
-      controller.should_receive(:can?).with(:edit, @two.pid).and_return(true)
+      
+      expect(controller).to receive(:can?).with(:edit, @one.pid).and_return(true)
+      expect(controller).to receive(:can?).with(:edit, @two.pid).and_return(true)
     end
     it "should be successful" do
       get :edit
-      response.should be_successful
-      assigns[:terms].should == [ :contributor, :creator, :description, :event_location,
+      expect(response).to be_successful
+      expect(assigns[:terms]).to eq [ :contributor, :creator, :description, :event_location,
           :production_location, :date_portrayed, :source, :source_reference, :rights_holder,
           :rights_summary, :publisher, :date_created, :release_date, :review_date, :aspect_ratio,
           :frame_rate, :cc, :physical_location, :identifier, :metadata_filename, :notes,

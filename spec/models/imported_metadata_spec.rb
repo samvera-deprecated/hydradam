@@ -11,20 +11,20 @@ describe ImportedMetadata do
   it "should respond to noid" do
     subject.apply_depositor_metadata("frank")
     subject.save!
-    subject.noid.should_not be_empty
+    expect(subject.noid).to_not be_empty
   end
 
   it "should apply_depositor_metadata" do
     subject.apply_depositor_metadata("frank")
-    subject.edit_users.should == ['frank']
-    subject.depositor.should == 'frank'
+    expect(subject.edit_users).to eq ['frank']
+    expect(subject.depositor).to eq 'frank'
     subject.save!
   end
 
   it "should have an apply_to accessor" do
-    subject.apply_to.should == []  
+    expect(subject.apply_to).to eq []  
     subject.apply_to = ["zw132p31r", "zw132p321", "zw132p339"]  
-    subject.apply_to.should == ["zw132p31r", "zw132p321", "zw132p339"]  
+    expect(subject.apply_to).to eq ["zw132p31r", "zw132p321", "zw132p339"]  
   end
 
   describe "applying the metadata" do
@@ -52,15 +52,15 @@ describe ImportedMetadata do
       subject.apply!
       [@file1, @file2, @file3].each do |f|
         f.reload
-        f.series_title.should == ['Nova']
-        f.program_title.should == ['The Smartest Machine']
-        f.item_title.should == ['sample item']
-        f.episode_title.should == ['sample episode']
-        f.description.first.value.should == ['my description']
-        f.event_location.should == ['New York, NY']
-        f.has_event.first.date_time.should == ['06/21/2012']
-        f.applied_template_id.should == subject.pid
-        f.unarranged.should be_false
+        expect(f.series_title).to eq ['Nova']
+        expect(f.program_title).to eq ['The Smartest Machine']
+        expect(f.item_title).to eq ['sample item']
+        expect(f.episode_title).to eq ['sample episode']
+        expect(f.description.first.value).to eq ['my description']
+        expect(f.event_location).to eq ['New York, NY']
+        expect(f.has_event.first.date_time).to eq ['06/21/2012']
+        expect(f.applied_template_id).to eq subject.pid
+        expect(f.unarranged).to eq false
       end
     end
   end
@@ -68,9 +68,9 @@ describe ImportedMetadata do
   describe "match_files_with_path" do
     it "should combine drive_name and folder_name" do
       subject.descMetadata.content = file.read
-      subject.drive_name.should == "G-DRIVE_BoB_Auditions"
-      subject.folder_name.should == "ATLANTA"
-      subject.match_files_with_path.should == "G-DRIVE_BoB_Auditions/ATLANTA"
+      expect(subject.drive_name).to eq "G-DRIVE_BoB_Auditions"
+      expect(subject.folder_name).to eq "ATLANTA"
+      expect(subject.match_files_with_path).to eq "G-DRIVE_BoB_Auditions/ATLANTA"
     end
   end
 
@@ -89,10 +89,10 @@ describe ImportedMetadata do
         f.apply_depositor_metadata(@user.user_key)
         f.save
       end
-      subject.matching_files.count.should == 2
-      subject.matching_files.should include(@file1)
-      subject.matching_files.should include(@file2)
-      subject.matching_files.should_not include(@file3)
+      expect(subject.matching_files.count).to eq 2
+      expect(subject.matching_files).to include(@file1)
+      expect(subject.matching_files).to include(@file2)
+      expect(subject.matching_files).to_not include(@file3)
     end
   end
 end

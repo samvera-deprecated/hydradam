@@ -21,10 +21,10 @@ describe DownloadsController do
         controller.stub :send_content
       end
       it "should log downloads" do
-        @file.downloads.size.should == 0
+        expect(@file.downloads.size).to eq 0
         get :show, id: @file
-        response.should be_successful
-        @file.downloads.size.should == 1
+        expect(response).to be_successful
+        expect(@file.downloads.size).to eq 1
       end
     end
 
@@ -43,42 +43,42 @@ describe DownloadsController do
         end
 
         it "should give an ftp link" do
-          File.exist?('tmp/test_ftp_download/Test.MOV').should be_false
-          controller.should_receive(:over_threshold?).and_return(true)
+          expect(File.exist?('tmp/test_ftp_download/Test.MOV')).to eq false
+          expect(controller).to receive(:over_threshold?).and_return(true)
           get :show, id: @file
-          response.should be_successful
-          assigns[:ftp_link].should match /^ftp:\/\/test.host\/[^\/]+\/Test.MOV$/
-          File.exist?('tmp/test_ftp_download/Test.MOV').should be_true
+          expect(response).to be_successful
+          expect(assigns[:ftp_link]).to match /^ftp:\/\/test.host\/[^\/]+\/Test.MOV$/
+          expect(File.exist?('tmp/test_ftp_download/Test.MOV')).to eq true
         end
       end
       it "should not give an ftp link when they want a proxy" do
-        controller.should_receive(:send_content).with(@file)
+        expect(controller).to receive(:send_content).with(@file)
         get :show, id: @file, datastream_id: 'webm'
-        response.should be_successful
-        assigns[:ftp_link].should be_nil
+        expect(response).to be_successful
+        expect(assigns[:ftp_link]).to be_nil
       end
     end
 
     describe "for a file that is not online" do
       before do
-        FileContentDatastream.any_instance.stub(:live?).and_return(false)
+        allow_any_instance_of(FileContentDatastream).to receive(:live?).and_return(false)
         @file.add_file_datastream('proxymovie', :dsid=>'webm', :mimeType => 'video/webm')
         @file.save!
       end
 
       it "should give an ftp link" do
-        FileContentDatastream.any_instance.should_receive(:online!).with(@user)
+        expect_any_instance_of(FileContentDatastream).to receive(:online!).with(@user)
         get :show, id: @file
-        response.should be_successful
-        response.should render_template 'offline'
+        expect(response).to be_successful
+        expect(response).to render_template 'offline'
       end
       it "should show the proxy (proxies don't go offline)" do
         get :show, id: @file, datastream_id: 'webm'
-        response.should be_successful
-        response.should be_success
-        response.headers['Content-Type'].should == "video/webm"
-        response.headers["Content-Disposition"].should == "inline; filename=\"webm\""
-        response.body.should == 'proxymovie'
+        expect(response).to be_successful
+        expect(response).to be_success
+        expect(response.headers['Content-Type']).to eq "video/webm"
+        expect(response.headers["Content-Disposition"]).to eq "inline; filename=\"webm\""
+        expect(response.body).to eq 'proxymovie'
       end
     end
   end
@@ -94,7 +94,7 @@ describe DownloadsController do
 
     it "should say 401 unauthorized" do
       get :show, id: @file
-      response.should redirect_to "/assets/NoAccess.png"
+      expect(response).to redirect_to "/assets/NoAccess.png"
     end
   end
 

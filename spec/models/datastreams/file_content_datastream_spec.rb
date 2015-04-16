@@ -17,7 +17,7 @@ describe FileContentDatastream do
   end
   describe "#dsChecksumValid" do
     describe "when the file is unchanged" do
-      its(:dsChecksumValid) { should be_true}
+      its(:dsChecksumValid) { should eq true}
     end
     describe "when the file is changed" do
       before do
@@ -25,7 +25,7 @@ describe FileContentDatastream do
           f.puts "Changed it"
         end
       end
-      its(:dsChecksumValid) { should be_false}
+      its(:dsChecksumValid) { should eq false}
     end
   end
 
