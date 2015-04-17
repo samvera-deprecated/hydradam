@@ -1,52 +1,52 @@
 class MediaAnnotationDatastream < RDF::EbuCore::Datastream
-  map_predicates do |map|
-    map.title(:in=> RDF::DC, :class_name=>'Title')
 
-    map.date_uploaded(:to => "dateSubmitted", in: RDF::DC) do |index|
-      index.type :date
-      index.as :stored_sortable
-    end
-    map.related_url(:to => "seeAlso", in: RDF::RDFS)
+  # property :title, RDF::DC.title
 
-    map.description(in: RDF::EbuCore, class_name: 'Description')
-    map.review_date(in: RDF::WGBH, to: 'hasReviewDate')
-    map.physical_location(in: RDF::WGBH, to: 'hasPhysicalLocation')
-    map.identifier(in: RDF::EbuCore, class_name: 'Identifier')
-    map.originating_department(in: RDF::WGBH, to: 'originatingDepartment')
-  end
+  # map_predicates do |map|
+  #   map.title(:in=> RDF::DC, :class_name=>'Title')
+
+  #   map.date_uploaded(:to => "dateSubmitted", in: RDF::DC) do |index|
+  #     index.type :date
+  #     index.as :stored_sortable
+  #   end
+  #   map.related_url(:to => "seeAlso", in: RDF::RDFS)
+
+  #   map.description(in: RDF::EbuCore, class_name: 'Description')
+  #   map.review_date(in: RDF::WGBH, to: 'hasReviewDate')
+  #   map.physical_location(in: RDF::WGBH, to: 'hasPhysicalLocation')
+  #   map.identifier(in: RDF::EbuCore, class_name: 'Identifier')
+  #   map.originating_department(in: RDF::WGBH, to: 'originatingDepartment')
+  # end
 
   accepts_nested_attributes_for :title, :description, :identifier
 
   class Title
-    include ActiveFedora::RdfObject
-    map_predicates do |map|
-      map.value(in: RDF, to: 'value') do |index|
-        index.as :stored_searchable
-      end
-      map.title_type(in: RDF::PBCore, to: 'titleType') 
-    end
+    # map_predicates do |map|
+    #   map.value(in: RDF, to: 'value') do |index|
+    #     index.as :stored_searchable
+    #   end
+    #   map.title_type(in: RDF::PBCore, to: 'titleType') 
+    # end
 
     def inspect
       "#<Title @value=\"#{value}\">"
     end
   end
 
-  class Description
-    include ActiveFedora::RdfObject
-    map_predicates do |map|
-      map.value(in: RDF, to: 'value') do |index|
-        index.as :stored_searchable
-      end
-      map.type(in: RDF::PBCore, to: 'titleType') 
-    end
+  class Description < ActiveFedora::Rdf::Resource
+    # map_predicates do |map|
+    #   map.value(in: RDF, to: 'value') do |index|
+    #     index.as :stored_searchable
+    #   end
+    #   map.type(in: RDF::PBCore, to: 'titleType') 
+    # end
   end
 
-  class Identifier
-    include ActiveFedora::RdfObject
-    map_predicates do |map|
-      map.value(in: RDF, to: 'value')
-      map.identifier_type(in: RDF::WGBH, to: 'identifierType') 
-    end
+  class Identifier < ActiveFedora::Rdf::Resource
+    # map_predicates do |map|
+    #   map.value(in: RDF, to: 'value')
+    #   map.identifier_type(in: RDF::WGBH, to: 'identifierType') 
+    # end
   end
   
 
