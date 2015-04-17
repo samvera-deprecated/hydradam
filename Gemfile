@@ -24,11 +24,6 @@ gem 'rsolr', '~> 1.0.6'
 gem 'jbuilder', '~> 2.0'
 gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
 
-gem 'hydra-pbcore', '3.3.1'
-
-
-# gem 'rails_admin'
-
 # We needed to fork rails_admin because it has a dependency on kaminari that
 # was conflicting with the jcoyne/kaminari, 'sufia' branch, specified abvoe.
 # The forked rails_admin relaxes the kaminari requirement to allow it to use
@@ -36,6 +31,11 @@ gem 'hydra-pbcore', '3.3.1'
 # merged: https://github.com/amatsuda/kaminari/pull/636
 gem 'rails_admin', github: 'WGBH/rails_admin', branch: 'v0.6.7-jcoyne-kaminari'
 
+gem 'hydra-pbcore', github: 'WGBH/hydra-pbcore', branch: 'use-with-hydradam'
+
+# Only needed until a rubygems release includes 'c39671d', probably '~> 9.0.8'.
+# Once that happens, remove this line.
+gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'c39671d'
 
 group :development, :test do
   #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
@@ -46,6 +46,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem "unicorn"
+  gem 'pry-rails'
 end
 
 group :production do
@@ -55,5 +56,4 @@ end
 gem "devise"
 gem "bootstrap-sass"
 
-# gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
-gem 'rspec-its'
+gem 'rspec-its' # backport of rspec 2 syntax, used in a spec for ffmpeg.
