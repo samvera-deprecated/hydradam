@@ -12,18 +12,18 @@ describe UserMailer do
   let(:mail) { UserMailer.file_online_notice(user, file) }
 
   it 'has the subject' do
-    mail.subject.should == 'File ready for download'
+    expect(mail.subject).to eq 'File ready for download'
   end
 
   it 'has the receivers email' do
-    mail.to.should == [user.email]
+    expect(mail.to).to eq [user.email]
   end
 
   it 'has the sender email' do
-    mail.from.should == ['no-reply@example.com']
+    expect(mail.from).to eq ['no-reply@example.com']
   end
 
   it 'has a link to the file' do
-    mail.body.encoded.should match(/\/downloads\/#{file.noid}/)
+    expect(mail.body.encoded).to match(/\/downloads\/#{file.noid}/)
   end
 end

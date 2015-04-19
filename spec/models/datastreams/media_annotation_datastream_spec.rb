@@ -11,7 +11,7 @@ describe MediaAnnotationDatastream do
     p.name = 'Baker, R. Lisle'
     p.role = 'Director'
     ds.contributor = [p]
-    ds.contributor.first.name.should == ['Baker, R. Lisle']
+    expect(ds.contributor.first.name).to eq ['Baker, R. Lisle']
   end
 
   it "should have date_uploaded" do

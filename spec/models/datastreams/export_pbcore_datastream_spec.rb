@@ -8,9 +8,9 @@ describe ExportPbcoreDatastream do
     subject.title('Episode', "Sample Episode")
 
     xml = subject.ng_xml
-    xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "Sample Program"
-    xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "Sample Series"
-    xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text.should == "Sample Item"
-    xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text.should == "Sample Episode"
+    expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text).to eq "Sample Program"
+    expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text).to eq "Sample Series"
+    expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text).to eq "Sample Item"
+    expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text).to eq "Sample Episode"
   end
 end

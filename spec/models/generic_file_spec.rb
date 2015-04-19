@@ -9,9 +9,8 @@ describe GenericFile do
     end
     it "should get fits and ffprobe metadata", unless: $in_travis do
       subject.characterize
-      subject.characterization.mime_type.should include "video/quicktime"
-      subject.ffprobe.streams.stream(1).duration == "8.033"
-      subject.should be_video
+      expect(subject.characterization.mime_type.to_a).to include "video/quicktime"
+      expect(subject).to be_video
     end
   end
 
@@ -23,10 +22,10 @@ describe GenericFile do
       subject.title = ['title3', 'title4']
     end
     it "should append each term only once" do
-      subject.creator.map(&:name).flatten.should == ['author3', 'author4']
+      expect(subject.creator.map(&:name).flatten).to eq ['author3', 'author4']
       subject.append_metadata
-      subject.title.map(&:value).flatten.should == ['title3', 'title4', 'test1', 'test2']
-      subject.creator.map(&:name).flatten.should == ['author3', 'author4', 'author1', 'author2']
+      expect(subject.title.map(&:value).flatten).to eq ['title3', 'title4', 'test1', 'test2']
+      expect(subject.creator.map(&:name).flatten).to eq ['author3', 'author4', 'author1', 'author2']
     end
   end
 
@@ -49,8 +48,8 @@ describe GenericFile do
 </ffprobe>
 EOF
       end
-      its(:video?) { should be_true}
-      its(:audio?) { should be_false}
+      its(:video?) { should eq true}
+      its(:audio?) { should eq false}
     end
 
     describe "when the mxf only has audio tracks" do
@@ -65,14 +64,14 @@ EOF
 </ffprobe>
 EOF
       end
-      its(:video?) { should be_false}
-      its(:audio?) { should be_true}
+      its(:video?) { should eq false}
+      its(:audio?) { should eq true}
     end
   end
 
   describe "terms_for_editing" do
     it "should return a list" do
-      subject.terms_for_editing.should == [ :contributor, :creator, :title, :description, 
+      expect(subject.terms_for_editing).to eq [ :contributor, :creator, :title, :description, 
         :event_location, :production_location, :date_portrayed, :source, :source_reference,
         :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
         :aspect_ratio, :frame_rate, :cc, :physical_location, :identifier, :metadata_filename,
@@ -82,7 +81,7 @@ EOF
   end
   describe "terms_for_display" do
     it "should return a list" do
-      subject.terms_for_display.should == [ :part_of, :contributor, :creator, :title, :description, 
+      expect(subject.terms_for_display).to eq [ :part_of, :contributor, :creator, :title, :description, 
         :event_location, :production_location, :date_portrayed, :source, :source_reference,
         :rights_holder, :rights_summary, :publisher, :date_created, :release_date, :review_date,
         :aspect_ratio, :frame_rate, :cc, :physical_location, :identifier, :metadata_filename,
@@ -93,38 +92,38 @@ EOF
   describe "contributor attribute" do
     it "should delegate to the bnode" do
       subject.contributor_attributes = [{name: "Sally"}, {name:"Mary"}]
-      subject.descMetadata.contributor.first.name.should == ["Sally"]
-      subject.descMetadata.contributor.last.name.should == ["Mary"]
-      subject.contributor.first.should be_kind_of MediaAnnotationDatastream::Person
-      subject.contributor.first.name.first.should == "Sally"
+      expect(subject.descMetadata.contributor.first.name).to eq ["Sally"]
+      expect(subject.descMetadata.contributor.last.name).to eq ["Mary"]
+      expect(subject.contributor.first).to be_kind_of MediaAnnotationDatastream::Person
+      expect(subject.contributor.first.name.first).to eq "Sally"
     end
   end
   describe "publisher attribute" do
     it "should delegate to the bnode" do
       subject.publisher_attributes = [{name: "Sally"}, {name:"Mary"}]
-      subject.descMetadata.publisher.first.name.should == ["Sally"]
-      subject.descMetadata.publisher.last.name.should == ["Mary"]
-      subject.publisher.first.should be_kind_of MediaAnnotationDatastream::Person
-      subject.publisher.first.name.first.should == "Sally"
+      expect(subject.descMetadata.publisher.first.name).to eq ["Sally"]
+      expect(subject.descMetadata.publisher.last.name).to eq ["Mary"]
+      expect(subject.publisher.first).to be_kind_of MediaAnnotationDatastream::Person
+      expect(subject.publisher.first.name.first).to eq "Sally"
     end
   end
 
   describe "creator attribute" do
     it "should delegate to the bnode" do
       subject.creator_attributes = [{name: "Sally"}, {name:"Mary"}]
-      subject.descMetadata.creator.first.name.should == ["Sally"]
-      subject.descMetadata.creator.last.name.should == ["Mary"]
-      subject.creator.first.should be_kind_of MediaAnnotationDatastream::Person
-      subject.creator.first.name.first.should == "Sally"
+      expect(subject.descMetadata.creator.first.name).to eq ["Sally"]
+      expect(subject.descMetadata.creator.last.name).to eq ["Mary"]
+      expect(subject.creator.first).to be_kind_of MediaAnnotationDatastream::Person
+      expect(subject.creator.first.name.first).to eq "Sally"
     end
   end
 
   describe "description attribute" do
     it "should delegate to the bnode" do
       subject.description_attributes = [{value: "Order online", type:"Promotional Information"}]
-      subject.description.first.value.should == ["Order online"]
-      subject.description.first.type.should == ["Promotional Information"]
-      subject.description.first.should be_kind_of MediaAnnotationDatastream::Description
+      expect(subject.description.first.value).to eq ["Order online"]
+      expect(subject.description.first.type).to eq ["Promotional Information"]
+      expect(subject.description.first).to be_kind_of MediaAnnotationDatastream::Description
     end
   end
 
@@ -133,8 +132,8 @@ EOF
       subject.event_location = ["one", "two"]
     end
     it "should delegate to the bnode" do
-      subject.filming_event.has_location[0].location_name.should == ['one']
-      subject.filming_event.has_location[1].location_name.should == ['two']
+      expect(subject.filming_event.has_location[0].location_name).to eq ['one']
+      expect(subject.filming_event.has_location[1].location_name).to eq ['two']
     end
   end
   describe "production location" do
@@ -142,8 +141,8 @@ EOF
       subject.production_location = ["one", "two"]
     end
     it "should delegate to the bnode" do
-      subject.production_event.has_location[0].location_name.should == ['one']
-      subject.production_event.has_location[1].location_name.should == ['two']
+      expect(subject.production_event.has_location[0].location_name).to eq ['one']
+      expect(subject.production_event.has_location[1].location_name).to eq ['two']
     end
   end
 
@@ -152,10 +151,10 @@ EOF
       subject.delete
     end
     it "should have it" do
-      subject.unarranged.should be_false
+      expect(subject.unarranged).to be_nil
       subject.unarranged = true
       subject.save(validate: false)
-      subject.reload.unarranged.should be_true
+      expect(subject.reload.unarranged).to eq true
     end
   end
 
@@ -191,34 +190,34 @@ EOF
       today_str = "#{Date.today.to_s}T00:00:00Z"
       subject.stub(pid: 'testme:123')
       solr_doc = subject.to_solr
-      solr_doc[Solrizer.solr_name('desc_metadata__series_title')].should == ["Frontline"]
-      solr_doc[Solrizer.solr_name('desc_metadata__program_title')].should == ["The Retirement Gamble"]
-      solr_doc[Solrizer.solr_name('desc_metadata__episode_title')].should == ["12"]
-      solr_doc[Solrizer.solr_name('desc_metadata__title')].should == ["The Retirement Gamble"]
-      solr_doc[Solrizer.solr_name('desc_metadata__date_modified', :stored_sortable, type: :date)].should == today_str
-      solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded', :stored_sortable, type: :date)].should == today_str
-      solr_doc[Solrizer.solr_name('desc_metadata__creator', :facetable)].should == ['Justin']
-      solr_doc[Solrizer.solr_name('desc_metadata__creator')].should == ['Justin']
-      solr_doc[Solrizer.solr_name('desc_metadata__part_of')].should be_nil
-      solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded')].should be_nil
-      solr_doc[Solrizer.solr_name('desc_metadata__date_modified')].should be_nil
-      solr_doc[Solrizer.solr_name('desc_metadata__rights')].should == ["Wide open, buddy."]
-      solr_doc[Solrizer.solr_name('desc_metadata__related_url')].should be_nil
-      solr_doc[Solrizer.solr_name('desc_metadata__contributor')].should == ["Martin Smith"]
-      solr_doc[Solrizer.solr_name('desc_metadata__description')].should == ["An examination of retirement accounts. Included: the lack of uniformity in plans, which results in some workers paying much more than others; the cost of a seemingly small annual fee when spread out across a worker's lifetime; hidden fees some 401(k) providers charge consumers."]
-      solr_doc[Solrizer.solr_name('desc_metadata__publisher')].should == ["Vertigo Comics"]
-      solr_doc[Solrizer.solr_name('desc_metadata__subject')].should == ["Theology"]
-      solr_doc[Solrizer.solr_name('desc_metadata__language')].should == ["Arabic"]
-      solr_doc[Solrizer.solr_name('desc_metadata__date_created')].should == ["1200-01-01"]
-      solr_doc[Solrizer.solr_name('desc_metadata__resource_type')].should == ["Book"]
-      solr_doc[Solrizer.solr_name('file_format')].should == "jpeg (JPEG Image)"
-      solr_doc[Solrizer.solr_name('desc_metadata__identifier')].should == ["1234567890"]
-      # solr_doc[Solrizer.solr_name('desc_metadata__based_near')].should == ["Medina, Saudi Arabia"]
-      solr_doc[Solrizer.solr_name('mime_type')].should == ["image/jpeg"]    
-      solr_doc['unarranged_bsi'].should == true
-      solr_doc['relative_path'].should == ['fortune/smiles/on/the/bold.mkv']    
-      #solr_doc[Solrizer.solr_name('noid', :symbol)].should == "__DO_NOT_USE__"
-      solr_doc["noid_tsi"].should == "123"
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__series_title')]).to eq ["Frontline"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__program_title')]).to eq ["The Retirement Gamble"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__episode_title')]).to eq ["12"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__title')]).to eq ["The Retirement Gamble"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__date_modified', :stored_sortable, type: :date)]).to eq today_str
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded', :stored_sortable, type: :date)]).to eq today_str
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__creator', :facetable)]).to eq ['Justin']
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__creator')]).to eq ['Justin']
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__part_of')]).to be_nil
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__date_uploaded')]).to be_nil
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__date_modified')]).to be_nil
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__rights')]).to eq ["Wide open, buddy."]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__related_url')]).to be_nil
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__contributor')]).to eq ["Martin Smith"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__description')]).to eq ["An examination of retirement accounts. Included: the lack of uniformity in plans, which results in some workers paying much more than others; the cost of a seemingly small annual fee when spread out across a worker's lifetime; hidden fees some 401(k) providers charge consumers."]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__publisher')]).to eq ["Vertigo Comics"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__subject')]).to eq ["Theology"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__language')]).to eq ["Arabic"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__date_created')]).to eq ["1200-01-01"]
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__resource_type')]).to eq ["Book"]
+      expect(solr_doc[Solrizer.solr_name('file_format')]).to eq "jpeg (JPEG Image)"
+      expect(solr_doc[Solrizer.solr_name('desc_metadata__identifier')]).to eq ["1234567890"]
+      # expect(solr_doc[Solrizer.solr_name('desc_metadata__based_near')]).to eq ["Medina, Saudi Arabia"]
+      expect(solr_doc[Solrizer.solr_name('mime_type')]).to eq ["image/jpeg"]    
+      expect(solr_doc['unarranged_bsi']).to eq true
+      expect(solr_doc['relative_path']).to eq ['fortune/smiles/on/the/bold.mkv']    
+      # expect(solr_doc[Solrizer.solr_name('noid', :symbol)]).to eq "__DO_NOT_USE__"
+      expect(solr_doc["noid_tsi"]).to eq "123"
     end
 
   end
@@ -227,7 +226,7 @@ EOF
   describe "#depositor" do
     it "should be there" do
       subject.apply_depositor_metadata('frank')
-      subject.depositor.should == 'frank'
+      expect(subject.depositor).to eq 'frank'
     end
   end
 
@@ -239,7 +238,7 @@ EOF
       end
       it "should set the mime type" do
         subject.fix_mxf_characterization!
-        subject.mime_type.should == 'application/mxf'
+        expect(subject.mime_type).to eq 'application/mxf'
       end
     end
     describe "with a file that is not mxf" do
@@ -249,7 +248,7 @@ EOF
       end
       it "should not set the mime type" do
         subject.fix_mxf_characterization!
-        subject.mime_type.should == 'application/octet-stream'
+        expect(subject.mime_type).to eq 'application/octet-stream'
       end
     end
   end
@@ -265,13 +264,13 @@ EOF
 
     it "should handle files with spaces in them" do
       # store the URI with spaces escaped to %20
-      subject.content.dsLocation.should match /^file:\/\/.*\/ab\/cd\/ef\/g\/my%20sample.mov$/
+      expect(subject.content.dsLocation).to match /^file:\/\/.*\/ab\/cd\/ef\/g\/my%20sample.mov$/
       # But filename should unescape
-      subject.content.filename.should match /^\/.*\/ab\/cd\/ef\/g\/my sample.mov$/
+      expect(subject.content.filename).to match /^\/.*\/ab\/cd\/ef\/g\/my sample.mov$/
     end
 
     it "should set the label" do
-      subject.label.should == 'my sample.mov'
+      expect(subject.label).to eq 'my sample.mov'
 
     end
   end
@@ -344,89 +343,89 @@ EOF
       str = subject.to_pbcore_xml
       xml = Nokogiri::XML(str)
       # program title
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text.should == "title one"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Program"]').text).to eq "title one"
       # series title
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text.should == "second title"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Series"]').text).to eq "second title"
 
       # item title
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text.should == "third title"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Item"]').text).to eq "third title"
 
       # episode title
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text.should == "fourth title"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreTitle[@titleType="Episode"]').text).to eq "fourth title"
 
       # category
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreSubject').text.should == "Test subject"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreSubject').text).to eq "Test subject"
 
       # summary
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreDescription[@annotation="Summary"]').text.should == "Test summary"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreDescription[@annotation="Summary"]').text).to eq "Test summary"
 
       # event_location
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage[@annotation="EVENT_LOCATION"]').text.should == "France"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage[@annotation="EVENT_LOCATION"]').text).to eq "France"
 
       # production_location 
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage[@annotation="PRODUCTION_LOCATION"]').text.should == "Boston"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Spatial"]/coverage[@annotation="PRODUCTION_LOCATION"]').text).to eq "Boston"
 
       # date_portrayed
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage[@annotation="DATE_PORTRAYED"]').text.should == "Sept 2009"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage[@annotation="DATE_PORTRAYED"]').text).to eq "Sept 2009"
 
       # language
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[1]').text.should == 'Kiswahili'
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[2]').text.should == 'Lakota'
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[1]').text).to eq 'Kiswahili'
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLanguage[2]').text).to eq 'Lakota'
 
       # source
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationType[@annotation="SOURCE"]').text.should == "relationship source"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationType[@annotation="SOURCE"]').text).to eq "relationship source"
 
       # source_reference 
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationIdentifier').text.should == "relationship identifier"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreRelation/pbcoreRelationIdentifier').text).to eq "relationship identifier"
 
       # rights_holder
-      xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS_HOLDER').text.should == "Test rights holder"
+      expect(xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS_HOLDER').text).to eq "Test rights holder"
 
       # rights_summary
-      xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS').text.should == "Test rights summary"
+      expect(xml.xpath('/pbcoreDescriptionDocument/rightsEmbedded/WGBH_RIGHTS/@RIGHTS').text).to eq "Test rights summary"
 
       # item_date
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetDate').text.should == "2013-08-15"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetDate').text).to eq "2013-08-15"
 
       # release_date
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Release date information"]/WGBH_DATE_RELEASE/@DATE_RELEASE').text.should == "2013-08-31"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Release date information"]/WGBH_DATE_RELEASE/@DATE_RELEASE').text).to eq "2013-08-31"
 
       # review_date
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Lifecycle information"]/WGBH_DATE/@REVIEW_DATE').text.should == "2014-08-31"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Lifecycle information"]/WGBH_DATE/@REVIEW_DATE').text).to eq "2014-08-31"
 
       # aspect_ratio
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackAspectRatio').text.should == "3:5"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackAspectRatio').text).to eq "3:5"
 
       # cc
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/instantiationAlternativeModes').text.should == "CC in French"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/instantiationAlternativeModes').text).to eq "CC in French"
 
       # physical_location
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text.should == "On the shelf"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationLocation').text).to eq "On the shelf"
 
       # nola_code
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="NOLA_CODE"]').text.should == "Test nola"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="NOLA_CODE"]').text).to eq "Test nola"
 
       # tape_id
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="ITEM_IDENTIFIER"]').text.should == "Test tape id"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="ITEM_IDENTIFIER"]').text).to eq "Test tape id"
 
       # barcode
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="PO_REFERENCE"]').text.should == "Test barcode"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreIdentifier[@source="PO_REFERENCE"]').text).to eq "Test barcode"
 
       # notes
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreAnnotation').text.should == "Test notes"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreAnnotation').text).to eq "Test notes"
 
       # originating_department
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Originating department information"]/WGBH_META/@META_SOURCE').text.should == "Test originating department"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreExtension[@annotation="Originating department information"]/WGBH_META/@META_SOURCE').text).to eq "Test originating department"
 
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text.should == "Sally"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreCreator[creatorRole="Author"]/creator').text).to eq "Sally"
       #   TODO contributorrole Source is MARC?
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreContributor[contributorRole="Carpenter"]/contributor').text.should == "Fred"
-      xml.xpath('/pbcoreDescriptionDocument/pbcorePublisher[publisherRole="Distributor"]/publisher').text.should == "Kelly"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreContributor[contributorRole="Carpenter"]/contributor').text).to eq "Fred"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcorePublisher[publisherRole="Distributor"]/publisher').text).to eq "Kelly"
 
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage').text.should == "Sept 2009"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreCoverage[coverageType="Temporal"]/coverage').text).to eq "Sept 2009"
       
       # pbcoreAssetType
-      xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetType').text.should == "Scene"
+      expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreAssetType').text).to eq "Scene"
     end
 
     describe "with audio data" do
@@ -450,16 +449,16 @@ EOF
       it "should have instantiation info" do
         str = subject.to_pbcore_xml
         xml = Nokogiri::XML(str)
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="HydraDAM"]').text.should == subject.noid
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="Original file name"]').text.should == "/opt/storage/one/two/three/fake.wav"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "3583.318000"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text.should == "343998572"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text.should == "Sound"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackType').text.should == "Audio"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackDataRate').text.should == "768000"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackSamplingRate').text.should == "48000"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackBitDepth').text.should == "16"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackAnnotation').text.should == "1"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="HydraDAM"]').text).to eq subject.noid
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="Original file name"]').text).to eq "/opt/storage/one/two/three/fake.wav"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text).to eq "3583.318000"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text).to eq "343998572"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text).to eq "Sound"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackType').text).to eq "Audio"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackDataRate').text).to eq "768000"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackSamplingRate').text).to eq "48000"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackBitDepth').text).to eq "16"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack/essenceTrackAnnotation').text).to eq "1"
 
       end
     end
@@ -489,26 +488,26 @@ EOF
       it "should have instantiation info" do
         str = subject.to_pbcore_xml
         xml = Nokogiri::XML(str)
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="HydraDAM"]').text.should == subject.noid
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="Original file name"]').text.should == "/opt/storage/one/two/three/fake.m4v"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text.should == "128.762095"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text.should == "16168799"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text.should == "Moving Image"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackType').text.should == "Video"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackStandard').text.should == "H.264/MPEG-4 AVC"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="HydraDAM"]').text).to eq subject.noid
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationIdentifier[@source="Original file name"]').text).to eq "/opt/storage/one/two/three/fake.m4v"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationDuration').text).to eq "128.762095"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationFileSize').text).to eq "16168799"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationMediaType').text).to eq "Moving Image"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackType').text).to eq "Video"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackStandard').text).to eq "H.264/MPEG-4 AVC"
         # TODO - how will we get the essenceTrackEncoding that matches the vocabulary?
-        #xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackEncoding').text.should == "H.264/MPEG-4 AVC"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackDataRate').text.should == "900786"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackFrameRate').text.should == "2997/100"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackFrameSize').text.should == "480x360"
+        # expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackEncoding').text).to eq "H.264/MPEG-4 AVC"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackDataRate').text).to eq "900786"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackFrameRate').text).to eq "2997/100"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[1]/essenceTrackFrameSize').text).to eq "480x360"
 
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackType').text.should == "Audio"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackStandard').text.should == "AAC"
-        #xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackEncoding').text.should == "H.264/MPEG-4 AVC"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackDataRate').text.should == "100243"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackSamplingRate').text.should == "44100"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackBitDepth').text.should == "0"
-        xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackAnnotation').text.should == "2"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackType').text).to eq "Audio"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackStandard').text).to eq "AAC"
+        # expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackEncoding').text).to eq "H.264/MPEG-4 AVC"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackDataRate').text).to eq "100243"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackSamplingRate').text).to eq "44100"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackBitDepth').text).to eq "0"
+        expect(xml.xpath('/pbcoreDescriptionDocument/pbcoreInstantiation/instantiationEssenceTrack[2]/essenceTrackAnnotation').text).to eq "2"
       end
     end
   end
