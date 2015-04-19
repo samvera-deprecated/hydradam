@@ -25,8 +25,10 @@ gem 'rails_admin', "~> 0.5.0"
 
 group :development, :test do
   #gem 'byebug' # This is a debugger, can be removed when not needed by the developer
+  gem 'pry'
+  gem 'pry-byebug'
   gem 'jettywrapper'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem "unicorn"
@@ -40,3 +42,4 @@ gem "devise"
 gem "bootstrap-sass"
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
+gem 'rspec-its'

@@ -13,16 +13,16 @@ describe GenericFilesController do
       @file.save!
     end
     it "should log views" do
-      @file.views.size.should == 0
+      expect(@file.views.size).to eq 0
       get :show, id: @file
-      response.should be_successful
-      @file.views.size.should == 1
+      expect(response).to be_successful
+      expect(@file.views.size).to eq 1
     end
 
     it "should show xml" do
       get :show, id: @file, format: 'xml'
-      response.should be_successful
-      Nokogiri::XML(response.body).xpath('/pbcoreDescriptionDocument/pbcoreTitle').text.should == 'The title'
+      expect(response).to be_successful
+      expect(Nokogiri::XML(response.body).xpath('/pbcoreDescriptionDocument/pbcoreTitle').text).to eq 'The title'
     end
   end
 
@@ -49,41 +49,41 @@ describe GenericFilesController do
       # Sufia.queue.should_receive(:push).with(s1)
       # Sufia.queue.should_receive(:push).with(s2)
 
-      lambda { post :create, local_file: ["world.png", "sheepb.jpg"], batch_id: "xw42n7934"}.should change(GenericFile, :count).by(2)
-      response.should redirect_to Sufia::Engine.routes.url_helpers.batch_edit_path('xw42n7934')
+      expect{ post :create, local_file: ["world.png", "sheepb.jpg"], batch_id: "xw42n7934"}.to change(GenericFile, :count).by(2)
+      expect(response).to redirect_to Sufia::Engine.routes.url_helpers.batch_edit_path('xw42n7934')
       # These files should have been moved out of the upload directory
-      File.exist?("#{@mock_upload_directory}/sheepb.jpg").should be_false
-      File.exist?("#{@mock_upload_directory}/world.png").should be_false
+      expect(File.exist?("#{@mock_upload_directory}/sheepb.jpg")).to eq false
+      expect(File.exist?("#{@mock_upload_directory}/world.png")).to eq false
       # And into the storage directory
       files = GenericFile.find(Solrizer.solr_name("is_part_of",:symbol) => 'info:fedora/sufia:xw42n7934')
       files.each do |gf|
-        File.exist?(gf.content.filename).should be_true
-        gf.thumbnail.mimeType.should == 'image/png'
+        expect(File.exist?(gf.content.filename)).to eq true
+        expect(gf.thumbnail.mimeType).to eq 'image/png'
       end
-      files.first.label.should == 'world.png'
-      files.first.unarranged.should == false
-      files.last.label.should == 'sheepb.jpg'
+      expect(files.first.label).to eq 'world.png'
+      expect(files.first.unarranged).to eq false
+      expect(files.last.label).to eq 'sheepb.jpg'
     end
     it "should ingest directories from the filesystem" do
       #TODO this test is very slow because it kicks off CharacterizeJob.
-      lambda { post :create, local_file: ["world.png", "import"], batch_id: "xw42n7934"}.should change(GenericFile, :count).by(4)
-      response.should redirect_to Sufia::Engine.routes.url_helpers.batch_edit_path('xw42n7934')
+      expect(lambda { post :create, local_file: ["world.png", "import"], batch_id: "xw42n7934"}).to change(GenericFile, :count).by(4)
+      expect(response).to redirect_to Sufia::Engine.routes.url_helpers.batch_edit_path('xw42n7934')
       # These files should have been moved out of the upload directory
-      File.exist?("#{@mock_upload_directory}/import/manifests/manifest-broadway-or-bust.txt").should be_false
-      File.exist?("#{@mock_upload_directory}/import/manifests/manifest-nova-smartest-machine-1.txt").should be_false
-      File.exist?("#{@mock_upload_directory}/import/metadata/broadway_or_bust.pbcore.xml").should be_false
-      File.exist?("#{@mock_upload_directory}/world.png").should be_false
+      expect(File.exist?("#{@mock_upload_directory}/import/manifests/manifest-broadway-or-bust.txt")).to eq false
+      expect(File.exist?("#{@mock_upload_directory}/import/manifests/manifest-nova-smartest-machine-1.txt")).to eq false
+      expect(File.exist?("#{@mock_upload_directory}/import/metadata/broadway_or_bust.pbcore.xml")).to eq false
+      expect(File.exist?("#{@mock_upload_directory}/world.png")).to eq false
       # And into the storage directory
       files = GenericFile.find(Solrizer.solr_name("is_part_of",:symbol) => 'info:fedora/sufia:xw42n7934')
       files.each do |gf|
-        File.exist?(gf.content.filename).should be_true
+        expect(File.exist?(gf.content.filename)).to eq true
       end
-      files.first.label.should == 'world.png'
-      files.first.unarranged.should be_true
-      files.first.thumbnail.mimeType.should == 'image/png'
-      files.last.relative_path.should == 'import/metadata/broadway_or_bust.pbcore.xml'
-      files.last.unarranged.should be_true
-      files.last.label.should == 'broadway_or_bust.pbcore.xml'
+      expect(files.first.label).to eq 'world.png'
+      expect(files.first.unarranged).to eq true
+      expect(files.first.thumbnail.mimeType).to eq 'image/png'
+      expect(files.last.relative_path).to eq 'import/metadata/broadway_or_bust.pbcore.xml'
+      expect(files.last.unarranged).to eq true
+      expect(files.last.label).to eq 'broadway_or_bust.pbcore.xml'
     end
     it "should ingest uploaded files"
   end
@@ -99,7 +99,7 @@ describe GenericFilesController do
     end
     it "should be successful" do
       get :edit, id: @file
-      response.should be_successful
+      expect(response).to be_successful
     end
   end
 
@@ -142,39 +142,39 @@ describe GenericFilesController do
            notes: ['foo bar'],
            originating_department: ['Accounts receivable']
           }
-      response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
+      expect(response).to redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
-      @file.title[0].title_type.should == ['Series']
-      @file.title[0].value.should == ['Frontline']
-      @file.title[1].value.should == ['How did this happen?']
-      @file.title[1].title_type.should == ['Program']
-      @file.subject.should == ["Racecars"]
-      @file.description[0].value.should == ["it's a documentary show"]
-      @file.description[0].type.should == ['summary']
-      @file.event_location.should == ['france', 'portugual']
-      @file.production_location.should == ['Boston', 'Minneapolis']
-      @file.date_portrayed.should == ['12/24/1913']
-      @file.language.should == ['french', 'english']
-      @file.resource_type.should == [ "Article", "Audio", "Book"]      
-      @file.source.should == ['Some shady looking character']
-      @file.source_reference.should == ['Less shady guy']
-      @file.rights_holder.should == [ "WGBH", 'WNYC']      
-      @file.rights_summary.should == ["Don't copy me bro"]
-      @file.creator[0].name.should == ['Frank']
-      @file.creator[0].role.should == ['Producer']
-      @file.creator[1].name.should == ['Dave']
-      @file.creator[1].role.should == ['Director']
-      @file.release_date.should == ['12/15/2012']
-      @file.review_date.should == ['1/18/2013']
-      @file.aspect_ratio.should == ['4:3']
-      @file.frame_rate.should == ['25']
-      @file.cc.should == ['English', 'French']
-      @file.physical_location.should == ['Down in the vault']
-      @file.nola_code.should == ['123-456789']
-      @file.tape_id.should == ['777']
-      @file.barcode.should == ['929343']
-      @file.metadata_filename.should == ['a_movie.mov']
-      @file.notes.should == ['foo bar']
+      expect(@file.title[0].title_type).to eq ['Series']
+      expect(@file.title[0].value).to eq ['Frontline']
+      expect(@file.title[1].value).to eq ['How did this happen?']
+      expect(@file.title[1].title_type).to eq ['Program']
+      expect(@file.subject).to eq ["Racecars"]
+      expect(@file.description[0].value).to eq ["it's a documentary show"]
+      expect(@file.description[0].type).to eq ['summary']
+      expect(@file.event_location).to eq ['france', 'portugual']
+      expect(@file.production_location).to eq ['Boston', 'Minneapolis']
+      expect(@file.date_portrayed).to eq ['12/24/1913']
+      expect(@file.language).to eq ['french', 'english']
+      expect(@file.resource_type).to eq [ "Article", "Audio", "Book"]      
+      expect(@file.source).to eq ['Some shady looking character']
+      expect(@file.source_reference).to eq ['Less shady guy']
+      expect(@file.rights_holder).to eq [ "WGBH", 'WNYC']      
+      expect(@file.rights_summary).to eq ["Don't copy me bro"]
+      expect(@file.creator[0].name).to eq ['Frank']
+      expect(@file.creator[0].role).to eq ['Producer']
+      expect(@file.creator[1].name).to eq ['Dave']
+      expect(@file.creator[1].role).to eq ['Director']
+      expect(@file.release_date).to eq ['12/15/2012']
+      expect(@file.review_date).to eq ['1/18/2013']
+      expect(@file.aspect_ratio).to eq ['4:3']
+      expect(@file.frame_rate).to eq ['25']
+      expect(@file.cc).to eq ['English', 'French']
+      expect(@file.physical_location).to eq ['Down in the vault']
+      expect(@file.nola_code).to eq ['123-456789']
+      expect(@file.tape_id).to eq ['777']
+      expect(@file.barcode).to eq ['929343']
+      expect(@file.metadata_filename).to eq ['a_movie.mov']
+      expect(@file.notes).to eq ['foo bar']
       @file.originating_department = ['Accounts receivable']
     end
 
@@ -187,16 +187,16 @@ describe GenericFilesController do
         'event_location' => ['', 'Brazil'],
         'production_location' => ['', 'Cuba']
       }
-      response.should redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
+      expect(response).to redirect_to(Sufia::Engine.routes.url_helpers.edit_generic_file_path(@file))
       @file.reload
-      @file.publisher.size.should == 2
-      @file.publisher[0].name.should == ['Test']
-      @file.publisher[1].role.should == ['Foo']
-      @file.description.size.should == 2
-      @file.description[0].value.should == ["Justin's desc"]
-      @file.description[1].type.should == ['valuable']
-      @file.event_location.should == ['Brazil']
-      @file.production_location.should == ['Cuba']
+      expect(@file.publisher.size).to eq 2
+      expect(@file.publisher[0].name).to eq ['Test']
+      expect(@file.publisher[1].role).to eq ['Foo']
+      expect(@file.description.size).to eq 2
+      expect(@file.description[0].value).to eq ["Justin's desc"]
+      expect(@file.description[1].type).to eq ['valuable']
+      expect(@file.event_location).to eq ['Brazil']
+      expect(@file.production_location).to eq ['Cuba']
 
 
     end

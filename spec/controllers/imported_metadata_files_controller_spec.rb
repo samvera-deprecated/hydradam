@@ -39,21 +39,21 @@ describe ImportedMetadataFilesController do
       end
       it "should be a success" do
         xhr :get, :show, id: file.noid
-        response.should be_success
-        response.should render_template('imported_metadata_files/show')
-        assigns[:imported_metadata].should == file
-        assigns[:matches].size.should == 2
-        assigns[:matches].first.id.should == @file1.id
+        expect(response).to be_success
+        expect(response).to render_template('imported_metadata_files/show')
+        expect(assigns[:imported_metadata]).to eq file
+        expect(assigns[:matches].size).to eq 2
+        expect(assigns[:matches].first.id).to eq @file1.id
       end
       it "should support querying paths" do
         xhr :get, :show, id: file.noid, q: "G-DRIVE_BoB_Auditions/ATLANTA/002.wav"
-        assigns[:matches].size.should == 1
-        assigns[:matches].first.id.should == @file2.id
+        expect(assigns[:matches].size).to eq 1
+        expect(assigns[:matches].first.id).to eq @file2.id
       end
       it "should support querying noids" do
         xhr :get, :show, id: file.noid, q: @file2.noid
-        assigns[:matches].size.should == 1
-        assigns[:matches].first.id.should == @file2.id
+        expect(assigns[:matches].size).to eq 1
+        expect(assigns[:matches].first.id).to eq @file2.id
       end
       
     end
@@ -62,18 +62,18 @@ describe ImportedMetadataFilesController do
         xhr :get, :edit, id: file.noid
       end
       it "should be a success" do
-        response.should be_success
-        response.should render_template('imported_metadata_files/edit')
-        assigns[:imported_metadata].should == file
+        expect(response).to be_success
+        expect(response).to render_template('imported_metadata_files/edit')
+        expect(assigns[:imported_metadata]).to eq file
       end
     end
     describe "#destroy" do
       before (:each) do
-        ImportedMetadata.find(file.pid).should == file
+        expect(ImportedMetadata.find(file.pid)).to eq file
         xhr :delete, :destroy, id: file.noid
       end
       it "should be a success" do
-        response.should redirect_to(imported_metadata_manager_index_path)
+        expect(response).to redirect_to(imported_metadata_manager_index_path)
         expect { ActiveFedora::Base.find(file.pid, cast:true) }.to raise_error(ActiveFedora::ObjectNotFoundError)
       end
     end
@@ -84,12 +84,12 @@ describe ImportedMetadataFilesController do
           series_title: 'new series title', item_title: 'new item title', episode_title: 'new episode title' } 
       end
       it "should be a success" do
-        response.should redirect_to(imported_metadata_file_path(file))
+        expect(response).to redirect_to(imported_metadata_file_path(file))
         file.reload
-        file.program_title.should == 'new program title'
-        file.item_title.should == 'new item title'
-        file.series_title.should == 'new series title'
-        file.episode_title.should == 'new episode title'
+        expect(file.program_title).to eq 'new program title'
+        expect(file.item_title).to eq 'new item title'
+        expect(file.series_title).to eq 'new series title'
+        expect(file.episode_title).to eq 'new episode title'
       end
     end
 
@@ -107,8 +107,8 @@ describe ImportedMetadataFilesController do
       end
       it "should be a success" do
         post :apply, id: file.noid, imported_metadata: { apply_to: [@file1.id, @file2.id, @file3.id]} 
-        response.should redirect_to(imported_metadata_manager_index_path)
-        @file1.reload.series_title.should == ["This Old House"]
+        expect(response).to redirect_to(imported_metadata_manager_index_path)
+        expect(@file1.reload.series_title).to eq ["This Old House"]
       end
     end
   end
@@ -116,7 +116,7 @@ describe ImportedMetadataFilesController do
     describe "#show" do
       it "should return an error" do
         xhr :get, :show, id: file.noid
-        response.should_not be_success
+        expect(response).to_not be_success
       end
     end
   end

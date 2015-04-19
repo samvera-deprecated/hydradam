@@ -14,7 +14,7 @@ describe IngestLocalFileJob do
   it "should make an external datastream" do
     subject.run
     @generic_file.reload
-    @generic_file.content.controlGroup.should == 'E'
-    @generic_file.content.dsLocation.should match /file:\/\/\/.*\/spec\/storage\/..\/..\/..\/..\/.\/world\.png$/
+    expect(@generic_file.content.controlGroup).to eq 'E'
+    expect(@generic_file.content.dsLocation).to match /file:\/\/\/.*\/spec\/storage\/..\/..\/..\/..\/.\/world\.png$/
   end
 end

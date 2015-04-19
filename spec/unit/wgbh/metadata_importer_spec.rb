@@ -6,7 +6,8 @@ describe WGBH::MetadataImporter do
   subject { WGBH::MetadataImporter.new(filename, 'jane') }
 
   it "should create a template for each entry" do
-    expect { subject.import.should == 65 }.to change { ImportedMetadata.count }.by(65)
-    ImportedMetadata.first.descMetadata.description_document.series_title.should == ["Broadway or Bust"]
+    expect { subject.import }.to change { ImportedMetadata.count }.by(65)
+    expect(subject.import).to eq 65
+    expect(ImportedMetadata.first.descMetadata.description_document.series_title).to eq ["Broadway or Bust"]
   end
 end
