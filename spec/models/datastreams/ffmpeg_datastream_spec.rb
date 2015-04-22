@@ -3,8 +3,7 @@ require 'spec_helper'
 describe FfmpegDatastream do
   describe "with an audio track" do
     subject do
-      #mock_obj = stub(:mock_obj, :pid=>'test:124', :new? => true)
-      ds = FfmpegDatastream.new#(mock_obj)
+      ds = FfmpegDatastream.new
       ds.content = '
               <ffprobe>
                 <streams>
