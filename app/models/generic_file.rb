@@ -24,13 +24,13 @@ class GenericFile < ActiveFedora::Base
 
   has_attributes :unarranged, :applied_template_id, datastream: 'properties', multiple: false
 
-  attr_accessible  :part_of, :contributor_attributes, :creator_attributes, :title_attributes,
-        :description_attributes, :publisher_attributes, :date_created, :date_uploaded,
-        :date_modified, :subject, :language, :rights, :resource_type, :identifier, :event_location,
-        :production_location, :date_portrayed, :source, :source_reference, :rights_holder,
-        :rights_summary, :release_date, :review_date, :aspect_ratio, :frame_rate, :cc,
-        :physical_location, :metadata_filename, :identifier_attributes, :notes,
-        :originating_department, :tag, :related_url, :permissions
+  # attr_accessible  :part_of, :contributor_attributes, :creator_attributes, :title_attributes,
+  #       :description_attributes, :publisher_attributes, :date_created, :date_uploaded,
+  #       :date_modified, :subject, :language, :rights, :resource_type, :identifier, :event_location,
+  #       :production_location, :date_portrayed, :source, :source_reference, :rights_holder,
+  #       :rights_summary, :release_date, :review_date, :aspect_ratio, :frame_rate, :cc,
+  #       :physical_location, :metadata_filename, :identifier_attributes, :notes,
+  #       :originating_department, :tag, :related_url, :permissions
 
   before_destroy :remove_content
 
