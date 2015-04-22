@@ -8,7 +8,9 @@ class GenericFile < ActiveFedora::Base
 
   has_metadata 'ffprobe', type: FfmpegDatastream
   has_metadata 'descMetadata', type: MediaAnnotationDatastream
-  has_file_datastream "content", type: FileContentDatastream, control_group: 'E'
+
+  # has_file_datastream "content", type: FileContentDatastream, control_group: 'E'
+  contains 'content'
 
   has_attributes :has_location, :program_title, :series_title, :item_title,
               :episode_title, :has_event, :event_location, :production_location, :filming_event,
