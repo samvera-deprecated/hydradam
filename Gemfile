@@ -47,6 +47,7 @@ group :development, :test do
   gem 'sqlite3'
   gem "unicorn"
   gem 'pry-rails'
+  gem 'http_logger'
 end
 
 group :production do

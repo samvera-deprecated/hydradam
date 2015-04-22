@@ -638,6 +638,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   factory_girl_rails
+  http_logger
   hydra-pbcore!
   jbuilder (~> 2.0)
   jettywrapper
