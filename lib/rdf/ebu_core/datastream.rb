@@ -2,201 +2,162 @@ module RDF
   module EbuCore
     class Datastream < ActiveFedora::NtriplesRDFDatastream
 
+      # TODO: Find out what this is used for
       property :is_part_of, predicate: RDF::EbuCore::Vocabulary.isPartOf
 
-      # map_predicates do |map|
-      #   map.part_of(to: "isPartOf", in: RDF::EbuCore)
+      property :date_modified, predicate: RDF::EbuCore::Vocabulary.dateModified, multiple: false do |index|
+        index.type :date
+        index.as :stored_searchable
+      end
+
+      property :date_created, predicate: RDF::EbuCore::Vocabulary.dateCreated, multiple: false do |index|
+        index.type :date
+        index.as :stored_searchable
+      end
+
+      property :contributors, predicate: RDF::EbuCore::Vocabulary.hasContributor, class_name: 'Person'
+      property :creators, predicate: RDF::EbuCore::Vocabulary.hasCreator, class_name: 'Person'
+      property :publishers, predicate: RDF::EbuCore::Vocabulary.hasPublisher, class_name: 'Person'
+      property :video_tracks, predicate: RDF::EbuCore::Vocabulary.hasVideoTrack, class_name: 'VideoTrack'
+      property :captioning, predicate: RDF::EbuCore::Vocabulary.hasCaptioning, class_name: 'Captioning'
+      property :description, predicate: RDF::EbuCore::Vocabulary.description
+
+      property :has_event, predicate: RDF::EbuCore::Vocabulary.hasCoverage, class_name: 'Event'
+      property :has_depicted_event, predicate: RDF::EbuCore::Vocabulary.hasCoverage, class_name: 'DepictedEvent'
+
+      property :is_covered_by, predicate: RDF::EbuCore::Vocabulary.isCoveredBy, class_name: 'Rights'
+
+      property :filename, predicate: RDF::EbuCore::Vocabulary.filename
+      property :fileByteSize, predicate: RDF::EbuCore::Vocabulary.fileByteSize
+
+      property :subject, predicate: RDF::EbuCore::Vocabulary.hasSubject do |index|
+        index.as :stored_searchable
+      end
+
+      property :keyword, predicate: RDF::EbuCore::Vocabulary.hasKeyword do |index|
+        index.as :stored_searchable
+      end
+
+      property :summary, predicate: RDF::EbuCore::Vocabulary.summary do |index|
+        index.as :stored_searchable
+      end
+
+      property :duration, prediate: RDF::EbuCore::Vocabulary.duration do |index|
+        index.as :stored_searchable
+      end
+
+      property :rights, predicate: RDF::EbuCore::Vocabulary.rightsExpression do |index|
+        index.as :stored_searchable
+      end
       
-      #   map.contributor(in: RDF::EbuCore, to:'hasContributor', class_name: 'Person')
-      #   map.creator(in: RDF::EbuCore, to:'hasCreator', class_name: 'Person')
-      #   map.publisher(in: RDF::EbuCore, to:'hasPublisher', class_name: 'Person')
-      #   map.video_tracks(in: RDF::EbuCore, to:'hasVideoTrack', class_name: 'VideoTrack')
-      #   map.captioning(in: RDF::EbuCore, to:'hasCaptioning', class_name: 'Captioning')
-      #   map.description(in: RDF::EbuCore)
+      property :resource_type, predicate: RDF::EbuCore::Vocabulary.hasObjectType do |index|
+        index.as :stored_searchable, :facetable
+      end
 
-      #   map.has_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'Event')
-      #   map.has_depicted_event(:in => RDF::EbuCore, :to=>'hasCoverage', :class_name=>'DepictedEvent')
+      property :has_source, predicate: RDF::EbuCore::Vocabulary.hasSource, class_name: 'Resource'
 
-      #   map.is_covered_by(in: RDF::EbuCore, to: 'isCoveredBy', class_name: 'Rights')
+      property :related_publication_event, predicate: RDF::EbuCore::Vocabulary.relatedPublicationEvent, class_name: 'PublicationEvent'
 
+      property :annotations, predicate: RDF::EbuCore::Vocabulary.hasAnnotation, class_name: 'Annotation'
 
-      #   map.date_modified(:to => "dateModified", in: RDF::EbuCore) do |index|
-      #     index.type :date
-      #     index.as :stored_sortable
-      #   end
-      #   map.date_created(in: RDF::EbuCore, :to => 'dateCreated') do |index|
-      #     index.as :stored_searchable
-      #   end
+      property :identifier, predicate: RDF::EbuCore::Vocabulary.predicate do |index|
+        index.as :stored_searchable
+      end
 
-      #   map.filename(in: RDF::EbuCore)
-      #   map.fileByteSize(in: RDF::EbuCore)
+      property :language, predicate: RDF::EbuCore::Vocabulary.hasLanguage do |index|
+        index.as :stored_searchable, :facetable
+      end
 
 
-      #   map.subject(in: RDF::EbuCore, :to=>'hasSubject') do |index|
-      #     index.as :stored_searchable
-      #   end
-      #   map.keyword(in: RDF::EbuCore, :to=>'hasKeyword') do |index|
-      #     index.as :stored_searchable
-      #   end
-      #   map.summary(in: RDF::EbuCore) do |index|
-      #     index.as :stored_searchable
-      #   end
-      #   map.duration(in: RDF::EbuCore) do |index|
-      #     index.as :stored_searchable
-      #   end
+      property :tag, predicate: RDF::EbuCore::Vocabulary.isRelatedTo do |index|
+        index.as :stored_searchable, :facetable
+      end
 
-      #   map.rights(in: RDF::EbuCore, to: 'rightsExpression') do |index|
-      #     index.as :stored_searchable
-      #   end
-      #   map.resource_type(to: "hasObjectType", in: RDF::EbuCore) do |index|
-      #     index.as :stored_searchable, :facetable
-      #   end
-
-      #   map.has_source(to: "hasSource", in: RDF::EbuCore, class_name: 'Resource')
-
-      #   map.related_publication_event(to: "relatedPublicationEvent", in: RDF::EbuCore, class_name: 'PublicationEvent')
-
-      #   map.annotations(to: "hasAnnotation", in: RDF::EbuCore, class_name: 'Annotation')
-
-      #   map.identifier(in: RDF::EbuCore) do |index|
-      #     index.as :stored_searchable
-      #   end
-
-      #   map.language(in: RDF::EbuCore, :to=>'hasLanguage') do |index|
-      #     index.as :stored_searchable, :facetable
-      #   end
-
-
-      #   map.tag(to: "isRelatedTo", in: RDF::EbuCore) do |index|
-      #     index.as :stored_searchable, :facetable
-      #   end
-
-      # end
 
       accepts_nested_attributes_for :creator, :contributor, :publisher, :has_location, :has_event
 
-      class Person
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Person
-        # map_predicates do |map|
-        #   map.name(in: RDF::EbuCore) do |index|
-        #     index.as :stored_searchable
-        #   end
-        #   map.role(in: RDF::EbuCore, to: 'hasRole') 
-        # end
+      class Person < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Person
+        property :full_name, predicate: RDF::EbuCore::Vocabulary.name
+        property :role, predicate: RDF::EbuCore::Vocabulary.hasRole
       end
 
-      class Agent
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Agent
-        # map_predicates do |map|
-        #   map.name(in: RDF::EbuCore) do |index|
-        #     index.as :stored_searchable
-        #   end
-        # end
+      class Agent < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Agent
+        property :agent_name, predicate: RDF::EbuCore::Vocabulary.name do |index|
+          index.as :stored_searchable
+        end
       end
 
-      class Location
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Location
-        # map_predicates do |map|
-        #   map.location_name(in: RDF::EbuCore, to: 'locationName') do |index|
-        #     index.as :stored_searchable, :facetable
-        #   end
-        # end
+      class Location < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Location
+        property :location_name, predicate: RDF::EbuCore::Vocabulary.locationName do |index|
+          index.as :stored_searchable, :facetable
+        end
       end
 
-      class Event
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Event
-        # map_predicates do |map|
-        #   map.event_name(in: RDF::EbuCore, to: 'eventName')
-        #   map.event_definition(in: RDF::EbuCore, to: 'eventDefinition')
-        #   map.date_time(in: RDF::EbuCore, to: 'dateTime')
-        #   map.has_location(in: RDF::EbuCore, to: 'hasLocation', class_name: "Location")
-        # end
-        # accepts_nested_attributes_for :has_location
+      class Event < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Event
+
+        property :event_name, predicate: RDF::EbuCore::Vocabulary.eventName
+        property :event_definition, predicate: RDF::EbuCore::Vocabulary.eventDefinition
+        property :date_time, predicate: RDF::EbuCore::Vocabulary.dateTime
+        property :has_location, predicate: RDF::EbuCore::Vocabulary.hasLocation, class_name: 'Location'
+
+        accepts_nested_attributes_for :has_location
       end
 
-      class Rights
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Rights
-        # map_predicates do |map|
-        #   map.rights_expression(in: RDF::EbuCore, to: 'rightsExpression')
-        #   map.has_rights_holder(in: RDF::EbuCore, to: 'hasRightsHolder', class_name: "Agent")
-        # end
+      class Rights < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Rights
+        property :rights_expression, predicate: RDF::EbuCore::Vocabulary.rightsExpression
+        property :has_rights_holder, predicate: RDF::EbuCore::Vocabulary.hasRightsHolder, class_name: 'Agent'
       end
 
-      class DepictedEvent
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.DepictedEvent
-        # map_predicates do |map|
-        #   map.date_time(in: RDF::EbuCore, to: 'dateTime')
-        # end
+      class DepictedEvent < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.DepictedEvent
+        property :date_time, predicate: RDF::EbuCore::Vocabulary.dateTime
       end
 
-      class PublicationEvent
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.PublicationEvent
-        # map_predicates do |map|
-        #   map.start_date_time(in: RDF::EbuCore, to: 'publishedStartDateTime')
-        #   map.end_date_time(in: RDF::EbuCore, to: 'publishedEndDateTime')
-        #   map.name(in: RDF::EbuCore, to: 'publicationEventName')
-        # end
+      class PublicationEvent < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.PublicationEvent
+        property :start_date_time, predicate: RDF::EbuCore::Vocabulary.publishedStartDateTime
+        property :end_date_time, predicate: RDF::EbuCore::Vocabulary.publishedEndDateTime
+        property :publication_event_name, predicate: RDF::EbuCore::Vocabulary.publicationEventName
       end
 
-      class Resource
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Resource
-        # map_predicates do |map|
-        #   map.description(:in => RDF::EbuCore)
-        #   map.identifier(:in => RDF::EbuCore)
-        # end
+      class Resource < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Resource
+        property :description, predicate: RDF::EbuCore::Vocabulary.description
+        property :identifier, predicate: RDF::EbuCore::Vocabulary.identifier
       end
 
-      class Language
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Language
-        # map_predicates do |map|
-        #   map.name(in: RDF::EbuCore, to: 'languageName')
-        # end
+      class Language < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Language
+        property :language_name, predicate: RDF::EbuCore::Vocabulary.languageName
       end
       
-      class Track
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Track
-        # map_predicates do |map|
-        #   map.language(in: RDF::EbuCore, to: 'hasLanguage', class_name: 'Language')
-        # end
+      class Track < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Track
+        property :language, predicate: RDF::EbuCore::Vocabulary.hasLanguage, class_name: 'Language'
       end
 
       class VideoTrack < Track
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.VideoTrack
-        # map_predicates do |map|
-        #   map.frame_rate(in: RDF::EbuCore, to: 'frameRate') #type is double
-        #   map.format(in: RDF::EbuCore, to: 'hasFormat', class_name: 'VideoFormat')
-        # end
+        property :frame_rate, predicate: RDF::EbuCore::Vocabulary.frameRate #type is double
+        property :format, predicate: RDF::EbuCore::Vocabulary.hasFormat, class_name: 'VideoFormat'
       end
 
       class Captioning < Track
-        # rdf_type RDF::EbuCore.Captioning
+        configure type: RDF::EbuCore::Vocabulary.Captioning
       end
 
-      class VideoFormat
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.VideoFormat
-        # map_predicates do |map|
-        #   map.aspect_ratio(in: RDF::EbuCore, to: 'aspectRatio')
-        # end
+      class VideoFormat < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.VideoFormat
+        property :aspect_ratio, predicate: RDF::EbuCore::Vocabulary.aspectRatio
       end
 
-      class Annotation
-        # include ActiveFedora::RdfObject
-        # rdf_type RDF::EbuCore.Annotation
-        # map_predicates do |map|
-        #   map.textual_annotation(in: RDF::EbuCore, to: 'textualAnnotation')
-        # end
+      class Annotation < ActiveTriples::Resource
+        configure type: RDF::EbuCore::Vocabulary.Annotation
+        property :textual_annotation, predicate: RDF::EbuCore::Vocabulary.textualAnnotation
       end
     end
   end
