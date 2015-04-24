@@ -7,9 +7,9 @@ class ImportPbcoreDatastream < ActiveFedora::OmDatastream
       t.program_title path: 'pbcoreTitle', attributes: { titleType: "Program"}
       t.series_title path: 'pbcoreTitle', attributes: { titleType: "Series"}
 
-      t.filenames(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_FILENAME"]/oxns:pbcoreRelationIdentifier')
-      t.folder(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_FOLDERNAME"]/oxns:pbcoreRelationIdentifier')
-      t.drive(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source="SOURCE_DRIVENAME"]/oxns:pbcoreRelationIdentifier')
+      t.filenames(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source=\'SOURCE_FILENAME\']/oxns:pbcoreRelationIdentifier')
+      t.folder(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source=\'SOURCE_FOLDERNAME\']/oxns:pbcoreRelationIdentifier')
+      t.drive(path: 'pbcoreRelation[./oxns:pbcoreRelationType/@source=\'SOURCE_DRIVENAME\']/oxns:pbcoreRelationIdentifier')
 
       t.pbcoreCoverage {
         t.location path: 'coverage', attributes: { source: 'COVERAGE_EVENT_LOCATION'}
