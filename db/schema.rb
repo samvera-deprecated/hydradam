@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211221406) do
+ActiveRecord::Schema.define(version: 20150421000000) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",     null: false
@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(version: 20140211221406) do
     t.datetime "groups_last_update"
     t.string   "directory"
     t.boolean  "admin"
+    t.string   "linkedin_handle"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
