@@ -15,7 +15,7 @@ module RDF
         index.as :stored_searchable
       end
 
-      property :contributors, predicate: RDF::EbuCore::Vocabulary.hasContributor, class_name: 'Person'
+      property :contributors, predicate: RDF::EbuCore::Vocabulary.hasContributor, class_name: 'Person', multiple: true
       property :creators, predicate: RDF::EbuCore::Vocabulary.hasCreator, class_name: 'Person'
       property :publishers, predicate: RDF::EbuCore::Vocabulary.hasPublisher, class_name: 'Person'
       property :video_tracks, predicate: RDF::EbuCore::Vocabulary.hasVideoTrack, class_name: 'VideoTrack'
@@ -28,7 +28,7 @@ module RDF
       property :is_covered_by, predicate: RDF::EbuCore::Vocabulary.isCoveredBy, class_name: 'Rights'
 
       property :filename, predicate: RDF::EbuCore::Vocabulary.filename
-      property :fileByteSize, predicate: RDF::EbuCore::Vocabulary.fileByteSize
+      property :file_byte_size, predicate: RDF::EbuCore::Vocabulary.fileByteSize
 
       property :subject, predicate: RDF::EbuCore::Vocabulary.hasSubject do |index|
         index.as :stored_searchable
@@ -74,7 +74,7 @@ module RDF
       end
 
 
-      accepts_nested_attributes_for :creator, :contributor, :publisher, :has_location, :has_event
+      accepts_nested_attributes_for :creators, :contributors, :publishers, :has_location, :has_event
 
       class Person < ActiveTriples::Resource
         configure type: RDF::EbuCore::Vocabulary.Person
