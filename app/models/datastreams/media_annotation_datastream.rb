@@ -1,6 +1,8 @@
 class MediaAnnotationDatastream < RDF::EbuCore::Datastream
 
-  # property :title, RDF::DC.title
+
+  property :title, predicate: RDF::DC.title
+  property :date_uploaded, predicate: RDF::DC.dateSubmitted
 
   # map_predicates do |map|
   #   map.title(:in=> RDF::DC, :class_name=>'Title')
@@ -33,7 +35,7 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     end
   end
 
-  class Description < ActiveFedora::Rdf::Resource
+  class Description
     # map_predicates do |map|
     #   map.value(in: RDF, to: 'value') do |index|
     #     index.as :stored_searchable
@@ -42,7 +44,7 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
     # end
   end
 
-  class Identifier < ActiveFedora::Rdf::Resource
+  class Identifier
     # map_predicates do |map|
     #   map.value(in: RDF, to: 'value')
     #   map.identifier_type(in: RDF::WGBH, to: 'identifierType') 
