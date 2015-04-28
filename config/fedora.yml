@@ -1,0 +1,10 @@
+development:
+  user: fedoraAdmin
+  password: fedoraAdmin
+  url: http://127.0.0.1:<%= ENV['JETTY_PORT'] || 8983 %>/fedora
+test: &TEST  
+  user: fedoraAdmin
+  password: fedoraAdmin
+  url: http://127.0.0.1:<%= ENV['JETTY_PORT'] || 8983 %>/fedora-test
+cucumber:
+  <<: *TEST

@@ -23,8 +23,6 @@ dump.rdb
 .rvmrc
 
 # Don't publish localized config files
-config/solr.yml
-config/fedora.yml
 config/database.yml
 config/redis.yml
 config/initializers/secret_token.rb
