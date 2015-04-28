@@ -1,6 +1,7 @@
 default:
   startup_wait: 60
-  jetty_port: 8983
+  jetty_port: <%= ENV['JETTY_PORT'] || 8983 %>
+  jetty_home: <%= File.expand_path(ENV['JETTY_HOME'] || 'jetty') %>
   java_opts:
   - "-Xmx256m" 
   - "-XX:MaxPermSize=128m"

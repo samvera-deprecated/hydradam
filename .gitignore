@@ -32,7 +32,7 @@ config/initializers/devise.rb
 config/offline_files.txt
 
 # Ignore any local jetty directory
-/jetty
+/jetty*
 
 spec/mock_upload_directory
 spec/storage
