@@ -60,7 +60,7 @@ module RDF
 
       property :annotations, predicate: RDF::EbuCore::Vocabulary.hasAnnotation, class_name: 'Annotation'
 
-      property :identifier, predicate: RDF::EbuCore::Vocabulary.predicate do |index|
+      property :identifier, predicate: RDF::EbuCore::Vocabulary.identifier do |index|
         index.as :stored_searchable
       end
 
