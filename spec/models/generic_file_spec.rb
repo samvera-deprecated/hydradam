@@ -31,7 +31,7 @@ describe GenericFile do
 
   describe "mxf recognition" do
     before do
-      subject.characterization.mime_type = ['application/mxf']
+      subject.mime_type = 'application/mxf'
     end
     describe "when the mxf has video tracks" do
       before do
