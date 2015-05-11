@@ -234,4 +234,5 @@ ActiveRecord::Schema.define(version: 20150421000000) do
     t.datetime "updated_at"
   end
 
+  Foreigner.load
 end
