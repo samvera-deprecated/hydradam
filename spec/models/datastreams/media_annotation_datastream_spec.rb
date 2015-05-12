@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MediaAnnotationDatastream do
   let (:ds) do
-    mock_obj = double(:mock_obj, :pid=>'test:124', :new? => true)
+    mock_obj = double(:mock_obj, :pid=>'test:124', :new_record? => true)
     ds = MediaAnnotationDatastream.new(mock_obj)
   end
 

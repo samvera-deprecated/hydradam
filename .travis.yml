@@ -4,7 +4,7 @@ cache: bundler
 sudo: false
 
 rvm:
-  - 2.1
+  - 2.0.0
 
 env:
   global:
@@ -19,12 +19,6 @@ services:
   - redis-server
 
 before_script:
-  - "cp config/database.yml.sample config/database.yml"
-  - "cp config/redis.yml.sample config/redis.yml"
-  - "cp config/initializers/devise.rb.sample config/initializers/devise.rb"
-  - "cp config/solr.yml.sample config/solr.yml"
-  - "cp config/fedora.yml.sample config/fedora.yml"
-  - "cp config/initializers/secret_token.rb.sample config/initializers/secret_token.rb"
   - "redis-cli info"
 
 matrix:
