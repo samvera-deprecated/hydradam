@@ -37,4 +37,26 @@ namespace :hydradam do
                                  :predicate => RDF::URI("http://www.w3.org/2008/05/skos#prefLabel"))
     end
   end
+
+  desc "default_config"
+  task :default_config do
+
+    filenames = [
+      "config/database.yml.example",
+      "config/redis.yml.example",
+      "config/initializers/secret_token.rb.example",
+      "config/initializers/devise.rb.example"
+    ]
+    
+    filenames.each do |filename|
+      app_root = File.dirname(File.dirname(File.dirname(File.expand_path(__FILE__))))
+      new_filename = filename.sub(/\.example$/, '')
+      begin
+        puts "Copying #{filename} to #{new_filename}"
+        FileUtils.cp(File.join(app_root, filename), File.join(app_root, new_filename))
+      rescue => e
+        puts e.message
+      end
+    end
+  end
 end

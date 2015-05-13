@@ -13,7 +13,9 @@ env:
     - JS=true
 
 before_install:
-  - export PATH="$PATH:$(pwd)/fits-0.8.4"
+  # NOTE: This is dependent on where FITS is installed.
+  # See Fits::Installer#unzipped_dir defined in lib/fits.rb.
+  - export PATH="$PATH:$(pwd)/fits-0.8.5"
 
 services:
   - redis-server

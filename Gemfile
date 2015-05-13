@@ -20,6 +20,10 @@ gem 'jquery-rails'
 
 #gem 'sufia', '~> 3.5.0'
 gem 'sufia', '3.7.2'
+ 
+# This is needed when Sufia version is < 4
+gem 'mini_magick', '< 4' if RUBY_VERSION < '2.1.0'
+
 gem 'active-fedora', '6.7.8'
 gem 'hydra-pbcore', '3.3.1'
 gem 'rails_admin', "~> 0.5.0"
