@@ -3,7 +3,7 @@ module Fits
     attr_accessor :download_url, :install_dir, :symlink, :verbose
 
     def initialize(opts={})
-      @download_url = opts.delete(:download_url) || 'http://projects.iq.harvard.edu/files/fits/files/fits-0.8.4_0.zip'
+      @download_url = opts.delete(:download_url) || 'http://projects.iq.harvard.edu/files/fits/files/fits-0.8.5.zip'
       @install_dir = opts.delete(:install_dir) || Dir.pwd
       @symlink = opts.delete(:symlink) || 'fits'
       @verbose = opts.delete(:verbose) || true
@@ -42,11 +42,15 @@ module Fits
       File.basename(download_url)
     end
 
-    # Returns a best guess at what the unzipped directory is.
-    # NOTE: This is entirely dependent on who is providing the download link.
-    #   In this case, it's Harvard, and the format of the unzipped dir is, e.g. 'fits-0.8.4'.
+    # Returns a best guess at what the unzipped directory is. This is entirely
+    # dependent on who is providing the download link. We are assuming the
+    # following convention:
+    #   Given a zipped filename of "fits-0.8.3.zip",
+    #   the unzipped directory will be "fits-0.8.3".
+    # If this source of the FITS download does not follow this convention
+    # then #unzipped_dir method will break, which will break #install method.
     def unzipped_dir
-      File.join(install_dir, zipped_filename.sub(/_\d+\.zip$/, ''))
+      File.join(install_dir, zipped_filename.sub(/(fits.+)\.zip/, "\\1"))
     end
 
     def download
