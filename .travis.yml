@@ -1,11 +1,11 @@
 ## Based on .travis.yml from ScholarSphere: https://github.com/psu-stewardship/scholarsphere/blob/develop/.travis.yml
 language: ruby
-cache: bundler
+# cache: bundler
 sudo: false
 
 rvm:
   - 2.0.0
-
+  - 2.1.5
 env:
   global:
     - TRAVIS=true
