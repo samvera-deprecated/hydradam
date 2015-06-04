@@ -22,9 +22,9 @@ gem 'jquery-rails'
 gem 'sufia', '4.0.0'
  
 # This is needed when Sufia version is < 4
-gem 'mini_magick', '< 4' if RUBY_VERSION < '2.1.0'
+# gem 'mini_magick', '< 4' if RUBY_VERSION < '2.1.0'
 
-gem 'hydra-pbcore', '3.3.1'
+gem 'hydra-pbcore', github: 'WGBH/hydra-pbcore', branch: 'use-with-hydradam-v1.3.0'
 gem 'rails_admin'
 
 group :development, :test do
