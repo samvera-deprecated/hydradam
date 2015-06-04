@@ -4,7 +4,7 @@ Hydradam::Application.routes.draw do
     mount RailsAdmin::Engine => '/dashboard', :as => 'rails_admin'
   end
 
-  root :to => "catalog#index"
+  root to: 'homepage#index'
 
   Blacklight.add_routes(self)
   HydraHead.add_routes(self)
