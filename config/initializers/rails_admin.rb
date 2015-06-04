@@ -4,7 +4,11 @@
 RailsAdmin.config do |config|
 
   config.authorize_with :cancan
-  config.attr_accessible_role { :admin }
+  
+  # TODO: The attr_accessible_role method no longer exists, but docs for rails_admin
+  # don't tell you what to replace it with. Also, not sure why it was originally needed.
+  # If tests have passed for a while without it, please remove completely.
+  # config.attr_accessible_role { :admin }
 
 
   ################  Global configuration  ################
