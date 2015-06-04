@@ -15,7 +15,8 @@
 require 'blacklight/catalog'
 class ImportedMetadataManagerController < ApplicationController
   include  Sufia::DashboardControllerBehavior
-  
+
+  include Blacklight::Configurable  
   self.copy_blacklight_config_from(CatalogController)
   
   configure_blacklight do |config|
