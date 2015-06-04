@@ -7,118 +7,103 @@ module RDF
 
     autoload :Datastream
 
-    def self.to_uri
-      RDF::URI.intern("http://www.ebu.ch/metadata/ontologies/ebucore#")
-    end
+    class Vocabulary < ::RDF::StrictVocabulary("http://www.ebu.ch/metadata/ontologies/ebucore#")
+      property :isPartOf
+      property :isChapterOf
+      property :isFragmentOf
+      property :hasPart
 
-    # Vocabulary terms
-    %w(
-      isPartOf
-      isChapterOf
-      isFragmentOf
-      hasPart
+      property :hasAudioFormat
+      property :hasVideoFormat
+      property :hasRole
+      property :name
+      property :createdIn
+      property :hasRightsContact
+      property :hasRightsHolder
+      property :isCoveredBy
+      property :rightsExpression
+      property :duration
+      property :summary
+      property :hasSubject
+      property :alternativeTitle
 
-      hasAudioFormat
-      hasVideoFormat
-      hasRole
-      name
-      createdIn
-      hasRightsContact
-      hasRightsHolder
-      isCoveredBy
-      rightsExpression
-      duration
-      summary
-      hasSubject
-      alternativeTitle
+      property :hasPublicationEvent
+      property :hasOriginalLanguage
+      property :hasContributor
+      property :description
 
-      hasPublicationEvent
-      hasOriginalLanguage
-      hasContributor
-      description
+      property :topic
+      property :hasKeyword
+      property :hasObjectType
+      property :hasCreator
+      property :locator
+      property :hasCoverage
+      property :eventName
+      property :eventDefinition
+      property :hasLocation
+      property :locationName
+      property :hasAnnotation
+      property :textualAnnotation
+      property :identifier
+      property :hasVideoTrack
+      property :hasThumbnail
+      property :hasPublisher
+      property :originalTitle
+      property :hasFormat
+      property :dateTime
+      property :dateCreated
+      property :dateIssued
+      property :dateDigitized
+      property :dateModified
+      property :hasGenre
+      property :hasAudioTrack
+      property :hasLanguage
+      property :languageName
+      property :hasCaptioning
+      property :title
+      property :filename
+      property :fileByteSize
+      property :aspectRatio
+      property :frameRate
+      property :isRelatedTo
+      property :references
+      property :hasMember
+      property :hasRelatedImage
+      property :hasRelatedResource
+      property :hasSource
+      property :hasVersion
+      property :isImageRelatedTo
+      property :isMemberOf
+      property :isReferencedBy
+      property :isReplacedBy
+      property :isRequiredBy
+      property :isSourceOf
+      property :isVersionOf
+      property :references
+      property :relatedEditorialObject
+      property :relatedPublicationEvent
+      property :relatedResource
+      property :replaces
+      property :requires
+      property :publishedStartDateTime
+      property :publishedEndDateTime
+      property :publicationEventName
 
-      topic
-      hasKeyword
-      hasObjectType
-      hasCreator
-      locator
-      hasCoverage
-      eventName
-      eventDefinition
-      hasLocation
-      locationName
-      hasAnnotation
-      textualAnnotation
-      identifier
-      hasVideoTrack
-      hasThumbnail
-      hasPublisher
-      originalTitle
-      hasFormat
-      dateTime
-      dateCreated
-      dateIssued
-      dateDigitized
-      dateModified
-      hasGenre
-      hasAudioTrack
-      hasLanguage
-      languageName
-      hasCaptioning
-      title
-      filename
-      fileByteSize
-      aspectRatio
-      frameRate
-      isRelatedTo
-      references
-      hasMember
-      hasRelatedImage
-      hasRelatedResource
-      hasSource
-      hasVersion
-      isImageRelatedTo
-      isMemberOf
-      isReferencedBy
-      isReplacedBy
-      isRequiredBy
-      isSourceOf
-      isVersionOf
-      references
-      relatedEditorialObject
-      relatedPublicationEvent
-      relatedResource
-      replaces
-      requires
-      publishedStartDateTime
-      publishedEndDateTime
-      publicationEventName
-
-      Resource
-      MediaResource
-      VideoTrack
-      VideoFormat
-      Annotation
-      Agent
-      Person
-      Location
-      Language
-      Captioning
-      Track
-      Event
-      DepictedEvent
-      PublicationEvent
-      Rights
-    ).each do |term|
-      define_method(term) {self[term.to_sym]}
-      module_function term.to_sym
-    end
-
-    ##
-    # @return [#to_s] property
-    # @return [URI]
-    def self.[](property)
-      RDF::URI.intern([to_uri.to_s, property.to_s].join)
+      property :Resource
+      property :MediaResource
+      property :VideoTrack
+      property :VideoFormat
+      property :Annotation
+      property :Agent
+      property :Person
+      property :Location
+      property :Language
+      property :Captioning
+      property :Track
+      property :Event
+      property :DepictedEvent
+      property :PublicationEvent
+      property :Rights
     end
   end
 end

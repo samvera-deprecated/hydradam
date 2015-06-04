@@ -1,53 +1,25 @@
+require_relative 'media_annotation_datastream/identifier'
+require_relative 'media_annotation_datastream/title'
+require_relative 'media_annotation_datastream/description'
+
 class MediaAnnotationDatastream < RDF::EbuCore::Datastream
-  map_predicates do |map|
-    map.title(:in=> RDF::DC, :class_name=>'Title')
 
-    map.date_uploaded(:to => "dateSubmitted", in: RDF::DC) do |index|
-      index.type :date
-      index.as :stored_sortable
-    end
-    map.related_url(:to => "seeAlso", in: RDF::RDFS)
+  property :title, predicate: RDF::EbuCore::Vocabulary.title, class_name: Title
 
-    map.description(in: RDF::EbuCore, class_name: 'Description')
-    map.review_date(in: RDF::WGBH, to: 'hasReviewDate')
-    map.physical_location(in: RDF::WGBH, to: 'hasPhysicalLocation')
-    map.identifier(in: RDF::EbuCore, class_name: 'Identifier')
-    map.originating_department(in: RDF::WGBH, to: 'originatingDepartment')
+  property :date_uploaded, predicate: RDF::DC.dateSubmitted do |index|
+    index.type :date
+    index.as :stored_sortable
   end
+
+  property :related_url, predicate: RDF::RDFS.seeAlso
+  property :description, predicate: RDF::EbuCore::Vocabulary.description, class_name: Description
+  property :review_date, predicate: RDF::WGBH.hasReviewDate
+  property :review_date, predicate: RDF::WGBH.hasPhysicalLocation
+  property :physical_location, predicate: RDF::WGBH.hasPhysicalLocation
+  property :identifier, predicate: RDF::EbuCore::Vocabulary.identifier, class_name: Identifier
+  property :originating_department, predicate: RDF::WGBH.originatingDepartment
 
   accepts_nested_attributes_for :title, :description, :identifier
-
-  class Title
-    include ActiveFedora::RdfObject
-    map_predicates do |map|
-      map.value(in: RDF, to: 'value') do |index|
-        index.as :stored_searchable
-      end
-      map.title_type(in: RDF::PBCore, to: 'titleType') 
-    end
-
-    def inspect
-      "#<Title @value=\"#{value}\">"
-    end
-  end
-
-  class Description
-    include ActiveFedora::RdfObject
-    map_predicates do |map|
-      map.value(in: RDF, to: 'value') do |index|
-        index.as :stored_searchable
-      end
-      map.type(in: RDF::PBCore, to: 'titleType') 
-    end
-  end
-
-  class Identifier
-    include ActiveFedora::RdfObject
-    map_predicates do |map|
-      map.value(in: RDF, to: 'value')
-      map.identifier_type(in: RDF::WGBH, to: 'identifierType') 
-    end
-  end
   
 
   # finds or creates an Event node where eventDefinition = Filming 
