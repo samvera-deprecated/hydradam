@@ -219,6 +219,8 @@ ActiveRecord::Schema.define(version: 20150421000000) do
     t.datetime "groups_last_update"
     t.string   "directory"
     t.boolean  "admin"
+    t.string   "provider"
+    t.string   "uid"
     t.string   "linkedin_handle"
   end
 
