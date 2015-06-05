@@ -74,7 +74,7 @@ module RDF
       end
 
 
-      accepts_nested_attributes_for :creators, :contributors, :publishers, :has_location, :has_event
+      accepts_nested_attributes_for :creator, :contributor, :publisher, :has_location, :has_event
 
       class Person < ActiveFedora::Rdf::Resource
         configure type: RDF::EbuCore::Vocabulary.Person

@@ -1,6 +1,7 @@
 require_relative 'media_annotation_datastream/identifier'
 require_relative 'media_annotation_datastream/title'
 require_relative 'media_annotation_datastream/description'
+require_relative 'media_annotation_datastream/delegated_nested_attributes_monkey_patch'
 
 class MediaAnnotationDatastream < RDF::EbuCore::Datastream
 
@@ -19,8 +20,7 @@ class MediaAnnotationDatastream < RDF::EbuCore::Datastream
   property :identifier, predicate: RDF::EbuCore::Vocabulary.identifier, class_name: Identifier
   property :originating_department, predicate: RDF::WGBH.originatingDepartment
 
-  accepts_nested_attributes_for :title, :description, :identifier
-  
+  accepts_nested_attributes_for :title, :description, :identifier  
 
   # finds or creates an Event node where eventDefinition = Filming 
   def filming_event
